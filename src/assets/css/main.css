@@ -1,0 +1,39 @@
+body{
+  font-family:"Roboto Slab", sans-serif;
+}
+/*.faculty .nav-tabs{*/
+  /*border: none !important;*/
+/*}*/
+
+/*.faculty .nav-tabs>li.active>a,#facultyCarousel .nav-tabs>li.active>a:focus,#facultyCarousel .nav-tabs>li.active>a:hover{*/
+  /*border: none;*/
+  /*background:none;*/
+/*}*/
+
+/*.faculty .nav-tabs>li>a{*/
+  /*border: none;*/
+  /*padding: 0px 15px;*/
+  /*border-radius: 0;*/
+  /*line-height:1;*/
+/*}*/
+
+
+/*.faculty .nav-tabs>li:first-child a{*/
+  /*border-right: 2px solid #0f0f0f;*/
+/*}*/
+
+/*.faculty .title:after{*/
+   /*position: relative;*/
+  /*top:10px;*/
+/*}*/
+
+#tab-left{
+  top:207px;
+  position: fixed;
+  z-index: 555555;
+
+}
+.nav-tabs>li>a
+{
+  border-radius: 0;
+}
