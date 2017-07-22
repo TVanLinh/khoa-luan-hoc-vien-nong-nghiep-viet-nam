@@ -1,0 +1,26 @@
+.calendar ul{
+  padding: 0;
+}
+.calendar li{
+  display: table;
+  font-size: 15px;
+  padding-left: 25px;
+  font-weight:500;
+}
+.calendar li *{
+  display: table-cell;
+  vertical-align: top;
+}
+
+.calendar  ._month{
+  font-size: 30px;
+  max-width: 90px;
+  line-height:35px;
+  font-family: serif;
+}
+.calendar ._content ul li{
+  display: block;
+}
+.calendar .title a{
+  color: #2d2c76;
+}

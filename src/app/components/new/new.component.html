@@ -1,0 +1,33 @@
+<div id="news-best">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="title">
+          Tin tức nổi bật
+        </div>
+      </div>
+
+      <div class="col-sm-3 pdb-20" *ngFor="let item of listNews;let i=index" >
+        <div class="img-item">
+          <a href="#"><img [src]="item.imgPath" alt="" class="img-responsive"></a>
+        </div>
+        <div class="text-content">
+          {{item.content}}
+        </div>
+        <div class="clearfix"></div>
+        <a *ngIf="i ==listNews.length-1 "href="#" class="text-center hidden-sm hidden-md hidden-lg load-more">Load More ...</a>
+      </div>
+
+
+      <div class="col-sm-3 hidden-xs">
+        <div class="text-content pdt-i-0">
+          <div class="item" *ngFor="let item of listNews2">
+            <i class="fa fa-angle-right fs-20 fw-bold" aria-hidden="true"></i>
+            <a href="#">{{item.title}}</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

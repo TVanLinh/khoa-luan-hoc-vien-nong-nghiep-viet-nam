@@ -1,0 +1,47 @@
+a:hover{
+  color: #0f0f0f;
+}
+#facultyCarousel img{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+.carousel-control.right .carousel-control.left{
+  background: none;
+}
+
+#facultyCarousel .carousel-control{
+  top:-110px;
+}
+
+#facultyCarousel .rol-title{
+  font-size: 20px;
+  color: #000000;
+  font-family: "Roboto Slab" ,sans-serif;
+}
+
+#facultyCarousel  .glyphicon-chevron-left:before,#facultyCarousel .glyphicon-chevron-right:before{
+  /*top:-120px;*/
+  color: #6929de;
+  font-size: 24px;
+}
+
+#myCarousel ol.carousel-indicators{
+  bottom: -45px !important;
+}
+
+#myCarousel .carousel-indicators li{
+  border:1px solid #2aabd2;
+}
+
+#myCarousel .carousel-inner>.item>img {
+  line-height: 1;
+  display: block;
+  max-height: 400px;
+}
+
+#myCarousel .active{
+  background-color: #8a501c;
+}
+
+

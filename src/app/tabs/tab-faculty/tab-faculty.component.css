@@ -1,0 +1,7 @@
+li.menu-wrapper>a:first-child:focus {
+  background: #eeeeee !important;
+  display: block;
+}
+li.menu-wrapper>a:first-child{
+  padding-left: 10px  !important;
+}

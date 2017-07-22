@@ -1,0 +1,20 @@
+/*.publish img{*/
+/*width: 100%;*/
+
+/*}*/
+.publish img:hover{
+  opacity:0.7;
+  transition: 0.3s ease-in-out;
+}
+.publish a,a:hover{
+  color: #000000;
+}
+.publish  ul{
+  padding: 0;
+}
+
+.publish img{
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}

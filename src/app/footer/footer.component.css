@@ -1,0 +1,64 @@
+#footer-wrapper{
+  background-size: cover;
+  color: #0f0f0f;
+}
+
+#footer-wrapper ul{
+  margin:0;
+  padding: 0;
+}
+#footer-wrapper .ro-social li{
+  padding:12px 20px;
+  background-color: rgba(255,255,255,0.5);
+  margin-bottom:15px;
+}
+#footer-wrapper ul li a{
+  color: #0f0f0f;
+}
+
+#footer-wrapper .ro-social .fa{
+  font-size: 35px;
+}
+#footer-wrapper .ro-social span{
+  position: absolute;
+  margin-top: 5px;
+  padding-left: 25px;
+}
+#footer-wrapper .ro-social li:first-child span{
+  padding-left: 15px;
+}
+#footer-wrapper li a:hover,#footer-wrapper  li a:hover span,#footer-wrapper p a:hover{
+  color: #178a15 !important;
+  transition: 0.5s ease-in-out;
+}
+#footer-wrapper h1{
+  color: #220845;
+  margin-top:0;
+  font-family: "Roboto Slab", sans-serif;
+}
+@media (max-width: 991px) {
+  #footer-wrapper h1{
+    font-size: 30px;
+    margin-top: -5px;
+    text-align: center;
+    line-height: 30px;
+  }
+}
+@media (max-width: 767px) {
+  #footer-wrapper h1{
+    font-size: 20px;
+  }
+}
+#footer-wrapper .ro-infor li{
+  padding: 5px 0px;
+}
+#footer-wrapper .ro-infor a,#footer-wrapper .ro-infor,#footer-wrapper .ro-social span,.ro-address-infor{
+  font-size: 17px;
+  color: #220845;
+  font-weight: 600;
+  word-spacing: 2px;
+}
+
+#footer-wrapper .map img{
+  height: 230px;
+}

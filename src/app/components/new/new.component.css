@@ -1,0 +1,52 @@
+#news-best {
+
+}
+#news-best .img-item img{
+  width: 100%;
+  transition: 0.3s ease-in-out;
+}
+#news-best .text-content{
+  font-family: "Roboto Slab";
+  font-size: 15px;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom:20px;
+  line-height:1.8em;
+}
+#news-best .text-content .item{
+  padding-right: 5px;
+}
+#news-best .text-content .item a{
+  padding-left: 5px;
+  color: #3253de;
+}
+
+#news-best .text-content .item a:hover{
+  color: #3253de;
+}
+
+#news-best .load-more{
+  color: #2b669a;
+  margin-top: 20px;
+  display: block;
+}
+@media (max-width: 767px) {
+  #news-best .img-item img{
+    width: auto;
+    max-width: 300px;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+  }
+
+  #news-best .img-item img{
+    float: left;
+    padding-right: 30px;
+  }
+}
+
+#news-best img:hover{
+  opacity: 0.7;
+  overflow: hidden;
+}
+
+

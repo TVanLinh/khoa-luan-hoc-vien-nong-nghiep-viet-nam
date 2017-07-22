@@ -1,0 +1,60 @@
+<div class="revert-navbar" (click) ="toggleNavbar()" >
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div id="navbar">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div  class="my-navbar" >
+          <nav>
+            <ul>
+              <li class="close-nav-parent" (click)="toggleNavbar()">
+                <a href="#">
+                  <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+                  <span  class="close-navbar "></span>
+                  <span  class="close-navbar  "></span>
+                </a>
+              </li>
+              <li><a href="#">Giới thiệu</a></li>
+              <li><a href="#">Đào tạo</a></li>
+              <li><a href="#">Tuyển sinh</a></li>
+              <li><a href="#">Nghiên cứu</a></li>
+              <li ><a href="#">Hợp tác</a></li>
+            </ul>
+            <!--<a href="#">Hợp tác</a>-->
+            <div class="nav-icon hidden-sm hidden-xs">
+              <a href="#"><img src="../../../assets/images/head/icon-nav.png"></a>
+            </div>
+            <div class="clear-fix"> </div>
+          </nav>
+          <!---->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid hidden-lg hidden-md hidden-sm " style="background-color:  #eee;">
+  <div class="row">
+    <div class="col-xs-12 ">
+      <form action=""  class="text-center pdt-10 pdb-10 " >
+        <!--<input type="text" placeholder="Tìm kiếm ..." class="w-150-px pdl-5" name="keyword">-->
+        <!--<button type="submit" class=""><em class="fa fa-search f1d4"> </em></button>-->
+        <div class="input-group">
+          <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm ..." required>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><em class="fa fa-search f1d4"> </em></button>
+          </span>
+        </div>
+        <div class="pdt-15">
+          <input type="radio" name="findBy" checked><span class="pd-5 capitalize fs-17">web</span>
+          <input type="radio" name="findBy"><span class="pd-5 capitalize fs-18">people</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

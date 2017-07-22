@@ -1,0 +1,32 @@
+<div class="faculty">
+  <ul class="nav nav-tabs title " >
+    <li class="active menu-wrapper "><a data-toggle="tab" href="#home" class="pdl-i-0">Khoa</a>
+      <ul class="menu-child">
+        <li *ngFor="let item of faculty"><a [href]="item.href">{{item.name}}</a></li>
+      </ul>
+    </li>
+
+    <li class="separator"></li>
+
+    <li class="menu-wrapper">
+      <a data-toggle="tab" href="#menu1">Phòng ban</a>
+      <ul class="menu-child">
+        <li *ngFor="let item of departments"><a [href]="item.href">{{item.name}}</a></li>
+      </ul>
+    </li>
+
+  </ul>
+
+  <div class="tab-content">
+
+    <div id="home" class="tab-pane fade in active">
+      <div app-slider-faculty></div>
+    </div>
+
+    <div id="menu1" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+  </div>
+</div>

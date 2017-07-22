@@ -1,0 +1,89 @@
+#banner-wrapper{
+}
+#banner-wrapper ul li{
+  display:  inline-block;
+}
+#banner-wrapper .banner{
+  background-color: #eeeeee;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius:5px;
+}
+#banner-wrapper .banner ul li{
+  font-size: 15px;
+  font-family: "Roboto Slab", sans-serif;
+  color: #742576;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+#banner-wrapper .banner ul li:first-child{
+  padding-right: 15px;
+}
+#banner-wrapper .banner ul li:nth-child(2){
+  background-color: #fff;
+  font-size: 20px;
+  padding: 10px 50px 10px 10px;
+}
+#banner-wrapper .banner ul li:nth-child(2) span{
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: #2a1d9c;
+  color: #ffffff;
+  width: 40px;
+  text-align: center;
+  height: 40px;
+  display: inline-block;
+}
+#banner-wrapper .banner ul li:nth-child(2) span:hover{
+  opacity: 0.7;
+  transition: 0.3s ease-in-out;
+}
+#banner-wrapper .social a{
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+}
+.social ul{
+  padding: 0px;
+}
+.social{
+  padding-top: 20px;
+}
+.social li{
+  padding-right: 10px;
+  padding-bottom:10px;
+
+}
+.social li a{
+  color: #ffffff;
+  font-size: 20px;
+}
+.social li a:hover{
+  transition: 0.3s ease-in-out;
+  opacity: 0.7;
+}
+.social li:nth-child(1) a{
+  background-color: #2a1d9c;
+}
+.social li:nth-child(2) a{
+  background-color: #4a979c;
+}
+.social li:nth-child(3) a{
+  background-color: #9c2343;
+}
+@media (max-width: 991px) {
+  #banner-wrapper .social li{
+    padding-right: 0px;
+  }
+  #banner-wrapper .social{
+    text-align: center;
+  }
+}
+@media (max-width: 767px) {
+  #banner-wrapper .social li{
+    padding-right: 10px;
+  }
+}

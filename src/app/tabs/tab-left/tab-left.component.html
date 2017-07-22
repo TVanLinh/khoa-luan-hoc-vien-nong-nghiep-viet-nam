@@ -1,0 +1,26 @@
+<div class="icon-tab-open" (click)="toggleTab()">
+  <img src="../../../assets/images/logo/arrows.png" alt="">
+</div>
+<div class="tab-left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home1">Khoa</a></li>
+    <li><a data-toggle="tab" href="#menu11">Phòng Ban</a></li>
+    <!--<li><i class="fa fa-close icon-tab-close"> <img src="../../../assets/images/logo/arrows.png" alt=""></i></li>-->
+    <li> <img src="../../../assets/images/logo/close.png" alt="" class="icon-tab-close" (click)="toggleTab()" ></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home1" class="tab-pane fade in active">
+      <ul class="content">
+        <li *ngFor="let item of faculty"><a [href]="item.href">{{item.name}}</a></li>
+      </ul>
+    </div>
+    <div id="menu11" class="tab-pane fade">
+      <ul class="content">
+        <ul class="content">
+          <li *ngFor="let item of departments"><a [href]="item.href">{{item.name}}</a></li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</div>
