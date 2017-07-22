@@ -33,7 +33,7 @@
 @media (max-width: 767px) {
   #news-best .img-item img{
     width: auto;
-    max-width: 300px;
+    max-width: 200px;
     /*margin-left: auto;*/
     /*margin-right: auto;*/
   }
@@ -49,4 +49,10 @@
   overflow: hidden;
 }
 
+
+@media (max-width: 500px) {
+  #news-best .img-item img{
+    max-width: 150px;
+  }
+}
 

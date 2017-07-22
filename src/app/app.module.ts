@@ -17,6 +17,7 @@ import { SliderFacultyComponent } from './sliders/slider-faculty/slider-faculty.
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { PublishComponent } from './components/publish/publish.component';
 import { TabLeftComponent } from './tabs/tab-left/tab-left.component';
+import { TopComponent } from './components/top/top.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TabLeftComponent } from './tabs/tab-left/tab-left.component';
     SliderFacultyComponent,
     CalendarComponent,
     PublishComponent,
-    TabLeftComponent
+    TabLeftComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule

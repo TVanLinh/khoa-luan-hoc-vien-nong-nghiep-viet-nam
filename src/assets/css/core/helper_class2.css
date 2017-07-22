@@ -46,7 +46,8 @@ ul{
     content: "";
     display: block;
     width: 100%;
-    border: 1px solid  #81869c;;
+    border: 1px solid  #81869c;
+   font-family: "Roboto Slab", sans-serif;
 }
 
 @media (max-width:1199px) {

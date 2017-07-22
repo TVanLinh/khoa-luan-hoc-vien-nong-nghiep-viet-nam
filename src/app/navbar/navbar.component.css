@@ -79,6 +79,7 @@
   #navbar .my-navbar
   {
     padding-top: 0;
+    padding-bottom:0;
   }
   #navbar ul{
     display: block;
