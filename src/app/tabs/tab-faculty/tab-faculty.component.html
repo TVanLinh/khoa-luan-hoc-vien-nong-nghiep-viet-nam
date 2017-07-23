@@ -1,6 +1,12 @@
 <div class="faculty">
   <ul class="nav nav-tabs title " >
-    <li class="active menu-wrapper "><a data-toggle="tab" href="#home" class="pdl-i-0">Khoa</a>
+    <li class="active menu-wrapper ">
+        <a data-toggle="tab"
+           href="#home"
+           class="pdl-i-0"
+           app-toggle-class
+        >
+          Khoa</a>
       <ul class="menu-child">
         <li *ngFor="let item of faculty"><a [href]="item.href">{{item.name}}</a></li>
       </ul>

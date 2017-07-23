@@ -18,6 +18,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { PublishComponent } from './components/publish/publish.component';
 import { TabLeftComponent } from './tabs/tab-left/tab-left.component';
 import { TopComponent } from './components/top/top.component';
+import {ToggleClass} from "app/core/directives/toogle.class.directive";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TopComponent } from './components/top/top.component';
     CalendarComponent,
     PublishComponent,
     TabLeftComponent,
-    TopComponent
+    TopComponent,
+    ToggleClass
   ],
   imports: [
     BrowserModule
