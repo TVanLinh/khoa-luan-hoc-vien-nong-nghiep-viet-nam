@@ -1,22 +1,18 @@
-import {Directive, HostBinding, HostListener, Input} from "@angular/core";
+import {Directive, ElementRef, HostBinding, HostListener, Input} from "@angular/core";
 
 @Directive({
   selector: "[app-toggle-class]"
 })
 
 export class ToggleClass {
-  @Input()  classToggle="bgc-red";
+  @Input() classToggle = "";
   @HostBinding('class.bgc-red') isExist = false;
 
-  // @HostListener('click') click() {
-  //   this.isExist = !this.isExist;
-  // }
-
-  @HostListener('mouseleave') leave(){
-    this.isExist = !this.isExist;
+  constructor(private  eleRef: ElementRef) {
   }
-
-  @HostListener('mouseenter') enter(){
-    this.isExist = !this.isExist;
+  @HostListener('click') onClick() {
+    //this.isExist = true;
+   // this.eleRef.nativeElement.style.backgroundColor = "#aaa !important";
+    console.log("ok");
   }
 }

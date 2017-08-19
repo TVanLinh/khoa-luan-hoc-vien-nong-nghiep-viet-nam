@@ -1,0 +1,98 @@
+#tab-left{
+  top:207px;
+  position: fixed;
+  z-index: 20;
+}
+.z-index-50 {
+  z-index: 50 !important;
+}
+.tab-left {
+  border: 1px solid #eeeeee;
+  background: #eeeeee;
+  transform: translateX(-300px);
+  transition: 0.5s ease-in-out;
+  width: 300px;
+}
+
+.tab-left-toggle {
+  transform: translateX(0) !important;
+  width: 300px;
+}
+
+.tab-left .tab-content ul {
+  padding: 0 15px;
+
+}
+
+.tab-left ul.content li a {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.tab-left ul li:first-child a {
+  padding-top: 10px;
+}
+
+.tab-left ul.content li:first-child a {
+  padding-top: 20px;
+}
+
+.tab-left ul.content li:last-child a {
+  padding-bottom: 20px;
+}
+
+.tab-left ul.content li a:hover {
+  color: #8d9c00;
+}
+
+.tab-left .content {
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.tab-left > ul > li {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.tab-left .icon-tab-close {
+  padding: 5px;
+  position: absolute;
+  right: -80px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-tab-open {
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s ease-in-out;
+  max-width: 10px;
+}
+
+.dp-none {
+  display: none;
+}
+
+.icon-open {
+  padding: 0;
+  width: 0;
+  height: 0px;
+  transition: 0.3s ease-out;
+}
+
+@media (max-width: 991px) {
+  .tab-left {
+    height: 100vh;
+  }
+
+  .tab-left .content {
+    min-height: 100vh;
+  }
+}
+.icon-open-tab-toggle{
+  opacity: 0;
+  cursor: default;
+}

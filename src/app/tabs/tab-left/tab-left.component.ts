@@ -3,10 +3,10 @@ declare var jQuery: any;
 @Component({
   selector: '[app-tab-left]',
   templateUrl: './tab-left.component.html',
-  styleUrls: ['../tabs.component.css']
+  styleUrls: ['../tabs.component.css','./tab-left.component.css']
 })
 export class TabLeftComponent implements OnInit {
-  faculty =[
+  faculty = [
     {href: "", name: "Khoa Chăn nuôi"},
     {href: "", name: "Khoa công nghệ thực phẩm",},
     {href: "", name: "Khoa Cơ điện"},
@@ -40,9 +40,12 @@ export class TabLeftComponent implements OnInit {
   }
 
   toggleTab(): void {
-    jQuery(this._eref.nativeElement).find('.icon-tab-open').toggleClass('dp-none');
+    jQuery(this._eref.nativeElement).find('.icon-tab-open').toggleClass('icon-open-tab-toggle');
     jQuery(this._eref.nativeElement).find('.tab-left').toggleClass('tab-left-toggle');
+
+    jQuery(this._eref.nativeElement).find('#tab-left').toggleClass('z-index-50');
   }
+
 
   ngOnInit() {
   }

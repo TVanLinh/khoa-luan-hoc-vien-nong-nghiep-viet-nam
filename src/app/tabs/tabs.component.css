@@ -16,9 +16,6 @@
 }
 
 
-/*.faculty .nav-tabs>li:first-child a{*/
-/*border-right: 2px solid #0f0f0f;*/
-/*}*/
 
 .faculty .title:after{
   /*position: relative;*/
@@ -35,16 +32,10 @@ li.menu-wrapper:first-child{
 }
 .menu-wrapper a {
   position: relative;
-  z-index: 55555;
+  z-index: 10;
   color:   #2d2c76 !important;
 }
 
-/*.menu-child{*/
-/**/
-/*height: 0px;*/
-/*font-size: 0;*/
-/**/
-/*}*/
 .menu-child {
   padding: 0px 15px;
   background: #eeeeee;
@@ -93,70 +84,4 @@ li.menu-wrapper:first-child{
 
 
 
-.tab-left {
-  border: 1px solid #eeeeee;
-  background: #eeeeee;
-  transform: translateX(-300px);
-  width: 0;
-  transition: 0.5s ease-in-out;
-}
-
-.tab-left-toggle{
-  transform: translateX(0) !important;
-  max-width: 300px;
-  width: auto;
-}
-
-.tab-left .tab-content ul{
-  padding: 0 15px;
-
-}
-
-.tab-left  ul.content li a{
-  display: block;
-  padding-top: 5px;
-  padding-bottom: 10px;
-}
-
-.tab-left ul li:first-child a{
-  padding-top: 10px;
-}
-.tab-left  ul.content li:first-child a{
-  padding-top: 20px;
-}
-.tab-left  ul.content li:last-child a{
-  padding-bottom: 20px;
-}
-.tab-left ul.content  li a:hover{
-  color: #8d9c00;
-}
-
-.tab-left .content{
-  max-height: 400px;
-  /*height: 100vh;*/
-  overflow-y: scroll;
-  padding-bottom:20px;
-}
-
-.tab-left>ul>li{
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.tab-left .icon-tab-close{
-  padding: 5px;
-  position: absolute;
-  right: -70px;
-  top: -25px;
-  color: #fff;
-  cursor: pointer;
-}
-.icon-tab-open{
-  cursor: pointer;
-  padding: 5px;
-  transition: 0.3s ease-in-out;
-}
-.dp-none{
-  display: none;
-}
 

@@ -19,6 +19,8 @@ import { PublishComponent } from './components/publish/publish.component';
 import { TabLeftComponent } from './tabs/tab-left/tab-left.component';
 import { TopComponent } from './components/top/top.component';
 import {ToggleClass} from "app/core/directives/toogle.class.directive";
+import { MapComponent } from './components/map/map.component';
+import {AgmCoreModule} from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -39,10 +41,15 @@ import {ToggleClass} from "app/core/directives/toogle.class.directive";
     PublishComponent,
     TabLeftComponent,
     TopComponent,
-    ToggleClass
+    ToggleClass,
+    MapComponent,
+
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB9s64voWTBx5s4qadlcWwbCNhWJU5Sje0'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

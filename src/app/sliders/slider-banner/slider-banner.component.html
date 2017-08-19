@@ -7,6 +7,7 @@
           [ngClass]="i==0?'active':''"
           data-target="#myCarousel"
           [attr.data-slide-to]="i"></li>
+
     </ol>
 
     <!-- Wrapper for slides -->
@@ -15,8 +16,8 @@
       <a *ngFor="let item of images; let i=index"
          href="#"
          [ngClass]="i==0?'item active':'item'">
-        <img [src]="item" alt="Los Angeles" style="width:100%;">
-        <div class="carousel-caption">
+        <img [src]="item" alt="Los Angeles" style="width:100%;" >
+        <div class="carousel-caption" >
           <h3>Chicago</h3>
           <p>Thank you, Chicago!</p>
         </div>

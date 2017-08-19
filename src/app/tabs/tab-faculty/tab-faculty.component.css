@@ -1,11 +1,19 @@
-li.menu-wrapper>a:first-child:focus {
-  background: #eeeeee !important;
+.faculty{
+  position: relative;
+  z-index: 30;
+}
+li.menu-wrapper > a:first-child:focus {
   display: block;
 }
-li.menu-wrapper>a:first-child{
-  padding-left: 10px  !important;
+
+li.menu-wrapper > a:first-child {
+  padding-left: 10px !important;
 }
 
 .bgc-red {
   background-color: red !important;
+}
+
+ a[aria-expanded=true] {
+  background: #eeeeee !important;
 }
