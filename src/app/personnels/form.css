@@ -1,0 +1,43 @@
+form{
+  margin-top: 50px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.action-form{
+  margin-bottom: 30px;
+}
+form .action-form button{
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px 20px;
+}
+.form-item{
+  border: 1px solid #cccccc;
+  position: relative;
+  padding: 10px 10px 20px 10px;
+  /*clear: both;*/
+}
+.form-item label{
+  font-weight: 400;
+}
+.item-control{
+  padding-top: 10px;
+  font-size: 13px;
+  clear: both;
+}
+.item-control input[type='text'],.item-control input[type='email'] ,.item-control input[type='date'], select{
+  float: right;
+  padding:  5px;
+  min-width: 200px;
+}
+
+
+.form-item-title {
+  position: absolute;
+  top: -12px;
+  padding-left: 10px;
+  left: 17px;
+  padding-right: 10px;
+  background: #fff;
+  font-size: 14px;
+}

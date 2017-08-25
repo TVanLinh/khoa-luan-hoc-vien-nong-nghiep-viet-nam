@@ -1,0 +1,28 @@
+
+
+img {
+  max-width: 100px;
+}
+
+.image-info{
+  width: 100px;
+  height: 100px;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+.image-info input[type='file'] {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+}
+.policy-object{
+  min-width: 160px;
+}
+
+@media (max-width: 640px) {
+  .right ,.right .item-control{
+    clear: both;
+  }
+}

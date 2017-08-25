@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: '[app-persons]',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonsComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor(private formBuilder: FormBuilder) {
+  }
+
+
 
   ngOnInit() {
   }
