@@ -23,6 +23,9 @@ import { MapComponent } from './components/map/map.component';
 import {AgmCoreModule} from "@agm/core";
 import { CurriculumVitaeComponent } from './personnels/curriculum-vitae/curriculum-vitae.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { PartyUnionComponent } from './personnels/party-union/party-union.component';
+import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
+import { NoteFormComponent } from './personnels/note-form/note-form.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ToggleClass,
     MapComponent,
     CurriculumVitaeComponent,
+    PartyUnionComponent,
+    NoteFormComponent,
 
   ],
   imports: [
@@ -54,7 +59,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
       apiKey: 'AIzaSyB9s64voWTBx5s4qadlcWwbCNhWJU5Sje0'
     }),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    Ng2Bs3ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

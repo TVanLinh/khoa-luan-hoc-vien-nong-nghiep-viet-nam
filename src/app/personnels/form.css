@@ -1,36 +1,54 @@
-form{
-  margin-top: 50px;
+form {
+  /*margin-top: 50px;*/
   border: 1px solid #ccc;
   padding: 10px;
+  margin-bottom: 50px;
 }
-.action-form{
+
+.action-form {
   margin-bottom: 30px;
 }
-form .action-form button{
+
+.action-icon{
+  cursor: pointer;
+  display: block;
+  padding: 5px;
+}
+
+.action-form button {
   background: #fff;
   border: 1px solid #ccc;
   padding: 5px 20px;
 }
-.form-item{
+
+.form-item {
   border: 1px solid #cccccc;
   position: relative;
   padding: 10px 10px 20px 10px;
+  margin-bottom: 30px;
   /*clear: both;*/
 }
-.form-item label{
+
+.form-item label {
   font-weight: 400;
 }
-.item-control{
+
+.item-control {
   padding-top: 10px;
   font-size: 13px;
   clear: both;
 }
-.item-control input[type='text'],.item-control input[type='email'] ,.item-control input[type='date'], select{
+
+.item-control input[type='text'], .item-control input[type='email'], .item-control input[type='date'], select {
   float: right;
-  padding:  5px;
+  padding: 5px;
   min-width: 200px;
 }
 
+.item-control input[type='radio'], .item-control input[type='checkbox'] {
+  /*float: right;*/
+  /*width: 60%;*/
+}
 
 .form-item-title {
   position: absolute;
@@ -38,6 +56,39 @@ form .action-form button{
   padding-left: 10px;
   left: 17px;
   padding-right: 10px;
-  background: #fff;
-  font-size: 14px;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+.form-control{
+  width: auto;
+}
+@media (max-width: 1199px) {
+
+  .form-item {
+    margin-bottom: 30px;
+  }
+
+  .item-control input[type='text'], .item-control input[type='email'], .item-control input[type='date'], select {
+    min-width: 100%;
+    display: block;
+    float: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .item-control input[type='date'], .item-control input[type='email'], .item-control input[type='text'], select {
+    float: none;
+    display: block;
+    width: 100%;
+  }
+
+  .item-control input[type='radio'], .item-control input[type='checkbox'] {
+    float: none !important;
+    width: auto !important;
+  }
+}
+
+.icon-remove-update {
+  border: 1px solid;
+  padding: 0 3px;
 }
