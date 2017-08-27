@@ -1,0 +1,179 @@
+<form action="">
+  <div class="action-form">
+    <button>Ghi nhận</button>
+    <button>Khóa dữ liệu</button>
+  </div>
+  <!---->
+  <app-note-form></app-note-form>
+  <!---->
+  <div class="mgb-20">
+    <label>Trình độ giáo dục phổ thông </label>
+    <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0">
+      <option value="1">1/12</option>
+      <option value="2">2/12</option>
+      <option value="3">3/12</option>
+      <option value="4">4/12</option>
+      <option value="5">5/12</option>
+      <option value="6">6/12</option>
+      <option value="7">7/12</option>
+    </select>
+  </div>
+  <!---->
+  <div class="form-item long-time  ">
+    <div class="form-item-title">
+      Quá trình đào tạo dài hạn
+    </div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>STT</th>
+        <th>Từ năm</th>
+        <th>Đến năm</th>
+        <th>Chuyên nghành</th>
+        <th>Bậc học</th>
+        <th>Học vị đạt được</th>
+        <th>Xếp loại</th>
+        <th>Trường đào tạo</th>
+        <th>Nước đào tạo</th>
+        <th>
+          <span class="action-icon"><i class="fa fa-plus"></i></span>
+          <span class="action-icon"><i class="fa fa-remove icon-remove-update"></i></span>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>
+        </td>
+        <!---->
+        <td>
+          <div class="item-control">
+            <input type="text" class="date"/>
+          </div>
+        </td>
+
+        <td>
+          <div class="item-control">
+            <input type="text" class="date"/>
+          </div>
+        </td>
+
+        <td>
+          <div class="item-control">
+            <input type="text"/>
+          </div>
+        </td>
+        <td>
+          <div class="item-control">
+            <select name="" class="form-control">
+              <option value="">----Chọn-----</option>
+            </select>
+          </div>
+        </td>
+        <!---->
+        <td>
+          <div class="item-control">
+            <input type="text"/>
+          </div>
+        </td>
+        <!---->
+        <td style="vertical-align: top">
+          <select name="" class="form-control">
+            <option value="">----Chọn-----</option>
+          </select>
+        </td>
+        <!---->
+        <td>
+          <div class="item-control">
+            <input type="text"/>
+          </div>
+        </td>
+        <!---->
+        <td style="vertical-align: top">
+          <select name="" class="form-control">
+            <option value="">----Chọn-----</option>
+          </select>
+        </td>
+        <!---->
+        <td>
+          <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
+          <span class="action-icon" (click)="resetProcess()"><i
+            class="fa fa-remove icon-remove-update"></i></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div >
+  <!---->
+  <div class="form-item short-time">
+    <div class="form-item-title">
+      Quá trình đào tạo ngắn hạn
+    </div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>STT</th>
+        <th>Từ tháng/năm </th>
+        <th>Số tháng </th>
+        <th>Chứng chỉ </th>
+        <th>Nơi đào tạo </th>
+        <th>Nước đào tạo </th>
+        <th>Mô tả </th>
+        <th>
+          <span class="action-icon"><i class="fa fa-plus"></i></span>
+          <span class="action-icon"><i class="fa fa-remove icon-remove-update"></i></span>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>
+        </td>
+        <!---->
+        <td>
+          <div class="item-control">
+            <input type="text" class=""/>
+          </div>
+        </td>
+
+        <td>
+          <div class="item-control">
+            <input type="number" class="date" min="1"/>
+          </div>
+        </td>
+
+        <td>
+          <div class="item-control">
+            <input type="text"/>
+          </div>
+        </td>
+        <td>
+          <div class="item-control">
+            <input type="text"/>
+          </div>
+        </td>
+        <!---->
+        <td style="vertical-align: top">
+          <select name="" class="form-control">
+            <option value="">----Chọn-----</option>
+          </select>
+        </td>
+        <!---->
+        <td>
+          <div class="item-control">
+            <input type="text"/>
+          </div>
+        </td>
+        <!---->
+        <td>
+          <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
+          <span class="action-icon" (click)="resetProcess()"><i
+            class="fa fa-remove icon-remove-update"></i></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

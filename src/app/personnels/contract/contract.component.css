@@ -1,0 +1,15 @@
+.long-time input,.long-time select,.short-time input,.short-time select{
+  float: none !important;
+  min-width: 0 !important;
+  max-width: 100%;
+  width: 100px;
+}
+.short-time input,.short-time select{
+  width: 150px;
+}
+.date {
+  width: 50px;
+}
+.item-control{
+  padding-top: 0;
+}

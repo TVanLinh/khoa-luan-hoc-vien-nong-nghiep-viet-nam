@@ -29,6 +29,7 @@ import {NoteFormComponent} from "./personnels/note-form/note-form.component";
 import {FamilyRelationshipComponent} from "./personnels/family-relationship/family-relationship.component";
 import {BaseFormComponent} from "app/personnels/base-form.component";
 import { ProcessWorkComponent } from './personnels/process-work/process-work.component';
+import { ContractComponent } from './personnels/contract/contract.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ProcessWorkComponent } from './personnels/process-work/process-work.com
     PartyUnionComponent,
     NoteFormComponent,
     FamilyRelationshipComponent,
-    ProcessWorkComponent
+    ProcessWorkComponent,
+    ContractComponent
 
   ],
   imports: [
