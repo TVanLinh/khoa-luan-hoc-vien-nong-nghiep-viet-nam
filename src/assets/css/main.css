@@ -1,8 +1,43 @@
-body{
-  font-family:"Roboto Slab", sans-serif;
+body {
+  font-family: "Roboto Slab", sans-serif;
 }
 
-.nav-tabs>li>a
-{
+.nav-tabs > li > a {
   border-radius: 0;
+}
+
+.my-modal-lg {
+  width: 1170px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1199px) {
+
+  .my-modal-lg {
+    width: 1000px !important;
+  }
+
+}
+
+@media (max-width: 991px) {
+
+  .my-modal-lg {
+    width: 800px !important;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .my-modal-lg {
+    width: 650px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .my-modal-lg {
+    width: 450px !important;
+  }
 }

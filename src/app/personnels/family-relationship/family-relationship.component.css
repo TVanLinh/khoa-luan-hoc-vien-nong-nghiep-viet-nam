@@ -1,0 +1,10 @@
+input,select{
+  min-width: 0;
+  float: none;
+}
+.form-control{
+  width: 100%;
+}
+.action-icon{
+  display: inline-block;
+}

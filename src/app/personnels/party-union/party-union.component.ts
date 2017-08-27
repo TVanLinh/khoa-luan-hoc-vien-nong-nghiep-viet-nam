@@ -15,15 +15,18 @@ export class PartyUnionComponent implements OnInit {
   formDetailParty: FormGroup;
   formDetailUnion: FormGroup;
   positonUpdate: number = -1;
-  // listActionParty: DetailActionParty[] = [];
+
   listActionParty = new Collections.LinkedList<DetailActionParty>();
   listActionUnion = new Collections.LinkedList<DetailActionUnion>();
 
+  cssClassModal: string = 'my-modal-lg';
+  
   constructor(private formBuilder: FormBuilder, private eleRef: ElementRef) {
   }
 
   ngOnInit() {
     this.inInitForm();
+    jQuery(this.eleRef.nativeElement).find('.modal-lg').css({width:'1200px !important'});
   }
 
 
@@ -94,7 +97,7 @@ export class PartyUnionComponent implements OnInit {
 
   //----------------
   openModal(target: any) {
-    target.open('my-modal-lg');
+    target.open();
     // this.modalComponent.open();
   }
 

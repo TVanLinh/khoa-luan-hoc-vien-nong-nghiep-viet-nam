@@ -32,7 +32,9 @@ form {
 .form-item label {
   font-weight: 400;
 }
-
+.form-item table {
+  margin-top: 15px;
+}
 .item-control {
   padding-top: 10px;
   font-size: 13px;
@@ -61,7 +63,15 @@ form {
 }
 .form-control{
   width: auto;
+  border-color: #cccccc;
+  border-radius: 0;
 }
+
+th,td{
+  text-align: center;
+  vertical-align: middle !important;
+}
+
 @media (max-width: 1199px) {
 
   .form-item {
@@ -91,4 +101,7 @@ form {
 .icon-remove-update {
   border: 1px solid;
   padding: 0 3px;
+}
+label{
+  font-weight: 400;
 }

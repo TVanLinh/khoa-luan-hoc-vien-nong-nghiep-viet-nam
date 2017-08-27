@@ -170,7 +170,9 @@
 
 
 <!--modal qua trinh hoat dong dang-->
-<modal #modalActionParty size='lg' cssClass="my-modal-lg" backdrop="false">
+<modal #modalActionParty size="lg" [cssClass]="cssClassModal" backdrop="false">
+
+
   <modal-body>
     <div class="action-form">
       <button (click)="closeModal(modalActionParty)" class="mgb-20">Thoát</button>
@@ -258,7 +260,7 @@
           <td>{{item.positionOther}}</td>
           <td><span class="action-icon pdb-10" *ngIf="item.now"><i class="fa fa-check "></i></span></td>
           <td>
-            <span class="action-icon" (click)="editItem('party',i)"><i class="fa fa-edit" ></i></span>
+            <span class="action-icon" (click)="editItem('party',i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(listActionParty,inx)"><i class="fa fa-remove"></i></span>
             <span class="action-icon"><i class="fa fa-lock "></i></span>
           </td>
@@ -267,6 +269,8 @@
       </table>
     </form>
   </modal-body>
+
+
 </modal>
 
 <!--modal qua trinh hoat dong Doan-->
@@ -319,7 +323,7 @@
             </select>
           </td>
           <td>
-            <input type="text" class="form-control" formControlName="postionTallest">
+            <input type="checkbox" class="" formControlName="postionTallest">
           </td>
           <td>
             <span class="action-icon  " (click)="addItem('union')"><i class="fa fa-save"></i></span>
@@ -350,7 +354,7 @@
           <td>{{item.postionTallest}}</td>
           <td>
             <span class="action-icon  " (click)="editItem('union',inx)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon  "  (click)="removeItem(listActionUnion,inx)"><i class="fa fa-remove"></i></span>
+            <span class="action-icon  " (click)="removeItem(listActionUnion,inx)"><i class="fa fa-remove"></i></span>
             <span class="action-icon  "><i class="fa fa-lock "></i></span>
           </td>
         </tr>

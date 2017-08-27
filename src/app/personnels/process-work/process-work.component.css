@@ -1,0 +1,23 @@
+.item-control{
+  text-align: left;
+}
+
+.input-date{
+  width: 50px;
+  padding: 3px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  float: none !important;
+  min-width: 0 !important;
+}
+
+table input,table select{
+  min-width: 0 !important;
+}
+tbody tr:first-child td{
+  vertical-align: top !important;
+}
+
+tbody tr td span {
+  margin-left: 10px;
+}
