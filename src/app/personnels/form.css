@@ -11,9 +11,12 @@ form {
 
 .action-icon{
   cursor: pointer;
-  display: block;
+  /*display: block;*/
+  display: inline-block;
   padding: 5px;
+  /*margin-bottom:5px;*/
 }
+
 
 .action-form button {
   background: #fff;
@@ -24,7 +27,7 @@ form {
 .form-item {
   border: 1px solid #cccccc;
   position: relative;
-  padding: 10px 10px 20px 10px;
+  padding: 15px 10px 15px 10px;
   margin-bottom: 30px;
   /*clear: both;*/
 }
@@ -40,7 +43,9 @@ form {
   font-size: 13px;
   clear: both;
 }
-
+input {
+  padding: 5px;
+}
 .item-control input[type='text'], .item-control input[type='email'], .item-control input[type='date'], select {
   float: right;
   padding: 5px;
@@ -99,6 +104,9 @@ th,td{
     float: none !important;
     width: auto !important;
   }
+  .action-icon{
+    display: inline-block;
+  }
 }
 
 .icon-remove-update {
@@ -108,3 +116,4 @@ th,td{
 label{
   font-weight: 400;
 }
+

@@ -1,0 +1,8 @@
+.item-control{
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .item-control{
+    text-align: left;
+  }
+}

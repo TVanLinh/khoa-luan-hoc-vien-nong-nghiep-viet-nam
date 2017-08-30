@@ -1,0 +1,116 @@
+<form action="" [formGroup]="formData">
+  <div class="action-form">
+    <button (click)="onSave()">Khóa dữ liệu</button>
+  </div>
+  <div class="form-item">
+    <div class="form-item-title">
+      Thông tin học hàm
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Học hàm </th>
+          <th>Nơi công nhận </th>
+          <th>Năm phong </th>
+          <th>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+        <tr formGroupName="academicRank">
+          <td></td>
+          <td>
+            <select class="form-control" formControlName="rank">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" formControlName="placeReceive">
+          </td>
+
+          <td>
+            <input type="text" formControlName="yearReceive">
+          </td>
+
+          <td>
+            <span class="action-icon"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="resetFormData('academic')"><i
+              class="fa fa-remove icon-remove-update"></i></span>
+          </td>
+        </tr>
+
+        <tr *ngFor="let item of listRankAd.toArray();let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.rank}}</td>
+          <td>{{item.placeRiceive}}</td>
+          <td>{{item.yearReceive}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!---->
+  <div class="form-item">
+    <div class="form-item-title">
+      Danh hiệu nhà giáo
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Danh hiệu nhà giáo </th>
+          <th>Năm phong </th>
+          <th>
+            <span class="action-icon"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="resetFormData('title')"><i
+              class="fa fa-remove icon-remove-update"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr formGroupName="titleTeachers">
+          <td></td>
+          <td>
+            <select class="form-control" formControlName="title">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" formControlName="yearReceive">
+          </td>
+          <td>
+            <span class="action-icon"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="resetFormData('title')"><i
+              class="fa fa-remove icon-remove-update"></i></span>
+          </td>
+        </tr>
+
+        <tr *ngFor="let item of listTitleTeachers.toArray();let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.yearReceive}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!---->
+</form>

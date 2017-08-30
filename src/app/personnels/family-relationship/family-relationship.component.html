@@ -11,67 +11,70 @@
     <div class="form-item-title">
       Thông tin nhân thân
     </div>
-    <table class="table table-bordered ">
-      <thead>
+    <div class="table-responsive">
+      <table class="table table-bordered ">
+        <thead>
         <tr>
           <th>STT</th>
-          <th>Quan hệ </th>
-          <th>Họ tên </th>
-          <th>Năm sinh </th>
-          <th>Nghề nghiệp </th>
-          <th>Cơ quan làm việc </th>
-          <th>Quốc gia đang sống  </th>
+          <th>Quan hệ</th>
+          <th>Họ tên</th>
+          <th>Năm sinh</th>
+          <th>Nghề nghiệp</th>
+          <th>Cơ quan làm việc</th>
+          <th>Quốc gia đang sống</th>
           <th>
             <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="resetForm(formData)"><i
+              class="fa fa-remove icon-remove-update"></i></span>
           </th>
         </tr>
-      </thead>
-      <tbody>
-      <!---->
-          <tr>
-            <td></td>
-            <td>
-              <select  class="form-control" formControlName="relation">
-                <option value="">----Lựa chọn-----</option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-              </select>
-            </td>
-            <td><input type="text" class="form-control" formControlName="fullName"></td>
-            <td><input type="number" class="form-control" formControlName="birthDay"></td>
-            <td><input type="text" class="form-control" formControlName="job"></td>
-            <td><input type="text" class="form-control" formControlName="organ"></td>
-            <td>
-              <select  class="form-control" formControlName="national">
-                <option value="">----Lựa chọn-----</option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-              </select>
-            </td>
-            <td>
-              <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
-            </td>
-          </tr>
-      <!---->
-      <tr *ngFor="let item of listRelationFamily.toArray(); let i = index ">
-        <td>{{i+1}}</td>
-        <td>{{item.relation}}</td>
-        <td>{{item.fullName}}</td>
-        <td>{{item.birthDay}}</td>
-        <td>{{item.job}}</td>
-        <td>{{item.organ}}</td>
-        <td>{{item.national}}</td>
-        <td>
-          <span class="action-icon" ><i class="fa fa-edit"></i></span>
-          <span class="action-icon" ><i class="fa fa-remove"></i></span>
-          <span class="action-icon" ><i class="fa fa-lock"></i></span>
-        </td>
-      </tr>
-      <!---->
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <!---->
+        <tr>
+          <td></td>
+          <td>
+            <select class="form-control" formControlName="relation">
+              <option value="">----Lựa chọn-----</option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+          </td>
+          <td><input type="text" class="form-control" formControlName="fullName"></td>
+          <td><input type="number" class="form-control" formControlName="birthDay"></td>
+          <td><input type="text" class="form-control" formControlName="job"></td>
+          <td><input type="text" class="form-control" formControlName="organ"></td>
+          <td>
+            <select class="form-control" formControlName="national">
+              <option value="">----Lựa chọn-----</option>
+              <option value=""></option>
+              <option value=""></option>
+              <option value=""></option>
+            </select>
+          </td>
+          <td>
+            <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
+          </td>
+        </tr>
+        <!---->
+        <tr *ngFor="let item of listRelationFamily.toArray(); let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.relation}}</td>
+          <td>{{item.fullName}}</td>
+          <td>{{item.birthDay}}</td>
+          <td>{{item.job}}</td>
+          <td>{{item.organ}}</td>
+          <td>{{item.national}}</td>
+          <td>
+            <span class="action-icon"><i class="fa fa-edit"></i></span>
+            <span class="action-icon"><i class="fa fa-remove"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
   </div>
 </form>

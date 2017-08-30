@@ -103,101 +103,103 @@
           </div>
           <div class="clearfix"></div>
           <div class="col-xs-12">
-            <table class="table table-bordered">
-              <thead>
-              <tr>
-                <th>STT</th>
-                <th>Nơi công tác</th>
-                <th>Từ ngày</th>
-                <th>Đến ngày</th>
-                <th>Chức vụ</th>
-                <th>Công việc đảm nhận</th>
-                <th>
-                  <span class="action-icon"><i class="fa fa-plus"></i></span>
-                  <span class="action-icon"><i class="fa fa-remove icon-remove-update"></i></span>
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr style="background-color: #eeeeee" formGroupName="inforProcess">
-                <td>
-                </td>
-                <!---->
-                <td>
-                  <div class="item-control">
-                    <input type="checkbox" checked formControlName="isNotBelogtoHV"> <span>Bỏ đánh dấu nếu đơn vị hiện tại không trực thuộc HVNNVN </span>
-                  </div>
-                  <div class="item-control">
-                    <label>Đơn vị công tác cấp 1 </label>
-                    <select class="form-control" formControlName="level1">
-                      <option value="">asssasasa</option>
-                      <option value="">asssasasa</option>
-                    </select>
-                  </div>
-                  <div class="item-control">
-                    <label>Đơn vị công tác cấp 2</label>
-                    <select class="form-control" formControlName="level2">
-                      <option value="">asssasasa</option>
-                      <option value="">asssasasa</option>
-                    </select>
-                  </div>
-                  <div class="item-control">
-                    <input type="checkbox" formControlName="concurrently"> <span>Đánh dấu nếu đây là đơn vị công tác kiêm nhiệm </span>
-                  </div>
-                </td>
-                <!---->
-                <td>
-                  <div class="item-control" formGroupName="dateFrom">
-                    <input type="text" placeholder="Ngày " class="input-date" formControlName="date"> /
-                    <input type="text" placeholder="Tháng" class="input-date" formControlName="month"> /
-                    <input type="text" placeholder="Năm " class="input-date" formControlName="year">
-                  </div>
-                  <div class="item-control">
-                    <input type="checkbox" formControlName="isDateInPayroll"> <span>Là ngày vào biên chế </span>
-                  </div>
-                  <div class="item-control">
-                    <input type="checkbox" formControlName="isDateInHV">
-                    <span>Là ngày vào HVNNVN hoặc đơn vị tiền thân  </span>
-                  </div>
-                  <div class="item-control">
-                    <input type="checkbox" formControlName="isYearInEducation">
-                    <span>Là năm vào nghành giáo dục  </span>
-                  </div>
-                  <div class="item-control">
-                    <input type="checkbox" formControlName="isDateInLeve1"> <span>Là ngày vào đơn vị cấp 1 </span>
-                  </div>
-                </td>
-                <!---->
-                <td style="vertical-align: top">
-                  <div class="item-control" formGroupName="dateEnd">
-                    <input type="text" placeholder="Ngày " class="input-date" formControlName="date"> /
-                    <input type="text" placeholder="Tháng" class="input-date" formControlName="month"> /
-                    <input type="text" placeholder="Năm " class="input-date" formControlName="year">
-                  </div>
-                </td>
-                <!---->
-                <td>
-                  <div class="item-control">
-                    <select name="" id="" class="form-control" formControlName="position">
-                      <option value="">---------Chọn-------</option>
-                    </select>
-                  </div>
-                </td>
-                <!---->
-                <td>
-                  <div class="item-control">
-                    <input type="text" class="" formControlName="job">
-                  </div>
-                </td>
-                <!---->
-                <td>
-                  <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
-                  <span class="action-icon" (click)="resetProcess()"><i
-                    class="fa fa-remove icon-remove-update"></i></span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Nơi công tác</th>
+                  <th>Từ ngày</th>
+                  <th>Đến ngày</th>
+                  <th>Chức vụ</th>
+                  <th>Công việc đảm nhận</th>
+                  <th>
+                    <span class="action-icon"><i class="fa fa-plus"></i></span>
+                    <span class="action-icon"><i class="fa fa-remove icon-remove-update"></i></span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="background-color: #eeeeee" formGroupName="inforProcess">
+                  <td>
+                  </td>
+                  <!---->
+                  <td>
+                    <div class="item-control">
+                      <input type="checkbox" checked formControlName="isNotBelogtoHV"> <span>Bỏ đánh dấu nếu đơn vị hiện tại không trực thuộc HVNNVN </span>
+                    </div>
+                    <div class="item-control">
+                      <label>Đơn vị công tác cấp 1 </label>
+                      <select class="form-control" formControlName="level1">
+                        <option value="">asssasasa</option>
+                        <option value="">asssasasa</option>
+                      </select>
+                    </div>
+                    <div class="item-control">
+                      <label>Đơn vị công tác cấp 2</label>
+                      <select class="form-control" formControlName="level2">
+                        <option value="">asssasasa</option>
+                        <option value="">asssasasa</option>
+                      </select>
+                    </div>
+                    <div class="item-control">
+                      <input type="checkbox" formControlName="concurrently"> <span>Đánh dấu nếu đây là đơn vị công tác kiêm nhiệm </span>
+                    </div>
+                  </td>
+                  <!---->
+                  <td>
+                    <div class="item-control" formGroupName="dateFrom">
+                      <input type="text" placeholder="Ngày " class="input-date" formControlName="date"> /
+                      <input type="text" placeholder="Tháng" class="input-date" formControlName="month"> /
+                      <input type="text" placeholder="Năm " class="input-date" formControlName="year">
+                    </div>
+                    <div class="item-control">
+                      <input type="checkbox" formControlName="isDateInPayroll"> <span>Là ngày vào biên chế </span>
+                    </div>
+                    <div class="item-control">
+                      <input type="checkbox" formControlName="isDateInHV">
+                      <span>Là ngày vào HVNNVN hoặc đơn vị tiền thân  </span>
+                    </div>
+                    <div class="item-control">
+                      <input type="checkbox" formControlName="isYearInEducation">
+                      <span>Là năm vào nghành giáo dục  </span>
+                    </div>
+                    <div class="item-control">
+                      <input type="checkbox" formControlName="isDateInLeve1"> <span>Là ngày vào đơn vị cấp 1 </span>
+                    </div>
+                  </td>
+                  <!---->
+                  <td style="vertical-align: top">
+                    <div class="item-control" formGroupName="dateEnd">
+                      <input type="text" placeholder="Ngày " class="input-date" formControlName="date"> /
+                      <input type="text" placeholder="Tháng" class="input-date" formControlName="month"> /
+                      <input type="text" placeholder="Năm " class="input-date" formControlName="year">
+                    </div>
+                  </td>
+                  <!---->
+                  <td>
+                    <div class="item-control">
+                      <select name="" id="" class="form-control" formControlName="position">
+                        <option value="">---------Chọn-------</option>
+                      </select>
+                    </div>
+                  </td>
+                  <!---->
+                  <td>
+                    <div class="item-control">
+                      <input type="text" class="" formControlName="job">
+                    </div>
+                  </td>
+                  <!---->
+                  <td>
+                    <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
+                    <span class="action-icon" (click)="resetProcess()"><i
+                      class="fa fa-remove icon-remove-update"></i></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

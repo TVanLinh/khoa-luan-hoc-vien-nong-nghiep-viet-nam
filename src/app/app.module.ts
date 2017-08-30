@@ -25,11 +25,18 @@ import {CurriculumVitaeComponent} from "./personnels/curriculum-vitae/curriculum
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PartyUnionComponent} from "./personnels/party-union/party-union.component";
 import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
-import {NoteFormComponent} from "./personnels/note-form/note-form.component";
+import {NoteFormComponent} from "./personnels/notes/note-form/note-form.component";
 import {FamilyRelationshipComponent} from "./personnels/family-relationship/family-relationship.component";
 import {BaseFormComponent} from "app/personnels/base-form.component";
 import { ProcessWorkComponent } from './personnels/process-work/process-work.component';
+import {TrainComponent} from './personnels/process-train/train.component';
 import { ContractComponent } from './personnels/contract/contract.component';
+import { NoteForm2Component } from './personnels/notes/note-form2/note-form2.component';
+import { InfoTechnologyComponent } from './personnels/info-technology/info-technology.component';
+import { PoliticComponent } from './personnels/politic/politic.component';
+import { ForeignLanguageComponent } from './personnels/foreign-language/foreign-language.component';
+import { BonusDisciplineComponent } from './personnels/bonus-discipline/bonus-discipline.component';
+import { AcademicRankComponent } from './personnels/academic-rank/academic-rank.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +64,14 @@ import { ContractComponent } from './personnels/contract/contract.component';
     NoteFormComponent,
     FamilyRelationshipComponent,
     ProcessWorkComponent,
-    ContractComponent
+    TrainComponent,
+    ContractComponent,
+    NoteForm2Component,
+    InfoTechnologyComponent,
+    PoliticComponent,
+    ForeignLanguageComponent,
+    BonusDisciplineComponent,
+    AcademicRankComponent
 
   ],
   imports: [

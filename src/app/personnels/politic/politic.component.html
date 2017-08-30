@@ -1,0 +1,72 @@
+<form action="" [formGroup]="formData">
+  <div class="action-form mgb-20">
+    <button (click)="onSave()">Ghi nhận</button>
+    <button>Khóa dữ liệu</button>
+  </div>
+  <div class="table-reponsive">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>STT</th>
+        <th>Trình độ chính trị</th>
+        <th>Năm công nhận</th>
+        <th>Hiện tại</th>
+        <th>
+          <span class="action-icon"><i class="fa fa-plus"></i></span>
+          <span class="action-icon" (click)="resetForm(formData)"><i
+            class="fa fa-remove icon-remove-update"></i></span>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>
+          <select name="" id="" class="form-control" formControlName="level">
+            <option value="">---------Chọn--------</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" class="form-control date" formControlName="yearLicense">
+        </td>
+
+        <td>
+          <input type="radio" class="">
+        </td>
+
+        <td>
+          <span class="action-icon"><i class="fa fa-save"></i></span>
+          <span class="action-icon" (click)="resetForm(formData)"><i
+            class="fa fa-remove icon-remove-update"></i></span>
+        </td>
+      </tr>
+      <!--Content-->
+      <tr>
+        <td>1</td>
+        <td>{{item.level}}</td>
+        <td>{{item.yearLicense}}</td>
+
+        <td><input type="radio" class="" formControlName="now" [value]="item.now"></td>
+        <td>
+          <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+          <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+          <span class="action-icon"><i class="fa fa-lock"></i></span>
+        </td>
+      </tr>
+      <!--Content-->
+      <tr>
+        <td>1</td>
+        <td>{{item1.level}}</td>
+        <td>{{item1.yearLicense}}</td>
+
+        <td><input type="radio" class="" formControlName="now" [value]="item1.now"></td>
+        <td>
+          <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+          <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+          <span class="action-icon"><i class="fa fa-lock"></i></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

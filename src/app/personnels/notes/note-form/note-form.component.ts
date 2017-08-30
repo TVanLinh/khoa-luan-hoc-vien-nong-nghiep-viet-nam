@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-note-form',
   templateUrl: './note-form.component.html',
-  styleUrls: ['../form.css','./note-form.component.css']
+  styleUrls: ['../../form.css','./note-form.component.css']
 })
 export class NoteFormComponent implements OnInit {
 
