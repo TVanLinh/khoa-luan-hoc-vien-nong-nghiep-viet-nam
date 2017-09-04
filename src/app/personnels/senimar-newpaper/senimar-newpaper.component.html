@@ -1,0 +1,209 @@
+<form [formGroup]="formData">
+  <div class="action-form">
+    <button>Ghi nhận</button>
+    <button>Bỏ qua</button>
+    <button>Khóa dữ liệu</button>
+  </div>
+  <div class="row">
+
+    <div class="col-xs-12">
+      <div class="form-item">
+        <div class="form-item-title">
+          Thông tin báo cáo khoa học
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên báo cáo</th>
+              <th>Tên kỷ yếu</th>
+              <th>Tên hội nghị</th>
+              <th>Trang đăng</th>
+              <th>Năm</th>
+              <th>Số tác giả</th>
+              <th>Đồng tác giả</th>
+              <th>Trong nước/nước ngoài</th>
+              <th>
+                <span class="action-icon" (click)="addItem('SENIMAR')"><i class="fa fa-plus"></i></span>
+                <span class="action-icon" (click)="resetForm(formData)"><i
+                  class="fa fa-remove icon-remove-update"></i></span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of listSenimar.toArray();let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.nameYearBook}}</td>
+              <td>{{item.nameConvention}}</td>
+              <td>{{item.pagePost}}</td>
+              <td>{{item.year}}</td>
+              <td>{{item.numberAuthor}}</td>
+              <td>{{item.authors}}</td>
+              <td>{{item.location}}</td>
+              <td>
+                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                <span class="action-icon"><i class="fa fa-lock"></i></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!---  Thông tin  báo cao khoa học  -->
+    <div class="col-xs-12" id="senimar" [hidden]="!openSenimar">
+      <div class="form-item" formGroupName="senimar">
+        <div class="form-item-title">
+          Thông tin báo cáo khoa học
+        </div>
+        <div class="row" >
+          <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+            <div class="item-control">
+              <label>Tên báo cáo </label>
+              <input type="text" formControlName="name">
+            </div>
+            <div class="item-control">
+              <label>Tên kỷ hiếu </label>
+              <input type="text" formControlName="nameYearBook">
+            </div>
+            <div class="item-control">
+              <label>Tên hôi nghị </label>
+              <input type="text" formControlName="nameConvention">
+            </div>
+            <div class="item-control">
+              <label>Trang đăng </label>
+              <input type="text" formControlName="pagePost">
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4 ">
+            <div class="item-control">
+              <label>Năm </label>
+              <input type="text" formControlName="year">
+            </div>
+            <div class="item-control">
+              <label>Số tác giả </label>
+              <input type="text" formControlName="numberAuthor">
+            </div>
+            <div class="item-control">
+              <label>Trong nước/ngoài nước </label>
+              <select class="form-control" formControlName="location">
+                <option value="">Trong nước</option>
+                <option value="">Ngoài nước</option>
+              </select>
+            </div>
+            <div class="item-control">
+              <label>Đồng tác giả </label>
+              <textarea formControlName="authors"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <!---->
+
+    <div class="col-xs-12" id="newspaper"  [hidden]="!openNewspaper">
+      <div class="form-item" formGroupName="newspaper">
+        <div class="form-item-title">
+          Thông tin bài báo khoa học
+        </div>
+        <div class="row" >
+          <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+            <div class="item-control">
+              <label>Tên bài báo </label>
+              <input type="text" formControlName="name">
+            </div>
+            <div class="item-control">
+              <label>Tên tạp chí </label>
+              <input type="text" formControlName="nameMagazine">
+            </div>
+            <div class="item-control">
+              <label>Tạp chỉ số </label>
+              <input type="text" formControlName="numberMagazine">
+            </div>
+            <div class="item-control">
+              <label>Trang đăng </label>
+              <input type="text" formControlName="pagePost">
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-4 ">
+            <div class="item-control">
+              <label>Năm </label>
+              <input type="text" formControlName="year">
+            </div>
+            <div class="item-control">
+              <label>Số tác giả </label>
+              <input type="text" formControlName="numberAuthor">
+            </div>
+            <div class="item-control">
+              <label>Trong nước/ngoài nước </label>
+              <select  class="form-control" formControlName="location">
+                <option value="">Trong nước</option>
+                <option value="">Ngoài nước</option>
+              </select>
+            </div>
+            <div class="item-control">
+              <label>Đồng tác giả </label>
+              <textarea formControlName="authors"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <!---->
+    <div class="col-xs-12">
+      <div class="form-item">
+        <div class="form-item-title">
+          Thông tin bài báo
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên bài báo</th>
+              <th>Tên tạp chí</th>
+              <th>Số tạp chí</th>
+              <th>Trang đăng</th>
+              <th>Năm</th>
+              <th>Số tác giả</th>
+              <th>Đồng tác giả</th>
+              <th>Trong nước/nước ngoài</th>
+              <th>
+                <span class="action-icon" (click)="addItem('NEWSPAPER')"><i class="fa fa-plus"></i></span>
+                <span class="action-icon" (click)="resetForm(formData)"><i
+                  class="fa fa-remove icon-remove-update"></i></span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of listNewsPaper.toArray();let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.nameMagazine}}</td>
+              <td>{{item.numberMagazine}}</td>
+              <td>{{item.pagePost}}</td>
+              <td>{{item.year}}</td>
+              <td>{{item.numberAuthor}}</td>
+              <td>{{item.authors}}</td>
+              <td>{{item.location}}</td>
+              <td>
+                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                <span class="action-icon"><i class="fa fa-lock"></i></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

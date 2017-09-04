@@ -41,6 +41,8 @@ import { EmulationTitleComponent } from './personnels/emulation-title/emulation-
 import { SalaryBriefComponent } from './personnels/salary-brief/salary-brief.component';
 import { ForeignComponent } from './personnels/foreign/foreign.component';
 import { ThesisGuideComponent } from './personnels/thesis-guide/thesis-guide.component';
+import { ScienceTopicComponent } from './personnels/science-topic/science-topic.component';
+import { SenimarNewpaperComponent } from './personnels/senimar-newpaper/senimar-newpaper.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { ThesisGuideComponent } from './personnels/thesis-guide/thesis-guide.com
     EmulationTitleComponent,
     SalaryBriefComponent,
     ForeignComponent,
-    ThesisGuideComponent
+    ThesisGuideComponent,
+    ScienceTopicComponent,
+    SenimarNewpaperComponent
 
   ],
   imports: [

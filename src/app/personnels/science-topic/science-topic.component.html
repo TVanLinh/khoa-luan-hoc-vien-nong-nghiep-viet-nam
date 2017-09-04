@@ -1,0 +1,93 @@
+<form [formGroup]="formData">
+  <div class="action-form">
+    <button>Ghi nhận</button>
+    <button>Khóa dữ liệu</button>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-note-form></app-note-form>
+    </div>
+    <div class="col-xs-12">
+      <div class="form-item">
+        <div class="form-item-title">
+          Đề tài - dự án khoa học
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên đề tài</th>
+              <th>Mã đề tài</th>
+              <th>Ngày bắt đầu</th>
+              <th>Số tháng thực hiện</th>
+              <th>Vai trò trong đề tài</th>
+              <th>Cấp đề tài</th>
+              <th>Tiến độ dự án</th>
+              <th>Đánh giá loại</th>
+              <th>
+                <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
+                <span class="action-icon" (click)="resetForm(formData)"><i
+                  class="fa fa-remove icon-remove-update"></i></span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+              <td></td>
+              <td><input type="text" formControlName="name"></td>
+              <td><input type="text" formControlName="code"></td>
+              <td><input type="text" formControlName="dateBegin"></td>
+              <td><input type="number" min="1" style="max-width: 50px" formControlName="monthWork"></td>
+              <td>
+                <select class="form-control " formControlName="role">
+                  <option value=""> ---Chọn---</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control " formControlName="level">
+                  <option value=""> ---Chọn---</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control " formControlName="progress">
+                  <option value=""> ---Chọn---</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control " formControlName="specieObtain">
+                  <option value=""> ---Chọn---</option>
+                </select>
+              </td>
+              <td>
+                <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
+                <span class="action-icon" (click)="resetForm(formData)"><i
+                  class="fa fa-remove icon-remove-update"></i></span>
+              </td>
+            </tr>
+            <!--content-->
+            <tr *ngFor="let item of listScienceTopic.toArray();let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.code}}</td>
+              <td>{{item.dateBegin}}</td>
+              <td>{{item.monthWork}}</td>
+              <td>{{item.role}}</td>
+              <td>{{item.level}}</td>
+              <td>{{item.progress}}</td>
+              <td>{{item.specieObtain}}</td>
+              <td>
+                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                <span class="action-icon"><i class="fa fa-lock"></i></span>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

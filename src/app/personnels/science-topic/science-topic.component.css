@@ -5,4 +5,8 @@ select,input{
   float: none;
   min-width: 0;
 }
-
+@media (min-width: 768px) {
+  input {
+    max-width: 150px;
+  }
+}
