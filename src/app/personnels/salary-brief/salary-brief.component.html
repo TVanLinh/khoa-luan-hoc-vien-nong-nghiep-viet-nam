@@ -1,0 +1,157 @@
+<form action="" [formGroup]="formData">
+  <div class="action-form">
+    <button>Khóa dữ liệu</button>
+  </div>
+  <app-note-form2>
+    <p>Quý vị nhập quá trình từ năm 2004 đến nay. Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng
+      năm bắt buộc phải nhập chính sác.
+      Khi chiết xuất dữ liệu chỉ sử dụng tháng năm</p>
+    <p><b>Chú ý </b> theo danh mục các ngạch công viên chức ban hành ngày 3/11/2004 của Bộ trưởng Bộ Nội Vụ một số ngạch
+      về Chuyên viên
+      , Nhân viên kỹ thuật, Nhân viên bảo vệ,... thuộc loại ngạch công chức. Vậy nếu quý vị không tìm thấy nghạch của
+      mình trong loại ngạch Viên chức
+      thì có thể ngạch đó nằm trong loại ngạch Công chức.
+    </p>
+  </app-note-form2>
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <div class="form-item">
+        <!---->
+        <div class="form-item-title" style="top: -25px;">
+          Nhập thông tin (Hướng dẫn xếp hệ số lương - Nghị định 2004)
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Từ ngày </label>
+          <input type="text" formControlName="dateFrom">
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Đến ngày </label>
+          <input type="text" formControlName="dateEnd">
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Loại ngạch </label>
+          <select class="form-control" formControlName="specie">
+            <option value="">Chọn loại ngạch</option>
+          </select>
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Nhóm ngạch </label>
+          <select class="form-control" formControlName="group">
+            <option value="">Nhóm ngạch</option>
+          </select>
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Ngạch </label>
+          <select class="form-control" formControlName="brief">
+            <option value="">Chọn ngạch</option>
+          </select>
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Bậc </label>
+          <select class="form-control" formControlName="level">
+            <option value="">Chọn Bậc</option>
+          </select>
+        </div>
+        <!---->
+        <div class="item-control">
+          <label class="mgr-15">Vượt khung </label>
+          <input type="checkbox" formControlName="" formControlName="excessive">
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>% Vượt khung </label>
+          <input type="text" formControlName="percentExcessive">
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Hệ số lương </label>
+          <input type="text" formControlName="factorSalary">
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Số quyết định </label>
+          <input type="text" formControlName="numberDecide">
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Ngày xét tăng lương dự kiến </label>
+          <input type="text" formControlName="dateSalaryUpExpected">
+        </div>
+        <!---->
+        <div class="action-form">
+          <button (click)="onSave()">Ghi nhận</button>
+          <button>Bỏ qua</button>
+        </div>
+      </div>
+      <!--thong tin phu cap-->
+      <div class="form-item">
+        <div class="form-item-title">
+          Thông tin phụ cấp
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Tỉ lệ phụ cấp nghề hiện tại </label>
+          <input type="text" formControlName="allowanceNow"> %
+        </div>
+        <!---->
+        <div class="item-control">
+          <label>Hệ sô phụ cấp trách nhiệm hiện tại </label>
+          <input type="text" formControlName="responsibilityNow"> %
+        </div>
+        <!---->
+        <div class="action-form">
+          <button>Ghi nhận</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <div class="form-item">
+        <div class="form-item-title">
+          Danh sách
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Từ ngày</th>
+              <th>Đến ngày</th>
+              <th>Ngạch</th>
+              <th>Bậc</th>
+              <th>HSL</th>
+              <th>Số QD </th>
+              <th>Hiên tại</th>
+              <th>Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!---->
+            <tr *ngFor="let item of listSalaryBrief.toArray();let i = index ">
+              <td>{{item.dateFrom}}</td>
+              <td>{{item.dateEnd}}</td>
+              <td>{{item.brief}}</td>
+              <td>{{item.level}}</td>
+              <td>{{item.factorSalary}}</td>
+              <td>{{item.numberDecide}}</td>
+              <td>
+                <span class="action-icon"><i class="fa fa-check"></i></span>
+              </td>
+              <td>
+                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove"></i></span>
+              </td>
+            </tr>
+            <!---->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!---->
+</form>

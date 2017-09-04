@@ -1,0 +1,18 @@
+.form-control{
+  width: 100%;
+}
+select,input{
+  float: none;
+  min-width: 0;
+}
+.form-item .action-form{
+  margin-bottom:0;
+  margin-top: 40px;
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .form-item .action-form{
+    margin-top: 20px;
+  }
+}

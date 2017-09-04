@@ -1,0 +1,68 @@
+<form action="" [formGroup]="formData">
+  <div class="action-form">
+    <button>Khóa dữ liệu</button>
+  </div>
+  <app-note-form>
+    Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
+    Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
+  </app-note-form>
+  <div class="form-item">
+    <div class="form-item-title">
+     Danh sách
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Danh hiệu thi đua </th>
+          <th>Ngày cấp </th>
+          <th>Số quyết định</th>
+          <th>
+            <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="resetForm(formData)"><i
+              class="fa fa-remove icon-remove-update"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+        <tr >
+          <td></td>
+          <td>
+            <select class="form-control" formControlName="title">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </td>
+          <td>
+            <input type="text"  formControlName="dateLicense">
+          </td>
+          <td>
+            <input type="text" formControlName="numberDecide">
+          </td>
+          <td>
+            <span class="action-icon"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="resetForm(formData)"><i
+              class="fa fa-remove icon-remove-update"></i></span>
+          </td>
+        </tr>
+        <!---->
+        <tr *ngFor="let item of listEmulation.toArray();let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.dateLicense}}</td>
+          <td>{{item.numberDecide}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!---->
+</form>

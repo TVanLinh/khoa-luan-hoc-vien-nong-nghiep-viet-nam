@@ -1,0 +1,7 @@
+.form-control{
+  width: 100%;
+}
+select,input{
+  float: none;
+  min-width: 0;
+}

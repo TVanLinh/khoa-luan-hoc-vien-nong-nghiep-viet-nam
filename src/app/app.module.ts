@@ -37,6 +37,9 @@ import { PoliticComponent } from './personnels/politic/politic.component';
 import { ForeignLanguageComponent } from './personnels/foreign-language/foreign-language.component';
 import { BonusDisciplineComponent } from './personnels/bonus-discipline/bonus-discipline.component';
 import { AcademicRankComponent } from './personnels/academic-rank/academic-rank.component';
+import { EmulationTitleComponent } from './personnels/emulation-title/emulation-title.component';
+import { SalaryBriefComponent } from './personnels/salary-brief/salary-brief.component';
+import { ForeignComponent } from './personnels/foreign/foreign.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import { AcademicRankComponent } from './personnels/academic-rank/academic-rank.
     PoliticComponent,
     ForeignLanguageComponent,
     BonusDisciplineComponent,
-    AcademicRankComponent
+    AcademicRankComponent,
+    EmulationTitleComponent,
+    SalaryBriefComponent,
+    ForeignComponent
 
   ],
   imports: [
