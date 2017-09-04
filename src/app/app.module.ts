@@ -43,6 +43,7 @@ import { ForeignComponent } from './personnels/foreign/foreign.component';
 import { ThesisGuideComponent } from './personnels/thesis-guide/thesis-guide.component';
 import { ScienceTopicComponent } from './personnels/science-topic/science-topic.component';
 import { SenimarNewpaperComponent } from './personnels/senimar-newpaper/senimar-newpaper.component';
+import { PublishInfoComponent } from './personnels/publish-info/publish-info.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SenimarNewpaperComponent } from './personnels/senimar-newpaper/senimar-
     ForeignComponent,
     ThesisGuideComponent,
     ScienceTopicComponent,
-    SenimarNewpaperComponent
+    SenimarNewpaperComponent,
+    PublishInfoComponent
 
   ],
   imports: [
