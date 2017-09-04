@@ -34,6 +34,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
     });
   }
 
+
 }
 
 interface InfoTechForm {

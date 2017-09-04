@@ -1,0 +1,95 @@
+<form [formGroup]="formData">
+  <div class="action-form">
+    <button>Ghi nhận</button>
+    <button>Khóa dữ liệu</button>
+  </div>
+  <div class="row form-item " style="margin-left: 0;margin-right: 0">
+    <div class="form-item-title">
+      Thông tin hướn dẫn luận văn/luận án
+    </div>
+    <div class="col-xs-12 col-sm-4 col-sm-push-8">
+      <app-note-form></app-note-form>
+    </div>
+    <!---->
+    <div class="col-xs-12 col-sm-4 ">
+      <div class="item-control" style="padding-top: 20px">
+        <label>Tên luận văn/luận án </label>
+        <input type="text" formControlName="thesisName">
+      </div>
+      <div class="item-control">
+        <label>Năm hướng dẫn </label>
+        <input type="text" formControlName="yearGuide">
+      </div>
+      <div class="item-control">
+        <label>Đạt loại </label>
+        <input type="text" formControlName="speciesObtain">
+      </div>
+    </div>
+    <!---->
+    <div class="col-xs-12 col-sm-4 col-sm-pull-8">
+      <div class="item-control" style="padding-top: 20px">
+        <label>Tên người được hướng dẫn </label>
+        <input type="text" formControlName="namePersonGuide">
+      </div>
+      <div class="item-control">
+        <label>Bậc </label>
+        <select class="form-control" formControlName="level">
+          <option value="">---Chon---</option>
+        </select>
+      </div>
+      <div class="item-control">
+        <label>Cơ sở đào tạo của người được hướng dẫn </label>
+        <input type="text" formControlName="basicTrainningOfPerson">
+      </div>
+      <div class="item-control">
+        <label>Vai trò giảng viên </label>
+        <select class="form-control" formControlName="role">
+          <option value="">---Chon---</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!---->
+  <div class="row">
+    <!--content -->
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên học viên</th>
+            <th>Tên đề tài</th>
+            <th>Bậc</th>
+            <th>Cơ sở đào tạo</th>
+            <th>Tên luận văn/luận án</th>
+            <th>Vai trò</th>
+            <th>Đạt loại</th>
+            <th>
+              <span class="action-icon" (click)="addItem()"><i class="fa fa-plus"></i></span>
+              <span class="action-icon" (click)="resetForm(formData)"><i class="fa fa-remove icon-remove-update "></i></span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listThesiss.toArray();let i = index ">
+              <td>{{i+1}}</td>
+              <td>{{item.thesisName}}</td>
+              <td>{{item.level}}</td>
+              <td>{{item.basicTrainningOfPerson}}</td>
+              <td>{{item.thesisName}}</td>
+              <td>{{item.yearGuide}}</td>
+              <td>{{item.role}}</td>
+              <td>{{item.speciesObtain}}</td>
+              <td>
+                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                <span class="action-icon" ><i class="fa fa-lock"></i></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</form>

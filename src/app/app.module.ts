@@ -40,6 +40,7 @@ import { AcademicRankComponent } from './personnels/academic-rank/academic-rank.
 import { EmulationTitleComponent } from './personnels/emulation-title/emulation-title.component';
 import { SalaryBriefComponent } from './personnels/salary-brief/salary-brief.component';
 import { ForeignComponent } from './personnels/foreign/foreign.component';
+import { ThesisGuideComponent } from './personnels/thesis-guide/thesis-guide.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ForeignComponent } from './personnels/foreign/foreign.component';
     AcademicRankComponent,
     EmulationTitleComponent,
     SalaryBriefComponent,
-    ForeignComponent
+    ForeignComponent,
+    ThesisGuideComponent
 
   ],
   imports: [
