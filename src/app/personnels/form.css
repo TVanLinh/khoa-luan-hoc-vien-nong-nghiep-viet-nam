@@ -24,6 +24,12 @@ form {
   padding: 5px 20px;
 }
 
+.btn-action{
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px 20px;
+}
+
 .form-item {
   border: 1px solid #cccccc;
   position: relative;
@@ -74,7 +80,6 @@ input {
   border-color: #cccccc;
   border-radius: 0;
 }
-
 th,td{
   text-align: center;
   vertical-align: middle !important;

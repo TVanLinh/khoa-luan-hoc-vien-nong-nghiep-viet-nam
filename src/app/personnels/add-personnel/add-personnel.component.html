@@ -1,4 +1,4 @@
-<form [formGroup]="formData" style="border-color: transparent">
+<form [formGroup]="formData"  style="border-color: transparent">
   <div class="col-xs-12 col-sm-8 col-sm-offset-2">
     <div class="form-item">
       <div class="form-item-title">
@@ -42,11 +42,12 @@
         <input [type]="showPass == true?'text':'password'" required formControlName="passWord">
       </div>
       <div class="item-control">
-        <input type="checkbox" style="width: 42%"  (change)="showPass = !showPass ">
+        <label >Hiện rõ </label>
+        <input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">
       </div>
       <div class="item-control">
         <label>Nhập lại mật khẩu: </label>
-        <input type="text" required formControlName="rePassWord">
+        <input type="password" required formControlName="rePassWord">
       </div>
       <div class="action-form mgt-30 mgt-sm-50 text-center">
         <button (click)="onSubmit()" type="submit">Thêm mới</button>

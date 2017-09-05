@@ -48,6 +48,7 @@ import { ProcessTeachingComponent } from './personnels/process-teaching/process-
 import { ProcessEventionComponent } from './personnels/process-evention/process-evention.component';
 import { AddPersonnelComponent } from './personnels/add-personnel/add-personnel.component';
 import { EditPersonnelComponent } from './personnels/edit-personnel/edit-personnel.component';
+import { ProcedureLeaveJobComponent } from './personnels/procedure-leave-job/procedure-leave-job.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { EditPersonnelComponent } from './personnels/edit-personnel/edit-personn
     ProcessTeachingComponent,
     ProcessEventionComponent,
     AddPersonnelComponent,
-    EditPersonnelComponent
+    EditPersonnelComponent,
+    ProcedureLeaveJobComponent
 
   ],
   imports: [

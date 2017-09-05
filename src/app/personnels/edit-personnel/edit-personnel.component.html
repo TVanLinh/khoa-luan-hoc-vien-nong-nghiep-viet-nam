@@ -1,4 +1,4 @@
-<div class="mgb-50" style="border: 1px solid #cccccc;">
+<div class="mgb-50;pdb-15 pdt-15" style="border: 1px solid #cccccc;margin-bottom: 50px;">
   <form [formGroup]="formData" style="border-color: transparent;margin-bottom: 0px;">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2">
       <div class="form-item">
@@ -25,12 +25,12 @@
           <input [type]="showPass == true?'text':'password'" required formControlName="passWord">
         </div>
         <div class="item-control">
-          <label >Hiện â</label>
+          <label >Hiện rõ </label>
           <input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">
         </div>
         <div class="item-control">
           <label>Nhập lại mật khẩu: </label>
-          <input type="text" required formControlName="rePassWord">
+          <input type="password" required formControlName="rePassWord">
         </div>
         <div class="action-form mgt-30 mgt-sm-50 text-center">
           <button (click)="onSubmit()" type="submit">Cập nhật</button>
@@ -60,7 +60,7 @@
           <!---->
 
           <tr>
-            <td>{{(6000*96)/168}}</td>
+            <td>{{1}}</td>
             <td>{{item.personnelCode}}</td>
             <td>{{item.fullName}}</td>
             <td>{{item.dateOfBirth}}</td>
