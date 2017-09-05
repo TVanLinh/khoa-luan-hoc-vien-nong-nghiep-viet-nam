@@ -46,7 +46,7 @@ form {
 input {
   padding: 5px;
 }
-.item-control input[type='text'], .item-control input[type='email'], .item-control input[type='date'], select {
+.item-control input[type='text'], .item-control input[type='email'],.item-control input[type='password'], .item-control input[type='date'], select {
   float: right;
   padding: 5px;
   min-width: 200px;
@@ -86,7 +86,7 @@ th,td{
     margin-bottom: 30px;
   }
 
-  .item-control input[type='text'], .item-control input[type='email'], .item-control input[type='date'], select {
+  .item-control input[type='text'], .item-control input[type='password'],.item-control input[type='email'], .item-control input[type='date'], select {
     min-width: 100%;
     display: block;
     float: none;
@@ -94,7 +94,7 @@ th,td{
 }
 
 @media (max-width: 767px) {
-  .item-control input[type='date'], .item-control input[type='email'], .item-control input[type='text'], select {
+  .item-control input[type='date'],.item-control input[type='password'], .item-control input[type='email'], .item-control input[type='text'], select {
     float: none;
     display: block;
     width: 100%;

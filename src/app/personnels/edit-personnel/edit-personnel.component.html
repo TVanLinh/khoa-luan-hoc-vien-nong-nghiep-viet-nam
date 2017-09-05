@@ -1,0 +1,83 @@
+<div class="mgb-50" style="border: 1px solid #cccccc;">
+  <form [formGroup]="formData" style="border-color: transparent;margin-bottom: 0px;">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <div class="form-item">
+        <div class="form-item-title">
+          Sửa thông tin tài khoản cán bộ
+        </div>
+
+        <div class="item-control">
+          <label>Họ tên: </label>
+          <input type="text" required formControlName="fullName">
+        </div>
+
+        <div class="item-control">
+          <label>Mã cán bộ: </label>
+          <input type="text" required formControlName="personnelCode">
+        </div>
+
+        <div class="item-control">
+          <label>Tên đăng nhập: </label>
+          <input type="text" required formControlName="acountSignIn">
+        </div>
+        <div class="item-control">
+          <label>Mật khẩu: </label>
+          <input [type]="showPass == true?'text':'password'" required formControlName="passWord">
+        </div>
+        <div class="item-control">
+          <label >Hiện â</label>
+          <input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">
+        </div>
+        <div class="item-control">
+          <label>Nhập lại mật khẩu: </label>
+          <input type="text" required formControlName="rePassWord">
+        </div>
+        <div class="action-form mgt-30 mgt-sm-50 text-center">
+          <button (click)="onSubmit()" type="submit">Cập nhật</button>
+          <button (click)="resetForm(formData)">Hủy bỏ</button>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </form>
+  <div class="row ">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Mã cán bộ</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Tài khoản email</th>
+            <th>Username</th>
+            <th>Cập nhật</th>
+            <th>Xóa</th>
+          </tr>
+          </thead>
+          <tbody>
+          <!---->
+
+          <tr>
+            <td>{{(6000*96)/168}}</td>
+            <td>{{item.personnelCode}}</td>
+            <td>{{item.fullName}}</td>
+            <td>{{item.dateOfBirth}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.acountSignIn}}</td>
+            <td>
+              <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+            </td>
+            <td>
+              <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

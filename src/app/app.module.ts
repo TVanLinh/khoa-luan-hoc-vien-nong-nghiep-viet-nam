@@ -46,6 +46,8 @@ import { SenimarNewpaperComponent } from './personnels/senimar-newpaper/senimar-
 import { PublishInfoComponent } from './personnels/publish-info/publish-info.component';
 import { ProcessTeachingComponent } from './personnels/process-teaching/process-teaching.component';
 import { ProcessEventionComponent } from './personnels/process-evention/process-evention.component';
+import { AddPersonnelComponent } from './personnels/add-personnel/add-personnel.component';
+import { EditPersonnelComponent } from './personnels/edit-personnel/edit-personnel.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import { ProcessEventionComponent } from './personnels/process-evention/process-
     SenimarNewpaperComponent,
     PublishInfoComponent,
     ProcessTeachingComponent,
-    ProcessEventionComponent
+    ProcessEventionComponent,
+    AddPersonnelComponent,
+    EditPersonnelComponent
 
   ],
   imports: [
