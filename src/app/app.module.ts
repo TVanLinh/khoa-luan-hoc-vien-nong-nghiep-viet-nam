@@ -49,6 +49,9 @@ import { ProcessEventionComponent } from './personnels/process-evention/process-
 import { AddPersonnelComponent } from './personnels/add-personnel/add-personnel.component';
 import { EditPersonnelComponent } from './personnels/edit-personnel/edit-personnel.component';
 import { ProcedureLeaveJobComponent } from './personnels/procedure-leave-job/procedure-leave-job.component';
+import { ProcedureRetireComponent } from './personnels/procedure-retire/procedure-retire.component';
+import { ProcedureBindJobComponent } from './personnels/procedure-bind-job/procedure-bind-job.component';
+import { ProcedureTransferUnitWorkComponent } from './personnels/procedure-transfer-unit-work/procedure-transfer-unit-work.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +98,10 @@ import { ProcedureLeaveJobComponent } from './personnels/procedure-leave-job/pro
     ProcessEventionComponent,
     AddPersonnelComponent,
     EditPersonnelComponent,
-    ProcedureLeaveJobComponent
+    ProcedureLeaveJobComponent,
+    ProcedureRetireComponent,
+    ProcedureBindJobComponent,
+    ProcedureTransferUnitWorkComponent
 
   ],
   imports: [

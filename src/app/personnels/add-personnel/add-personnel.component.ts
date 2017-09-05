@@ -22,7 +22,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   private initForm() {
     this.formData = this.formBuilder.group({
         organ: ['gff'],
-        deparment: ['gfgf'],
+      department: ['gfgf'],
         personnelCode: [''],
         fullName: [''],
         email: [''],
@@ -42,7 +42,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
 
 interface  AddPersonnelForm {
   organ: string,
-  deparment: string,
+  department: string,
   personnelCode: string,
   fullName: string,
   dateOfBirth: string;

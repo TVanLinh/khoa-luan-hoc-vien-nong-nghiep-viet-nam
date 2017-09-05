@@ -1,0 +1,95 @@
+<form style="padding-top: 25px" action="" [formGroup]="formData">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-item" formGroupName="infoSearch">
+        <div class="form-item-title">
+          Làm thủ tục về hưu trí
+        </div>
+        <div class="item-control">
+          <label>Phòng ban </label>
+          <select class="form-control" formControlName="department">
+            <option value="">---Quan tri mang va an ninh he thong</option>
+          </select>
+        </div>
+        <div class="item-control">
+          <label class="mgr-20 mgr-115">Nhập tên hoặc mã cán bộ để kiếm </label>
+          <input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">
+          <button class="btn-action" (click)="onSearch()">Tìm kiếm</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+          <div class="form-item mgt-15" formGroupName="infoPersonnel">
+            <div class="form-item-title ">
+              Xử lý chuyển cán bộ sang danh sách hưu trí
+            </div>
+            <div class="item-control">
+              <label>Họ tên: </label>
+              <input type="text" required formControlName="fullName">
+            </div>
+
+            <div class="item-control">
+              <label>Mã cán bộ: </label>
+              <input type="text" required formControlName="personnelCode">
+            </div>
+
+            <div class="item-control">
+              <label>Số quyết định : </label>
+              <input type="text" required formControlName="numberDecide">
+            </div>
+            <div class="item-control">
+              <label>Ngày quyết định : </label>
+              <input type="text" required formControlName="dateDecide">
+            </div>
+            <div class="item-control ">
+              <label>Tóm tắt nột dung quyết định : </label>
+              <textarea class="form-control mgb-20" style="width: 100%;height: 150px"  formControlName="contentDecide"> </textarea>
+            </div>
+            <div class="text-center mgt-20">
+              <button class="btn-action" (click)="onProcess()">Ghi nhận  </button>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <!---->
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Mã cán bộ</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Giới tính </th>
+            <th>Thư điện tử </th>
+          </tr>
+          </thead>
+          <tbody>
+          <!---->
+
+          <!--<tr>-->
+          <!--<td>{{1}}</td>-->
+          <!--<td>{{item.personnelCode}}</td>-->
+          <!--<td>{{item.fullName}}</td>-->
+          <!--<td>{{item.dateOfBirth}}</td>-->
+          <!--<td>{{item.email}}</td>-->
+          <!--<td>{{item.acountSignIn}}</td>-->
+          <!--<td>-->
+          <!--<span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>-->
+          <!--</td>-->
+          <!--<td>-->
+          <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
+          <!--</td>-->
+          <!--</tr>-->
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</form>
+
