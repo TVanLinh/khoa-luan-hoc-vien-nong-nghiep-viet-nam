@@ -52,6 +52,7 @@ import { ProcedureLeaveJobComponent } from './personnels/procedure-leave-job/pro
 import { ProcedureRetireComponent } from './personnels/procedure-retire/procedure-retire.component';
 import { ProcedureBindJobComponent } from './personnels/procedure-bind-job/procedure-bind-job.component';
 import { ProcedureTransferUnitWorkComponent } from './personnels/procedure-transfer-unit-work/procedure-transfer-unit-work.component';
+import { ProcedureTransferDepartmentComponent } from './personnels/procedure-transfer-department/procedure-transfer-department.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { ProcedureTransferUnitWorkComponent } from './personnels/procedure-trans
     ProcedureLeaveJobComponent,
     ProcedureRetireComponent,
     ProcedureBindJobComponent,
-    ProcedureTransferUnitWorkComponent
+    ProcedureTransferUnitWorkComponent,
+    ProcedureTransferDepartmentComponent
 
   ],
   imports: [
