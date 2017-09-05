@@ -44,6 +44,7 @@ import { ThesisGuideComponent } from './personnels/thesis-guide/thesis-guide.com
 import { ScienceTopicComponent } from './personnels/science-topic/science-topic.component';
 import { SenimarNewpaperComponent } from './personnels/senimar-newpaper/senimar-newpaper.component';
 import { PublishInfoComponent } from './personnels/publish-info/publish-info.component';
+import { ProcessTeachingComponent } from './personnels/process-teaching/process-teaching.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { PublishInfoComponent } from './personnels/publish-info/publish-info.com
     ThesisGuideComponent,
     ScienceTopicComponent,
     SenimarNewpaperComponent,
-    PublishInfoComponent
+    PublishInfoComponent,
+    ProcessTeachingComponent
 
   ],
   imports: [
