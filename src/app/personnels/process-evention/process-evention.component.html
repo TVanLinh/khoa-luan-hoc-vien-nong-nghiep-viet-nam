@@ -1,0 +1,75 @@
+<form action="" [formGroup]="formData">
+  <div class="action-form">
+    <button>Khóa dữ liệu</button>
+  </div>
+  <app-note-form>
+    Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
+    Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
+  </app-note-form>
+
+  <div class="form-item">
+    <div class="form-item-title">
+      Quá trình giảng dạy
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên phát minh/sáng chế/văn bằng bảo hộ  </th>
+          <th>Cơ quan cấp  </th>
+          <th>Ngày cấp </th>
+          <th>Số tác giản </th>
+          <th>Diễn giải  </th>
+          <th>
+            <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="resetForm(formData)"><i
+              class="fa fa-remove icon-remove-update"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+        <tr>
+          <td></td>
+          <td>
+            <input type="text" formControlName="nameEvention">
+          </td>
+          <td>
+            <input type="text" formControlName="organLicense">
+          </td>
+          <td>
+            <input type="text"  formControlName="dateOfIssue" >
+          </td>
+          <td>
+            <input type="number" min="1" style="width:70px;" formControlName="numberAuthor" >
+          </td>
+          <td>
+            <input type="text" style="width:70px;" formControlName="description">
+          </td>
+          <td>
+            <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
+            <!--<span class="action-icon" (click)="resetForm(formData)"><i-->
+            <!--class="fa fa-remove icon-remove-update"></i></span>-->
+          </td>
+        </tr>
+        <!---->
+        <tr *ngFor="let item of listEvention.toArray();let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.nameEvention}}</td>
+          <td>{{item.organLicense}}</td>
+          <td>{{item.dateOfIssue}}</td>
+          <td>{{item.numberAuthor}}</td>
+          <td>{{item.description}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</form>
