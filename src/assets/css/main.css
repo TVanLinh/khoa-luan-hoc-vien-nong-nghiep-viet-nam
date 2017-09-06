@@ -41,3 +41,14 @@ body {
     width: 450px !important;
   }
 }
+
+/*dung trong file app-menu*/
+.height-i-auto{
+  height: auto !important;
+}
+
+/*custom model*/
+.modal{
+  /*position: absolute !important;*/
+  z-index: 99999 ;
+}

@@ -1,0 +1,23 @@
+.app-head{
+  display: table;
+  background-color: rgb(17,46,76);
+  width: 100%;
+  position: fixed;
+  z-index: 8888;
+  padding: 10px;
+}
+
+.app-logo{
+  width:40%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;;
+}
+
+.app-name {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 30px;
+  color: #ffffff;
+
+}
