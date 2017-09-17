@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-procedure-leave-job',
@@ -8,7 +9,9 @@ import {BaseFormComponent} from "../../base-form.component";
   styleUrls: ['../../form.css', './procedure-leave-job.component.css']
 })
 export class ProcedureLeaveJobComponent extends BaseFormComponent implements OnInit {
-  formData: FormGroup;
+  @ViewChild('modalLeaveJob') modalLeaveJob: ModalComponent;
+  formSearch: FormGroup;
+  formLeaveJob: FormGroup;
 
   constructor() {
     super();
@@ -19,23 +22,21 @@ export class ProcedureLeaveJobComponent extends BaseFormComponent implements OnI
   }
 
   initForm() {
-    this.formData = this.formBuilder.group({
-      infoSearch: this.formBuilder.group({
-        department: [''],
-        nameOrCodePersonnel: ['']
-      }),
-      infoPersonnel: this.formBuilder.group({
-        fullName: [''],
-        personnelCode: [''],
-        numberDecide: [''],
-        dateDecide: [''],
-        contentDecide: ['']
-      })
+    this.formSearch = this.formBuilder.group({
+      department: [''],
+      nameOrCodePersonnel: ['']
     });
+    this.formLeaveJob = this.formBuilder.group({
+      fullName: [''],
+      personnelCode: [''],
+      numberDecide: [''],
+      dateDecide: [''],
+      contentDecide: ['']
+    })
   }
 
   onSearch() {
-    console.log(this.formData.value);
+    console.log(this.formSearch.value);
   }
 
   onProcess() {

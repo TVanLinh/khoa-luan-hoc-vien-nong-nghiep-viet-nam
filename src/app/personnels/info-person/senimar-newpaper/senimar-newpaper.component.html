@@ -1,4 +1,4 @@
-<form [formGroup]="formData">
+<form>
   <div class="action-form">
     <button>Ghi nhận</button>
     <button>Bỏ qua</button>
@@ -25,9 +25,7 @@
               <th>Đồng tác giả</th>
               <th>Trong nước/nước ngoài</th>
               <th>
-                <span class="action-icon" (click)="addItem('SENIMAR')"><i class="fa fa-plus"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
+                <span class="action-icon" (click)="openModal(seminaModal)"><i class="fa fa-plus"></i></span>
               </th>
             </tr>
             </thead>
@@ -43,8 +41,8 @@
               <td>{{item.authors}}</td>
               <td>{{item.location}}</td>
               <td>
-                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                <span class="action-icon" (click)="editItem('SENIMAR',i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem('SENIMAR',i)"><i class="fa fa-remove "></i></span>
                 <span class="action-icon"><i class="fa fa-lock"></i></span>
               </td>
             </tr>
@@ -57,106 +55,8 @@
 
 
     <!---  Thông tin  báo cao khoa học  -->
-    <div class="col-xs-12" id="senimar" [hidden]="!openSenimar">
-      <div class="form-item" formGroupName="senimar">
-        <div class="form-item-title">
-          Thông tin báo cáo khoa học
-        </div>
-        <div class="row" >
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2">
-            <div class="item-control">
-              <label>Tên báo cáo </label>
-              <input type="text" formControlName="name">
-            </div>
-            <div class="item-control">
-              <label>Tên kỷ hiếu </label>
-              <input type="text" formControlName="nameYearBook">
-            </div>
-            <div class="item-control">
-              <label>Tên hôi nghị </label>
-              <input type="text" formControlName="nameConvention">
-            </div>
-            <div class="item-control">
-              <label>Trang đăng </label>
-              <input type="text" formControlName="pagePost">
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-4 ">
-            <div class="item-control">
-              <label>Năm </label>
-              <input type="text" formControlName="year">
-            </div>
-            <div class="item-control">
-              <label>Số tác giả </label>
-              <input type="text" formControlName="numberAuthor">
-            </div>
-            <div class="item-control">
-              <label>Trong nước/ngoài nước </label>
-              <select class="form-control" formControlName="location">
-                <option value="">Trong nước</option>
-                <option value="">Ngoài nước</option>
-              </select>
-            </div>
-            <div class="item-control">
-              <label>Đồng tác giả </label>
-              <textarea formControlName="authors"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-    <!---->
 
-    <div class="col-xs-12" id="newspaper"  [hidden]="!openNewspaper">
-      <div class="form-item" formGroupName="newspaper">
-        <div class="form-item-title">
-          Thông tin bài báo khoa học
-        </div>
-        <div class="row" >
-          <div class="col-xs-12 col-sm-4 col-sm-offset-2">
-            <div class="item-control">
-              <label>Tên bài báo </label>
-              <input type="text" formControlName="name">
-            </div>
-            <div class="item-control">
-              <label>Tên tạp chí </label>
-              <input type="text" formControlName="nameMagazine">
-            </div>
-            <div class="item-control">
-              <label>Tạp chỉ số </label>
-              <input type="text" formControlName="numberMagazine">
-            </div>
-            <div class="item-control">
-              <label>Trang đăng </label>
-              <input type="text" formControlName="pagePost">
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-4 ">
-            <div class="item-control">
-              <label>Năm </label>
-              <input type="text" formControlName="year">
-            </div>
-            <div class="item-control">
-              <label>Số tác giả </label>
-              <input type="text" formControlName="numberAuthor">
-            </div>
-            <div class="item-control">
-              <label>Trong nước/ngoài nước </label>
-              <select  class="form-control" formControlName="location">
-                <option value="">Trong nước</option>
-                <option value="">Ngoài nước</option>
-              </select>
-            </div>
-            <div class="item-control">
-              <label>Đồng tác giả </label>
-              <textarea formControlName="authors"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
+    <!---->
     <!---->
     <div class="col-xs-12">
       <div class="form-item">
@@ -177,9 +77,7 @@
               <th>Đồng tác giả</th>
               <th>Trong nước/nước ngoài</th>
               <th>
-                <span class="action-icon" (click)="addItem('NEWSPAPER')"><i class="fa fa-plus"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
+                <span class="action-icon" (click)="openModal(newspaperModal)"><i class="fa fa-plus"></i></span>
               </th>
             </tr>
             </thead>
@@ -195,8 +93,8 @@
               <td>{{item.authors}}</td>
               <td>{{item.location}}</td>
               <td>
-                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                <span class="action-icon" (click)="editItem('NEWSPAPER',i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem('NEWSPAPER',i)"><i class="fa fa-remove "></i></span>
                 <span class="action-icon"><i class="fa fa-lock"></i></span>
               </td>
             </tr>
@@ -207,3 +105,137 @@
     </div>
   </div>
 </form>
+
+<modal #seminaModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(seminaModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formSemina">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+              <div class="item-control">
+                <label>Tên báo cáo </label>
+                <input type="text" formControlName="name">
+              </div>
+              <div class="item-control">
+                <label>Tên kỷ hiếu </label>
+                <input type="text" formControlName="nameYearBook">
+              </div>
+              <div class="item-control">
+                <label>Tên hôi nghị </label>
+                <input type="text" formControlName="nameConvention">
+              </div>
+              <div class="item-control">
+                <label>Trang đăng </label>
+                <input type="text" formControlName="pagePost">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 ">
+              <div class="item-control">
+                <label>Năm </label>
+                <input type="text" formControlName="year">
+              </div>
+              <div class="item-control">
+                <label>Số tác giả </label>
+                <input type="text" formControlName="numberAuthor">
+              </div>
+              <div class="item-control">
+                <label>Trong nước/ngoài nước </label>
+                <select class="form-control" formControlName="location">
+                  <option value="">Trong nước</option>
+                  <option value="">Ngoài nước</option>
+                </select>
+              </div>
+              <div class="item-control">
+                <label>Đồng tác giả </label>
+                <textarea formControlName="authors"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem('SENIMAR')">{{positionSeminaUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>
+
+<modal #newspaperModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(newspaperModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formNewspaper">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+              <div class="item-control">
+                <label>Tên bài báo </label>
+                <input type="text" formControlName="name">
+              </div>
+              <div class="item-control">
+                <label>Tên tạp chí </label>
+                <input type="text" formControlName="nameMagazine">
+              </div>
+              <div class="item-control">
+                <label>Tạp chỉ số </label>
+                <input type="text" formControlName="numberMagazine">
+              </div>
+              <div class="item-control">
+                <label>Trang đăng </label>
+                <input type="text" formControlName="pagePost">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 ">
+              <div class="item-control">
+                <label>Năm </label>
+                <input type="text" formControlName="year">
+              </div>
+              <div class="item-control">
+                <label>Số tác giả </label>
+                <input type="text" formControlName="numberAuthor">
+              </div>
+              <div class="item-control">
+                <label>Trong nước/ngoài nước </label>
+                <select class="form-control" formControlName="location">
+                  <option value="">Trong nước</option>
+                  <option value="">Ngoài nước</option>
+                </select>
+              </div>
+              <div class="item-control">
+                <label>Đồng tác giả </label>
+                <textarea formControlName="authors"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem('NEWSPAPER')">{{positionNewspaperUpdate == -1?'Thêm':'Cập nhật'}}
+    </button>
+  </modal-footer>
+
+</modal>
+
+
+

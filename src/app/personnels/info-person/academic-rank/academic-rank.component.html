@@ -1,5 +1,6 @@
-<form action="" [formGroup]="formData">
+<form action="">
   <div class="action-form">
+    <button (click)="onSave()">Ghi nhận</button>
     <button (click)="onSave()">Khóa dữ liệu</button>
   </div>
   <div class="form-item">
@@ -11,38 +12,16 @@
         <thead>
         <tr>
           <th>STT</th>
-          <th>Học hàm </th>
-          <th>Nơi công nhận </th>
-          <th>Năm phong </th>
+          <th>Học hàm</th>
+          <th>Nơi công nhận</th>
+          <th>Năm phong</th>
           <th>
+            <span class="action-icon" (click)="openModal(academicRank)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
         <!---->
-        <tr formGroupName="academicRank">
-          <td></td>
-          <td>
-            <select class="form-control" formControlName="rank">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <input type="text" formControlName="placeReceive">
-          </td>
-
-          <td>
-            <input type="text" formControlName="yearReceive">
-          </td>
-
-          <td>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetFormData('academic')"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
-
         <tr *ngFor="let item of listRankAd.toArray();let i = index ">
           <td>{{i+1}}</td>
           <td>{{item.rank}}</td>
@@ -51,7 +30,7 @@
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
 
@@ -69,34 +48,15 @@
         <thead>
         <tr>
           <th>STT</th>
-          <th>Danh hiệu nhà giáo </th>
-          <th>Năm phong </th>
+          <th>Danh hiệu nhà giáo</th>
+          <th>Năm phong</th>
           <th>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetFormData('title')"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(titleTeachers)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
-        <tbody>
-        <tr formGroupName="titleTeachers">
-          <td></td>
-          <td>
-            <select class="form-control" formControlName="title">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <input type="text" formControlName="yearReceive">
-          </td>
-          <td>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetFormData('title')"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
 
+        <tbody>
         <tr *ngFor="let item of listTitleTeachers.toArray();let i = index ">
           <td>{{i+1}}</td>
           <td>{{item.title}}</td>
@@ -104,13 +64,94 @@
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
-
         </tbody>
       </table>
     </div>
   </div>
   <!---->
 </form>
+
+
+<modal #academicRank size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(academicRank)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formAcademicRank">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+          <div class="item-control pdt-i-0">
+            <label>Học hàm</label>
+            <select class="form-control" formControlName="rank">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+          <!---->
+
+          <div class="item-control">
+            <label>Nơi công nhận</label>
+            <input type="text" formControlName="placeReceive">
+          </div>
+
+          <div class="item-control  ">
+            <label>Năm phong</label>
+            <input type="text" formControlName="yearReceive">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdateAcademicRank == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>
+
+
+<modal #titleTeachers size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(titleTeachers)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formTitleTeachers">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+          <div class="item-control pdt-i-0">
+            <label>Học hàm</label>
+            <select class="form-control" formControlName="title">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control ">
+            <label>Năm phong</label>
+            <input type="date" formControlName="yearReceive">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdateTitleTeachers == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

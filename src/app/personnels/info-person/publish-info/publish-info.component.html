@@ -1,13 +1,9 @@
-<form [formGroup]="formData">
+<form>
   <div class="action-form">
     <button>Ghi nhận</button>
     <button>Khóa dữ liệu</button>
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <app-note-form></app-note-form>
-    </div>
-    <!---->
     <div class="col-xs-12">
       <div class="form-item">
         <div class="form-item-title">
@@ -23,28 +19,11 @@
               <th>Nhà xuất bản</th>
               <th>Vai trò</th>
               <th>
-                <span class="action-icon" (click)="addItem()"><i class="fa fa-plus"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
+                <span class="action-icon" (click)="openModal(publish)"><i class="fa fa-plus"></i></span>
               </th>
             </tr>
             </thead>
             <tbody>
-
-            <tr>
-              <td></td>
-              <td><input type="text" formControlName="name"></td>
-              <td><input type="text" formControlName="year"></td>
-              <td><input type="text" formControlName="publishCompany"></td>
-              <td><select class="form-control" formControlName="role">
-                <option value="">---Chọn---</option>
-              </select></td>
-              <td>
-                <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
-              </td>
-            </tr>
             <!--content-->
             <tr *ngFor="let item of listPublish.toArray();let i = index">
               <td>{{i+1}}</td>
@@ -66,3 +45,51 @@
     </div>
   </div>
 </form>
+
+
+
+<modal #publish size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(publish)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+          <div class="item-control pdt-i-0">
+            <label>Tên sách </label>
+            <input type="text" formControlName="name">
+          </div>
+          <!---->
+
+          <div class="item-control">
+            <label class="mgr-20">Năm xuất bản</label>
+            <input type="number" formControlName="year" style="width: 80px">
+          </div>
+
+          <div class="item-control  ">
+            <label>Nhà xuất bản</label>
+            <input type="text" formControlName="publishCompany">
+          </div>
+          <div class="item-control  ">
+            <label>Vai trò </label>
+            <select class="form-control" formControlName="role">
+              <option value="">---Chọn---</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

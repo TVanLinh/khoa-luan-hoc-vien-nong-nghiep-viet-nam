@@ -1,21 +1,27 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-bonus-discipline',
   templateUrl: './bonus-discipline.component.html',
   styleUrls: ['../../form.css', './bonus-discipline.component.css']
 })
 export class BonusDisciplineComponent extends BaseFormComponent implements OnInit {
-  formData: FormGroup;
+  @ViewChild('modalDiscipline') modalDiscipline: ModalComponent;
+  @ViewChild('modalBonus') modalBonus: ModalComponent;
+  formDataDiscipline: FormGroup;
+  formDataBonus: FormGroup;
 
+  positionUpdateDiscip = -1;
+  positionUpdateBonus  = -1;
   listBonus = new Collections.LinkedList<BonusDisciplineForm>();
   listDiscipline = new Collections.LinkedList<BonusDisciplineForm>();
 
   constructor() {
     super();
-    let item:BonusDisciplineForm = {
+    let item: BonusDisciplineForm = {
       rankDecide: "Hoc vien",
       form: "Giay khen",
       numberDecide: "AH9",
@@ -31,26 +37,24 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   }
 
   initForm() {
-    this.formData = this.formBuilder.group({
-      bonusData: this.formBuilder.group({
-        rankDecide: [''],
-        form: [''],
-        numberDecide: [''],
-        dateDecide: [''],
-        reason: ['']
-      }),
-      disciplineData: this.formBuilder.group({
-        rankDecide: [''],
-        form: [''],
-        numberDecide: [''],
-        dateDecide: [''],
-        reason: ['']
-      })
+    this.formDataDiscipline = this.formBuilder.group({
+      rankDecide: [''],
+      form: [''],
+      numberDecide: [''],
+      dateDecide: [''],
+      reason: ['']
+    });
+    this.formDataBonus = this.formBuilder.group({
+      rankDecide: [''],
+      form: [''],
+      numberDecide: [''],
+      dateDecide: [''],
+      reason: ['']
     })
   }
 
   onSave() {
-    console.log(this.formData.value);
+    console.log(this.formDataDiscipline.value);
   }
 }
 

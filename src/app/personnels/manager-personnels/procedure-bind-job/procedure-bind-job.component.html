@@ -1,4 +1,4 @@
-<form  style="padding-top: 25px" action="" [formGroup]="formData">
+<form  style="padding-top: 25px" action="" [formGroup]="formSearch">
   <div class="row">
     <div class="col-xs-12">
       <div class="form-item" formGroupName="infoSearch">
@@ -12,45 +12,10 @@
           </select>
         </div>
         <div class="item-control">
-          <label class="mgr-20 mgr-115">Nhập tên hoặc mã cán bộ để kiếm </label>
+          <label class="mgr-20 " style="margin-right: 116px;">Nhập tên hoặc mã cán bộ để kiếm </label>
           <input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">
           <button class="btn-action" (click)="onSearch()">Tìm kiếm</button>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-          <div class="form-item mgt-15" formGroupName="infoPersonnel">
-            <div class="form-item-title ">
-              Xử lý buộc thôi việc
-            </div>
-            <div class="item-control">
-              <label>Họ tên: </label>
-              <input type="text" required formControlName="fullName">
-            </div>
-
-            <div class="item-control">
-              <label>Mã cán bộ: </label>
-              <input type="text" required formControlName="personnelCode">
-            </div>
-
-            <div class="item-control">
-              <label>Số quyết định : </label>
-              <input type="text" required formControlName="numberDecide">
-            </div>
-            <div class="item-control">
-              <label>Ngày quyết định : </label>
-              <input type="text" required formControlName="dateDecide">
-            </div>
-            <div class="item-control ">
-              <label>Tóm tắt nột dung quyết định : </label>
-              <textarea class="form-control mgb-20" style="width: 100%;height: 150px"  formControlName="contentDecide"> </textarea>
-            </div>
-            <div class="text-center mgt-20">
-              <button class="btn-action" (click)="onProcess()">Xử lý nghỉ việc </button>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
       </div>
     </div>
     <!---->
@@ -58,7 +23,7 @@
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
-          <tr>
+          <tr (click)="openModal(modalBindJob)">
             <th>STT</th>
             <th>Mã cán bộ</th>
             <th>Họ tên</th>
@@ -93,3 +58,49 @@
 
 </form>
 
+<modal #modalBindJob size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalBindJob)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formBindJob">
+      <div class="row">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+              <div class="item-control">
+                <label>Họ tên: </label>
+                <input type="text" required formControlName="fullName">
+              </div>
+
+              <div class="item-control">
+                <label>Mã cán bộ: </label>
+                <input type="text" required formControlName="personnelCode">
+              </div>
+
+              <div class="item-control">
+                <label>Số quyết định : </label>
+                <input type="text" required formControlName="numberDecide">
+              </div>
+              <div class="item-control">
+                <label>Ngày quyết định : </label>
+                <input type="text" required formControlName="dateDecide">
+              </div>
+              <div class="item-control ">
+                <label>Tóm tắt nột dung quyết định : </label>
+                <textarea class="form-control mgb-20" style="width: 100%;height: 150px"  formControlName="contentDecide"> </textarea>
+              </div>
+            </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="onProcess()">Xử lý nghỉ việc </button>
+  </modal-footer>
+
+</modal>

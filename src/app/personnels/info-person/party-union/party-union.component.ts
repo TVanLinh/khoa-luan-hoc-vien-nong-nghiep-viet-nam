@@ -3,13 +3,14 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 // import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import * as Collections from "typescript-collections";
 import LinkedList from "typescript-collections/dist/lib/LinkedList";
+import {BaseFormComponent} from "../../base-form.component";
 declare const jQuery: any;
 @Component({
   selector: 'app-party-union',
   templateUrl: './party-union.component.html',
   styleUrls: ['../../form.css', './party-union.component.css']
 })
-export class PartyUnionComponent implements OnInit {
+export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
   formData: FormGroup;
   formDetailParty: FormGroup;
@@ -21,7 +22,8 @@ export class PartyUnionComponent implements OnInit {
 
   cssClassModal: string = 'my-modal-lg';
 
-  constructor(private formBuilder: FormBuilder, private eleRef: ElementRef) {
+  constructor(private eleRef: ElementRef) {
+    super();
   }
 
   ngOnInit() {

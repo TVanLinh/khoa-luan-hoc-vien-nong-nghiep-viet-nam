@@ -9,7 +9,7 @@ form {
   margin-bottom: 30px;
 }
 
-.action-icon{
+.action-icon {
   cursor: pointer;
   /*display: block;*/
   display: inline-block;
@@ -17,14 +17,25 @@ form {
   /*margin-bottom:5px;*/
 }
 
-
 .action-form button {
   background: #fff;
   border: 1px solid #ccc;
   padding: 5px 20px;
 }
 
-.btn-action{
+button:hover, .btn-action:hover {
+  transition: 0.5s ease-in-out;
+  background: #c799b7 !important;
+  border-color: #c799b7 !important;
+  color: #fff;
+  font-size: 14px;
+}
+
+button:focus, button:hover, button:active {
+  outline: none;
+}
+
+.btn-action {
   background: #fff;
   border: 1px solid #ccc;
   padding: 5px 20px;
@@ -41,26 +52,32 @@ form {
 .form-item label {
   font-weight: 400;
 }
+
 .form-item table {
   margin-top: 15px;
 }
+
 .item-control {
   padding-top: 10px;
   font-size: 13px;
   clear: both;
 }
+
 input {
   padding: 5px;
 }
-.item-control input[type='text'], .item-control input[type='email'],.item-control input[type='password'], .item-control input[type='date'], select {
+
+.item-control input[type='text'], .item-control input[type='email'], .item-control input[type='password'], .item-control input[type='date'], select {
   float: right;
   padding: 5px;
   min-width: 200px;
 }
-.item-control input[type='number']{
+
+.item-control input[type='number'] {
   padding: 5px;
   width: 80px;
 }
+
 .item-control input[type='radio'], .item-control input[type='checkbox'] {
   /*float: right;*/
   /*width: 60%;*/
@@ -75,12 +92,14 @@ input {
   background-color: #ffffff;
   font-size: 16px;
 }
-.form-control{
+
+.form-control {
   width: auto;
   border-color: #cccccc;
   border-radius: 0;
 }
-th,td{
+
+th, td {
   text-align: center;
   vertical-align: middle !important;
 }
@@ -91,7 +110,7 @@ th,td{
     margin-bottom: 30px;
   }
 
-  .item-control input[type='text'], .item-control input[type='password'],.item-control input[type='email'], .item-control input[type='date'], select {
+  .item-control input[type='text'], .item-control input[type='password'], .item-control input[type='email'], .item-control input[type='date'], select {
     min-width: 100%;
     display: block;
     float: none;
@@ -99,7 +118,7 @@ th,td{
 }
 
 @media (max-width: 767px) {
-  .item-control input[type='date'],.item-control input[type='password'], .item-control input[type='email'], .item-control input[type='text'], select {
+  .item-control input[type='date'], .item-control input[type='password'], .item-control input[type='email'], .item-control input[type='text'], select {
     float: none;
     display: block;
     width: 100%;
@@ -109,7 +128,8 @@ th,td{
     float: none !important;
     width: auto !important;
   }
-  .action-icon{
+
+  .action-icon {
     display: inline-block;
   }
 }
@@ -118,7 +138,12 @@ th,td{
   border: 1px solid;
   padding: 0 3px;
 }
-label{
+
+label {
   font-weight: 400;
 }
 
+input:focus,select:focus{
+  outline: none !important;
+  box-shadow: none;
+}

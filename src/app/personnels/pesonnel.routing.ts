@@ -25,6 +25,8 @@ import {ProcedureRetireComponent} from "./manager-personnels/procedure-retire/pr
 import {ProcedureBindJobComponent} from "app/personnels/manager-personnels/procedure-bind-job/procedure-bind-job.component";
 import {ForeignComponent} from "app/personnels/info-person/foreign/foreign.component";
 import {LanguageTeachnolyPoliticComponent} from "app/personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
+import {TrainComponent} from "./info-person/process-train/train.component";
+import {ProcessTeachingComponent} from "./info-person/process-teaching/process-teaching.component";
 
 
 const routes: Routes = [
@@ -67,6 +69,12 @@ const routes: Routes = [
       path: 'publish-info', component: PublishInfoComponent
     }, {
       path: 'science-topic', component: ScienceTopicComponent
+    },
+    {
+      path: 'process-train', component: TrainComponent
+    },
+    {
+      path: 'process-teaching', component: ProcessTeachingComponent
     },
     {
       path: 'add-personnel', component: AddPersonnelComponent

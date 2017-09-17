@@ -12,32 +12,11 @@
         <th>Năm cấp</th>
         <th>Thời hạn</th>
         <th>
-          <span class="action-icon"><i class="fa fa-plus"></i></span>
-          <span class="action-icon" (click)="resetForm(formData)"><i
-            class="fa fa-remove icon-remove-update"></i></span>
+          <span class="action-icon" (click)="openModal(technologyModal)"><i class="fa fa-plus"></i></span>
         </th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td></td>
-        <td>
-          <select name="" id="" class="form-control" formControlName="level">
-            <option value="">---------Chọn--------</option>
-          </select>
-        </td>
-        <td>
-          <input type="text" class="form-control date" formControlName="yearLicense">
-        </td>
-        <td>
-          <input type="text" class="form-control" formControlName="deadLine">
-        </td>
-        <td>
-          <span class="action-icon"><i class="fa fa-save"></i></span>
-          <span class="action-icon" (click)="resetForm(formData)"><i
-            class="fa fa-remove icon-remove-update"></i></span>
-        </td>
-      </tr>
       <!--Content-->
       <tr>
         <td>1</td>
@@ -55,3 +34,47 @@
     </table>
   </div>
 </form>
+
+
+
+<modal #technologyModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(technologyModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+          <div class="item-control pdt-i-0">
+            <label>Trình độ tin học</label>
+            <select  class="form-control" formControlName="level">
+              <option value="">---------Chọn--------</option>
+            </select>
+          </div>
+          <!---->
+
+          <div class="item-control">
+            <label class="mgr-20">Năm cấp</label>
+            <input type="number" style="width: 80px" formControlName="yearLicense">
+          </div>
+
+          <div class="item-control">
+            <label>Thời hạn</label>
+            <input type="text" class="form-control" formControlName="deadLine">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

@@ -1,12 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {BaseFormComponent} from "../../base-form.component";
 
 @Component({
   selector: 'app-curriculum-vitae',
   templateUrl: './curriculum-vitae.component.html',
   styleUrls: ['../../form.css', './curriculum-vitae.component.css']
 })
-export class CurriculumVitaeComponent implements OnInit {
+export class CurriculumVitaeComponent extends BaseFormComponent implements OnInit {
 
   infoBasic = {
     image: "https://scontent.fhan5-1.fna.fbcdn.net/v/t1.0-9/20155874_814558885374479_7866568993068759970_n.jpg?oh=c57bfe0ba86f10f060ee960b7276bb1c&oe=5A2D2D58",
@@ -72,7 +73,8 @@ export class CurriculumVitaeComponent implements OnInit {
 
   formCV: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
+    super();
   }
 
   ngOnInit() {

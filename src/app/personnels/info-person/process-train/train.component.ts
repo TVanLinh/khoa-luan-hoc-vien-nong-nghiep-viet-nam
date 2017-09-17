@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-train',
@@ -8,8 +9,15 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['../../form.css', './train.component.css']
 })
 export class TrainComponent extends BaseFormComponent implements OnInit {
-
+  @ViewChild('trainShortTimeModal') trainShortTimeModal: ModalComponent;
+  @ViewChild('trainLongTimeModal') trainLongTimeModal: ModalComponent;
   formData: FormGroup;
+  formShortTime: FormGroup;
+  formLongTime: FormGroup;
+
+  positionUpdateLongTime = -1;
+  positionUpdateShortTime = -1;
+
   itemLong: LongTimeTrainForm = {
     yearFrom: '2015',
     yearEnd: '2017',
@@ -39,25 +47,26 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
 
   private  initForm() {
     this.formData = this.formBuilder.group({
-      generalEdu: [''],
-      longTime: this.formBuilder.group({
-        yearFrom: [''],
-        yearEnd: [''],
-        specialized: [''],//chuyen nghanh
-        levelLearn: [''],//bac hoc
-        academicRank: [''],//hoc vi
-        spice: [''],//xep loai
-        school: [''],
-        national: ['']
-      }),
-      shortTime: this.formBuilder.group({
-        dateFrom: [''],
-        numberMonth: [''],
-        certificate: [''],
-        placeTrain: [''],
-        national: [''],
-        description: ['']
-      })
+      generalEdu: ['']
+    });
+
+    this.formLongTime = this.formBuilder.group({
+      yearFrom: [''],
+      yearEnd: [''],
+      specialized: [''],//chuyen nghanh
+      levelLearn: [''],//bac hoc
+      academicRank: [''],//hoc vi
+      spice: [''],//xep loai
+      school: [''],
+      national: ['']
+    });
+    this.formShortTime = this.formBuilder.group({
+      dateFrom: [''],
+      numberMonth: [''],
+      certificate: [''],
+      placeTrain: [''],
+      national: [''],
+      description: ['']
     });
   }
 
@@ -67,7 +76,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
 
   resetFormData(target: string) {
     if (target === 'short-time') {
-      this.formData.patchValue({
+      this.formShortTime.patchValue({
         shortTime: {
           dateFrom: '',
           numberMonth: 1,
@@ -78,7 +87,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
         }
       });
     } else if (target === 'long-time') {
-      this.formData.patchValue({
+      this.formLongTime.patchValue({
         longTime: {
           yearFrom: '',
           yearEnd: '',

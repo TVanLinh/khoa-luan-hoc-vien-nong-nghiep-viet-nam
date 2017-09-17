@@ -1,5 +1,5 @@
 .item-control{
-  text-align: center;
+  text-align: left;
 }
 @media (max-width: 767px) {
   .item-control{

@@ -1,75 +1,13 @@
-<form [formGroup]="formData">
-  <app-note-form>
-    <p>Ô nhập ngày tháng, nếu quý vị không nhớ rõ thì nhập là ngày 01, tháng năm bắt buộc phải nhập chính sác.</p>
-    <p>Khi chiết xuất dữ liệu chỉ sử dụng tháng năm</p>
-  </app-note-form>
+<form>
   <div class="form-item">
     <div class="form-item-title">
       Thông tin quá trình đi nước ngoài
     </div>
-    <div class="action-form mgb-20">
+    <div class="action-form" style="margin-bottom: 15px">
       <button>Ghi nhận</button>
       <button>Khóa dữ liêu</button>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="item-control">
-          <label>Từ ngày </label>
-          <input type="text" formControlName="dateFrom">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Đến ngày </label>
-          <input type="text" formControlName="dateEnd">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Đi nước </label>
-          <select class="form-control" formControlName="national">
-            <option value="">Đức</option>
-          </select>
-        </div>
-        <!---->
-        <div class="item-control">
-          <input type="radio" value="tcnn" formControlName="organInvite"> <span class="mgr-15">Tổ chức nước ngoài mời</span>
-          <input type="radio" value="cn" formControlName="organInvite"><span class="mgl-15">Cá nhân mời</span>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Chi phí đi lại</label>
-          <select class="form-control" formControlName="costGoBack">
-            <option value="dt">Phí đối tác</option>
-            <option value="hv">Học Viện</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6">
-        <div class="item-control">
-          <label>Mục đích </label>
-          <input type="text" formControlName="purpose"/>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Tổ chức cá nhân mời </label>
-          <input type="text" formControlName="nameOrganInvite" class=""/>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Sản phẩm</label>
-          <input type="text" formControlName="product"/>
-        </div>
-        <!---->
-        <p class="mgt-20 text-right">(Sản phẩm: Tên bằng cấp, chứng chỉ, bản báo cáo...)</p>
-        <div class="item-control">
-          <label>Chi phí ăn ở</label>
-          <select class="form-control" formControlName="costLiving">
-            <option value="dt">Phí đối tác</option>
-            <option value="hv">Học Viện</option>
-          </select>
-        </div>
-      </div>
-      <!--content-tb-ale-->
       <div class="col-xs-12">
         <div class="table-responsive">
           <table class="table table-bordered">
@@ -83,9 +21,7 @@
               <th>Tên tổ chức/cá nhân</th>
               <th>Sản phẩm</th>
               <th>
-                <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
+                <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
               </th>
             </tr>
             </thead>
@@ -114,3 +50,80 @@
     </div>
   </div>
 </form>
+
+
+<!--modal qua trinh hoat dong Doan-->
+<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modal)">Thoát</button>
+    </div>
+  </modal-header>
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+        <div class="col-xs-12 col-sm-5 col-sm-offset-1 ">
+          <div class="item-control">
+            <label>Từ ngày </label>
+            <input type="text" formControlName="dateFrom">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Đến ngày </label>
+            <input type="text" formControlName="dateEnd">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Đi nước </label>
+            <select class="form-control" formControlName="national">
+              <option value="">Đức</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <input type="radio" value="tcnn" formControlName="organInvite"> <span
+            class="mgr-15">Tổ chức nước ngoài mời</span>
+            <input type="radio" value="cn" formControlName="organInvite"><span class="mgl-15">Cá nhân mời</span>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Chi phí đi lại</label>
+            <select class="form-control" formControlName="costGoBack">
+              <option value="dt">Phí đối tác</option>
+              <option value="hv">Học Viện</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 ">
+          <div class="item-control">
+            <label>Mục đích </label>
+            <input type="text" formControlName="purpose"/>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Tổ chức cá nhân mời </label>
+            <input type="text" formControlName="nameOrganInvite" class=""/>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Sản phẩm</label>
+            <input type="text" formControlName="product"/>
+          </div>
+          <!---->
+          <p class="mgt-20 text-right">(Sản phẩm: Tên bằng cấp, chứng chỉ, bản báo cáo...)</p>
+          <div class="item-control">
+            <label>Chi phí ăn ở</label>
+            <select class="form-control" formControlName="costLiving">
+              <option value="dt">Phí đối tác</option>
+              <option value="hv">Học Viện</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+  <modal-footer>
+      <button class="btn-action" (click)="addItem()">{{positionUpdate==-1?" Thêm ":" Cập nhật "}}</button>
+  </modal-footer>
+</modal>

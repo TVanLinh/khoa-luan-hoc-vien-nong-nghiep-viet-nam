@@ -11,10 +11,4 @@ select,input{
     width: 70%;
     float: right;
   }
-
-  @media (min-width: 768px) {
-    input{
-      width: 80%;
-    }
-  }
 }

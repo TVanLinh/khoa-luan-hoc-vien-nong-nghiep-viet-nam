@@ -1,16 +1,18 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-publish-info',
   templateUrl: './publish-info.component.html',
   styleUrls: ["../../form.css", './publish-info.component.css']
 })
 export class PublishInfoComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('publish') publish: ModalComponent;
   formData: FormGroup;
   listPublish = new Collections.LinkedList<PublishForm>();
-  indexEdit = -1;
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -39,10 +41,15 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   addItem() {
     let valueForm = this.formData.value;
     this.listPublish.add(valueForm);
+
+    this.positionUpdate = -1;
+
+    this.closeModal(this.publish);
   }
 
   removeItem(index: number) {
     this.listPublish.removeElementAtIndex(index);
+
   }
 
   editItem(index: number) {
@@ -53,7 +60,9 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
       publishCompany: itemEdit.publishCompany,
       role: itemEdit.role
     });
-    this.indexEdit = index;
+
+    this.positionUpdate = index;
+    this.openModal(this.publish);
   }
 }
 interface PublishForm {

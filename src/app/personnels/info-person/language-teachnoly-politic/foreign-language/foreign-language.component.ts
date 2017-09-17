@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-foreign-language',
@@ -8,7 +9,10 @@ import {BaseFormComponent} from "../../../base-form.component";
   styleUrls: ['../../../form.css', './foreign-language.component.css']
 })
 export class ForeignLanguageComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('languageModal') languageModal: ModalComponent;
   formData: FormGroup;
+
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -21,7 +25,8 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
     speak: "Tot",
     write: "Kha",
     translate: "Trung binh",
-    communicate: "Thanh tao"
+    communicate: "Thanh tao",
+    branch: "listen"
   };
 
   ngOnInit() {
@@ -36,12 +41,28 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
       speak: ["Tot"],
       write: ["Kha"],
       translate: ["Trung binh"],
-      communicate: ["Thanh tao"]
+      communicate: ["Thanh tao"],
+      branch: ['listen']
     })
   }
 
   onSave() {
     console.log(this.formData.value);
+  }
+
+  addItem() {
+    console.log(this.formData.value);
+    this.positionUpdate = -1;
+    this.closeModal(this.languageModal);
+  }
+
+  editItem(index: number) {
+    this.positionUpdate = index;
+    this.openModal(this.languageModal);
+  }
+
+  removeItem(index : number) {
+
   }
 }
 
@@ -52,5 +73,6 @@ interface ForeignLanguageForm {
   speak: string,
   write: string,
   translate: string,
-  communicate: string
+  communicate: string,
+  branch: string
 }

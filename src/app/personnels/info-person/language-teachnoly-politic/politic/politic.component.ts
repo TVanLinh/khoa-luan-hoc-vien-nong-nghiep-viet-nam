@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../../base-form.component";
 import {FormGroup} from "@angular/forms";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-politic',
@@ -8,13 +9,16 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['../../../form.css', './politic.component.css']
 })
 export class PoliticComponent extends BaseFormComponent implements OnInit {
-  formData: FormGroup;
-
+  @ViewChild('politicModal') politicModal: ModalComponent;
+  formDataPoliticAdd: FormGroup;
+  formDataMain: FormGroup;
+  positionUpdate = -1;
   item: PliticForm = {
     level: "DH",
     yearLicense: "2016",
     now: 0
   };
+
   item1: PliticForm = {
     level: "DH",
     yearLicense: "2016",
@@ -31,15 +35,38 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   }
 
   initForm() {
-    this.formData = this.formBuilder.group({
+    this.formDataMain = this.formBuilder.group({
+      now: [-1]
+    });
+
+    this.formDataPoliticAdd = this.formBuilder.group({
       level: [''],
-      yearLicense: [''],
-      now: [1]
+      yearLicense: ['']
     });
   }
 
+  addItem() {
+    console.log(this.formDataPoliticAdd.value);
+    //do something ------------
+
+
+    this.positionUpdate = -1;
+    this.closeModal(this.politicModal);
+  }
+
+  editItem(index: number) {
+    this.positionUpdate = index;
+    //do something...............
+
+    this.openModal(this.politicModal);
+  }
+
+  removeItem(index: number) {
+    this.removeItem(index);
+  }
+
   onSave() {
-    console.log(this.formData.value);
+    console.log(this.formDataMain.value);
   }
 }
 

@@ -49,8 +49,9 @@ export class MenuUtil {
     {href: 'process-evention', title: 'Phát minh/sáng chế  '},
     {href: 'publish-info', title: 'Họat động xuất bản '},
     {href: 'science-topic', title: 'Đề tài - dự án khoa học '},
+    {href: 'process-train', title: 'Quá trình đào tạo  '},
+    {href: 'process-teaching', title: 'Quá trình giảng dạy   '},
     {href: '#', title: 'Hoạt động xã hội - nghề nghiệp '},
-    {href: '#', title: 'Giải thưởng  '},
     {href: '#', title: 'Giải thưởng  '}
   ];
 

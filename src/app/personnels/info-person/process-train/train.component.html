@@ -4,11 +4,10 @@
     <button>Khóa dữ liệu</button>
   </div>
   <!---->
-  <app-note-form></app-note-form>
-  <!---->
   <div class="mgb-20">
     <label>Trình độ giáo dục phổ thông </label>
-    <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0" formControlName="generalEdu">
+    <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0"
+            formControlName="generalEdu">
       <option value="1">1/12</option>
       <option value="2">2/12</option>
       <option value="3">3/12</option>
@@ -19,7 +18,7 @@
     </select>
   </div>
   <!---->
-  <div class="form-item long-time  " >
+  <div class="form-item long-time  ">
     <div class="form-item-title">
       Quá trình đào tạo dài hạn
     </div>
@@ -37,73 +36,12 @@
           <th>Trường đào tạo</th>
           <th>Nước đào tạo</th>
           <th>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon"><i class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(trainLongTimeModal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
 
         <tbody>
-        <tr formGroupName="longTime">
-          <td>
-          </td>
-          <!---->
-          <td>
-            <div class="item-control">
-              <input type="text" class="date" formControlName="yearFrom"/>
-            </div>
-          </td>
-
-          <td>
-            <div class="item-control">
-              <input type="text" class="date" formControlName="yearEnd"/>
-            </div>
-          </td>
-
-          <td>
-            <div class="item-control">
-              <input type="text" formControlName="specialized"/>
-            </div>
-          </td>
-          <td>
-            <div class="item-control">
-              <select name="" class="form-control" formControlName="levelLearn">
-                <option value="">----Chọn-----</option>
-              </select>
-            </div>
-          </td>
-          <!---->
-          <td>
-            <div class="item-control">
-              <input type="text" formControlName="academicRank"/>
-            </div>
-          </td>
-          <!---->
-          <td style="vertical-align: top">
-            <select name="" class="form-control" formControlName="spice">
-              <option value="">----Chọn-----</option>
-            </select>
-          </td>
-          <!---->
-          <td>
-            <div class="item-control" >
-              <input type="text" formControlName="school"/>
-            </div>
-          </td>
-          <!---->
-          <td style="vertical-align: top">
-            <select name="" class="form-control" formControlName="national">
-              <option value="">----Chọn-----</option>
-            </select>
-          </td>
-          <!---->
-          <td>
-            <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
-            <span class="action-icon" (click)="resetFormData('long-time')"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
-
         <tr>
           <td>1</td>
           <td>{{itemLong.yearFrom}}</td>
@@ -115,10 +53,10 @@
           <td>{{itemLong.school}}</td>
           <td>{{itemLong.national}}</td>
           <td>
-            <span class="action-icon" ><i class="fa fa-edit"></i></span>
-            <span class="action-icon" ><i
+            <span class="action-icon"><i class="fa fa-edit"></i></span>
+            <span class="action-icon"><i
               class="fa fa-remove icon-remove-update"></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
 
@@ -143,58 +81,12 @@
           <th>Nước đào tạo</th>
           <th>Mô tả</th>
           <th>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon"><i class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(trainShortTimeModal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
 
         <tbody>
-        <tr formGroupName="shortTime">
-          <td>
-          </td>
-          <!---->
-          <td>
-            <div class="item-control">
-              <input type="text" class="" formControlName="dateFrom"/>
-            </div>
-          </td>
-
-          <td>
-            <div class="item-control">
-              <input type="number" class="date" min="1" formControlName="numberMonth"/>
-            </div>
-          </td>
-
-          <td>
-            <div class="item-control">
-              <input type="text" formControlName="certificate"/>
-            </div>
-          </td>
-          <td>
-            <div class="item-control" >
-              <input type="text" formControlName="placeTrain"/>
-            </div>
-          </td>
-          <!---->
-          <td style="vertical-align: top">
-            <select name="" class="form-control" formControlName="national">
-              <option value="">----Chọn-----</option>
-            </select>
-          </td>
-          <!---->
-          <td>
-            <div class="item-control">
-              <input type="text" formControlName="description"/>
-            </div>
-          </td>
-          <!---->
-          <td>
-            <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
-            <span class="action-icon" (click)="resetFormData('short-time')"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
         <!-- content-->
         <tr>
           <td>1</td>
@@ -205,10 +97,10 @@
           <td>{{itemShort.national}}</td>
           <td>{{itemShort.description}}</td>
           <td>
-            <span class="action-icon" ><i class="fa fa-edit"></i></span>
-            <span class="action-icon" ><i
+            <span class="action-icon"><i class="fa fa-edit"></i></span>
+            <span class="action-icon"><i
               class="fa fa-remove icon-remove-update"></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
         <!---->
@@ -218,3 +110,148 @@
     </div>
   </div>
 </form>
+
+
+<!--long time-->
+<modal #trainLongTimeModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(trainLongTimeModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formLongTime">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+
+          <div class="item-control">
+            <label>Từ năm</label>
+            <input type="number" class="date" formControlName="yearFrom"/>
+          </div>
+
+
+          <div class="item-control">
+            <label>Đến năm</label>
+            <input type="number" class="date" formControlName="yearEnd"/>
+          </div>
+
+
+          <div class="item-control">
+            <label>Chuyên nghành</label>
+            <input type="text" formControlName="specialized"/>
+          </div>
+
+
+          <div class="item-control">
+            <label>Bậc học</label>
+            <select name="" class="form-control" formControlName="levelLearn">
+              <option value="">----Chọn-----</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-5">
+          <div class="item-control">
+            <label>Học vị đạt được</label>
+            <input type="text" formControlName="academicRank"/>
+          </div>
+
+          <!---->
+          <div class="item-control">
+            <label>Xếp loại</label>
+            <select name="" class="form-control" formControlName="spice">
+              <option value="">----Chọn-----</option>
+            </select>
+          </div>
+          <!---->
+
+          <div class="item-control">
+            <label>Trường đào tạo</label>
+            <input type="text" formControlName="school"/>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Nước đào tạo</label>
+            <select name="" class="form-control" formControlName="national">
+              <option value="">----Chọn-----</option>
+            </select>
+          </div>
+          <!---->
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdateLongTime == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>
+
+<!--short time-->
+<modal #trainShortTimeModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(trainShortTimeModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formShortTime">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+          <div class="item-control">
+            <label>Từ tháng/năm</label>
+            <input type="date" class="" formControlName="dateFrom"/>
+          </div>
+
+
+          <div class="item-control">
+            <label>Số tháng</label>
+            <input type="number" class="date"  min="1" formControlName="numberMonth"/>
+          </div>
+
+
+          <div class="item-control">
+            <label>Chứng chỉ</label>
+            <input type="text" formControlName="certificate"/>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 ">
+
+          <div class="item-control">
+            <label>Nước đào tạo</label>
+            <input type="text" formControlName="placeTrain"/>
+          </div>
+
+          <!---->
+          <div class="item-control">
+            <label>Nước đào tạo</label>
+            <select name="" class="form-control" formControlName="national">
+              <option value="">----Chọn-----</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Mô tả</label>
+            <input type="text" formControlName="description"/>
+          </div>
+          <!---->
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdateShortTime == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>
+

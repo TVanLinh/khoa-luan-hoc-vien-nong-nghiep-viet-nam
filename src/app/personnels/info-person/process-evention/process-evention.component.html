@@ -1,11 +1,8 @@
 <form action="" [formGroup]="formData">
   <div class="action-form">
+    <button>Ghi nhận </button>
     <button>Khóa dữ liệu</button>
   </div>
-  <app-note-form>
-    Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
-    Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
-  </app-note-form>
 
   <div class="form-item">
     <div class="form-item-title">
@@ -19,40 +16,14 @@
           <th>Tên phát minh/sáng chế/văn bằng bảo hộ  </th>
           <th>Cơ quan cấp  </th>
           <th>Ngày cấp </th>
-          <th>Số tác giản </th>
+          <th>Số tác giả </th>
           <th>Diễn giải  </th>
           <th>
-            <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(evention)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
-        <!---->
-        <tr>
-          <td></td>
-          <td>
-            <input type="text" formControlName="nameEvention">
-          </td>
-          <td>
-            <input type="text" formControlName="organLicense">
-          </td>
-          <td>
-            <input type="text"  formControlName="dateOfIssue" >
-          </td>
-          <td>
-            <input type="number" min="1" style="width:70px;" formControlName="numberAuthor" >
-          </td>
-          <td>
-            <input type="text" style="width:70px;" formControlName="description">
-          </td>
-          <td>
-            <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
-            <!--<span class="action-icon" (click)="resetForm(formData)"><i-->
-            <!--class="fa fa-remove icon-remove-update"></i></span>-->
-          </td>
-        </tr>
         <!---->
         <tr *ngFor="let item of listEvention.toArray();let i = index ">
           <td>{{i+1}}</td>
@@ -73,3 +44,53 @@
     </div>
   </div>
 </form>
+
+
+
+<modal #evention size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(evention)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+          <div class="item-control pdt-i-0">
+            <label>Tên phát minh/sáng chế/văn bằng bảo hộ </label>
+            <input type="date" formControlName="nameEvention">
+          </div>
+          <!---->
+
+          <div class="item-control">
+            <label>Cơ quan cấp</label>
+            <input type="text" formControlName="organLicense">
+          </div>
+
+          <div class="item-control  ">
+            <label>Ngày cấp</label>
+            <input type="date" formControlName="dateOfIssue">
+          </div>
+          <div class="item-control  ">
+            <label>Số tác giả </label>
+            <input type="text" formControlName="numberAuthor">
+          </div>
+          <div class="item-control  ">
+            <label>Diễn giải </label>
+            <input type="text" formControlName="description">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

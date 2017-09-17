@@ -1,13 +1,16 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-contract',
   templateUrl: './contract.component.html',
   styleUrls: ['../../form.css', './contract.component.css']
 })
 export class ContractComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('modalContract') modal: ModalComponent;
+
   formData: FormGroup;
   listContracts = new Collections.LinkedList<ContractForm>();
   positionUpdate = -1;
@@ -29,9 +32,15 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
     } else {
       this.listContracts.add(valueForm);
     }
+
+    this.positionUpdate = -1;
+
+    this.closeModal(this.modal);
   }
 
   editItem(index: number) {
+    this.positionUpdate = index;
+
     let value = this.listContracts.elementAtIndex(index);
     this.formData.setValue({
       number: value.number,
@@ -41,6 +50,8 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
       unitOrgan: value.unitOrgan,
       job: value.job
     });
+
+    this.openModal(this.modal);
   }
 
   removeItem(i) {

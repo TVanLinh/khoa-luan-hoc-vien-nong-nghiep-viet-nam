@@ -1,16 +1,21 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-foreign',
   templateUrl: './foreign.component.html',
   styleUrls: ['../../form.css', './foreign.component.css']
 })
+
+
 export class ForeignComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('modal') modal: ModalComponent;
+
   formData: FormGroup;
   listForeignForm = new Collections.LinkedList<ForeignForm>();
-  positionEdit = -1;
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -47,13 +52,18 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    if (this.positionEdit > -1) {
-      this.listForeignForm.removeElementAtIndex(this.positionEdit);
-      this.listForeignForm.add(this.formData.value, this.positionEdit);
+
+  }
+
+  addItem() {
+    if (this.positionUpdate > -1) {
+      this.listForeignForm.removeElementAtIndex(this.positionUpdate);
+      this.listForeignForm.add(this.formData.value, this.positionUpdate);
     } else {
       this.listForeignForm.add(this.formData.value);
     }
-    this.positionEdit = -1;
+    this.positionUpdate = -1;
+    this.closeModal(this.modal);
   }
 
   removeItem(index: number) {
@@ -73,8 +83,10 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       nameOrganInvite: edit.nameOrganInvite,
       costLiving: edit.costLiving
     });
-    this.positionEdit = index;
+    this.positionUpdate = index;
+    this.openModal(this.modal);
   }
+
 
 }
 

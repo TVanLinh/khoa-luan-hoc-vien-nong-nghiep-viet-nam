@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-info-technology',
@@ -8,7 +9,9 @@ import {BaseFormComponent} from "../../../base-form.component";
   styleUrls: ['../../../form.css', './info-technology.component.css']
 })
 export class InfoTechnologyComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('technologyModal') technologyModal: ModalComponent;
   formData: FormGroup;
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -34,7 +37,29 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
     });
   }
 
+  addItem() {
+    console.log(this.formData.value);
+    //do something.....
 
+    this.positionUpdate = -1;
+
+    this.closeModal(this.technologyModal);
+  }
+
+  editItem(index: number) {
+    //something....
+    this.positionUpdate = index;
+
+    this.openModal(this.technologyModal);
+  }
+
+  removeItem(index: number) {
+
+  }
+
+  onSave() {
+
+  }
 }
 
 interface InfoTechForm {

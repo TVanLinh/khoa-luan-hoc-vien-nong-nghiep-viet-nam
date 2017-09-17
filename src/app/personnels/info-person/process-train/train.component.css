@@ -8,8 +8,15 @@
   width: 150px;
 }
 .date {
-  width: 50px;
+  min-width: 200px;
 }
 .item-control{
+  /*padding-top: 0;*/
+}
+
+.col-xs-12>.item-control:first-child{
   padding-top: 0;
+}
+input[type='number'] {
+  float: right;
 }

@@ -1,14 +1,24 @@
 import {FormBuilder, FormGroup} from "@angular/forms";
-import * as Collections from "typescript-collections";
 export class BaseFormComponent {
-  protected formBuilder: FormBuilder;
+  protected formBuilder: FormBuilder = null;
 
   constructor() {
-    this.formBuilder = new FormBuilder();
+    // if (this.formBuilder == null) {
+      this.formBuilder = new FormBuilder();
+    // }
   }
 
   protected  resetForm(target: FormGroup) {
     target.reset();
   }
 
+  //----------------
+  openModal(target: any) {
+    target.open();
+    // this.modalComponent.open();
+  }
+
+  closeModal(target: any) {
+    target.close();
+  }
 }

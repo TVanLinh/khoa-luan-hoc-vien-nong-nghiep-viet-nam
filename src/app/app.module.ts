@@ -24,43 +24,42 @@ import {AgmCoreModule} from "@agm/core";
 import {CurriculumVitaeComponent} from "./personnels/info-person/curriculum-vitae/curriculum-vitae.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PartyUnionComponent} from "./personnels/info-person/party-union/party-union.component";
-import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
+import {ModalComponent, Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NoteFormComponent} from "./personnels/notes/note-form/note-form.component";
 import {FamilyRelationshipComponent} from "./personnels/info-person/family-relationship/family-relationship.component";
-import {BaseFormComponent} from "app/personnels/base-form.component";
-import { ProcessWorkComponent } from './personnels/info-person/process-work/process-work.component';
-import {TrainComponent} from './personnels/info-person/process-train/train.component';
-import { ContractComponent } from './personnels/info-person/contract/contract.component';
-import { NoteForm2Component } from './personnels/notes/note-form2/note-form2.component';
-import { InfoTechnologyComponent } from './personnels/info-person/language-teachnoly-politic/info-technology/info-technology.component';
-import { PoliticComponent } from './personnels/info-person/language-teachnoly-politic/politic/politic.component';
-import { ForeignLanguageComponent } from './personnels/info-person/language-teachnoly-politic/foreign-language/foreign-language.component';
-import { BonusDisciplineComponent } from './personnels/info-person/bonus-discipline/bonus-discipline.component';
-import { AcademicRankComponent } from './personnels/info-person/academic-rank/academic-rank.component';
-import { EmulationTitleComponent } from './personnels/info-person/emulation-title/emulation-title.component';
-import { SalaryBriefComponent } from './personnels/info-person/salary-brief/salary-brief.component';
-import { ForeignComponent } from './personnels/info-person/foreign/foreign.component';
-import { ThesisGuideComponent } from './personnels/info-person/thesis-guide/thesis-guide.component';
-import { ScienceTopicComponent } from './personnels/info-person/science-topic/science-topic.component';
-import { SenimarNewpaperComponent } from './personnels/info-person/senimar-newpaper/senimar-newpaper.component';
-import { PublishInfoComponent } from './personnels/info-person/publish-info/publish-info.component';
-import { ProcessTeachingComponent } from './personnels/info-person/process-teaching/process-teaching.component';
-import { ProcessEventionComponent } from './personnels/info-person/process-evention/process-evention.component';
-import { AddPersonnelComponent } from './personnels/manager-personnels/add-personnel/add-personnel.component';
-import { EditPersonnelComponent } from './personnels/manager-personnels/edit-personnel/edit-personnel.component';
-import { ProcedureLeaveJobComponent } from './personnels/manager-personnels/procedure-leave-job/procedure-leave-job.component';
-import { ProcedureRetireComponent } from './personnels/manager-personnels/procedure-retire/procedure-retire.component';
-import { ProcedureBindJobComponent } from './personnels/manager-personnels/procedure-bind-job/procedure-bind-job.component';
-import { ProcedureTransferUnitWorkComponent } from './personnels/manager-personnels/procedure-transfer-unit-work/procedure-transfer-unit-work.component';
-import { ProcedureTransferDepartmentComponent } from './personnels/manager-personnels/procedure-transfer-department/procedure-transfer-department.component';
-import { MenuAppComponent } from './menu-app/menu-app.component';
-import { Header2Component } from './components/headers/header-2/header-2.component';
+import {ProcessWorkComponent} from "./personnels/info-person/process-work/process-work.component";
+import {TrainComponent} from "./personnels/info-person/process-train/train.component";
+import {ContractComponent} from "./personnels/info-person/contract/contract.component";
+import {NoteForm2Component} from "./personnels/notes/note-form2/note-form2.component";
+import {InfoTechnologyComponent} from "./personnels/info-person/language-teachnoly-politic/info-technology/info-technology.component";
+import {PoliticComponent} from "./personnels/info-person/language-teachnoly-politic/politic/politic.component";
+import {ForeignLanguageComponent} from "./personnels/info-person/language-teachnoly-politic/foreign-language/foreign-language.component";
+import {BonusDisciplineComponent} from "./personnels/info-person/bonus-discipline/bonus-discipline.component";
+import {AcademicRankComponent} from "./personnels/info-person/academic-rank/academic-rank.component";
+import {EmulationTitleComponent} from "./personnels/info-person/emulation-title/emulation-title.component";
+import {SalaryBriefComponent} from "./personnels/info-person/salary-brief/salary-brief.component";
+import {ForeignComponent} from "./personnels/info-person/foreign/foreign.component";
+import {ThesisGuideComponent} from "./personnels/info-person/thesis-guide/thesis-guide.component";
+import {ScienceTopicComponent} from "./personnels/info-person/science-topic/science-topic.component";
+import {SenimarNewpaperComponent} from "./personnels/info-person/senimar-newpaper/senimar-newpaper.component";
+import {PublishInfoComponent} from "./personnels/info-person/publish-info/publish-info.component";
+import {ProcessTeachingComponent} from "./personnels/info-person/process-teaching/process-teaching.component";
+import {ProcessEventionComponent} from "./personnels/info-person/process-evention/process-evention.component";
+import {AddPersonnelComponent} from "./personnels/manager-personnels/add-personnel/add-personnel.component";
+import {EditPersonnelComponent} from "./personnels/manager-personnels/edit-personnel/edit-personnel.component";
+import {ProcedureLeaveJobComponent} from "./personnels/manager-personnels/procedure-leave-job/procedure-leave-job.component";
+import {ProcedureRetireComponent} from "./personnels/manager-personnels/procedure-retire/procedure-retire.component";
+import {ProcedureBindJobComponent} from "./personnels/manager-personnels/procedure-bind-job/procedure-bind-job.component";
+import {ProcedureTransferUnitWorkComponent} from "./personnels/manager-personnels/procedure-transfer-unit-work/procedure-transfer-unit-work.component";
+import {ProcedureTransferDepartmentComponent} from "./personnels/manager-personnels/procedure-transfer-department/procedure-transfer-department.component";
+import {MenuAppComponent} from "./menu-app/menu-app.component";
+import {Header2Component} from "./components/headers/header-2/header-2.component";
 import {PersonnelManagerComponent} from "./personnels/personnels.component";
-import { LoginComponent } from './auth/login/login.component';
+import {LoginComponent} from "./auth/login/login.component";
 import {AppRouting} from "./app.routing";
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from "./home/home.component";
 import {PersonnelRouting} from "./personnels/pesonnel.routing";
-import { LanguageTeachnolyPoliticComponent } from './personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component';
+import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
 
 @NgModule({
   declarations: [
@@ -130,6 +129,7 @@ import { LanguageTeachnolyPoliticComponent } from './personnels/info-person/lang
     AppRouting,
     PersonnelRouting
   ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })

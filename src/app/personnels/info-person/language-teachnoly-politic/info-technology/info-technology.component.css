@@ -2,14 +2,6 @@
   width: 100%;
 }
 select,input{
-  float: none;
+  float: none !important;
   min-width: 0;
 }
-@media (min-width: 768px) {
-  .date{
-    width: 70px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-

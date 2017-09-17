@@ -1,61 +1,11 @@
-<form [formGroup]="formData" style="padding-top: 25px">
+<form>
+  <div class="action-form">
+    <button (click)="onSave()">Ghi nhận</button>
+    <button>Khóa dữ liệu</button>
+  </div>
   <div class="row">
-    <div class="col-xs-12 col-sm-4">
-      <div class="form-item">
-        <div class="form-item-title">
-          Chọn ngoại ngữ
-        </div>
-        <div class="item-control">
-          <label >Tên ngoại ngữ </label>
-          <select  class="form-control" formGroupName="name">
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label >Nghe </label>
-          <select  class="form-control" formGroupName="listen">
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div class="item-control" >
-          <label >Nói </label>
-          <select  class="form-control" formGroupName="speak" >
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label >Đọc  </label>
-          <select  class="form-control" formGroupName="read">
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label >Viết </label>
-          <select  class="form-control" formGroupName="write">
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label >Dịch</label>
-          <select  class="form-control" formGroupName="translate">
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label>Giao tiếp </label>
-          <select  class="form-control" formGroupName="communicate">
-            <option value="">-----Chọn----</option>
-          </select>
-        </div>
-        <div></div>
-        <div class="action-form " style="margin-bottom: 0;margin-top: 30px;text-align: right">
-            <button (click)="onSave()">Ghi nhận </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-8">
-      <div class="form-item">
+    <div class="col-xs-12">
+      <div class=" form-item">
         <div class="form-item-title">
           Trình độ ngoại ngữ
         </div>
@@ -65,9 +15,9 @@
             <tr>
               <th>STT</th>
               <th>Tên ngoại ngữ</th>
-              <th>Kỹ năng </th>
+              <th>Kỹ năng</th>
               <th>Chuyên nghành/chủ đề có thể giảng dạy</th>
-              <th></th>
+              <th><span class="action-icon" (click)="openModal(languageModal)"><i class="fa fa-plus"></i></span></th>
             </tr>
             </thead>
             <tbody>
@@ -75,19 +25,17 @@
               <td>1</td>
               <td>{{item.name}}</td>
               <td style="text-align: left">
-                <p>Nghe: {{item.listen}}</p>
-                <p>Nói: {{item.speak}}</p>
-                <p>Đọc: {{item.read}}</p>
-                <p>Viết: {{item.write}}</p>
-                <p>Dịch: {{item.translate}}</p>
-                <p>Giao tiếp: {{item.communicate}}</p>
+                <span class="mgl-20 mgr-20">Nghe: {{item.listen}}</span>
+                <span class="mgr-20">Nói: {{item.speak}}</span>
+                <span class="mgr-20">Đọc: {{item.read}}</span>
+                <span class="mgr-20">Viết: {{item.write}}</span>
+                <span class="">Dịch: {{item.translate}}</span><br>
+                <span class="mgl-20">Giao tiếp: {{item.communicate}}</span>
               </td>
+              <td>{{item.branch}}</td>
               <td>
-                <input type="text" class="form-control" style="display: inline-block" placeholder="Tên chuyên nghành ">
-                <span class="action-icon"><i class="fa fa-save"></i></span>
-              </td>
-              <td>
-                <span class="action-icon"><i class="fa fa-remove"></i></span>
+                <span class="action-icon" (click)="editItem()"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem()"><i class="fa fa-remove"></i></span>
                 <span class="action-icon"><i class="fa fa-lock"></i></span>
               </td>
             </tr>
@@ -98,3 +46,84 @@
     </div>
   </div>
 </form>
+
+
+<modal #languageModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(languageModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+        <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+
+          <div class="item-control">
+            <label>Tên ngoại ngữ </label>
+            <select class="form-control" formGroupName="name">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Nghe </label>
+            <select class="form-control" formGroupName="listen">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Nói </label>
+            <select class="form-control" formGroupName="speak">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Đọc </label>
+            <select class="form-control" formGroupName="read">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="col-xs-12 col-sm-5">
+          <div class="item-control">
+            <label>Viết </label>
+            <select class="form-control" formGroupName="write">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Dịch</label>
+            <select class="form-control" formGroupName="translate">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Giao tiếp </label>
+            <select class="form-control" formGroupName="communicate">
+              <option value="">-----Chọn----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Chuyên nghành/chủ đề <br>có thể giảng dạy </label>
+            <input type="text" class="form-control">
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

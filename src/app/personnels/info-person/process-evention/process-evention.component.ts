@@ -1,15 +1,19 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-process-evention',
   templateUrl: './process-evention.component.html',
   styleUrls: ['../../form.css', './process-evention.component.css']
 })
 export class ProcessEventionComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('evention') evention:ModalComponent;
+
   formData: FormGroup;
   listEvention = new Collections.LinkedList<ProcessEventionForm>();
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -40,14 +44,20 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   addItem() {
     let valueForm = this.formData.value;
     this.listEvention.add(valueForm);
+
+    this.positionUpdate=-1;
+
+    this.closeModal(this.evention);
   }
 
   removeItem(index: number) {
     this.listEvention.removeElementAtIndex(index);
+    this.positionUpdate = index;
   }
 
   editItem(index: number) {
 
+    this.openModal(this.evention);
   }
 
   onSave() {

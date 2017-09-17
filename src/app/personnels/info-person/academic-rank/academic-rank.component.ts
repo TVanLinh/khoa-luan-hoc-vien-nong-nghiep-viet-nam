@@ -1,14 +1,23 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-academic-rank',
   templateUrl: './academic-rank.component.html',
   styleUrls: ['../../form.css', './academic-rank.component.css']
 })
 export class AcademicRankComponent extends BaseFormComponent implements OnInit {
-  formData: FormGroup;
+  @ViewChild('academicRank') academicRank: ModalComponent;
+  @ViewChild('titleTeachers') titleTeachers: ModalComponent;
+
+
+  formAcademicRank: FormGroup;
+  formTitleTeachers: FormGroup;
+
+  positionUpdateAcademicRank = -1;
+  positionUpdateTitleTeachers = -1;
 
   listRankAd = new Collections.LinkedList<RankAcademicForm>();
   listTitleTeachers = new Collections.LinkedList<TitleTeacher>();
@@ -33,40 +42,19 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   }
 
   initForm() {
-    this.formData = this.formBuilder.group({
-      academicRank: this.formBuilder.group({
-        rank: [''],
-        placeReceive: [''],
-        yearReceive: [2016]
-      }),
-      titleTeachers: this.formBuilder.group({
-        title: [''],
-        yearReceive: [2016]
-      })
-    })
+    this.formAcademicRank = this.formBuilder.group({
+      rank: [''],
+      placeReceive: [''],
+      yearReceive: [2016]
+    });
+    this.formTitleTeachers = this.formBuilder.group({
+      title: [''],
+      yearReceive: [2016]
+    });
   }
 
   onSave() {
-    console.log(this.formData.value);
-  }
-  resetFormData(target:string){
-    if(target==='academic') {
-      this.formData.patchValue({
-        academicRank:{
-          rank: [''],
-          placeReceive: [''],
-          yearReceive: []
-        }
-      })
-    }
-    else if(target==='title'){
-      this.formData.patchValue({
-        titleTeachers:{
-          title: [''],
-          yearReceive: []
-        }
-      })
-    }
+
   }
 }
 

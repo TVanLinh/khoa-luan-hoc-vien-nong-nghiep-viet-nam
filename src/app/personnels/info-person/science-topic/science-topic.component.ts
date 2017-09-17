@@ -1,16 +1,18 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-science-topic',
   templateUrl: './science-topic.component.html',
   styleUrls: ['../../form.css', './science-topic.component.css']
 })
 export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('topicModal') topicModal: ModalComponent;
   formData: FormGroup;
   listScienceTopic = new Collections.LinkedList<ScienceTopicForm>();
-  indexEdit = -1;
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -46,14 +48,17 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
 
   addItem() {
     let valueForm = this.formData.value;
-    if (this.indexEdit == -1) {
+    if (this.positionUpdate == -1) {
       this.listScienceTopic.add(valueForm);
     } else {
-      this.listScienceTopic.removeElementAtIndex(this.indexEdit);
-      this.listScienceTopic.add(valueForm, this.indexEdit);
+      this.listScienceTopic.removeElementAtIndex(this.positionUpdate);
+      this.listScienceTopic.add(valueForm, this.positionUpdate);
     }
-    this.indexEdit = -1;
+
+    this.positionUpdate = -1;
     this.formData.reset();
+    this.closeModal(this.topicModal);
+
   }
 
   editItem(index: number) {
@@ -68,7 +73,8 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
       progress: valueEdit.progress,
       specieObtain: valueEdit.specieObtain
     });
-    this.indexEdit = index;
+    this.positionUpdate = index;
+    this.openModal(this.topicModal);
   }
 
   removeItem(index: number) {

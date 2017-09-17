@@ -1,12 +1,7 @@
-<form action="" [formGroup]="formData">
+<form action="" >
   <div class="action-form">
     <button>Khóa dữ liệu</button>
   </div>
-  <app-note-form>
-    Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
-    Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
-  </app-note-form>
-
   <div class="form-item">
     <div class="form-item-title">
       Quá trình giảng dạy
@@ -16,55 +11,18 @@
         <thead>
         <tr>
           <th>STT</th>
-          <th>Tên môn học </th>
-          <th>Bậc đào tạo </th>
-          <th>Số tín chỉ </th>
-          <th>Đơn vị giảng dạy </th>
-          <th>Năm bắt đầu giảng dạy </th>
-          <th>Ngôn ngữ giảng dạy </th>
+          <th>Tên môn học</th>
+          <th>Bậc đào tạo</th>
+          <th>Số tín chỉ</th>
+          <th>Đơn vị giảng dạy</th>
+          <th>Năm bắt đầu giảng dạy</th>
+          <th>Ngôn ngữ giảng dạy</th>
           <th>
-            <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
-        <!---->
-        <tr>
-          <td></td>
-          <td>
-            <input type="text" formControlName="nameSubjects">
-          </td>
-          <td>
-            <select class="form-control" formControlName="levelEducation">
-              <option value="">--------Chọn---------</option>
-              <option value="">Cử nhân, kỹ sư </option>
-              <option value="">Cao học </option>
-            </select>
-          </td>
-          <td>
-            <input type="number" min="1" style="width:70px;" formControlName="credit" >
-          </td>
-          <td>
-            <select class="form-control" formControlName="organTeaching">
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <input type="text" style="width:70px;" formControlName="yearTeaching">
-          </td>
-          <td>
-            <select class="form-control" formControlName="languageTeaching">
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
-            <!--<span class="action-icon" (click)="resetForm(formData)"><i-->
-              <!--class="fa fa-remove icon-remove-update"></i></span>-->
-          </td>
-        </tr>
         <!---->
         <tr *ngFor="let item of listTeaching.toArray();let i = index ">
           <td>{{i+1}}</td>
@@ -77,7 +35,7 @@
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
         <!---->
@@ -86,3 +44,62 @@
     </div>
   </div>
 </form>
+
+<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          <div class="item-control">
+            <label>Tên môn học</label>
+            <input type="text" formControlName="nameSubjects">
+          </div>
+
+          <div class="item-control">
+            <label>Bậc đào tạo</label>
+            <select class="form-control" formControlName="levelEducation">
+              <option value="">--------Chọn---------</option>
+              <option value="">Cử nhân, kỹ sư</option>
+              <option value="">Cao học</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Số tín chỉ</label>
+            <input type="number" min="1" style="width:70px;" formControlName="credit">
+          </div>
+
+          <div class="item-control">
+            <label>Đơn vị giảng dạy</label>
+            <select class="form-control" formControlName="organTeaching">
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+          <div class="item-control">
+            <label>Năm bắt đầu giảng dạy</label>
+            <input type="number" style="width:70px;" formControlName="yearTeaching">
+          </div>
+
+          <div class="item-control">
+            <label>Ngôn ngữ giảng dạy</label>
+            <select class="form-control" formControlName="languageTeaching">
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

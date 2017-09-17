@@ -1,15 +1,19 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import *as Collections from "typescript-collections";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-emulation-title',
   templateUrl: './emulation-title.component.html',
   styleUrls: ['../../form.css', './emulation-title.component.css']
 })
 export class EmulationTitleComponent extends BaseFormComponent implements OnInit {
+ @ViewChild('emulationTitle') emulationTitle: ModalComponent;
+
   formData: FormGroup;
   listEmulation = new Collections.LinkedList<EmulationTitleForm>();
+  positionUpdate = -1;
 
   constructor() {
     super();

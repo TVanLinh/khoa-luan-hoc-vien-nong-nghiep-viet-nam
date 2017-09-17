@@ -1,16 +1,18 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 @Component({
   selector: 'app-thesis-guide',
   templateUrl: './thesis-guide.component.html',
   styleUrls: ['../../form.css', './thesis-guide.component.css']
 })
 export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
+  @ViewChild('thesisGuide') thesisGuide: ModalComponent;
   formData: FormGroup;
   listThesiss = new Collections.LinkedList<ThesissForm>();
-  indexEdit = -1;
+  positionUpdate = -1;
 
   constructor() {
     super();
@@ -44,18 +46,22 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
 
   addItem() {
     let valueForm = this.formData.value;
-    console.log("addItem after" + this.indexEdit);
-    if (this.indexEdit == -1) {
+    console.log("addItem after" + this.positionUpdate);
+    if (this.positionUpdate == -1) {
       this.listThesiss.add(valueForm);
     } else {
-      this.listThesiss.removeElementAtIndex(this.indexEdit);
-      this.listThesiss.add(valueForm, this.indexEdit);
+      this.listThesiss.removeElementAtIndex(this.positionUpdate);
+      this.listThesiss.add(valueForm, this.positionUpdate);
     }
-    this.indexEdit = -1;
-    console.log("addItem" + this.indexEdit);
+
+    this.positionUpdate = -1;
+
+    this.closeModal(this.thesisGuide);
   }
 
   editItem(index: number) {
+    this.positionUpdate = index;
+
     let itemEdit = this.listThesiss.elementAtIndex(index);
     this.formData.setValue({
       namePersonGuide: itemEdit.namePersonGuide,
@@ -66,7 +72,8 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
       yearGuide: itemEdit.yearGuide,
       speciesObtain: itemEdit.speciesObtain
     });
-    this.indexEdit = index;
+
+    this.openModal(this.thesisGuide);
   }
 
   removeItem(index: number) {

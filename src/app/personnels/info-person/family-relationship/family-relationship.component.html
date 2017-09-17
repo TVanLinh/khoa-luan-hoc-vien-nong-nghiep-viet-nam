@@ -1,11 +1,10 @@
-<form [formGroup]="formData">
+<form>
   <!---->
   <div class="action-form">
     <button>Ghi nhận</button>
     <button>Khóa dữ liệu</button>
+    <!--<button (click)="openModal(modalFamily)"> Thêm dữ liệu</button>-->
   </div>
-  <!---->
-  <app-note-form></app-note-form>
   <!---->
   <div class="form-item">
     <div class="form-item-title">
@@ -23,40 +22,12 @@
           <th>Cơ quan làm việc</th>
           <th>Quốc gia đang sống</th>
           <th>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(modalFamily)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
         <!---->
-        <tr>
-          <td></td>
-          <td>
-            <select class="form-control" formControlName="relation">
-              <option value="">----Lựa chọn-----</option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
-          </td>
-          <td><input type="text" class="form-control" formControlName="fullName"></td>
-          <td><input type="number" class="form-control" formControlName="birthDay"></td>
-          <td><input type="text" class="form-control" formControlName="job"></td>
-          <td><input type="text" class="form-control" formControlName="organ"></td>
-          <td>
-            <select class="form-control" formControlName="national">
-              <option value="">----Lựa chọn-----</option>
-              <option value=""></option>
-              <option value=""></option>
-              <option value=""></option>
-            </select>
-          </td>
-          <td>
-            <span class="action-icon" (click)="onSave()"><i class="fa fa-save"></i></span>
-          </td>
-        </tr>
         <!---->
         <tr *ngFor="let item of listRelationFamily.toArray(); let i = index ">
           <td>{{i+1}}</td>
@@ -67,8 +38,8 @@
           <td>{{item.organ}}</td>
           <td>{{item.national}}</td>
           <td>
-            <span class="action-icon"><i class="fa fa-edit"></i></span>
-            <span class="action-icon"><i class="fa fa-remove"></i></span>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove"></i></span>
             <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
@@ -78,3 +49,63 @@
     </div>
   </div>
 </form>
+
+
+<!--modal qua trinh hoat dong Doan-->
+<modal #modalFamily size='lg' cssClass="my-modal-lg" backdrop="false">
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalFamily)">Thoát</button>
+    </div>
+  </modal-header>
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 ">
+          <!---->
+          <div class="item-control pdt-i-0">
+            <label>Quan hệ </label>
+            <select class="form-control" formControlName="relation">
+              <option value="">----Lựa chọn-----</option>
+            </select>
+          </div>
+
+          <!---->
+          <div class="item-control">
+            <label>Họ tên</label>
+            <input type="text" class="form-control" formControlName="fullName"/>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày sinh </label>
+            <input type="date" class="form-control" formControlName="birthDay"/>
+          </div>
+          <!---->
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+          <div class="item-control pdt-i-0">
+            <label>Cơ quan làm việc </label>
+            <input type="text" class="form-control" formControlName="organ"/>
+          </div>
+
+          <div class="item-control">
+            <label>Nghề nghiệp </label>
+            <input type="text" class="form-control" formControlName="job"/>
+          </div>
+          <div class="item-control">
+            <label>Quốc gia đang sống </label>
+            <select class="form-control" formControlName="national">
+              <option value="">----Lựa chọn-----</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+      <button class="btn-action" (click)="addItem()">Thêm</button>
+  </modal-footer>
+
+</modal>

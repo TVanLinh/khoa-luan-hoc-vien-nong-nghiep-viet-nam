@@ -1,12 +1,9 @@
-<form action="" [formGroup]="formData">
+<form action="">
   <div class="action-form mgb-20">
     <button>Ghi nhận</button>
     <button>Khóa dữ liêu</button>
   </div>
-  <app-note-form2>
-    <p>Ô nhập ngày tháng, nếu quý vị không nhớ rõ thì nhập là ngày 01, tháng năm bắt buộc phải nhập chính sác.</p>
-    <p>Khi chiết xuất dữ liệu chỉ sử dụng tháng năm</p>
-  </app-note-form2>
+
   <div class="form-item">
     <div class="form-item-title">
       Danh sách hợp đồng lao động
@@ -20,41 +17,15 @@
           <th>Loại HD</th>
           <th>Ngày hiệu lực</th>
           <th>Ngày hết hiệu lực</th>
-          <th>Đơn vị tuyển dụn</th>
+          <th>Đơn vị tuyển dụng</th>
           <th>Công việc đảm nhận</th>
           <th>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" title="Thêm thông tin" (click)="openModal(modalContract)"><i
+              class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
-        <!---->
-        <tr>
-          <td></td>
-          <td><input type="text" class="form-control" style="width: 100px" formControlName="number"></td>
-          <td>
-            <select class="form-control"  formControlName="specie">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td><input type="text" class="form-control"  formControlName="dateEffect"></td>
-          <td><input type="text" class="form-control"  formControlName="dateEndEffect"></td>
-          <td>
-            <select class="form-control"  formControlName="unitOrgan">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select></td>
-          <td><input type="text" class="form-control"  formControlName="job"></td>
-          <td>
-            <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
-        <!--content-->
         <tr *ngFor="let item of listContracts.toArray();let i = index">
           <td>{{i+1}}</td>
           <td>{{item.number}}</td>
@@ -66,7 +37,7 @@
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
         <!---->
@@ -75,3 +46,64 @@
     </div>
   </div>
 </form>
+
+
+<modal #modalContract size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalContract)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 ">
+
+          <div class="item-control pdt-i-0">
+            <label>Số HD</label>
+            <input type="text" class="form-control" formControlName="number">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày hiệu lực </label>
+            <input type="date" class="form-control" formControlName="dateEffect">
+          </div>
+          <div class="item-control">
+            <label>Đơn vị tuyển dụng </label>
+            <select class="form-control" formControlName="unitOrgan">
+              <option value="">----Lựa chọn-----</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control pdt-i-0 ">
+            <label>Loại HD </label>
+            <select class="form-control" formControlName="specie">
+              <option value="">----Lựa chọn-----</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Ngày hết hiệu lực </label>
+            <input type="date" class="form-control" formControlName="dateEndEffect">
+          </div>
+
+          <div class="item-control">
+            <label>Công việc đảm nhận </label>
+            <input type="text" class="form-control" formControlName="job">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate==-1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

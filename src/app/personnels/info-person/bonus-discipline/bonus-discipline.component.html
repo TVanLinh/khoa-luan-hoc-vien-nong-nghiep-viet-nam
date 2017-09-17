@@ -1,11 +1,7 @@
-<form action="" [formGroup]="formData">
+<form action="">
   <div class="action-form">
     <button>Khóa dữ liệu</button>
   </div>
-  <app-note-form>
-    Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
-    Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
-  </app-note-form>
   <div class="form-item">
     <div class="form-item-title">
       Thông tin khen thưởng
@@ -21,43 +17,11 @@
           <th>Ngày quyết định</th>
           <th>Lí do</th>
           <th>
-            <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(modalBonus)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
-        <!---->
-        <tr formGroupName="bonusData">
-          <td></td>
-          <td>
-            <select class="form-control" formControlName="rankDecide">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <select class="form-control" formControlName="form">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <input type="text" formControlName="numberDecide">
-          </td>
-          <td>
-            <input type="text" formControlName="dateDecide">
-          </td>
-          <td>
-            <input type="text" formControlName="reason">
-          </td>
-          <td>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
         <!---->
         <tr *ngFor="let item of listBonus.toArray();let i = index ">
           <td>{{i+1}}</td>
@@ -69,7 +33,7 @@
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
         <!---->
@@ -93,42 +57,11 @@
           <th>Ngày quyết định</th>
           <th>Lí do</th>
           <th>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
+            <span class="action-icon" (click)="openModal(modalDiscipline)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr formGroupName="disciplineData">
-          <td></td>
-          <td>
-            <select class="form-control" formControlName="rankDecide">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <select class="form-control" formControlName="form">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
-          </td>
-          <td>
-            <input type="text" formControlName="numberDecide">
-          </td>
-          <td>
-            <input type="text" formControlName="dateDecide">
-          </td>
-          <td>
-            <input type="text" formControlName="reason">
-          </td>
-          <td>
-            <span class="action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon" (click)="resetForm(formData)"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-          </td>
-        </tr>
         <!---->
         <tr *ngFor="let item of listDiscipline.toArray();let i = index ">
           <td>{{i+1}}</td>
@@ -140,7 +73,7 @@
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
         </tr>
         <!---->
@@ -150,3 +83,122 @@
   </div>
   <!---->
 </form>
+
+
+<!--modal dialog khen thuong bonus-->
+
+
+<modal #modalBonus size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalBonus)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formDataBonus">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 ">
+
+          <div class="item-control pdt-i-0">
+            <label>Cấp quyết định</label>
+            <select class="form-control" formControlName="rankDecide">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Hình thức KT </label>
+            <select class="form-control" formControlName="form">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Số quyết định </label>
+            <input type="text" formControlName="numberDecide">
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control pdt-i-0 ">
+            <label>Ngày quyết định</label>
+            <input type="date" formControlName="dateDecide">
+          </div>
+
+          <div class="item-control">
+            <label>Lí do </label>
+            <input type="text" formControlName="reason">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdateBonus==-1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>
+
+
+<modal #modalDiscipline size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalDiscipline)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formDataDiscipline">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 ">
+
+          <div class="item-control pdt-i-0">
+            <label>Cấp quyết định</label>
+            <select class="form-control" formControlName="rankDecide">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Hình thức KT </label>
+            <select class="form-control" formControlName="form">
+              <option value="">--------Chọn---------</option>
+              <option value="">--------Chọn---------</option>
+            </select>
+          </div>
+
+          <div class="item-control">
+            <label>Số quyết định </label>
+            <input type="text" formControlName="numberDecide">
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control pdt-i-0 ">
+            <label>Ngày quyết định</label>
+            <input type="date" formControlName="dateDecide">
+          </div>
+
+          <div class="item-control">
+            <label>Lí do </label>
+            <input type="text" formControlName="reason">
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdateDiscip == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

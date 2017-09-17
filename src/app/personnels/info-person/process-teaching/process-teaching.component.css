@@ -1,8 +1,12 @@
 .form-control{
-  width: 100%;
+  /*width: 100%;*/
 }
 select,input{
   float: none;
   min-width: 0;
   padding: 5px;
+}
+input,select{
+  float: right;
+  min-width: 200px;
 }

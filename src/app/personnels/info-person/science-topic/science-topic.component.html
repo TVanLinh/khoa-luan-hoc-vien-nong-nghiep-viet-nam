@@ -1,12 +1,9 @@
-<form [formGroup]="formData">
+<form>
   <div class="action-form">
     <button>Ghi nhận</button>
     <button>Khóa dữ liệu</button>
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <app-note-form></app-note-form>
-    </div>
     <div class="col-xs-12">
       <div class="form-item">
         <div class="form-item-title">
@@ -26,46 +23,11 @@
               <th>Tiến độ dự án</th>
               <th>Đánh giá loại</th>
               <th>
-                <span class="action-icon" (click)="onSave()"><i class="fa fa-plus"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
+                <span class="action-icon" (click)="openModal(topicModal)"><i class="fa fa-plus"></i></span>
               </th>
             </tr>
             </thead>
             <tbody>
-
-            <tr>
-              <td></td>
-              <td><input type="text" formControlName="name"></td>
-              <td><input type="text" formControlName="code"></td>
-              <td><input type="text" formControlName="dateBegin"></td>
-              <td><input type="number" min="1" style="max-width: 50px" formControlName="monthWork"></td>
-              <td>
-                <select class="form-control " formControlName="role">
-                  <option value=""> ---Chọn---</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control " formControlName="level">
-                  <option value=""> ---Chọn---</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control " formControlName="progress">
-                  <option value=""> ---Chọn---</option>
-                </select>
-              </td>
-              <td>
-                <select class="form-control " formControlName="specieObtain">
-                  <option value=""> ---Chọn---</option>
-                </select>
-              </td>
-              <td>
-                <span class="action-icon" (click)="addItem()"><i class="fa fa-save"></i></span>
-                <span class="action-icon" (click)="resetForm(formData)"><i
-                  class="fa fa-remove icon-remove-update"></i></span>
-              </td>
-            </tr>
             <!--content-->
             <tr *ngFor="let item of listScienceTopic.toArray();let i = index">
               <td>{{i+1}}</td>
@@ -83,7 +45,6 @@
                 <span class="action-icon"><i class="fa fa-lock"></i></span>
               </td>
             </tr>
-
             </tbody>
           </table>
         </div>
@@ -91,3 +52,81 @@
     </div>
   </div>
 </form>
+
+
+<modal #topicModal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(topicModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control pdt-i-0">
+            <label>Tên đề tài </label>
+            <input type="text" formControlName="name">
+          </div>
+
+          <div class="item-control">
+            <label>Mã đề tài </label>
+            <input type="text" formControlName="code">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày bắt đầu</label>
+            <input type="date" formControlName="dateBegin">
+          </div>
+
+          <div class="item-control  ">
+            <label class="mgr-20">Số tháng thực hiện</label>
+            <input type="number" formControlName="monthWork" style="width: 80px">
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 ">
+
+          <div class="item-control pdt-i-0">
+            <label>Vai trò trong đề tài</label>
+            <select class="form-control " formControlName="role">
+              <option value=""> ---Chọn---</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Cấp đề tài </label>
+            <select class="form-control " formControlName="level">
+              <option value=""> ---Chọn---</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Tiến độ dự án </label>
+            <select class="form-control " formControlName="progress">
+              <option value=""> ---Chọn---</option>
+            </select>
+          </div>
+          <!---->
+          <!---->
+          <div class="item-control">
+            <label>Đánh giá loại </label>
+            <select class="form-control " formControlName="specieObtain">
+              <option value=""> ---Chọn---</option>
+            </select>
+          </div>
+          <!---->
+        </div>
+
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>
