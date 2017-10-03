@@ -60,6 +60,9 @@ import {AppRouting} from "./app.routing";
 import {HomeComponent} from "./home/home.component";
 import {PersonnelRouting} from "./personnels/pesonnel.routing";
 import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
+import {HttpModule} from "@angular/http";
+import {NationalService} from "./shares/national.service";
+import {TaskService} from "./shares/task.service";
 
 @NgModule({
   declarations: [
@@ -127,10 +130,11 @@ import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/langua
     FormsModule,
     Ng2Bs3ModalModule,
     AppRouting,
-    PersonnelRouting
+    PersonnelRouting,
+    HttpModule
   ],
   entryComponents: [],
-  providers: [],
+  providers: [NationalService,TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -3,6 +3,7 @@ import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {NationalService} from "../../../shares/national.service";
 @Component({
   selector: 'app-foreign',
   templateUrl: './foreign.component.html',
@@ -17,12 +18,12 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   listForeignForm = new Collections.LinkedList<ForeignForm>();
   positionUpdate = -1;
 
-  constructor() {
+  constructor(public nationalService: NationalService) {
     super();
     let item: ForeignForm = {
       dateFrom: '20/10/2015',
       dateEnd: '20/10/2016',
-      national: 'Duc',
+      national: 'not',
       organInvite: 'cn',
       costGoBack: 'hv',
       product: 'bai bao',
@@ -64,6 +65,21 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
     }
     this.positionUpdate = -1;
     this.closeModal(this.modal);
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.formData.patchValue({
+      dateFrom: '',
+      dateEnd: '',
+      national: 'not',
+      organInvite: 'cn',
+      costGoBack: 'hv',
+      product: 'bai bao',
+      purpose: 'Lao dong',
+      nameOrganInvite: 'CNLB duc',
+      costLiving: 'dt'
+    })
   }
 
   removeItem(index: number) {

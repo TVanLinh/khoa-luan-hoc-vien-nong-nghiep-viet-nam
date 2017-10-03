@@ -3,9 +3,9 @@ export class BaseFormComponent {
   protected formBuilder: FormBuilder = null;
 
   constructor() {
-    // if (this.formBuilder == null) {
+    if (this.formBuilder == null) {
       this.formBuilder = new FormBuilder();
-    // }
+    }
   }
 
   protected  resetForm(target: FormGroup) {
@@ -21,4 +21,6 @@ export class BaseFormComponent {
   closeModal(target: any) {
     target.close();
   }
+
+  getLanguae
 }

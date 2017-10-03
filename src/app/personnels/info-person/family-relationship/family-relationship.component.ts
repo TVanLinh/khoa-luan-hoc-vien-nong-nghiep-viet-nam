@@ -3,6 +3,7 @@ import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {NationalService} from "../../../shares/national.service";
 @Component({
   selector: 'app-family-relationship',
   templateUrl: './family-relationship.component.html',
@@ -11,10 +12,10 @@ import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 export class FamilyRelationshipComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modalFamily') modal: ModalComponent;
   formData: FormGroup;
-  positionEdit = -1;
+  positionUpdate = -1;
   listRelationFamily = new Collections.LinkedList<RelationFamily>();
 
-  constructor() {
+  constructor(public nationalService: NationalService) {
     super();
   }
 
@@ -38,7 +39,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       birthDay: [''],
       job: [''],
       organ: [''],
-      national: ['']
+      national: ['not']
     })
   }
 
@@ -49,13 +50,26 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
 
   addItem() {
     let valueForm = this.formData.value;
-    if (this.positionEdit == -1) {
+    if (this.positionUpdate == -1) {
       this.listRelationFamily.add(valueForm);
     } else {
-      this.listRelationFamily.removeElementAtIndex(this.positionEdit);
-      this.listRelationFamily.add(valueForm, this.positionEdit);
+      this.listRelationFamily.removeElementAtIndex(this.positionUpdate);
+      this.listRelationFamily.add(valueForm, this.positionUpdate);
     }
+
+    this.resetForm();
     this.closeModal(this.modal);
+  }
+
+  resetForm() {
+    this.formData.patchValue({
+      relation: [''],
+      fullName: [''],
+      birthDay: [''],
+      job: [''],
+      organ: [''],
+      national: ['not']
+    });
   }
 
   removeItem(index: number) {
@@ -63,7 +77,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   editItem(index: number) {
-    this.positionEdit = index;
+    this.positionUpdate = index;
 
     let itemEdit = this.listRelationFamily.elementAtIndex(index);
     this.formData.setValue({
@@ -77,6 +91,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
 
     this.openModal(this.modal);
   }
+
 
 }
 

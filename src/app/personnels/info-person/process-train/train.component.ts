@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {NationalService} from "../../../shares/national.service";
 
 @Component({
   selector: 'app-train',
@@ -37,7 +38,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     description: 'Cu nhan tin hoc'
   };
 
-  constructor() {
+  constructor(public nationalService: NationalService) {
     super();
   }
 
@@ -82,7 +83,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
           numberMonth: 1,
           certificate: '',
           placeTrain: '',
-          national: '',
+          national: 'not',
           description: ''
         }
       });
@@ -96,7 +97,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
           academicRank: '',//hoc vi
           spice: '',//xep loai
           school: '',
-          national: ''
+          national: 'not'
         }
       })
     }

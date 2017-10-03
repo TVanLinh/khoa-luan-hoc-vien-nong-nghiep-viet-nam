@@ -96,7 +96,10 @@
           <div class="item-control">
             <label>Quốc gia đang sống </label>
             <select class="form-control" formControlName="national">
-              <option value="">----Lựa chọn-----</option>
+              <option value="not" *ngIf="positionUpdate == -1" selected>-----------Lựa chọn---------</option>
+              <option [value]="item.code" *ngFor="let item of nationalService.nationals">
+                 {{item.name}}
+              </option>
             </select>
           </div>
         </div>

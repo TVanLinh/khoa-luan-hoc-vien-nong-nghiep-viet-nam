@@ -13,6 +13,7 @@
           <table class="table table-bordered">
             <thead>
             <tr>
+              <th>STT</th>
               <th>Từ ngày</th>
               <th>Đến ngày</th>
               <th>Ngạch</th>
@@ -26,6 +27,7 @@
             <tbody>
             <!---->
             <tr *ngFor="let item of listSalaryBrief.toArray();let i = index ">
+              <td>{{i+1}}</td>
               <td>{{item.dateFrom}}</td>
               <td>{{item.dateEnd}}</td>
               <td>{{item.brief}}</td>
@@ -33,11 +35,12 @@
               <td>{{item.factorSalary}}</td>
               <td>{{item.numberDecide}}</td>
               <td>
-                <input type="radio" formControlName="now" [value]="i">
+                <input type="radio" style="width: auto" formControlName="now" [value]="i">
               </td>
               <td>
                 <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
                 <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove"></i></span>
+                <span class="action-icon" (click)="blockItem(i)"><i class="fa fa-lock"></i></span>
               </td>
             </tr>
             <!---->

@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
+import {NationalService} from "../../../shares/national.service";
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -18,21 +19,17 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     email: "linhtran180895@gmail.com",
     nameOther: "Tv linh",
     nation: "Kinh",
+
     identityCardNumber: "113660331",
     dateRangeIdentityCard: new Date(2013, 9, 1),
     placeRangeIdentityCard: "Tan lac hoa binh",
-    passportNumber: "45884555",
-    dateRangePassport: new Date(),
-    placeRangePassport: 'Hoa binh',
-    job: "cong nhan",
+
     bloodGroup: "AB",
     policyObject: 1,
-    national: "Viet Nam"
   };
 
   //que quan
   homeTown = {
-    national: "Viet Nam",
     city: "Hoa binh",
     district: "Tan lac",
     guild: "Dong lai"
@@ -40,30 +37,15 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   //que quan
   placeBirth = {
-    national: "Viet Nam",
     city: "Hoa binh",
     district: "Tan lac",
     guild: "Dong lai"
   };
 
   //guild : phuong xa,organ : co quan
-  phoneContact = {
-    phone: "01644952648",
-    home: "Hoa binh ysn lsv",
-    organ: "01658799522"
-  };
-
-  //ho khau thuong chu
-  houseHold = {
-    city: "Hoa binh",
-    district: "Tan Lac",
-    guild: "Dong lai",
-    street: "Tan lai",
-    numberHome: ""
-  };
+  phoneContact = {phone: "01644952648"};
 
   placeNow = {
-    national: "Viet Nam",
     city: "Hoa binh",
     district: "Tan Lac",
     guild: "Dong lai",
@@ -73,7 +55,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   formCV: FormGroup;
 
-  constructor() {
+  constructor(private nationalService: NationalService) {
     super();
   }
 
@@ -83,51 +65,34 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   initForm() {
     this.formCV = this.formBuilder.group({
-      infoBasic: this.formBuilder.group({
-        // image: [this.infoBasic.image],
-        staffCode: [this.infoBasic.staffCode],
-        fullName: [this.infoBasic.fullName],
-        birthDay: [this.infoBasic.birthDay],
-        sex: [this.infoBasic.sex],
-        email: [this.infoBasic.email],
-        nameOther: [this.infoBasic.nameOther],
-        nation: [this.infoBasic.nation],
+      staffCode: [this.infoBasic.staffCode],
+      fullName: [this.infoBasic.fullName],
+      birthDay: [this.infoBasic.birthDay],
+      sex: [this.infoBasic.sex],
+      email: [this.infoBasic.email],
+      nameOther: [this.infoBasic.nameOther],
+      bloodGroup: [this.infoBasic.bloodGroup],
+      policyObject: [this.infoBasic.policyObject],
+      nation:[''],
+      phone: [this.phoneContact.phone],
+      identityCart:  this.formBuilder.group({
         identityCardNumber: [this.infoBasic.identityCardNumber],
         dateRangeIdentityCard: [this.infoBasic.dateRangeIdentityCard],
         placeRangeIdentityCard: [this.infoBasic.placeRangeIdentityCard],
-        passportNumber: [this.infoBasic.passportNumber],
-        dateRangePassport: [this.infoBasic.dateRangePassport],
-        placeRangePassport: [this.infoBasic.placeRangePassport],
-        job: [this.infoBasic.job],
-        bloodGroup: [this.infoBasic.bloodGroup],
-        policyObject: [this.infoBasic.policyObject],
       }),
+
       homeTown: this.formBuilder.group({
-        national: [this.homeTown.national],
         city: [this.homeTown.city],
         district: [this.homeTown.district],
         guild: [this.homeTown.guild],
       }),
       placeBirth: this.formBuilder.group({
-        national: [this.placeBirth.national],
         city: [this.placeBirth.city],
         district: [this.placeBirth.district],
         guild: [this.placeBirth.guild],
       }),
-      phoneContact: this.formBuilder.group({
-        phone: [this.phoneContact.phone],
-        home: [this.phoneContact.home],
-        organ: [this.phoneContact.organ],
-      }),
-      houseHold: this.formBuilder.group({
-        city: [this.houseHold.city],
-        district: [this.houseHold.district],
-        guild: [this.houseHold.guild],
-        street: [this.houseHold.street],
-        numberHome: [this.houseHold.numberHome],
-      }),
+      placeRegisterHouseHold: ["Dong lai tan lac hoa binh"],
       placeNow: this.formBuilder.group({
-        national: [this.placeNow.national],
         city: [this.placeNow.city],
         district: [this.placeNow.district],
         guild: [this.placeNow.guild],

@@ -1,5 +1,5 @@
 import {Component, ElementRef} from "@angular/core";
-import {MenuUtil} from "./utils/menu.util";
+import {MenuUtil} from "../shares/menu.util";
 declare const jQuery: any;
 @Component({
   selector: "app-manager-personnel",

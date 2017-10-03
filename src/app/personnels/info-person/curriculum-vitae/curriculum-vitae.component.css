@@ -3,21 +3,24 @@ img {
 }
 
 .image-info{
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   background-size: cover !important;
+  margin:0 auto;
   background-repeat: no-repeat !important;
 }
 
 .image-info input[type='file'] {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   opacity: 0;
 }
 .policy-object{
   min-width: 160px;
 }
+
+/*s*/
 
 @media (max-width: 640px) {
   .right ,.right .item-control{
@@ -27,9 +30,48 @@ img {
 
 
 
-/*@media (max-width: 1199px) {*/
-  /*.right .item-control input{*/
-     /*float: none;*/
-      /*display: block;*/
-  /*}*/
-/*}*/
+#form-cv .info-basic input{
+  float: none;
+  width: 82%;
+}
+
+#form-cv input{
+  float: none;
+}
+#form-cv .form-control {
+  display: inline-block;
+  float: none;
+
+}
+
+#form-cv label{
+  width: 115px;
+}
+
+@media (min-width: 768px) {
+  .mgl-sm-100{
+    margin-left:100px;
+  }
+}
+.place .form-control, .place input{
+  width: 245px !important;
+}
+
+@media (max-height: 1199px) {
+  .place .form-control, .place input{
+    width: 200px !important;
+  }
+}
+#form-cv .address input, #form-cv .address select{
+  width: 100%;
+  min-width: 0;
+}
+
+.item-title{
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.star{
+  color: red;
+}

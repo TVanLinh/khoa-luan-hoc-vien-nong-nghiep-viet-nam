@@ -176,8 +176,11 @@
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national">
-              <option value="">----Chọn-----</option>
+            <select name="" class="form-control" formControlName="national" style="width: 200px">
+              <option value="not" *ngIf="positionUpdateLongTime == -1">----Chọn-----</option>
+              <option *ngFor="let item of nationalService.nationals " [value]="item.code">
+                {{item.name}}
+              </option>
             </select>
           </div>
           <!---->
@@ -234,8 +237,11 @@
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national">
-              <option value="">----Chọn-----</option>
+            <select name="" class="form-control" formControlName="national" style="width: 200px">
+              <option value="not" *ngIf="positionUpdateShortTime == -1">----Chọn-----</option>
+              <option *ngFor="let item of nationalService.nationals " [value]="item.code">
+                {{item.name}}
+              </option>
             </select>
           </div>
           <!---->

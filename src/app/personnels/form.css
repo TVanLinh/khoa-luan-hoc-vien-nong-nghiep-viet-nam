@@ -98,10 +98,23 @@ input {
   border-color: #cccccc;
   border-radius: 0;
 }
-
+tr{
+    border: 1px solid #ccc;
+}
 th, td {
-  text-align: center;
+  text-align: left;
   vertical-align: middle !important;
+  border: none !important;
+  max-width:200px;
+}
+td{
+ border: none !important;
+ padding: 0px 5px !important;
+}
+
+thead>tr>th:last-child{
+	text-align:center;
+	width:90px;
 }
 
 @media (max-width: 1199px) {

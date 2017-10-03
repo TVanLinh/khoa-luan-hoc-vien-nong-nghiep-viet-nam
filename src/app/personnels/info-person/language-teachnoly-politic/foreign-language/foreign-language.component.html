@@ -25,12 +25,12 @@
               <td>1</td>
               <td>{{item.name}}</td>
               <td style="text-align: left">
-                <span class="mgl-20 mgr-20">Nghe: {{item.listen}}</span>
-                <span class="mgr-20">Nói: {{item.speak}}</span>
-                <span class="mgr-20">Đọc: {{item.read}}</span>
-                <span class="mgr-20">Viết: {{item.write}}</span>
+                <span class=" mgr-20">Nghe: {{item.listen}}</span><br>
+                <span class="mgr-20">Nói: {{item.speak}}</span><br>
+                <span class="mgr-20">Đọc: {{item.read}}</span><br>
+                <span class="mgr-20">Viết: {{item.write}}</span><br>
                 <span class="">Dịch: {{item.translate}}</span><br>
-                <span class="mgl-20">Giao tiếp: {{item.communicate}}</span>
+                <span class="">Giao tiếp: {{item.communicate}}</span>
               </td>
               <td>{{item.branch}}</td>
               <td>
@@ -63,8 +63,9 @@
 
           <div class="item-control">
             <label>Tên ngoại ngữ </label>
-            <select class="form-control" formGroupName="name">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="name" style="width: 200px">
+              <option value="not" *ngIf="positionUpdate == -1" selected>-----------Lựa chọn---------</option>
+              <option [value]="item.code" *ngFor="let item of nationalService.nationals">{{item.name}}</option>
             </select>
           </div>
 

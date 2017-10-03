@@ -1,5 +1,6 @@
 <form action="" >
   <div class="action-form">
+    <button>Ghi nhận </button>
     <button>Khóa dữ liệu</button>
   </div>
   <div class="form-item">
@@ -89,8 +90,11 @@
 
           <div class="item-control">
             <label>Ngôn ngữ giảng dạy</label>
-            <select class="form-control" formControlName="languageTeaching">
-              <option value="">--------Chọn---------</option>
+            <select class="form-control" formControlName="languageTeaching" style="width: 200px">
+              <option value="not" *ngIf="positionUpdate == -1">--------Chọn---------</option>
+              <option *ngFor="let item of nationalService.nationals" [value]="item.code">
+                {{item.name}}
+              </option>
             </select>
           </div>
         </div>

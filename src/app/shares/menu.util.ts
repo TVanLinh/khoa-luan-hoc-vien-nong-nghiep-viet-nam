@@ -1,4 +1,4 @@
-import {MenuModel} from "../model/menu.model";
+import {MenuModel} from "../personnels/model/menu.model";
 export class MenuUtil {
   private static menuApp: MenuModel[] = [
     {href: '', title: 'Quản lý nhân sự'},

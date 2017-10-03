@@ -13,7 +13,9 @@
   vertical-align: middle;
   text-align: center;;
 }
-
+.app-logo img{
+  width: 45px;
+}
 .app-name {
   display: table-cell;
   vertical-align: middle;

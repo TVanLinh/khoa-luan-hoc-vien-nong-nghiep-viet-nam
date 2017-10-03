@@ -32,7 +32,7 @@
               <td>{{i+1}}</td>
               <td>{{item.dateFrom}}</td>
               <td>{{item.dateEnd}}</td>
-              <td>{{item.national}}</td>
+              <td>{{nationalService.getNationByCode(item.national).name}}</td>
               <td>{{item.nameOrganInvite}}</td>
               <td>{{item.purpose}}</td>
               <td>{{item.product}}</td>
@@ -75,8 +75,9 @@
           <!---->
           <div class="item-control">
             <label>Đi nước </label>
-            <select class="form-control" formControlName="national">
-              <option value="">Đức</option>
+            <select class="form-control" formControlName="national"  style="width: 200px">
+              <option value="not" *ngIf="positionUpdate == -1">------------ Chọn ------------</option>
+              <option *ngFor="let item of nationalService.nationals" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
           <!---->

@@ -3,6 +3,7 @@ import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {NationalService} from "../../../shares/national.service";
 @Component({
   selector: 'app-process-teaching',
   templateUrl: './process-teaching.component.html',
@@ -14,7 +15,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
   listTeaching = new Collections.LinkedList<ProcessTeachingForm>();
   positionUpdate = -1;
 
-  constructor() {
+  constructor(public nationalService: NationalService) {
     super();
     let item: ProcessTeachingForm = {
       nameSubjects: "Toan cao cap ",
@@ -22,13 +23,35 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
       credit: 3,
       organTeaching: 'HVNNVN',
       yearTeaching: 2015,
-      languageTeaching: 'vn'
+      languageTeaching: 'not'
     };
     this.listTeaching.add(item);
   }
 
   ngOnInit() {
     this.initForm();
+  }
+
+  initForm() {
+    this.formData = this.formBuilder.group({
+      nameSubjects: [''],
+      levelEducation: [''],
+      credit: [3],
+      organTeaching: ['HVNNVN'],
+      yearTeaching: [2015],
+      languageTeaching: ['vn']
+    });
+  }
+
+  resetForm() {
+    this.formData.value({
+      nameSubjects: '',
+      levelEducation: '',
+      credit: 3,
+      organTeaching: 'HVNNVN',
+      yearTeaching: 2015,
+      languageTeaching: 'not'
+    });
   }
 
   addItem() {
@@ -41,17 +64,6 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
     }
     this.positionUpdate = -1;
     this.closeModal(this.modal);
-  }
-
-  initForm() {
-    this.formData = this.formBuilder.group({
-      nameSubjects: [''],
-      levelEducation: [''],
-      credit: [3],
-      organTeaching: ['HVNNVN'],
-      yearTeaching: [2015],
-      languageTeaching: ['vn']
-    });
   }
 
   removeItem(index: number) {
@@ -74,6 +86,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
     this.openModal(this.modal);
   }
+
 
   onSave() {
 

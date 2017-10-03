@@ -27,6 +27,8 @@ import {ForeignComponent} from "app/personnels/info-person/foreign/foreign.compo
 import {LanguageTeachnolyPoliticComponent} from "app/personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
 import {TrainComponent} from "./info-person/process-train/train.component";
 import {ProcessTeachingComponent} from "./info-person/process-teaching/process-teaching.component";
+import {NationalService} from "../shares/national.service";
+import {HttpModule} from "@angular/http";
 
 
 const routes: Routes = [
@@ -97,7 +99,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: []
 })
 
 export class PersonnelRouting {
