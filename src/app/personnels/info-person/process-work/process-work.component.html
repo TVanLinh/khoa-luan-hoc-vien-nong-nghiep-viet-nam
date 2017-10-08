@@ -1,123 +1,126 @@
-<form [formGroup]="formData">
-  <div class="action-form">
-    <button>Ghi nhận</button>
-    <button>Khóa dữ liệu</button>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <div class="form-item">
-        <div class="form-item-title">
-          Thông tin cán bộ
+<div class="form-item">
+  <div class="form-item-title"> Quá trình công tác</div>
+  <form [formGroup]="formData">
+    <div class="action-form">
+      <button>Ghi nhận</button>
+      <button>Khóa dữ liệu</button>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-item">
+          <div class="form-item-title">
+            Thông tin cán bộ
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Đối tượng nhân sự </label>
+            <select class="form-control" formControlName="objectPersonnel">
+              <option value="">Phuc vu</option>
+              <option value="">Phuc vu</option>
+              <option value="">Phuc vu</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Công tác trong các ngành </label>
+            <select class="form-control" formControlName="branch">
+              <option value="">Cong tac vu</option>
+              <option value="">Cong tac vu</option>
+              <option value="">Cong tac vu</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Loại cán bộ </label>
+            <select class="form-control" formControlName="species">
+              <option value="">Loại tac vu</option>
+              <option value="">Loại tac vu</option>
+              <option value="">Loại tac vu</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15">Đánh dấu này nếu hiện tại quý vị tham gia giảng dạy </label>
+            <input type="checkbox" formControlName="isTeaching">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Bộ môn </label>
+            <select class="form-control" formControlName="department">
+              <option value="">Bộ môn vu</option>
+              <option value="">Loại tac vu</option>
+              <option value="">Loại tac vu</option>
+            </select>
+          </div>
+          <!---->
         </div>
-        <!---->
-        <div class="item-control">
-          <label>Đối tượng nhân sự </label>
-          <select class="form-control" formControlName="objectPersonnel">
-            <option value="">Phuc vu</option>
-            <option value="">Phuc vu</option>
-            <option value="">Phuc vu</option>
-          </select>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-item">
+          <div class="form-item-title">
+            Thông tin cán bộ
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào biên chế </label>
+            <input type="text" formControlName="dateInPayroll">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào HVNNVN hoặc đơn vị tiền thân </label>
+            <input type="text" formControlName="dateInHV">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Năm vào nghành giáo dục </label>
+            <input type="text" formControlName="yearInEducation">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào đơn vị cấp 1 </label>
+            <input type="text" formControlName="dateInLeve1">
+          </div>
+          <!---->
         </div>
-        <!---->
-        <div class="item-control">
-          <label>Công tác trong các ngành </label>
-          <select class="form-control" formControlName="branch">
-            <option value="">Cong tac vu</option>
-            <option value="">Cong tac vu</option>
-            <option value="">Cong tac vu</option>
-          </select>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Loại cán bộ </label>
-          <select class="form-control" formControlName="species">
-            <option value="">Loại tac vu</option>
-            <option value="">Loại tac vu</option>
-            <option value="">Loại tac vu</option>
-          </select>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15">Đánh dấu này nếu hiện tại quý vị tham gia giảng dạy </label>
-          <input type="checkbox" formControlName="isTeaching">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Bộ môn </label>
-          <select class="form-control" formControlName="department">
-            <option value="">Bộ môn vu</option>
-            <option value="">Loại tac vu</option>
-            <option value="">Loại tac vu</option>
-          </select>
-        </div>
-        <!---->
       </div>
     </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="form-item">
-        <div class="form-item-title">
-          Thông tin cán bộ
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào biên chế </label>
-          <input type="text" formControlName="dateInPayroll">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào HVNNVN hoặc đơn vị tiền thân </label>
-          <input type="text" formControlName="dateInHV">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Năm vào nghành giáo dục </label>
-          <input type="text" formControlName="yearInEducation">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào đơn vị cấp 1 </label>
-          <input type="text" formControlName="dateInLeve1">
-        </div>
-        <!---->
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="form-item">
-        <div class="form-item-title">
-          Thông tin quá trình
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                <tr (click)="openModal(modal)">
-                  <th>STT</th>
-                  <th>Nơi công tác</th>
-                  <th>Từ ngày</th>
-                  <th>Đến ngày</th>
-                  <th>Chức vụ</th>
-                  <th>Công việc đảm nhận</th>
-                  <th>
-                    <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
-                  </th>
-                </tr>
-                </thead>
-                <tbody>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-item">
+          <div class="form-item-title">
+            Thông tin quá trình
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr (click)="openModal(modal)">
+                    <th>STT</th>
+                    <th>Nơi công tác</th>
+                    <th>Từ ngày</th>
+                    <th>Đến ngày</th>
+                    <th>Chức vụ</th>
+                    <th>Công việc đảm nhận</th>
+                    <th>
+                      <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 
+</div>
 
 <modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
 

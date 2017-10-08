@@ -3,25 +3,27 @@
   z-index: 9999;
   top: 0;
   width: 300px;
-  height: 100%;
+  /*height: 100%;*/
   /*overflow-y: hidden;*/
 }
 
+
 #app-menu-right{
-  right: -260px;
+  width: 350px;
+  right: -300px;
 }
 
-#app-menu-right .app-menu-content {
+#app-menu-right .menu-app {
   transform: translateX(300px);
   transition: 0.5s ease-in-out;
 
 }
 
 #app-menu-right:hover{
-  right: 0;
+  right: -50px;
 }
 
-#app-menu-right:hover .app-menu-content{
+#app-menu-right:hover .menu-app{
   transform: translateX(0px);
 }
 
@@ -40,7 +42,7 @@
 
 #app-menu-left:hover{
   left: 0;
-  height: 100vh;
+  /*height: 100vh;*/
   overflow: scroll;
   overflow-x: hidden;
   transition: 0.5s;
@@ -55,9 +57,9 @@
   background: #fff;
   padding: 10px 20px;
   margin-bottom: 0;
-  margin-top: 0px;
+  margin-top: 0;
   border: 5px solid #2b669a;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
 

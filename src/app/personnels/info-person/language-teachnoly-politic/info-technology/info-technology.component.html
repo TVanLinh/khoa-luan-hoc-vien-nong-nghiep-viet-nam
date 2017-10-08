@@ -1,40 +1,46 @@
-<form action="" [formGroup]="formData">
+<div class="form-item">
+  <div class="form-item-title">
+    Trình độ tin học
+  </div>
+  <form action="" [formGroup]="formData">
   <div class="action-form mgb-20">
     <button>Ghi nhận</button>
     <button>Khóa dữ liệu</button>
   </div>
-  <div class="table-reponsive">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>STT</th>
-        <th>Trình độ tin học</th>
-        <th>Năm cấp</th>
-        <th>Thời hạn</th>
-        <th>
-          <span class="action-icon" (click)="openModal(technologyModal)"><i class="fa fa-plus"></i></span>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <!--Content-->
-      <tr>
-        <td>1</td>
-        <td>{{item.level}}</td>
-        <td>{{item.yearLicense}}</td>
-        <td>{{item.deadLine}}</td>
-        <td>
-          <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-          <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-          <span class="action-icon" ><i class="fa fa-lock"></i></span>
-        </td>
-      </tr>
-      <!---->
-      </tbody>
-    </table>
-  </div>
-</form>
 
+    <div class="table-reponsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Trình độ tin học</th>
+          <th>Năm cấp</th>
+          <th>Thời hạn</th>
+          <th>
+            <span class="action-icon" (click)="openModal(technologyModal)"><i class="fa fa-plus"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--Content-->
+        <tr>
+          <td>1</td>
+          <td>{{item.level}}</td>
+          <td>{{item.yearLicense}}</td>
+          <td>{{item.deadLine}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
+
+</form>
+</div>
 
 
 <modal #technologyModal size='lg' cssClass="my-modal-lg" backdrop="false">

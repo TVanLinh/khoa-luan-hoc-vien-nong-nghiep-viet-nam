@@ -1,46 +1,45 @@
-<form action="">
-  <div class="action-form">
-    <button>Ghi  </button>
-    <button>Khóa dữ liệu</button>
-  </div>
-  <div class="form-item">
-    <div class="form-item-title">
-     Danh sách
+<div class="form-item">
+  <div class="form-item-title"> Danh hiệu thi đua</div>
+  <form action="">
+    <div class="action-form" style="margin-bottom: 10px;">
+      <button>Ghi  </button>
+      <button>Khóa dữ liệu</button>
     </div>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>STT</th>
-          <th>Danh hiệu thi đua </th>
-          <th>Ngày cấp </th>
-          <th>Số quyết định</th>
-          <th>
-            <span class="action-icon" (click)="openModal(emulationTitle)"><i class="fa fa-plus"></i></span>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <!---->
-        <!---->
-        <tr *ngFor="let item of listEmulation.toArray();let i = index ">
-          <td>{{i+1}}</td>
-          <td>{{item.title}}</td>
-          <td>{{item.dateLicense}}</td>
-          <td>{{item.numberDecide}}</td>
-          <td>
-            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
-          </td>
-        </tr>
-        <!---->
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!---->
-</form>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Danh hiệu thi đua </th>
+            <th>Ngày cấp </th>
+            <th>Số quyết định</th>
+            <th>
+              <span class="action-icon" (click)="openModal(emulationTitle)"><i class="fa fa-plus"></i></span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <!---->
+          <!---->
+          <tr *ngFor="let item of listEmulation.toArray();let i = index ">
+            <td>{{i+1}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.dateLicense}}</td>
+            <td>{{item.numberDecide}}</td>
+            <td>
+              <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+              <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+              <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            </td>
+          </tr>
+          <!---->
+          </tbody>
+        </table>
+      </div>
+    <!---->
+  </form>
+</div>
+
 
 
 

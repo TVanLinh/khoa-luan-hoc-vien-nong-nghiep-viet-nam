@@ -1,12 +1,12 @@
 form {
   /*margin-top: 50px;*/
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   padding: 10px;
-  margin-bottom: 50px;
+  /*margin-bottom: 50px;*/
 }
 
 .action-form {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .action-icon {
@@ -45,7 +45,7 @@ button:focus, button:hover, button:active {
   border: 1px solid #cccccc;
   position: relative;
   padding: 15px 10px 15px 10px;
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   /*clear: both;*/
 }
 

@@ -1,172 +1,175 @@
-<form action="" [formGroup]="formData">
-  <div class="action-form">
-    <button (click)="onSave()">Ghi nhận</button>
-    <button (click)="blockData()">Khóa dữ liệu</button>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <!---->
-      <div class="form-item" formGroupName="actionParty">
-        <div class="form-item-title">
-          Quá trình hoạt động đảng
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15"> Qúy vị là Đảng viên hãy đánh dấu vào đây </label>
-          <input type="checkbox" formControlName="isParty">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào Đảng </label>
-          <input type="text" formControlName="dateInParty">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào chính thức vào Đảng </label>
-          <input type="text" placeholder="Ngày/Tháng/Năm " formControlName="dateInPartyfOficial">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Nơi kết nạp </label>
-          <input type="text" formControlName="placeInParty">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
-          <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalActionParty)">Qúa
-            trình hoạt động đảng </a>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Chức vụ Đảng hiện tại </label>
-          <input type="text" formControlName="positonNow">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Nơi sinh hoạt Đảng hiện tại </label>
-          <input type="text" formControlName="placePerformanceParty">
-        </div>
-        <!---->
-      </div>
-
-      <!--quá trình hoạt động Đoàn thể  -->
-      <div class="form-item" formGroupName="actionUnion">
-        <div class="form-item-title">
-          Quá trình hoạt động Đoàn thể
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào Đoàn </label>
-          <input type="text" placeholder="Ngày/Tháng/Năm" formControlName="dateInUnion">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Nơi kết nạp </label>
-          <input type="text" formControlName="placeInUnion">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
-          <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalUnion)">Qúa trình hoạt
-            động Đoàn </a>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Chức vụ cao nhất </label>
-          <input type="text" formControlName="postionTallest">
-        </div>
-        <!---->
-      </div>
-
-      <!---->
+<div class="form-item">
+<div class="form-item-title">Qúa trình hoạt động Đảng, Đoàn, Công Đoàn </div>
+  <form action="" [formGroup]="formData">
+    <div class="action-form">
+      <button (click)="onSave()">Ghi nhận</button>
+      <button (click)="blockData()">Khóa dữ liệu</button>
     </div>
-
-    <div class="col-xs-12 col-sm-6">
-      <!--Quá trình hoạt động Quân ngũ-->
-      <div class="form-item" formGroupName="actionArmy">
-        <div class="form-item-title">
-          Quá trình hoạt động Quân ngũ
-        </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
         <!---->
-        <div class="item-control">
-          <label class="mgr-15"> Đã tham gia quân đội </label>
-          <input type="checkbox" formControlName="isArmy" value="1">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày nhập ngũ/Xuất ngũ </label>
-          <div class="text-right">
-            <input type="text" placeholder="Ngày nhập ngũ "
-                   class="mgb-10" style="float: none" formControlName="dateInArmy">
-            <input type="text" placeholder="Ngày xuất ngũ "
-                   style="float: none" formControlName="dateOutArmy">
+        <div class="form-item" formGroupName="actionParty">
+          <div class="form-item-title">
+            Quá trình hoạt động đảng
           </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15"> Qúy vị là Đảng viên hãy đánh dấu vào đây </label>
+            <input type="checkbox" formControlName="isParty">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào Đảng </label>
+            <input type="text" formControlName="dateInParty">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào chính thức vào Đảng </label>
+            <input type="text" placeholder="Ngày/Tháng/Năm " formControlName="dateInPartyfOficial">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Nơi kết nạp </label>
+            <input type="text" formControlName="placeInParty">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
+            <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalActionParty)">Qúa
+              trình hoạt động đảng </a>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Chức vụ Đảng hiện tại </label>
+            <input type="text" formControlName="positonNow">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Nơi sinh hoạt Đảng hiện tại </label>
+            <input type="text" formControlName="placePerformanceParty">
+          </div>
+          <!---->
         </div>
-        <!---->
-        <div class="item-control">
-          <label>Quân hàm cao nhất </label>
-          <select formControlName="rankTallest" class="form-control">
-            <option>--------- Lựa chọn --------</option>
-          </select>
+
+        <!--quá trình hoạt động Đoàn thể  -->
+        <div class="form-item" formGroupName="actionUnion">
+          <div class="form-item-title">
+            Quá trình hoạt động Đoàn thể
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào Đoàn </label>
+            <input type="text" placeholder="Ngày/Tháng/Năm" formControlName="dateInUnion">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Nơi kết nạp </label>
+            <input type="text" formControlName="placeInUnion">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
+            <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalUnion)">Qúa trình hoạt
+              động Đoàn </a>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Chức vụ cao nhất </label>
+            <input type="text" formControlName="postionTallest">
+          </div>
+          <!---->
         </div>
-        <!---->
-        <div class="item-control">
-          <label>Chức cụ cao nhất trong Hội CCB </label>
-          <select formControlName="postionTallestHCCB" class="form-control">
-            <option>--------- Lựa chọn --------</option>
-          </select>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15"> Là thương binh </label>
-          <input type="checkbox" formControlName="isVeterans" value="1">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Hạng thương binh </label>
-          <select formControlName="rankVeterans" class="form-control">
-            <option>--------- Lựa chọn --------</option>
-          </select>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15"> Sổ thương tật </label>
-          <input type="text" formControlName="bookInjured">
-        </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15"> Hình thức thương tật </label>
-          <input type="text" formControlName="formInjured">
-        </div>
+
         <!---->
       </div>
 
-      <!---qua trinh hoat dong cong doan-->
-      <div class="form-item" formGroupName="actionCD">
-        <div class="form-item-title">
-          Quá trình hoạt động Công Đoàn
+      <div class="col-xs-12 col-sm-6">
+        <!--Quá trình hoạt động Quân ngũ-->
+        <div class="form-item" formGroupName="actionArmy">
+          <div class="form-item-title">
+            Quá trình hoạt động Quân ngũ
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15"> Đã tham gia quân đội </label>
+            <input type="checkbox" formControlName="isArmy" value="1">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày nhập ngũ/Xuất ngũ </label>
+            <div class="text-right">
+              <input type="text" placeholder="Ngày nhập ngũ "
+                     class="mgb-10" style="float: none" formControlName="dateInArmy">
+              <input type="text" placeholder="Ngày xuất ngũ "
+                     style="float: none" formControlName="dateOutArmy">
+            </div>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Quân hàm cao nhất </label>
+            <select formControlName="rankTallest" class="form-control">
+              <option>--------- Lựa chọn --------</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Chức cụ cao nhất trong Hội CCB </label>
+            <select formControlName="postionTallestHCCB" class="form-control">
+              <option>--------- Lựa chọn --------</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15"> Là thương binh </label>
+            <input type="checkbox" formControlName="isVeterans" value="1">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Hạng thương binh </label>
+            <select formControlName="rankVeterans" class="form-control">
+              <option>--------- Lựa chọn --------</option>
+            </select>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15"> Sổ thương tật </label>
+            <input type="text" formControlName="bookInjured">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15"> Hình thức thương tật </label>
+            <input type="text" formControlName="formInjured">
+          </div>
+          <!---->
         </div>
-        <!---->
-        <div class="item-control">
-          <label>Ngày vào Công Đoàn </label>
-          <input type="text" formControlName="dateInCD">
+
+        <!---qua trinh hoat dong cong doan-->
+        <div class="form-item" formGroupName="actionCD">
+          <div class="form-item-title">
+            Quá trình hoạt động Công Đoàn
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Ngày vào Công Đoàn </label>
+            <input type="text" formControlName="dateInCD">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
+            <a href="javascript:void(0)" style="text-decoration: underline">Qúa trình hoạt động Công Đoàn </a>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Chức vụ Công Đoàn cao nhất </label>
+            <input type="text" formControlName="positionTallest">
+          </div>
+          <!---->
         </div>
-        <!---->
-        <div class="item-control">
-          <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
-          <a href="javascript:void(0)" style="text-decoration: underline">Qúa trình hoạt động Công Đoàn </a>
-        </div>
-        <!---->
-        <div class="item-control">
-          <label>Chức vụ Công Đoàn cao nhất </label>
-          <input type="text" formControlName="positionTallest">
-        </div>
-        <!---->
+        <!-------------------------------------->
       </div>
-      <!-------------------------------------->
     </div>
-  </div>
-</form>
+  </form>
+</div>
 
 
 <!--modal qua trinh hoat dong dang-->

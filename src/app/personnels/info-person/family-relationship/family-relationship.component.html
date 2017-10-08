@@ -1,15 +1,13 @@
-<form>
-  <!---->
-  <div class="action-form">
-    <button>Ghi nhận</button>
-    <button>Khóa dữ liệu</button>
-    <!--<button (click)="openModal(modalFamily)"> Thêm dữ liệu</button>-->
-  </div>
-  <!---->
-  <div class="form-item">
-    <div class="form-item-title">
-      Thông tin nhân thân
+<div class="form-item">
+  <div class="form-item-title">Quan hệ gia đình</div>
+  <form>
+    <!---->
+    <div class="action-form" style="margin-bottom: 10px;">
+      <button>Ghi nhận</button>
+      <button>Khóa dữ liệu</button>
+      <!--<button (click)="openModal(modalFamily)"> Thêm dữ liệu</button>-->
     </div>
+    <!---->
     <div class="table-responsive">
       <table class="table table-bordered ">
         <thead>
@@ -47,8 +45,8 @@
         </tbody>
       </table>
     </div>
-  </div>
-</form>
+  </form>
+</div>
 
 
 <!--modal qua trinh hoat dong Doan-->
@@ -98,7 +96,7 @@
             <select class="form-control" formControlName="national">
               <option value="not" *ngIf="positionUpdate == -1" selected>-----------Lựa chọn---------</option>
               <option [value]="item.code" *ngFor="let item of nationalService.nationals">
-                 {{item.name}}
+                {{item.name}}
               </option>
             </select>
           </div>
@@ -108,7 +106,7 @@
   </modal-body>
 
   <modal-footer>
-      <button class="btn-action" (click)="addItem()">Thêm</button>
+    <button class="btn-action" (click)="addItem()">Thêm</button>
   </modal-footer>
 
 </modal>

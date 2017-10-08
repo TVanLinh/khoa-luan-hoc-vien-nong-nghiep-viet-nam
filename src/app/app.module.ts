@@ -54,7 +54,7 @@ import {ProcedureTransferUnitWorkComponent} from "./personnels/manager-personnel
 import {ProcedureTransferDepartmentComponent} from "./personnels/manager-personnels/procedure-transfer-department/procedure-transfer-department.component";
 import {MenuAppComponent} from "./menu-app/menu-app.component";
 import {Header2Component} from "./components/headers/header-2/header-2.component";
-import {PersonnelManagerComponent} from "./personnels/personnels.component";
+import {PersonnelManagerComponent} from "./personnels/manager-personnels/personnels.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {AppRouting} from "./app.routing";
 import {HomeComponent} from "./home/home.component";
@@ -63,6 +63,9 @@ import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/langua
 import {HttpModule} from "@angular/http";
 import {NationalService} from "./shares/national.service";
 import {TaskService} from "./shares/task.service";
+import {ManagerComponent} from "./personnels/manger.component";
+import {InfoComponent} from "./personnels/info-person/info.component";
+import {Ng2PageScrollModule} from "ng2-page-scroll";
 
 @NgModule({
   declarations: [
@@ -119,7 +122,9 @@ import {TaskService} from "./shares/task.service";
     PersonnelManagerComponent,
     LoginComponent,
     HomeComponent,
-    LanguageTeachnolyPoliticComponent
+    LanguageTeachnolyPoliticComponent,
+    ManagerComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +136,8 @@ import {TaskService} from "./shares/task.service";
     Ng2Bs3ModalModule,
     AppRouting,
     PersonnelRouting,
-    HttpModule
+    HttpModule,
+    Ng2PageScrollModule
   ],
   entryComponents: [],
   providers: [NationalService,TaskService],

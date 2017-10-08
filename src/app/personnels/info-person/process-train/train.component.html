@@ -1,115 +1,122 @@
-<form action="" [formGroup]="formData">
+<div class="form-item">
+  <div class="form-item-title">
+    Quá trình đào tạo
+  </div>
+<form action="" [formGroup]="formData" style="border: none">
   <div class="action-form">
     <button>Ghi nhận</button>
     <button>Khóa dữ liệu</button>
   </div>
   <!---->
-  <div class="mgb-20">
-    <label>Trình độ giáo dục phổ thông </label>
-    <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0"
-            formControlName="generalEdu">
-      <option value="1">1/12</option>
-      <option value="2">2/12</option>
-      <option value="3">3/12</option>
-      <option value="4">4/12</option>
-      <option value="5">5/12</option>
-      <option value="6">6/12</option>
-      <option value="7">7/12</option>
-    </select>
-  </div>
-  <!---->
-  <div class="form-item long-time  ">
-    <div class="form-item-title">
-      Quá trình đào tạo dài hạn
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>STT</th>
-          <th>Từ năm</th>
-          <th>Đến năm</th>
-          <th>Chuyên nghành</th>
-          <th>Bậc học</th>
-          <th>Học vị đạt được</th>
-          <th>Xếp loại</th>
-          <th>Trường đào tạo</th>
-          <th>Nước đào tạo</th>
-          <th>
-            <span class="action-icon" (click)="openModal(trainLongTimeModal)"><i class="fa fa-plus"></i></span>
-          </th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>{{itemLong.yearFrom}}</td>
-          <td>{{itemLong.yearEnd}}</td>
-          <td>{{itemLong.specialized}}</td>
-          <td>{{itemLong.levelLearn}}</td>
-          <td>{{itemLong.academicRank}}</td>
-          <td>{{itemLong.spice}}</td>
-          <td>{{itemLong.school}}</td>
-          <td>{{itemLong.national}}</td>
-          <td>
-            <span class="action-icon"><i class="fa fa-edit"></i></span>
-            <span class="action-icon"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-            <span class="action-icon"><i class="fa fa-lock"></i></span>
-          </td>
-        </tr>
-
-        </tbody>
-      </table>
+    <div class="mgb-20">
+      <label>Trình độ giáo dục phổ thông </label>
+      <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0"
+              formControlName="generalEdu">
+        <option value="1">1/12</option>
+        <option value="2">2/12</option>
+        <option value="3">3/12</option>
+        <option value="4">4/12</option>
+        <option value="5">5/12</option>
+        <option value="6">6/12</option>
+        <option value="7">7/12</option>
+      </select>
     </div>
-  </div>
-  <!---->
-  <div class="form-item short-time">
-    <div class="form-item-title">
-      Quá trình đào tạo ngắn hạn
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>STT</th>
-          <th>Từ tháng/năm</th>
-          <th>Số tháng</th>
-          <th>Chứng chỉ</th>
-          <th>Nơi đào tạo</th>
-          <th>Nước đào tạo</th>
-          <th>Mô tả</th>
-          <th>
-            <span class="action-icon" (click)="openModal(trainShortTimeModal)"><i class="fa fa-plus"></i></span>
-          </th>
-        </tr>
-        </thead>
+    <!---->
+    <div class="form-item long-time  ">
+      <div class="form-item-title">
+        Quá trình đào tạo dài hạn
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Từ năm</th>
+            <th>Đến năm</th>
+            <th>Chuyên nghành</th>
+            <th>Bậc học</th>
+            <th>Học vị đạt được</th>
+            <th>Xếp loại</th>
+            <th>Trường đào tạo</th>
+            <th>Nước đào tạo</th>
+            <th>
+              <span class="action-icon" (click)="openModal(trainLongTimeModal)"><i class="fa fa-plus"></i></span>
+            </th>
+          </tr>
+          </thead>
 
-        <tbody>
-        <!-- content-->
-        <tr>
-          <td>1</td>
-          <td>{{itemShort.dateFrom}}</td>
-          <td>{{itemShort.numberMonth}}</td>
-          <td>{{itemShort.certificate}}</td>
-          <td>{{itemShort.placeTrain}}</td>
-          <td>{{itemShort.national}}</td>
-          <td>{{itemShort.description}}</td>
-          <td>
-            <span class="action-icon"><i class="fa fa-edit"></i></span>
-            <span class="action-icon"><i
-              class="fa fa-remove icon-remove-update"></i></span>
-            <span class="action-icon"><i class="fa fa-lock"></i></span>
-          </td>
-        </tr>
-        <!---->
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td>{{itemLong.yearFrom}}</td>
+            <td>{{itemLong.yearEnd}}</td>
+            <td>{{itemLong.specialized}}</td>
+            <td>{{itemLong.levelLearn}}</td>
+            <td>{{itemLong.academicRank}}</td>
+            <td>{{itemLong.spice}}</td>
+            <td>{{itemLong.school}}</td>
+            <td>{{itemLong.national}}</td>
+            <td>
+              <span class="action-icon"><i class="fa fa-edit"></i></span>
+              <span class="action-icon"><i
+                class="fa fa-remove icon-remove-update"></i></span>
+              <span class="action-icon"><i class="fa fa-lock"></i></span>
+            </td>
+          </tr>
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+    <!---->
+    <div class="form-item short-time">
+      <div class="form-item-title">
+        Quá trình đào tạo ngắn hạn
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Từ tháng/năm</th>
+            <th>Số tháng</th>
+            <th>Chứng chỉ</th>
+            <th>Nơi đào tạo</th>
+            <th>Nước đào tạo</th>
+            <th>Mô tả</th>
+            <th>
+              <span class="action-icon" (click)="openModal(trainShortTimeModal)"><i class="fa fa-plus"></i></span>
+            </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <!-- content-->
+          <tr>
+            <td>1</td>
+            <td>{{itemShort.dateFrom}}</td>
+            <td>{{itemShort.numberMonth}}</td>
+            <td>{{itemShort.certificate}}</td>
+            <td>{{itemShort.placeTrain}}</td>
+            <td>{{itemShort.national}}</td>
+            <td>{{itemShort.description}}</td>
+            <td>
+              <span class="action-icon"><i class="fa fa-edit"></i></span>
+              <span class="action-icon"><i
+                class="fa fa-remove icon-remove-update"></i></span>
+              <span class="action-icon"><i class="fa fa-lock"></i></span>
+            </td>
+          </tr>
+          <!---->
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
 </form>
+</div>
 
 
 <!--long time-->

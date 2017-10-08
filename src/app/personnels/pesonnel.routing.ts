@@ -1,7 +1,7 @@
 import {RouterModule, Routes} from "@angular/router";
 
 import {NgModule} from "@angular/core";
-import {PersonnelManagerComponent} from "./personnels.component";
+import {PersonnelManagerComponent} from "./manager-personnels/personnels.component";
 import {CurriculumVitaeComponent} from "./info-person/curriculum-vitae/curriculum-vitae.component";
 import {PartyUnionComponent} from "./info-person/party-union/party-union.component";
 import {FamilyRelationshipComponent} from "./info-person/family-relationship/family-relationship.component";
@@ -27,71 +27,78 @@ import {ForeignComponent} from "app/personnels/info-person/foreign/foreign.compo
 import {LanguageTeachnolyPoliticComponent} from "app/personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
 import {TrainComponent} from "./info-person/process-train/train.component";
 import {ProcessTeachingComponent} from "./info-person/process-teaching/process-teaching.component";
-import {NationalService} from "../shares/national.service";
-import {HttpModule} from "@angular/http";
+import {ManagerComponent} from "app/personnels/manger.component";
+import {InfoComponent} from "./info-person/info.component";
+import {Ng2PageScrollModule} from "ng2-page-scroll";
 
 
 const routes: Routes = [
   {
-    path: "manager-personnel", component: PersonnelManagerComponent, children: [
+    path: 'manager', component: ManagerComponent, children: [
+    {path: '', component: InfoComponent},
+    {path: 'info', component: InfoComponent},
     {
-      path: '', component: CurriculumVitaeComponent,
-    }, {
-      path: 'curriculum-vitae', component: CurriculumVitaeComponent
-    },
-    {
-      path: 'party-union', component: PartyUnionComponent
-    }, {
-      path: 'family-relationship', component: FamilyRelationshipComponent
-    }, {
-      path: 'contract', component: ContractComponent
-    }, {
-      path: 'process-work', component: ProcessWorkComponent
-    },
-    {
-      path: 'politic-language-technology', component: LanguageTeachnolyPoliticComponent
-    },
-    {
-      path: 'bonus-discipline', component: BonusDisciplineComponent
-    }, {
-      path: 'academic-rank', component: AcademicRankComponent
-    }, {
-      path: 'emulation-title', component: EmulationTitleComponent
-    }, {
-      path: 'salary-brief', component: SalaryBriefComponent
-    }, {
-      path: 'foreign', component: ForeignComponent
-    }, {
-      path: 'thesis-guide', component: ThesisGuideComponent
-    }, {
-      path: 'senimar-newpaper', component: SenimarNewpaperComponent
-    }, {
-      path: 'process-evention', component: ProcessEventionComponent
-    }, {
-      path: 'publish-info', component: PublishInfoComponent
-    }, {
-      path: 'science-topic', component: ScienceTopicComponent
-    },
-    {
-      path: 'process-train', component: TrainComponent
-    },
-    {
-      path: 'process-teaching', component: ProcessTeachingComponent
-    },
-    {
-      path: 'add-personnel', component: AddPersonnelComponent
-    }, {
-      path: 'edit-personnel', component: EditPersonnelComponent
-    }, {
-      path: 'procedure-leave-job', component: ProcedureLeaveJobComponent
-    }, {
-      path: 'procedure-bind-job', component: ProcedureBindJobComponent
-    }, {
-      path: 'procedure-transfer-unit-work', component: ProcedureTransferUnitWorkComponent
-    }, {
-      path: 'procedure-transfer-department', component: ProcedureTransferDepartmentComponent
-    }, {
-      path: 'procedure-retire', component: ProcedureRetireComponent
+      path: "manager-personnel", component: PersonnelManagerComponent, children: [
+      {
+        path: '', component: CurriculumVitaeComponent,
+      }, {
+        path: 'curriculum-vitae', component: CurriculumVitaeComponent
+      },
+      {
+        path: 'party-union', component: PartyUnionComponent
+      }, {
+        path: 'family-relationship', component: FamilyRelationshipComponent
+      }, {
+        path: 'contract', component: ContractComponent
+      }, {
+        path: 'process-work', component: ProcessWorkComponent
+      },
+      {
+        path: 'politic-language-technology', component: LanguageTeachnolyPoliticComponent
+      },
+      {
+        path: 'bonus-discipline', component: BonusDisciplineComponent
+      }, {
+        path: 'academic-rank', component: AcademicRankComponent
+      }, {
+        path: 'emulation-title', component: EmulationTitleComponent
+      }, {
+        path: 'salary-brief', component: SalaryBriefComponent
+      }, {
+        path: 'foreign', component: ForeignComponent
+      }, {
+        path: 'thesis-guide', component: ThesisGuideComponent
+      }, {
+        path: 'senimar-newpaper', component: SenimarNewpaperComponent
+      }, {
+        path: 'process-evention', component: ProcessEventionComponent
+      }, {
+        path: 'publish-info', component: PublishInfoComponent
+      }, {
+        path: 'science-topic', component: ScienceTopicComponent
+      },
+      {
+        path: 'process-train', component: TrainComponent
+      },
+      {
+        path: 'process-teaching', component: ProcessTeachingComponent
+      },
+      {
+        path: 'add-personnel', component: AddPersonnelComponent
+      }, {
+        path: 'edit-personnel', component: EditPersonnelComponent
+      }, {
+        path: 'procedure-leave-job', component: ProcedureLeaveJobComponent
+      }, {
+        path: 'procedure-bind-job', component: ProcedureBindJobComponent
+      }, {
+        path: 'procedure-transfer-unit-work', component: ProcedureTransferUnitWorkComponent
+      }, {
+        path: 'procedure-transfer-department', component: ProcedureTransferDepartmentComponent
+      }, {
+        path: 'procedure-retire', component: ProcedureRetireComponent
+      }
+    ]
     }
   ]
   }

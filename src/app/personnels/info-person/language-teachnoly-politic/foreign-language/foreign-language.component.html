@@ -1,15 +1,14 @@
-<form>
-  <div class="action-form">
+<div class=" form-item">
+  <div class="form-item-title">
+    Trình độ ngoại ngữ
+  </div>
+  <form>
+  <div class="action-form" style="margin-bottom: 10px;">
     <button (click)="onSave()">Ghi nhận</button>
     <button>Khóa dữ liệu</button>
   </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <div class=" form-item">
-        <div class="form-item-title">
-          Trình độ ngoại ngữ
-        </div>
-        <div class="table-responsive">
+
+    <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
             <tr>
@@ -42,10 +41,8 @@
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </div>
 </form>
+</div>
 
 
 <modal #languageModal size='lg' cssClass="my-modal-lg" backdrop="false">

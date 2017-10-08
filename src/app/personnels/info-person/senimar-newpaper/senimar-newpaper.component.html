@@ -1,110 +1,113 @@
-<form>
-  <div class="action-form">
-    <button>Ghi nhận</button>
-    <button>Bỏ qua</button>
-    <button>Khóa dữ liệu</button>
-  </div>
-  <div class="row">
+<div class="form-item">
+  <div class="form-item-title">Bài báo, báo cáo khoa học </div>
+  <form>
+    <div class="action-form">
+      <button>Ghi nhận</button>
+      <button>Bỏ qua</button>
+      <button>Khóa dữ liệu</button>
+    </div>
+    <div class="row">
 
-    <div class="col-xs-12">
-      <div class="form-item">
-        <div class="form-item-title">
-          Thông tin báo cáo khoa học
+      <div class="col-xs-12">
+        <div class="form-item">
+          <div class="form-item-title">
+            Thông tin báo cáo khoa học
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên báo cáo</th>
+                <th>Tên kỷ yếu</th>
+                <th>Tên hội nghị</th>
+                <th>Trang đăng</th>
+                <th>Năm</th>
+                <th>Số tác giả</th>
+                <th>Đồng tác giả</th>
+                <th>Trong nước/nước ngoài</th>
+                <th>
+                  <span class="action-icon" (click)="openModal(seminaModal)"><i class="fa fa-plus"></i></span>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of listSenimar.toArray();let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.nameYearBook}}</td>
+                <td>{{item.nameConvention}}</td>
+                <td>{{item.pagePost}}</td>
+                <td>{{item.year}}</td>
+                <td>{{item.numberAuthor}}</td>
+                <td>{{item.authors}}</td>
+                <td>{{item.location}}</td>
+                <td>
+                  <span class="action-icon" (click)="editItem('SENIMAR',i)"><i class="fa fa-edit"></i></span>
+                  <span class="action-icon" (click)="removeItem('SENIMAR',i)"><i class="fa fa-remove "></i></span>
+                  <span class="action-icon"><i class="fa fa-lock"></i></span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
         </div>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên báo cáo</th>
-              <th>Tên kỷ yếu</th>
-              <th>Tên hội nghị</th>
-              <th>Trang đăng</th>
-              <th>Năm</th>
-              <th>Số tác giả</th>
-              <th>Đồng tác giả</th>
-              <th>Trong nước/nước ngoài</th>
-              <th>
-                <span class="action-icon" (click)="openModal(seminaModal)"><i class="fa fa-plus"></i></span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of listSenimar.toArray();let i = index">
-              <td>{{i+1}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.nameYearBook}}</td>
-              <td>{{item.nameConvention}}</td>
-              <td>{{item.pagePost}}</td>
-              <td>{{item.year}}</td>
-              <td>{{item.numberAuthor}}</td>
-              <td>{{item.authors}}</td>
-              <td>{{item.location}}</td>
-              <td>
-                <span class="action-icon" (click)="editItem('SENIMAR',i)"><i class="fa fa-edit"></i></span>
-                <span class="action-icon" (click)="removeItem('SENIMAR',i)"><i class="fa fa-remove "></i></span>
-                <span class="action-icon"><i class="fa fa-lock"></i></span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+      </div>
 
+
+      <!---  Thông tin  báo cao khoa học  -->
+
+      <!---->
+      <!---->
+      <div class="col-xs-12">
+        <div class="form-item">
+          <div class="form-item-title">
+            Thông tin bài báo
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên bài báo</th>
+                <th>Tên tạp chí</th>
+                <th>Số tạp chí</th>
+                <th>Trang đăng</th>
+                <th>Năm</th>
+                <th>Số tác giả</th>
+                <th>Đồng tác giả</th>
+                <th>Trong nước/nước ngoài</th>
+                <th>
+                  <span class="action-icon" (click)="openModal(newspaperModal)"><i class="fa fa-plus"></i></span>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of listNewsPaper.toArray();let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.nameMagazine}}</td>
+                <td>{{item.numberMagazine}}</td>
+                <td>{{item.pagePost}}</td>
+                <td>{{item.year}}</td>
+                <td>{{item.numberAuthor}}</td>
+                <td>{{item.authors}}</td>
+                <td>{{item.location}}</td>
+                <td>
+                  <span class="action-icon" (click)="editItem('NEWSPAPER',i)"><i class="fa fa-edit"></i></span>
+                  <span class="action-icon" (click)="removeItem('NEWSPAPER',i)"><i class="fa fa-remove "></i></span>
+                  <span class="action-icon"><i class="fa fa-lock"></i></span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-
-
-    <!---  Thông tin  báo cao khoa học  -->
-
-    <!---->
-    <!---->
-    <div class="col-xs-12">
-      <div class="form-item">
-        <div class="form-item-title">
-          Thông tin bài báo
-        </div>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên bài báo</th>
-              <th>Tên tạp chí</th>
-              <th>Số tạp chí</th>
-              <th>Trang đăng</th>
-              <th>Năm</th>
-              <th>Số tác giả</th>
-              <th>Đồng tác giả</th>
-              <th>Trong nước/nước ngoài</th>
-              <th>
-                <span class="action-icon" (click)="openModal(newspaperModal)"><i class="fa fa-plus"></i></span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of listNewsPaper.toArray();let i = index">
-              <td>{{i+1}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.nameMagazine}}</td>
-              <td>{{item.numberMagazine}}</td>
-              <td>{{item.pagePost}}</td>
-              <td>{{item.year}}</td>
-              <td>{{item.numberAuthor}}</td>
-              <td>{{item.authors}}</td>
-              <td>{{item.location}}</td>
-              <td>
-                <span class="action-icon" (click)="editItem('NEWSPAPER',i)"><i class="fa fa-edit"></i></span>
-                <span class="action-icon" (click)="removeItem('NEWSPAPER',i)"><i class="fa fa-remove "></i></span>
-                <span class="action-icon"><i class="fa fa-lock"></i></span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
+  </form>
+</div>
 
 <modal #seminaModal size='lg' cssClass="my-modal-lg" backdrop="false">
 

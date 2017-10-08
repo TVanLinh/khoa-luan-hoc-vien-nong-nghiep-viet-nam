@@ -1,34 +1,37 @@
-<div class="mgb-50">
-  <app-header-2></app-header-2>
-</div>
+<router-outlet></router-outlet>
 
-<div class="container">
+<!--<div class="mgb-50">-->
+  <!--<app-header-2></app-header-2>-->
+<!--</div>-->
 
-  <div id="app-menu-left">
-    <div class="app-menu-content">
+<!--<div class="container">-->
 
-      <h4 class="app-menu-title-catalog" (click)="toggleCatalog('menu-info')">Thông tin nhân sự </h4>
-      <app-menu-app [menus]="menuInfo" id="menu-info"></app-menu-app>
+  <!--<div id="app-menu-left">-->
+    <!--<div class="app-menu-content">-->
 
-      <h4 class="app-menu-title-catalog" (click)="toggleCatalog('menuManager')">Quản lý nhân sự  </h4>
-      <app-menu-app [menus]="menuManager" id="menuManager" cssClass="height-i-auto"></app-menu-app>
+      <!--<h4 class="app-menu-title-catalog" (click)="toggleCatalog('menu-info')">{{titleFeature}} </h4>-->
+      <!--<app-menu-app [menus]="menuInfo" id="menu-info"></app-menu-app>-->
 
-
-      <h4 class="app-menu-title-catalog" (click)="toggleCatalog('menuManager2')">Quản lý nhân sự  </h4>
-      <app-menu-app [menus]="menuManager" id="menuManager2" cssClass="height-i-auto"></app-menu-app>
+      <!--<h4 class="app-menu-title-catalog" (click)="toggleCatalog('menuManager')">Quản lý nhân sự  </h4>-->
+      <!--<app-menu-app [menus]="menuManager" id="menuManager" cssClass="height-i-auto"></app-menu-app>-->
 
 
-    </div>
-  </div>
+      <!--<h4 class="app-menu-title-catalog" (click)="toggleCatalog('menuManager2')">Quản lý nhân sự  </h4>-->
+      <!--<app-menu-app [menus]="menuManager" id="menuManager2" cssClass="height-i-auto"></app-menu-app>-->
 
 
-  <div id="app-menu-right">
-    <div class="app-menu-content">
-      <app-menu-app [menus]="menuRight"></app-menu-app>
-    </div>
-  </div>
+    <!--</div>-->
+  <!--</div>-->
 
-  <router-outlet></router-outlet>
+
+  <!--<div id="app-menu-right">-->
+    <!--<ul class="menu-app">-->
+      <!--<li><a routerLinkActive="active" routerLink="/manager-personnel" (click)="navigate('info')">Thông tin nhân sự </a></li>-->
+      <!--<li><a routerLinkActive="active" routerLink="/manager-personnel/add-personnel" (click)="navigate('manager')">Quản lý nhân nhân sự </a></li>-->
+    <!--</ul>-->
+
+  <!--</div>-->
+
 
   <!--&lt;!&ndash;Sơ yếu lí lịch &ndash;&gt;-->
   <!--<div id="app-curriculum-vitae">-->
@@ -180,5 +183,5 @@
   <!--End quan ly nhan su-->
 
 
-</div>
-<div app-top></div>
+<!--</div>-->
+<!--<div app-top></div>-->
