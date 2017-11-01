@@ -25,11 +25,9 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       dateEnd: '20/10/2016',
       national: 'not',
       organInvite: 'cn',
-      costGoBack: 'hv',
       product: 'bai bao',
       nameOrganInvite: 'CNLB duc',
       purpose: 'Lao dong',
-      costLiving: 'dt'
     };
     this.listForeignForm.add(item);
   }
@@ -73,12 +71,9 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       dateFrom: '',
       dateEnd: '',
       national: 'not',
-      organInvite: 'cn',
-      costGoBack: 'hv',
       product: 'bai bao',
       purpose: 'Lao dong',
       nameOrganInvite: 'CNLB duc',
-      costLiving: 'dt'
     })
   }
 
@@ -93,11 +88,9 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       dateEnd: edit.dateEnd,
       national: edit.national,
       organInvite: edit.organInvite,
-      costGoBack: edit.costGoBack,
       product: edit.product,
       purpose: edit.purpose,
       nameOrganInvite: edit.nameOrganInvite,
-      costLiving: edit.costLiving
     });
     this.positionUpdate = index;
     this.openModal(this.modal);
@@ -111,9 +104,7 @@ interface  ForeignForm {
   dateEnd: string,
   national: string,
   organInvite: string,
-  costGoBack: string,
   product: string,
   purpose: string,
   nameOrganInvite: string,
-  costLiving: string
 }

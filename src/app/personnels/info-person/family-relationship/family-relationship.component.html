@@ -17,8 +17,6 @@
           <th>Họ tên</th>
           <th>Năm sinh</th>
           <th>Nghề nghiệp</th>
-          <th>Cơ quan làm việc</th>
-          <th>Quốc gia đang sống</th>
           <th>
             <span class="action-icon" (click)="openModal(modalFamily)"><i class="fa fa-plus"></i></span>
           </th>
@@ -33,8 +31,6 @@
           <td>{{item.fullName}}</td>
           <td>{{item.birthDay}}</td>
           <td>{{item.job}}</td>
-          <td>{{item.organ}}</td>
-          <td>{{item.national}}</td>
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove"></i></span>
@@ -61,44 +57,34 @@
       <div class="row">
         <div class="col-xs-12 col-sm-6 ">
           <!---->
+
+          <!---->
           <div class="item-control pdt-i-0">
+            <label>Họ tên</label>
+            <input type="text" class="form-control" formControlName="fullName"/>
+          </div>
+          <!---->
+
+
+          <div class="item-control ">
             <label>Quan hệ </label>
             <select class="form-control" formControlName="relation">
               <option value="">----Lựa chọn-----</option>
             </select>
           </div>
 
-          <!---->
-          <div class="item-control">
-            <label>Họ tên</label>
-            <input type="text" class="form-control" formControlName="fullName"/>
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Ngày sinh </label>
-            <input type="date" class="form-control" formControlName="birthDay"/>
-          </div>
-          <!---->
+
         </div>
 
         <div class="col-xs-12 col-sm-6">
           <div class="item-control pdt-i-0">
-            <label>Cơ quan làm việc </label>
-            <input type="text" class="form-control" formControlName="organ"/>
+            <label>Ngày sinh </label>
+            <input type="date" class="form-control" formControlName="birthDay"/>
           </div>
-
+          <!---->
           <div class="item-control">
             <label>Nghề nghiệp </label>
             <input type="text" class="form-control" formControlName="job"/>
-          </div>
-          <div class="item-control">
-            <label>Quốc gia đang sống </label>
-            <select class="form-control" formControlName="national">
-              <option value="not" *ngIf="positionUpdate == -1" selected>-----------Lựa chọn---------</option>
-              <option [value]="item.code" *ngFor="let item of nationalService.nationals">
-                {{item.name}}
-              </option>
-            </select>
           </div>
         </div>
       </div>

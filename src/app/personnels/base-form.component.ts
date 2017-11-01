@@ -22,5 +22,4 @@ export class BaseFormComponent {
     target.close();
   }
 
-  getLanguae
 }

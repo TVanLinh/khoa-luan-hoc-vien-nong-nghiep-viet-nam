@@ -24,9 +24,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       relation: 'Bo',
       fullName: "La Van Tai",
       birthDay: "20/6/1976",
-      job: 'Giao Vien',
-      organ: 'DH Quoc Gia',
-      national: 'Viet Nam'
+      job: 'Giao Vien'
     };
     this.listRelationFamily.add(a);
     this.initForm();
@@ -37,9 +35,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       relation: [''],
       fullName: [''],
       birthDay: [''],
-      job: [''],
-      organ: [''],
-      national: ['not']
+      job: ['']
     })
   }
 
@@ -66,9 +62,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       relation: [''],
       fullName: [''],
       birthDay: [''],
-      job: [''],
-      organ: [''],
-      national: ['not']
+      job: ['']
     });
   }
 
@@ -84,9 +78,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       relation: itemEdit.relation,
       fullName: itemEdit.fullName,
       birthDay: itemEdit.birthDay,
-      job: itemEdit.job,
-      organ: itemEdit.organ,
-      national: itemEdit.national
+      job: itemEdit.job
     });
 
     this.openModal(this.modal);
@@ -99,7 +91,5 @@ export interface  RelationFamily {
   relation: string,
   fullName: string,
   birthDay: string,
-  job: string,
-  organ: string,
-  national: string
+  job: string
 }

@@ -1,90 +1,9 @@
 <div class="form-item">
   <div class="form-item-title"> Quá trình công tác</div>
-  <form [formGroup]="formData">
     <div class="action-form">
       <button>Ghi nhận</button>
       <button>Khóa dữ liệu</button>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-item">
-          <div class="form-item-title">
-            Thông tin cán bộ
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Đối tượng nhân sự </label>
-            <select class="form-control" formControlName="objectPersonnel">
-              <option value="">Phuc vu</option>
-              <option value="">Phuc vu</option>
-              <option value="">Phuc vu</option>
-            </select>
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Công tác trong các ngành </label>
-            <select class="form-control" formControlName="branch">
-              <option value="">Cong tac vu</option>
-              <option value="">Cong tac vu</option>
-              <option value="">Cong tac vu</option>
-            </select>
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Loại cán bộ </label>
-            <select class="form-control" formControlName="species">
-              <option value="">Loại tac vu</option>
-              <option value="">Loại tac vu</option>
-              <option value="">Loại tac vu</option>
-            </select>
-          </div>
-          <!---->
-          <div class="item-control">
-            <label class="mgr-15">Đánh dấu này nếu hiện tại quý vị tham gia giảng dạy </label>
-            <input type="checkbox" formControlName="isTeaching">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Bộ môn </label>
-            <select class="form-control" formControlName="department">
-              <option value="">Bộ môn vu</option>
-              <option value="">Loại tac vu</option>
-              <option value="">Loại tac vu</option>
-            </select>
-          </div>
-          <!---->
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-item">
-          <div class="form-item-title">
-            Thông tin cán bộ
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Ngày vào biên chế </label>
-            <input type="text" formControlName="dateInPayroll">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Ngày vào HVNNVN hoặc đơn vị tiền thân </label>
-            <input type="text" formControlName="dateInHV">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Năm vào nghành giáo dục </label>
-            <input type="text" formControlName="yearInEducation">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Ngày vào đơn vị cấp 1 </label>
-            <input type="text" formControlName="dateInLeve1">
-          </div>
-          <!---->
-        </div>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-xs-12">
         <div class="form-item">
@@ -96,7 +15,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead>
-                  <tr (click)="openModal(modal)">
+                  <tr>
                     <th>STT</th>
                     <th>Nơi công tác</th>
                     <th>Từ ngày</th>
@@ -118,8 +37,6 @@
         </div>
       </div>
     </div>
-  </form>
-
 </div>
 
 <modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
@@ -135,7 +52,7 @@
       <div class="row">
          <div class="col-xs-12 col-sm-4">
             <div class="item-control">
-              <input type="checkbox" checked formControlName="isNotBelogtoHV"> <span>Bỏ đánh dấu nếu đơn vị hiện tại không trực thuộc HVNNVN </span>
+              <input type="checkbox" checked formControlName="isNotBelogtoHV"> <span>Đánh dấu nếu đơn vị hiện tại không trực thuộc HVNNVN </span>
             </div>
             <div class="item-control">
               <label>Đơn vị công tác cấp 1 </label>
@@ -160,20 +77,12 @@
               <label>Từ ngày </label>
               <input type="date"  formControlName="dateFrom">
             </div>
-            <div class="item-control">
-              <input type="checkbox" formControlName="isDateInPayroll"> <span>Là ngày vào biên chế </span>
-            </div>
-            <div class="item-control">
-              <input type="checkbox" formControlName="isDateInHV">
-              <span>Là ngày vào HVNNVN hoặc đơn vị tiền thân  </span>
-            </div>
-            <div class="item-control">
-              <input type="checkbox" formControlName="isYearInEducation">
-              <span>Là năm vào nghành giáo dục  </span>
-            </div>
-            <div class="item-control">
-              <input type="checkbox" formControlName="isDateInLeve1"> <span>Là ngày vào đơn vị cấp 1 </span>
-            </div>
+
+          <div class="item-control">
+            <label>Chức vụ </label>
+            <input type="text" formControlName="position">
+          </div>
+
         </div>
           <!---->
         <div class="col-xs-12 col-sm-4">
@@ -183,13 +92,6 @@
             </div>
 
           <!---->
-
-            <div class="item-control">
-              <label>Chức vụ </label>
-              <input type="text" formControlName="position">
-            </div>
-
-
             <div class="item-control">
               <label >Công việc đảm nhận </label>
               <input type="text" class="" formControlName="job">

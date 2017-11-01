@@ -66,6 +66,16 @@ import {TaskService} from "./shares/task.service";
 import {ManagerComponent} from "./personnels/manger.component";
 import {InfoComponent} from "./personnels/info-person/info.component";
 import {Ng2PageScrollModule} from "ng2-page-scroll";
+import {ImageUploadModule} from "angular2-image-upload";
+import { ManagerCatalogComponent } from './personnels/manager-catalog/manager-catalog.component';
+import { SearchStatisticComponent } from './personnels/search-statistic/search-statistic.component';
+import { ManagerSystemComponent } from './personnels/manager-system/manager-system.component';
+import { CatalogFacultyComponent } from './personnels/manager-catalog/catalog-faculty/catalog-faculty.component';
+import { CatalogRankComponent } from './personnels/manager-catalog/catalog-rank/catalog-rank.component';
+import { CatalogPositionComponent } from './personnels/manager-catalog/catalog-position/catalog-position.component';
+import { CatalogAcademicRankComponent } from './personnels/manager-catalog/catalog-academic-rank/catalog-academic-rank.component';
+import { SearchComponent } from './personnels/search-statistic/search/search.component';
+import { StatisticComponent } from './personnels/search-statistic/statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +134,16 @@ import {Ng2PageScrollModule} from "ng2-page-scroll";
     HomeComponent,
     LanguageTeachnolyPoliticComponent,
     ManagerComponent,
-    InfoComponent
+    InfoComponent,
+    ManagerCatalogComponent,
+    SearchStatisticComponent,
+    ManagerSystemComponent,
+    CatalogFacultyComponent,
+    CatalogRankComponent,
+    CatalogPositionComponent,
+    CatalogAcademicRankComponent,
+    SearchComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -137,7 +156,8 @@ import {Ng2PageScrollModule} from "ng2-page-scroll";
     AppRouting,
     PersonnelRouting,
     HttpModule,
-    Ng2PageScrollModule
+    Ng2PageScrollModule,
+    ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
   providers: [NationalService,TaskService],

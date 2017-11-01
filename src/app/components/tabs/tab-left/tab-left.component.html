@@ -1,28 +1,77 @@
 <div id="tab-left" class="hidden-xs">
+  <div>
+    <div class="tab-left">
+      <ul class="nav nav-tabs">
+        <li class="active" *ngIf="isLogin"><a data-toggle="tab" href="#app">App</a></li>
+        <li [ngClass]="!isLogin?'active':''"><a data-toggle="tab" href="#home1">Khoa</a></li>
+        <li><a data-toggle="tab" href="#menu11">Phòng Ban</a></li>
+        <a *ngIf="!isLogin" class="login" title="Đăng nhập " (click)="openModal(loginModal)">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </a>
+        <a *ngIf="isLogin" class="login" title="Đăng xuất  " (click)="logout()">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+      </ul>
 
+      <div class="tab-content">
 
-  <div class="icon-tab-open" (click)="toggleTab()">
-    <img src="../../../../assets/images/logo/arrows.png" alt="">
-  </div>
-  <div class="tab-left">
-    <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#home1">Khoa</a></li>
-      <li><a data-toggle="tab" href="#menu11">Phòng Ban</a></li>
-      <!--<li><i class="fa fa-close icon-tab-close"> <img src="../../../assets/images/logo/arrows.png" alt=""></i></li>-->
-      <li><img src="../../../../assets/images/logo/close.png" alt="" class="icon-tab-close" (click)="toggleTab()"></li>
-    </ul>
+        <div id="app" class="tab-pane fade in active" *ngIf="isLogin">
+          <ul class="content">
+            <li>
+              <a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>
+            </li>
+          </ul>
+        </div>
 
-    <div class="tab-content">
-      <div id="home1" class="tab-pane fade in active">
-        <ul class="content">
-          <li *ngFor="let item of faculty"><a [href]="item.href">{{item.name}}</a></li>
-        </ul>
+        <div id="home1" class="tab-pane fade in active">
+          <ul class="content">
+            <li *ngFor="let item of faculty"><a [href]="item.href">{{item.title}}</a></li>
+          </ul>
+        </div>
+
+        <div id="menu11" class="tab-pane fade">
+          <ul class="content">
+            <li *ngFor="let item of departments"><a [href]="item.href">{{item.title}}</a></li>
+          </ul>
+        </div>
       </div>
-      <div id="menu11" class="tab-pane fade">
-        <ul class="content">
-          <li *ngFor="let item of departments"><a [href]="item.href">{{item.name}}</a></li>
-        </ul>
-      </div>
+
     </div>
   </div>
 </div>
+
+
+
+<modal #loginModal size='sm' cssClass="my-modal-login" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button class="btn btn-default" (click)="closeModal(loginModal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form [formGroup]="formDataLogin" class="pdb-20">
+
+      <div class="mgb-10">
+        <label for="emails">Tên tài khoản : </label>
+        <input id="emails" type="email" required class="form-control" formControlName="email">
+      </div>
+      <div>
+        <label for="passWords">Mật khẩu : </label>
+        <input id="passWords" type="password" required class="form-control" formControlName="passWord">
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <div class="text-left">
+      <a (click)="forgetPass.show();loginModal.hide()">Quên mật khẩu ? </a>
+    </div>
+    <div class=" text-right">
+      <button class="btn btn-success" (click)="onLogin(loginModal)">Đăng nhập</button>
+    </div>
+
+  </modal-footer>
+
+</modal>

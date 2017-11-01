@@ -9,6 +9,7 @@
   background-color: #444;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding-bottom: 50px;
 }
 
 .menu-app  li {

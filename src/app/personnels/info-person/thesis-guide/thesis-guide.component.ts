@@ -19,7 +19,6 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
     let item: ThesissForm = {
       namePersonGuide: "Tran Van Linh",
       level: "Dai Hoc",
-      basicTrainningOfPerson: "Hoc vien nong nghiep vn",
       role: "Huong dan",
       thesisName: "Phat trien ung dung web",
       yearGuide: "2017",
@@ -36,7 +35,6 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
     this.formData = this.formBuilder.group({
       namePersonGuide: [''],
       level: [''],
-      basicTrainningOfPerson: [''],
       role: [''],
       thesisName: [''],
       yearGuide: [2016],
@@ -66,7 +64,6 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
     this.formData.setValue({
       namePersonGuide: itemEdit.namePersonGuide,
       level: itemEdit.level,
-      basicTrainningOfPerson: itemEdit.basicTrainningOfPerson,
       role: itemEdit.role,
       thesisName: itemEdit.thesisName,
       yearGuide: itemEdit.yearGuide,
@@ -84,7 +81,6 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
 interface ThesissForm {
   namePersonGuide: string,
   level: string,
-  basicTrainningOfPerson: string,
   role: string,
   thesisName: string,
   yearGuide: string,

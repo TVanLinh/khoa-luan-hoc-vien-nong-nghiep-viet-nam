@@ -10,7 +10,7 @@ export class TaskService {
 
   public  get(url: string): Observable<any> {
     return this.http.get(url).map(data => {
-      return data.json()
+      return JSON.parse(data['_body']);
     });
   }
 

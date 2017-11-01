@@ -7,9 +7,6 @@ declare const jQuery: any;
   styleUrls: ['./info.component.css',]
 })
 export class InfoComponent {
-  menuRight = MenuUtil.getMenuApp();
-  menuInfo = MenuUtil.getMenuFeaturePerson();
-  menuManager = MenuUtil.getMenuManagerPerson();
   titleFeature = "Thông tin nhân sự ";
   constructor(private eleRef: ElementRef) {
 

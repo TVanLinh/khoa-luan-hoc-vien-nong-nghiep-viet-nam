@@ -8,30 +8,23 @@
     <div class="app-menu-content">
 
       <h4 class="app-menu-title-catalog">{{titleFeature}} </h4>
-      <app-menu-app [native]="native" [menus]="menuLeft" id="menu-info"></app-menu-app>
-
-      <!--<h4 class="app-menu-title-catalog" (click)="toggleCatalog('menu-info')">{{titleFeature}} </h4>-->
-      <!--<app-menu-app [menus]="menuInfo" id="menu-info"></app-menu-app>-->
-
-      <!--<h4 class="app-menu-title-catalog" (click)="toggleCatalog('menuManager')">Quản lý nhân sự  </h4>-->
-      <!--<app-menu-app [menus]="menuManager" id="menuManager" cssClass="height-i-auto"></app-menu-app>-->
-
-
-      <!--<h4 class="app-menu-title-catalog" (click)="toggleCatalog('menuManager2')">Quản lý nhân sự  </h4>-->
-      <!--<app-menu-app [menus]="menuManager" id="menuManager2" cssClass="height-i-auto"></app-menu-app>-->
-
-
+      <app-menu-app [native]="native" [menus]="menu" id="menu-info"></app-menu-app>
     </div>
   </div>
 
 
   <div id="app-menu-right">
     <ul class="menu-app">
-      <li><a routerLinkActive="active" routerLink="/manager/info" (click)="navigate('info')">Thông tin nhân sự </a></li>
-      <li><a routerLinkActive="active" routerLink="/manager/manager-personnel/add-personnel" (click)="navigate('manager')">Quản lý nhân nhân sự </a></li>
+      <app-menu-app [native]="native" [menus]="menu" id="menu-info"></app-menu-app>
     </ul>
 
   </div>
 
   <router-outlet></router-outlet>
+</div>
+
+<div app-top></div>
+
+<div>
+  <div app-tab-left></div>
 </div>

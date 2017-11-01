@@ -23,7 +23,6 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
       monthWork: 5,
       role: "Thanh vien",
       level: "Hoc vien",
-      progress: "Dang lam",
       specieObtain: "Chua co"
     };
     this.listScienceTopic.add(item);
@@ -41,7 +40,6 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
       monthWork: [5],
       role: [''],
       level: [''],
-      progress: [''],
       specieObtain: ['']
     });
   }
@@ -70,7 +68,6 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
       monthWork: valueEdit.monthWork,
       role: valueEdit.role,
       level: valueEdit.level,
-      progress: valueEdit.progress,
       specieObtain: valueEdit.specieObtain
     });
     this.positionUpdate = index;
@@ -93,6 +90,5 @@ interface ScienceTopicForm {
   monthWork: number,
   role: string,
   level: string,
-  progress: string,
   specieObtain: string
 }

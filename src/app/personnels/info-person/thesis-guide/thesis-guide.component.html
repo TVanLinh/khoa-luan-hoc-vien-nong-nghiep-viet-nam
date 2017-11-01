@@ -15,9 +15,8 @@
           <tr>
             <th>STT</th>
             <th>Tên học viên</th>
-            <th>Tên đề tài</th>
-            <th>Bậc</th>
-            <th>Cơ sở đào tạo</th>
+            <th>Bậc </th>
+            <th>Năm </th>
             <th>Tên luận văn/luận án</th>
             <th>Vai trò</th>
             <th>Đạt loại</th>
@@ -29,11 +28,10 @@
           <tbody>
           <tr *ngFor="let item of listThesiss.toArray();let i = index ">
             <td>{{i+1}}</td>
-            <td>{{item.thesisName}}</td>
+            <td>{{item.namePersonGuide}}</td>
             <td>{{item.level}}</td>
-            <td>{{item.basicTrainningOfPerson}}</td>
-            <td>{{item.thesisName}}</td>
             <td>{{item.yearGuide}}</td>
+            <td>{{item.thesisName}}</td>
             <td>{{item.role}}</td>
             <td>{{item.speciesObtain}}</td>
             <td>
@@ -73,10 +71,7 @@
             <label>Năm hướng dẫn </label>
             <input type="text" formControlName="yearGuide">
           </div>
-          <div class="item-control">
-            <label>Đạt loại </label>
-            <input type="text" formControlName="speciesObtain">
-          </div>
+
         </div>
         <!---->
         <div class="col-xs-12 col-sm-6 ">
@@ -87,14 +82,12 @@
             </select>
           </div>
           <div class="item-control">
-            <label>Cơ sở đào tạo của người được hướng dẫn </label>
-            <input type="text" formControlName="basicTrainningOfPerson">
+            <label>Vai trò giảng viên </label>
+            <input type="text" formControlName="role">
           </div>
           <div class="item-control">
-            <label>Vai trò giảng viên </label>
-            <select class="form-control" formControlName="role">
-              <option value="">---Chon---</option>
-            </select>
+            <label>Đạt loại </label>
+            <input type="text" formControlName="speciesObtain">
           </div>
         </div>
       </div>

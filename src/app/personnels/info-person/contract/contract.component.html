@@ -73,9 +73,7 @@
           </div>
           <div class="item-control">
             <label>Đơn vị tuyển dụng </label>
-            <select class="form-control" formControlName="unitOrgan">
-              <option value="">----Lựa chọn-----</option>
-            </select>
+            <input type="date" class="form-control" formControlName="unitOrgan">
           </div>
 
         </div>
@@ -84,7 +82,8 @@
           <div class="item-control pdt-i-0 ">
             <label>Loại HD </label>
             <select class="form-control" formControlName="specie">
-              <option value="">----Lựa chọn-----</option>
+              <option selected value="Hợp đồng lao động không xác định thời hạn">Hợp đồng lao động không xác định thời hạn</option>
+              <option value="Hợp đồng lao động xác định thời hạn"> Hợp đồng lao động xác định thời hạn</option>
             </select>
           </div>
 

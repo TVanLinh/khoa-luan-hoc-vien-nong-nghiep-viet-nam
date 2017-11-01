@@ -37,7 +37,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
       //hoat dong dang
       actionParty: this.formBuilder.group({
-        isParty: [true],
+        // isParty: [true],
         dateInParty: ['12/12/2013'],//ngay vao dang
         dateInPartyfOficial: ['11/1/2014'],//ngay chinh thuc vao dang
         placeInParty: ['Hoa binh'],//noi vao dang
@@ -58,8 +58,6 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
         dateInArmy: [],//ngay nhap ngu
         dateOutArmy: [],//ngay xuat ngu
         rankTallest: [],// quan ham cao nhat
-        postionTallestHCCB: [], //vi tri cao nhat trong hoi chien binh
-        isVeterans: [true], //la thuong binh
         rankVeterans: [], // Hang thuong binh
         bookInjured: [],//so thuong tat
         formInjured: [],// hinh thuc thuong tat

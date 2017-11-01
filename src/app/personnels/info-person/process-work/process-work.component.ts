@@ -24,17 +24,17 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
 
 
   innitForm() {
-    this.formData = this.formBuilder.group({
-      objectPersonnel: [''],
-      branch: [''],//nganh
-      species: [''],//loai
-      isTeaching: [''],// dang giang day
-      department: [''],
-      dateInPayroll: [''],//ngay vao bien che
-      dateInHV: [''],//ngay vao hoc vien
-      yearInEducation: [''],//ngay vao nghanh giao duc
-      dateInLeve1: ['']//ngay vao don vi cap 1
-    });
+    // this.formData = this.formBuilder.group({
+    //   objectPersonnel: [''],
+    //   branch: [''],//nganh
+    //   species: [''],//loai
+    //   isTeaching: [''],// dang giang day
+    //   department: [''],
+    //   dateInPayroll: [''],//ngay vao bien che
+    //   dateInHV: [''],//ngay vao hoc vien
+    //   yearInEducation: [''],//ngay vao nghanh giao duc
+    //   dateInLeve1: ['']//ngay vao don vi cap 1
+    // });
 
     this.formInfoProcess = this.formBuilder.group({
       isNotBelogtoHV: [true],
@@ -42,10 +42,10 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
       level2: [''],
       concurrently: [false],// kiem nhiem
       dateFrom: [(new Date)],
-      isDateInPayroll: [false],
-      isDateInHV: [false],
-      isYearInEducation: [false],
-      isDateInLeve1: [false],
+      // isDateInPayroll: [false],
+      // isDateInHV: [false],
+      // isYearInEducation: [false],
+      // isDateInLeve1: [false],
       dateEnd: [(new Date)],
       position: [''],
       job: ['']

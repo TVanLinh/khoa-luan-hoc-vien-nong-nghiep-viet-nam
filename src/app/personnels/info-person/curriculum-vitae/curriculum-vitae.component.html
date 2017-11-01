@@ -6,14 +6,15 @@
     <button>Khóa dữ liệu</button>
   </div>
   <div class="row info-basic mgb-20">
-    <div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 col-sm-12 col-md-3 ">
       <div class="mgr-15 image-info mgb-10 mgt-10" style="background-color: red"
            [style.background]="'url(' + infoBasic.image + ')'">
-        <input type="file" accept=".jpg,.png" title="Chọn ảnh" style="width: auto">
+        <input type="file" accept=".jpg,.png"  accept="image/x-png,image/gif,image/jpeg" title="Chọn ảnh" style="width: auto" (change)="avatarChange($event)">
       </div>
+
     </div>
 
-    <div class="col-xs-12 col-sm-8">
+    <div class="col-xs-12 col-sm-12 col-md-8">
       <div>
         <div>
 
@@ -130,8 +131,7 @@
       <div class="item-control">
         <label class="item-title">10, Dân tộc </label>
         <select class="form-control" formControlName="nation">
-          <option value="kinh">Kinh</option>
-          <option value="2">Thai</option>
+          <option value="item.name" *ngFor="let item of listNation">{{item.name}}</option>
         </select>
       </div>
     </div>
@@ -206,6 +206,7 @@
         <select formControlName="bloodGroup" class="form-control">
           <option value="select">----Chọn-----</option>
           <option value="A">A</option>
+          <option value="B">A</option>
           <option value="AB">AB</option>
           <option value="0">O</option>
         </select>

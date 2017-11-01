@@ -1,0 +1,80 @@
+<h4 class="text-center"> Danh mục khoa, phòng ban </h4>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th style="width:5%">STT</th>
+      <th>Tên (khoa/phòng ban)</th>
+      <th>Cấp</th>
+      <th>Đơn vị cấp cha</th>
+      <th>
+        <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of list.toArray();let i = index ">
+      <td>{{i+1}}</td>
+      <td class="name">{{item.name}}</td>
+      <td class="name">{{item.level}}</td>
+      <td class="name">{{item.parent.name}}</td>
+      <td style="width:10%">
+        <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-edit"></i></span>
+        <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-remove"></i></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<modal #modal size='lg' backdrop="true">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form #formData="ngForm" class="mgb-i-10">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="item-control">
+            <label>Tên khoa phòng ban </label>
+            <input name="inputData" ngModel class="form-control" style="width: 100%!important;"/>
+          </div>
+          <div class="item-control">
+            <label>Cấp </label>
+            <select name="level" ngModel #level="ngModel" class="form-control" (change)="changeLevel(level)">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="error" *ngIf="level.touched && level.value == ''">
+            Chưa chọn cấp
+          </div>
+
+          <div class="item-control" *ngIf="showParent">
+            <label>Đơn vị cấp cha </label>
+            <select name="parent" ngModel #parent="ngModel" class="form-control" style="width: 100%">
+              <option value="1">1</option>
+              <option value="2">1</option>
+              <option value="3">1</option>
+            </select>
+          </div>
+          <div class="error" *ngIf="parent.touched && parent.value == '' && level.value !== '1'">
+            Chưa chọn cấp
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="onSave(formData)">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

@@ -30,6 +30,15 @@ import {ProcessTeachingComponent} from "./info-person/process-teaching/process-t
 import {ManagerComponent} from "app/personnels/manger.component";
 import {InfoComponent} from "./info-person/info.component";
 import {Ng2PageScrollModule} from "ng2-page-scroll";
+import {ManagerCatalogComponent} from "./manager-catalog/manager-catalog.component";
+import {SearchStatisticComponent} from "./search-statistic/search-statistic.component";
+import {ManagerSystemComponent} from "./manager-system/manager-system.component";
+import {CatalogAcademicRankComponent} from "./manager-catalog/catalog-academic-rank/catalog-academic-rank.component";
+import {CatalogFacultyComponent} from "./manager-catalog/catalog-faculty/catalog-faculty.component";
+import {CatalogPositionComponent} from "./manager-catalog/catalog-position/catalog-position.component";
+import {CatalogRankComponent} from "app/personnels/manager-catalog/catalog-rank/catalog-rank.component";
+import {SearchComponent} from "app/personnels/search-statistic/search/search.component";
+import {StatisticComponent} from "./search-statistic/statistic/statistic.component";
 
 
 const routes: Routes = [
@@ -40,48 +49,7 @@ const routes: Routes = [
     {
       path: "manager-personnel", component: PersonnelManagerComponent, children: [
       {
-        path: '', component: CurriculumVitaeComponent,
-      }, {
-        path: 'curriculum-vitae', component: CurriculumVitaeComponent
-      },
-      {
-        path: 'party-union', component: PartyUnionComponent
-      }, {
-        path: 'family-relationship', component: FamilyRelationshipComponent
-      }, {
-        path: 'contract', component: ContractComponent
-      }, {
-        path: 'process-work', component: ProcessWorkComponent
-      },
-      {
-        path: 'politic-language-technology', component: LanguageTeachnolyPoliticComponent
-      },
-      {
-        path: 'bonus-discipline', component: BonusDisciplineComponent
-      }, {
-        path: 'academic-rank', component: AcademicRankComponent
-      }, {
-        path: 'emulation-title', component: EmulationTitleComponent
-      }, {
-        path: 'salary-brief', component: SalaryBriefComponent
-      }, {
-        path: 'foreign', component: ForeignComponent
-      }, {
-        path: 'thesis-guide', component: ThesisGuideComponent
-      }, {
-        path: 'senimar-newpaper', component: SenimarNewpaperComponent
-      }, {
-        path: 'process-evention', component: ProcessEventionComponent
-      }, {
-        path: 'publish-info', component: PublishInfoComponent
-      }, {
-        path: 'science-topic', component: ScienceTopicComponent
-      },
-      {
-        path: 'process-train', component: TrainComponent
-      },
-      {
-        path: 'process-teaching', component: ProcessTeachingComponent
+        path: '', component: AddPersonnelComponent,
       },
       {
         path: 'add-personnel', component: AddPersonnelComponent
@@ -99,7 +67,39 @@ const routes: Routes = [
         path: 'procedure-retire', component: ProcedureRetireComponent
       }
     ]
-    }
+    }, {
+      path: 'manager-catalog', component: ManagerCatalogComponent, children: [
+        {
+          path: '', component: CatalogFacultyComponent
+        },
+        {
+          path: 'faculty', component: CatalogFacultyComponent
+        },
+        {
+          path: 'academic', component: CatalogAcademicRankComponent
+        },
+        {
+          path: 'rank-officer', component: CatalogRankComponent
+        },
+        {
+          path: 'position', component: CatalogPositionComponent
+
+        }
+      ]
+    },
+
+    {
+      path: 'search-statistic', component: SearchStatisticComponent, children: [
+      {
+        path: '', component: SearchComponent
+      },{
+        path: 'search', component: SearchComponent
+      },
+      {
+        path: 'statistic', component: StatisticComponent
+      }]
+    },
+    {path: 'manager-system', component: ManagerSystemComponent},
   ]
   }
 ];

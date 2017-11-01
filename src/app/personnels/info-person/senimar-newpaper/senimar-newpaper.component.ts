@@ -40,7 +40,6 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
     this.formSemina = this.formBuilder.group({
       name: ['Bao cao song va lam viec theo tam guong chu tich HCM'],
-      nameYearBook: ['2015'],
       nameConvention: ['Hoi nghi Vecsay'],
       pagePost: [234],
       year: [2016],
@@ -99,7 +98,6 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
 interface  SenimarForm {
   name: string,
-  nameYearBook: string,
   nameConvention: string,
   pagePost: number,
   year: number,

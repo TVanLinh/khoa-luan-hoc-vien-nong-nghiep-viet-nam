@@ -26,11 +26,21 @@ body {
     width: 800px !important;
   }
 
+  .my-modal-login {
+    width: 600px !important;
+  }
+
 }
 
 @media (max-width: 767px) {
   .my-modal-lg {
     width: 650px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .my-modal-login {
+    width: auto !important;
     margin-left: auto;
     margin-right: auto;
   }
@@ -43,12 +53,13 @@ body {
 }
 
 /*dung trong file app-menu*/
-.height-i-auto{
+.height-i-auto {
   height: auto !important;
 }
 
 /*custom model*/
-.modal{
+.modal {
   /*position: absolute !important;*/
-  z-index: 99999 ;
+  z-index: 9999999999;
 }
+

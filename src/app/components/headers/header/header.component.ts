@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
+import {MenuUtil} from "../../../shares/menu.util";
 
 declare var jQuery: any;
 
@@ -9,7 +10,8 @@ declare var jQuery: any;
 })
 
 export class  HeaderComponent {
-  constructor(private _elRef: ElementRef) {}
+  constructor(private _elRef: ElementRef) {
+  }
   toggleSearch(): void {
     this.OnInit();
   }

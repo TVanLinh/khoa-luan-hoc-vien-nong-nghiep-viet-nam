@@ -19,7 +19,6 @@
               <tr>
                 <th>STT</th>
                 <th>Tên báo cáo</th>
-                <th>Tên kỷ yếu</th>
                 <th>Tên hội nghị</th>
                 <th>Trang đăng</th>
                 <th>Năm</th>
@@ -35,7 +34,6 @@
               <tr *ngFor="let item of listSenimar.toArray();let i = index">
                 <td>{{i+1}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.nameYearBook}}</td>
                 <td>{{item.nameConvention}}</td>
                 <td>{{item.pagePost}}</td>
                 <td>{{item.year}}</td>
@@ -126,10 +124,6 @@
               <div class="item-control">
                 <label>Tên báo cáo </label>
                 <input type="text" formControlName="name">
-              </div>
-              <div class="item-control">
-                <label>Tên kỷ hiếu </label>
-                <input type="text" formControlName="nameYearBook">
               </div>
               <div class="item-control">
                 <label>Tên hôi nghị </label>

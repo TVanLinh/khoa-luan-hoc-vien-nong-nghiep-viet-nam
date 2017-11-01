@@ -67,17 +67,8 @@
   <modal-body>
     <form action="" class="mgb-i-10" [formGroup]="formData">
       <div class="row">
-        <div class="col-xs-12 col-sm-4">
-          <div class="item-control">
-            <label>Từ ngày </label>
-            <input type="date" formControlName="dateFrom">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Đến ngày </label>
-            <input type="date" formControlName="dateEnd">
-          </div>
-          <!---->
+        <div class="col-xs-12 col-sm-6">
+
           <div class="item-control">
             <label>Loại ngạch </label>
             <select class="form-control" formControlName="specie">
@@ -91,10 +82,22 @@
               <option value="">Nhóm ngạch</option>
             </select>
           </div>
+
+          <div class="item-control">
+            <label>Từ ngày </label>
+            <input type="date" formControlName="dateFrom">
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Đến ngày </label>
+            <input type="date" formControlName="dateEnd">
+          </div>
+          <!---->
+
         </div>
 
         <!---->
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-xs-12 col-sm-6">
           <div class="item-control">
             <label>Ngạch </label>
             <select class="form-control" formControlName="brief">
@@ -110,37 +113,10 @@
           </div>
           <!---->
           <div class="item-control">
-            <label>% Vượt khung </label>
-            <input type="text" formControlName="percentExcessive">
-          </div>
-          <!---->
-          <div class="item-control">
             <label>Hệ số lương </label>
             <input type="text" formControlName="factorSalary">
           </div>
 
-        </div>
-        <div class="col-xs-12 col-sm-4">
-          <!---->
-          <div class="item-control">
-            <label>Số quyết định </label>
-            <input type="text" formControlName="numberDecide">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Ngày xét tăng lương dự kiến </label>
-            <input type="text" formControlName="dateSalaryUpExpected">
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Tỉ lệ phụ cấp nghề hiện tại </label>
-            <input type="text" formControlName="allowanceNow"> %
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Hệ sô phụ cấp trách nhiệm hiện tại </label>
-            <input type="text" formControlName="responsibilityNow"> %
-          </div>
         </div>
       </div>
     </form>

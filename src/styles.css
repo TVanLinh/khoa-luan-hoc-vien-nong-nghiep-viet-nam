@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+.img-ul {
+  width: 200px;
+  height: 200px;
+}
+
+.img-ul-file-upload {
+  padding: 0 !important;
+}
+
+.img-ul-container {
+  display: none;
+}
+
+label.img-ul-clear.img-ul-button {
+  display: none;
+
+}
+
+.img-ul-drag-box-msg {
+  display: none !important;
+}
+
+.img-ul-file-upload.img-ul-hr-inline-group {
+  padding: 0;
+}
+
+label.img-ul-upload.img-ul-button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.active{
+  color: #8d9c00 !important;
+}
