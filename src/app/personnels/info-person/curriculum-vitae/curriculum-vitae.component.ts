@@ -4,7 +4,9 @@ import {BaseFormComponent} from "../../base-form.component";
 import {NationalService} from "../../../shares/national.service";
 import {FileHolder} from "angular2-image-upload";
 import {TaskService} from "../../../shares/task.service";
-import {Http,Response} from "@angular/http";
+import {Http, Response} from "@angular/http";
+import {Config} from "../../../shares/config";
+import {MystorageService} from "../../../shares/mystorage.service";
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -13,6 +15,7 @@ import {Http,Response} from "@angular/http";
 })
 export class CurriculumVitaeComponent extends BaseFormComponent implements OnInit {
 
+  avatar: string = "";
 
   infoBasic = {
     image: "https://scontent.fhan5-1.fna.fbcdn.net/v/t1.0-9/20155874_814558885374479_7866568993068759970_n.jpg?oh=c57bfe0ba86f10f060ee960b7276bb1c&oe=5A2D2D58",
@@ -23,11 +26,10 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     email: "linhtran180895@gmail.com",
     nameOther: "Tv linh",
     nation: "Kinh",
-
     identityCardNumber: "113660331",
     dateRangeIdentityCard: new Date(2013, 9, 1),
     placeRangeIdentityCard: "Tan lac hoa binh",
-
+    isNation: 0,
     bloodGroup: "AB",
     policyObject: 1,
   };
@@ -60,7 +62,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   formCV: FormGroup;
 
-  constructor(private  http: Http) {
+  constructor(private taskService: TaskService) {
     super();
   }
 
@@ -70,11 +72,11 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   private getNation() {
-    this.http.get("/assets/data/dantoc.json").map((data: Response) => {
-      return data.json();
-    }).subscribe((data: any) => {
-      console.log(data);
-    });
+    // this.http.get("/assets/data/dantoc.json").map((data: Response) => {
+    //   return data.json();
+    // }).subscribe((data: any) => {
+    //   console.log(data);
+    // });
   }
 
 
@@ -88,12 +90,13 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       nameOther: [this.infoBasic.nameOther],
       bloodGroup: [this.infoBasic.bloodGroup],
       policyObject: [this.infoBasic.policyObject],
-      nation: [''],
+      nation: [this.infoBasic.nation],
+      isNation: [this.infoBasic.isNation],
       phone: [this.phoneContact.phone],
-      identityCart: this.formBuilder.group({
-        identityCardNumber: [this.infoBasic.identityCardNumber],
-        dateRangeIdentityCard: [this.infoBasic.dateRangeIdentityCard],
-        placeRangeIdentityCard: [this.infoBasic.placeRangeIdentityCard],
+      identity: this.formBuilder.group({
+        identityNumber: [this.infoBasic.identityCardNumber],
+        dateRange: [this.infoBasic.dateRangeIdentityCard],
+        placeRange: [this.infoBasic.placeRangeIdentityCard],
       }),
 
       homeTown: this.formBuilder.group({
@@ -150,10 +153,24 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   _handleReaderLoaded(readerEvt) {
-    console.log("ok");
     var binaryString = readerEvt.target.result;
     let base64textString = btoa(binaryString);
     this.infoBasic.image = "data:image/png;base64," + base64textString;
-    console.log(btoa(this.infoBasic.image));
+    this.avatar = "data:image/png;base64," + base64textString;
+    // console.log(btoa(this.infoBasic.image));
+  }
+
+  onSave() {
+    let userName = MystorageService.getAcount()['user']["username"];
+    // console.log(userName);
+    let formValue = this.formCV.value;
+
+    let cv = formValue;
+    cv['avatarUrl'] = this.avatar;
+
+    let data = {data: {userCode: userName, content: cv}};
+    this.taskService.post(Config.HOST_SERVER + "/info", data).subscribe(data => {
+      console.log(data);
+    });
   }
 }

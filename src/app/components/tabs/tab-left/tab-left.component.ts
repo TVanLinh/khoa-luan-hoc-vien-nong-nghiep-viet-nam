@@ -1,9 +1,15 @@
 import {Component, ElementRef, OnInit} from "@angular/core";
 import {BaseFormComponent} from "../../../personnels/base-form.component";
 import {FormGroup} from "@angular/forms";
+import {Response} from "@angular/http";
 import {Router} from "@angular/router";
 import {MenuUtil} from "../../../shares/menu.util";
+import {Config} from "../../../shares/config";
+import {TaskService} from "../../../shares/task.service";
+import {MystorageService} from "../../../shares/mystorage.service";
+
 declare var jQuery: any;
+
 @Component({
   selector: '[app-tab-left]',
   templateUrl: './tab-left.component.html',
@@ -83,7 +89,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     MenuUtil.publishMenu(nextMenu);
   }
 
-  constructor(private _eref: ElementRef, private  router: Router) {
+  constructor(private _eref: ElementRef, private taskService: TaskService, private  router: Router) {
     super();
   }
 
@@ -98,6 +104,10 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
+    if (MystorageService.getAcount()) {
+      console.log("MystorageService.getAcount() " + MystorageService.getAcount()['user']);
+      this.isLogin = true;
+    }
   }
 
 
@@ -109,20 +119,36 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   }
 
   onLogin(loginModal) {
-    this.isLogin = true;
-    this.router.navigate(['manager/info']);
-    MenuUtil.isLogin = true;
-    this.closeModal(loginModal);
-    let a = {
-      type: MenuUtil.MENU_INFO_CV,
-      native: true
-    };
+    // this.isLogin = true;
+    // this.router.navigate(['manager/info']);
+    // //
+    // MenuUtil.isLogin = true;
+    // this.closeModal(loginModal);
+    // let a = {
+    //   type: MenuUtil.MENU_INFO_CV,
+    //   native: true
+    // };
+    //
+    // MenuUtil.publishMenu(a);
 
-    MenuUtil.publishMenu(a);
+    let data = {username: "appAdmin", password: "admin123"};
+    this.taskService.postLogin(Config.HOST_SERVER + "/login", data).subscribe((data) => {
+      this.isLogin = true;
+      this.closeModal(loginModal);
+      let a = {
+        type: MenuUtil.MENU_INFO_CV,
+        native: true
+      };
+      MystorageService.saveAcount(data);
+      MenuUtil.publishMenu(a);
+      this.router.navigate(['manager/info']);
+    });
   }
 
   logout() {
-
+    MenuUtil.isLogin = false;
+    this.isLogin = false;
+    MystorageService.removeAcount();
   }
 
 }

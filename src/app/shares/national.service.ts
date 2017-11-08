@@ -14,9 +14,9 @@ export class NationalService {
   }
 
   private  getData() {
-    this.http.get(this.URL).map((data)=>{
-      return data.json();
-    }).subscribe((data: any) => this.nationals = data);
+    // this.http.get(this.URL).map((data)=>{
+    //   return data.json();
+    // }).subscribe((data: any) => this.nationals = data);
   }
 
   getNationByCode(code: string): National {
