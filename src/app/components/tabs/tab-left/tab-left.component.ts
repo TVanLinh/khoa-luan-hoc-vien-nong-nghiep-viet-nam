@@ -89,8 +89,8 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     MenuUtil.publishMenu(nextMenu);
   }
 
-  constructor(private _eref: ElementRef, private taskService: TaskService, private  router: Router) {
-    super();
+  constructor(protected _eref: ElementRef, private taskService: TaskService, private  router: Router) {
+    super(_eref);
   }
 
   toggleTab(): void {

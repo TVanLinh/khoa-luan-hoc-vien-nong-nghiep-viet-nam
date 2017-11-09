@@ -1,14 +1,17 @@
-<div class="form-item">
+<div class="form-item" id="cv">
   <div class="form-item-title">Sơ yếu lí lịch</div>
   <form action="" [formGroup]="formCV" id="form-cv">
     <div class="action-form">
       <button (click)="onSave()">Ghi nhận</button>
-      <button>Khóa dữ liệu</button>
+      <!--<button>Khóa dữ liệu</button>-->
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
     <div class="row info-basic mgb-20">
       <div class="col-xs-12 col-sm-12 col-md-3 ">
         <div class="mgr-15 image-info mgb-10 mgt-10" style="background-color: red"
-             [style.background]="'url(' + infoBasic.image + ')'">
+             [style.background]="'url(' + infoBasic.avatarUrl + ')'">
           <input type="file" accept=".jpg,.png" accept="image/x-png,image/gif,image/jpeg" title="Chọn ảnh"
                  style="width: auto" (change)="avatarChange($event)">
         </div>
@@ -20,18 +23,25 @@
           <div>
 
             <div class="item-control " style="clear: none">
-              <label class="item-title">1, Mã nhân sự <span class="star">*</span></label>
-              <input type="text" formControlName="staffCode"/>
+              <label class="item-title">1, Mã nhân sự</label>
+              <input type="text" [value]="acount['username']" disabled/>
+              <!--formControlName="staffCode"-->
             </div>
 
 
             <div class="item-control" style="clear: none">
               <label class="item-title">2, Họ và tên <span class="star">*</span></label>
-              <input type="text" formControlName="fullName"/>
+              <input name="fullName" type="text" formControlName="fullName"  text-validator/>
+
+              <div class="star" *ngIf="(!formCV.controls.fullName.errors.valid)">
+                {{messageError.fullName}}
+              </div>
+
+
             </div>
 
             <div class="item-control">
-              <label class="item-title">3, Tên khác <span class="star">*</span></label>
+              <label class="item-title">3, Tên khác</label>
               <input formControlName="nameOther" type="text"/>
             </div>
           </div>
@@ -39,23 +49,47 @@
           <div class="item-control">
             <label class="item-title">4, Ngày sinh <span class="star">*</span></label>
             <input type="date" style="width: 30%;margin-right: 20px"
-                   [value]="infoBasic.birthDay | date:'dd-MM-yyyy'"
-                   formControlName="birthDay"/>
+                   [value]="infoBasic.birthDay | date:'yyyy-MM-dd'" required
+                   formControlName="birthDay" #birthDay text-validator/>
+
+            <div class="star" *ngIf="(!formCV.controls.birthDay.errors.valid )">
+              {{messageError.birthDay}}
+            </div>
+
             <label class="item-title">5, Giới tính <span class="star">*</span></label>
-            <select formControlName="sex" class="form-control">
+            <select formControlName="sex" class="form-control" #sex type="select" text-validator>
               <option value="0"> ----Chọn----</option>
               <option value="1">Nam</option>
               <option value="2">Nữ</option>
               <option value="2">Khác</option>
             </select>
+
+            <div class="star" *ngIf="!formCV.controls.sex.errors.valid">
+              {{messageError.sex}}
+            </div>
+
           </div>
 
 
           <div class="item-control">
             <label class="item-title">6,Email <span class="star">*</span></label>
-            <input type="email" formControlName="email" style="width: 30%;margin-right: 20px"/>
+            <input type="email" formControlName="email" style="width: 30%;margin-right: 20px" required
+                   #email email-validator/>
+
+            <div class="star" *ngIf="(!formCV.controls.email.errors.emailValid )
+                && (formCV.controls.email.dirty || formCV.controls.email.touched)">
+              {{messageError.mail}}
+            </div>
+
+
             <label class="item-title">7,Điện thoại <span class="star">*</span></label>
-            <input type="text" style="width: 200px" formControlName="phone">
+            <input type="text" style="width: 200px" formControlName="phone" required #phone>
+
+            <div class="star" *ngIf="(formCV.controls.phone.invalid || phone.value === '0' )
+                && (formCV.controls.phone.dirty || formCV.controls.phone.touched)">
+              {{messageError.phone}}
+            </div>
+
           </div>
 
         </div>
@@ -72,26 +106,44 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label><span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control">
+          <select formControlName="guild" class="form-control" #guild required type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="Gia Lam">Gia Lam</option>
           </select>
+
+          <div class="star" *ngIf="(!formCV.controls.placeBirth.controls.guild.errors.valid)">
+            {{messageError.guild}}
+          </div>
+
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control">
+          <select formControlName="district" class="form-control" #district required type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="Gia Lam">Gia Lam</option>
           </select>
         </div>
+
+        <div class="star" *ngIf="(!formCV.controls.placeBirth.controls.district.errors.valid)">
+          {{messageError.district}}
+        </div>
+
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Tình/TP </label>
-          <select formControlName="city" class="form-control">
+          <select formControlName="city" class="form-control" #city required type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="Gia Lam">Gia Lam</option>
           </select>
         </div>
+
+        <div class="star" *ngIf="!formCV.controls.placeBirth.controls.city.errors.valid">
+          {{messageError.city}}
+        </div>
+
       </div>
     </div>
 
@@ -103,26 +155,45 @@
         <div class="item-control pdt-i-0">
           <!--<span>Noi sinh</span>-->
           <label><span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control">
+          <select formControlName="guild" class="form-control" #homeTownGuid required type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="Gia lam">Gia lam</option>
           </select>
+
+          <div class="star" *ngIf="!formCV.controls.homeTown.controls.guild.errors.valid">
+            {{messageError.guild}}
+          </div>
+
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control">
-            <option value="0">----Chọn-----</option>
+          <select formControlName="district" class="form-control" #homeTownDistrict required type="select"
+                  text-validator>
+            <option value="0" selected>----Chọn-----</option>
+            <option value="Gia lam">Gia lam</option>
           </select>
+
+          <div class="star" *ngIf="(!formCV.controls.homeTown.controls.district.errors.valid)">
+            {{messageError.district}}
+          </div>
+
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Tình/TP </label>
-          <select formControlName="city" class="form-control">
+          <select formControlName="city" class="form-control" #homeTownCity type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="Gia lam">Gia lam</option>
           </select>
         </div>
+
+        <div class="star" *ngIf="(!formCV.controls.homeTown.controls.city.errors.valid)">
+          {{messageError.city}}
+        </div>
+
       </div>
     </div>
     <!--ton giao dan toc -->
@@ -131,18 +202,27 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control">
           <label class="item-title">10, Dân tộc </label>
-          <select class="form-control" formControlName="nation">
+          <select class="form-control" formControlName="nation" type="select" required text-validator>
+            <option value="0">----chọn----</option>
+            <option value="kinh">kinh</option>
+
             <option value="item.name" *ngFor="let item of listNation">{{item.name}}</option>
           </select>
+
+
+          <div class="star" *ngIf="!formCV.controls.nation.errors.valid">
+            {{messageError.nation}}
+          </div>
+
         </div>
       </div>
 
       <div class="col-xs-12 col-sm-4">
         <div class="item-control">
           <label class="item-title">11, Tôn giáo</label>
-          <select class="form-control" formControlName="isNation">
-            <option value="0">Không</option>
-            <option value="1">Có</option>
+          <select class="form-control" formControlName="hashNation">
+            <option value="false">Không</option>
+            <option value="true">Có</option>
           </select>
         </div>
       </div>
@@ -158,21 +238,37 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label class="hidden-xs"></label>
-          <input type="text" formControlName="identityNumber"/>
+          <input type="text" formControlName="identityNumber" required #identityNumber text-validator/>
+
+          <div class="star" *ngIf="(!formCV.controls.identity.controls.identityNumber.errors.valid)">
+            {{messageError.indentityNumber}}
+          </div>
+
         </div>
       </div>
 
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Ngày cấp </label>
-          <input formControlName="dateRange" type="date"/>
+          <input formControlName="dateRange" type="date"
+                 [value]="infoBasic.identity.dateRange | date:'yyyy-MM-dd'" required #dateRange text-validator/>
+
+          <div class="star" *ngIf="(!formCV.controls.identity.controls.dateRange.errors.valid )">
+            {{messageError.dateRange}}
+          </div>
+
         </div>
       </div>
 
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Nơi cấp </label>
-          <input formControlName="placeRange" type="text"/>
+          <input formControlName="placeRange" type="text" required #placeRange text-validator/>
+
+          <div class="star" *ngIf="(!formCV.controls.identity.controls.placeRange.errors.valid )">
+            {{messageError.indentityNumber}}
+          </div>
+
         </div>
       </div>
 
@@ -180,12 +276,17 @@
 
     <div class="row ">
       <div class="col-xs-12">
-
         <div class="item-control">
           <label class="mgr-20 item-title" style="width:auto;">13, Nơi đăng kí hộ khẩu thường chú <span
             class="star">*</span></label>
-          <input style="width: 71%" formControlName="placeRegisterHouseHold" type="text"/>
+          <input style="width: 71%" type="text" formControlName="placeRegisterHouseHold" required text-validator/>
           <span style="display: block">(Số nhà đường thành phố /  Thôn xóm xã huyện tỉnh )</span>
+
+          <div class="star" *ngIf="!formCV.controls.placeRegisterHouseHold.errors.valid">
+            {{messageError.placeRegisterHouseHold}}
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -195,9 +296,13 @@
 
         <div class="item-control">
           <label class="item-title" style="width: auto; margin-right: 10px;">14, Đối tượng chính sách <span
-            class="star">*</span> </label>
+            class="star"></span> </label>
           <select class="policy-object form-control" style="width: 200px" formControlName="policyObject">
             <option value="0">----Chọn-----</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
           </select>
         </div>
 
@@ -206,13 +311,19 @@
       <div class="col-xs-12 col-sm-5">
         <div class="item-control">
           <label class="item-title mgr-20" style="width: auto">15, Nhóm máu </label>
-          <select formControlName="bloodGroup" class="form-control">
-            <option value="select">----Chọn-----</option>
+          <select formControlName="bloodGroup" class="form-control" required type="select" text-validator>
+            <option value="">----Chọn-----</option>
             <option value="A">A</option>
             <option value="B">A</option>
             <option value="AB">AB</option>
             <option value="0">O</option>
           </select>
+
+
+          <div class="star" *ngIf="!formCV.controls.bloodGroup.errors.valid">
+            {{messageError.bloodGroup}}
+          </div>
+
         </div>
       </div>
     </div>
@@ -227,434 +338,58 @@
           <input type="text" formControlName="numberHome">
         </div>
       </div>
+
       <div class="col-xs-12 col-sm-3">
         <div class="item-control">
           <label>Đường/Thôn </label>
-          <input type="text" formControlName="street">
+          <input type="text" formControlName="street" required #street text-validator>
+
+          <div class="star" *ngIf="(!formCV.controls.placeNow.controls.street.errors.valid ) ">
+            {{messageError.street}}
+          </div>
+
         </div>
       </div>
+
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
           <label> <span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control">
+          <select formControlName="guild" class="form-control" #placeNowG required type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="Gia Lam">Gia Lam</option>
           </select>
+          <div class="star" *ngIf="(!formCV.controls.placeNow.controls.guild.errors.valid)">
+            {{messageError.guild}}
+          </div>
         </div>
       </div>
+
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
           <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control">
+          <select formControlName="district" class="form-control" #placeNowD required type="select" text-validator>
             <option value="0">----Chọn-----</option>
+            <option value="1">----Chọn 1-----</option>
           </select>
+          <div class="star" *ngIf="(!formCV.controls.placeNow.controls.district.errors.valid)">
+            {{messageError.district}}
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
           <label>Tình/TP </label>
-          <select formControlName="city" class="form-control">
+          <select formControlName="city" class="form-control" #placeNowC required type="select" text-validator>
             <option value="0">----Chọn-----</option>
             <option value="1">1</option>
           </select>
+          <div class="star" *ngIf="(!formCV.controls.placeNow.controls.city.errors.valid)">
+            {{messageError.city}}
+          </div>
+
         </div>
       </div>
 
     </div>
   </form>
 </div>
-<!--So ho chieu -->
-<!--<div class="row place">-->
-<!--<div class="col-xs-12">-->
-<!--<label class="item-title" style="width: auto">11, Số hổ chiếu </label>-->
-<!--</div>-->
-<!--<div class="col-xs-12 col-sm-4">-->
-<!--<div class="item-control pdt-i-0">-->
-<!--<label class=hidden-xs></label>-->
-<!--<input type="text" formControlName="passportNumber"/>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="col-xs-12 col-sm-4">-->
-
-<!--<div class="item-control pdt-i-0">-->
-<!--<label>Ngày cấp </label>-->
-<!--<input formControlName="dateRangePassport" type="date"/>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="col-xs-12 col-sm-4">-->
-
-<!--<div class="item-control pdt-i-0">-->
-<!--<label>Nơi cấp </label>-->
-<!--<input formControlName="placeRangePassport" type="text"/>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<form action="" [formGroup]="formCV">-->
-<!--<div class="action-form">-->
-<!--<button>Ghi nhận</button>-->
-<!--<button>Khóa dữ liệu</button>-->
-<!--</div>-->
-<!--<div class="row">-->
-
-<!--<div class="col-xs-12 col-sm-4 col-md-4">-->
-<!--<div class="form-item" formGroupName="infoBasic">-->
-
-<!--<div class="form-item-title">-->
-<!--Thông tin cơ bản-->
-<!--</div>-->
-
-<!--<div>-->
-
-<!--<div style="float: left;"-->
-<!--class="mgr-15 image-info mgb-10 mgt-10" [style.background]="'url(' + infoBasic.image + ')'">-->
-<!--<input type="file" accept=".jpg,.png" title="Chọn ảnh">-->
-<!--</div>-->
-
-<!--<div class="right">-->
-<!--<div class="item-control " style="clear: none">-->
-<!--<label>Mã nhân sự</label>-->
-<!--<input type="text" formControlName="staffCode"/>-->
-<!--</div>-->
-
-
-<!--<div class="item-control" style="clear: none">-->
-<!--<label>Họ và tên</label>-->
-<!--<input type="text" formControlName="fullName"/>-->
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</div>-->
-
-<!--<div class="clearfix"></div>-->
-
-
-<!--<div class="item-control">-->
-<!--<label>Ngày sinh</label>-->
-<!--<input type="date" formControlName="birthDay"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Giới tính </label>-->
-<!--<div style="float: right;width: 60%" class="text-center">-->
-<!--<input formControlName="sex" type="radio" name="sex" value="1"/> <span class="pdr-10">Nam</span>-->
-<!--<input formControlName="sex" type="radio" name="sex" value="0"/> Nữ-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Email</label>-->
-<!--<input formControlName="email" type="email"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Tên khác</label>-->
-<!--<input formControlName="nameOther" type="text"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Dân tộc </label>-->
-<!--<select formControlName="nation" class="form-control">-->
-<!--<option value="kinh">Kinh</option>-->
-<!--<option value="2">Thai</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Tôn giáo</label>-->
-<!--<select class="form-control">-->
-<!--<option value="0">Không</option>-->
-<!--<option value="1">Có</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Số chứng minh thư </label>-->
-<!--<input formControlName="identityCardNumber" type="text"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Ngày cấp </label>-->
-<!--<input formControlName="dateRangeIdentityCard" type="date"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Nơi cấp </label>-->
-<!--<input formControlName="placeRangeIdentityCard" type="text"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Số hổ chiếu </label>-->
-<!--<input formControlName="passportNumber" type="text"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Ngày cấp </label>-->
-<!--<input formControlName="dateRangePassport" type="date"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Nơi cấp </label>-->
-<!--<input formControlName="placeRangePassport" type="text"/>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Hoàn cảnh xuất thân </label>-->
-<!--<select formControlName="job" class="form-control">-->
-<!--<option value="0">Không</option>-->
-<!--<option value="1">Có</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Nhóm máu </label>-->
-<!--<select formControlName="bloodGroup" class="form-control">-->
-<!--<option value="select">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="A">A</option>-->
-<!--<option value="A">AB</option>-->
-<!--<option value="o">O</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Đối tượng chính sách </label>-->
-<!--<select formControlName="policyObject" class="policy-object form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="col-xs-12 col-sm-4 col-md-4">-->
-<!--&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;que quan&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--<div class="form-item mgb-20" formGroupName="homeTown">-->
-<!--<div class="form-item-title ">-->
-<!--Quê quán-->
-<!--</div>-->
-<!--<div class="item-control">-->
-<!--<label>Quốc gia </label>-->
-<!--<select formControlName="national" class="form-control" style="width: 200px">-->
-<!--<option value="not">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option *ngFor="let item of nationalService.nationals" [value]="item.code">{{item.name}}</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Tình/TP </label>-->
-<!--<select formControlName="city" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Quận/Huyện </label>-->
-<!--<select formControlName="district" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Phường/xã </label>-->
-<!--<input formControlName="guild" type="text"/>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;noi sinh &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--<div class="form-item mgb-20" formGroupName="placeBirth">-->
-<!--<div class="form-item-title ">-->
-<!--Quê quán-->
-<!--</div>-->
-<!--<a href="javascript:void(0)" style="text-decoration: underline"> Bấm vào đây nếu nơi sinh của quý vị là quê-->
-<!--quán </a>-->
-<!--<div class="item-control">-->
-<!--<label>Quốc gia </label>-->
-<!--<select formControlName="national" class="form-control" style="width: 200px">-->
-<!--<option value="not">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option *ngFor="let item of nationalService.nationals" [value]="item.code">{{item.name}}</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Tình/TP </label>-->
-<!--<select formControlName="city" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Quận/Huyện </label>-->
-<!--<select formControlName="district" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Phường/xã </label>-->
-<!--<input formControlName="guild" type="text"/>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;dien thoai lien lac &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-<!--<div class="form-item mgb-20" formGroupName="phoneContact">-->
-<!--<div class="form-item-title ">-->
-<!--Điện thoại liên lạc-->
-<!--</div>-->
-<!--<div class="item-control">-->
-<!--<label>Di động </label>-->
-<!--<input type="text" formControlName="phone">-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Nhà riêng </label>-->
-<!--<input type="text" formControlName="home">-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Cơ quan </label>-->
-<!--<input type="text" formControlName="organ">-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="col-xs-12 col-sm-4 col-md-4">-->
-<!--&lt;!&ndash;ho khau thuong chu&ndash;&gt;-->
-<!--<div class="form-item mgb-20" formGroupName="houseHold">-->
-<!--<div class="form-item-title">-->
-<!--Hộ khẩu thường trú-->
-<!--</div>-->
-<!--<div class="item-control">-->
-<!--<label>Tình/TP </label>-->
-<!--<select formControlName="city" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Quận/Huyện </label>-->
-<!--<select formControlName="district" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-
-<!--<div class="item-control">-->
-<!--<label>Phường/Xã </label>-->
-<!--<select formControlName="guild" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Đường/Thôn </label>-->
-<!--<input type="text" formControlName="street">-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Số nhà / Đội </label>-->
-<!--<input type="text" formControlName="numberHome">-->
-<!--</div>-->
-
-<!--</div>-->
-<!--&lt;!&ndash;noi o hien nay&ndash;&gt;-->
-<!--<div class="form-item" formGroupName="placeNow">-->
-<!--<div class="form-item-title">-->
-<!--Nơi ở hiện nay-->
-<!--</div>-->
-<!--<a href="javascript:void(0)" style="text-decoration: underline">Bấm vào đây nếu nơi ở của quý vị cũng là nơi-->
-<!--đăng kí hộ khẩu thường chú </a>-->
-<!--<div class="item-control">-->
-<!--<label>Quốc gia </label>-->
-<!--<select formControlName="national" class="form-control" style="width: 200px">-->
-<!--<option value="not">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option *ngFor="let item of nationalService.nationals" [value]="item.code">{{item.name}}</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Tình/TP </label>-->
-<!--<select formControlName="city" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Quận/Huyện </label>-->
-<!--<select formControlName="district" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-
-<!--<div class="item-control">-->
-<!--<label>Phường/Xã </label>-->
-<!--<select formControlName="guild" class="form-control">-->
-<!--<option value="0">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;</option>-->
-<!--<option value="1">1</option>-->
-<!--<option value="2">2</option>-->
-<!--<option value="3">3</option>-->
-<!--<option value="4">4</option>-->
-<!--</select>-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Đường/Thôn </label>-->
-<!--<input type="text" formControlName="street">-->
-<!--</div>-->
-
-<!--<div class="item-control">-->
-<!--<label>Số nhà / Đội </label>-->
-<!--<input type="text" formControlName="numberHome">-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</div>-->
-
-<!--</div>-->
-<!--</form>-->

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../base-form.component";
 import  * as  Collections from "typescript-collections";
@@ -11,8 +11,8 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
   @ViewChild('modal') modal: ModalComponent;
   positionUpdate = -1;
   inputData= "";
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   list = new Collections.LinkedList<string>();

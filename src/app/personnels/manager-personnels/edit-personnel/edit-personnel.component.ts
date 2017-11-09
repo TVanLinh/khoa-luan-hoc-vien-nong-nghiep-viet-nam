@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
@@ -30,8 +30,8 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
     this.openModal(this.modalEdit);
   }
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
 
   }
 

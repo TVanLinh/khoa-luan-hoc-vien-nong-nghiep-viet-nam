@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit} from "@angular/core";
 
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
@@ -12,8 +12,8 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   showPass = false;
   formData: FormGroup;
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   ngOnInit() {

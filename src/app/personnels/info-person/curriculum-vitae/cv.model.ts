@@ -1,31 +1,32 @@
-export class CvModel {
-  fullName: String;
-  nameOther: String;
-  avatarUrl: String;
-  sex: String;
-  email: String;
-  phone: String;
+export interface CvModel {
+  fullName: string;
+  nameOther: string;
+  avatarUrl: string;
+  birthDay: Date;
+  sex: string;
+  email: string;
+  phone: string;
   placeBirth: {
-    city: String,
-    district: String,
-    guild: String
+    city: string,
+    district: string,
+    guild: string
   };
   homeTown: {
-    city: String,
-    district: String,
-    guild: String
+    city: string,
+    district: string,
+    guild: string
   };
   placeNow: {
-    city: String,
-    district: String,
-    guild: String,
-    street: String,
-    numberHome: String
+    city: string,
+    district: string,
+    guild: string,
+    street: string,
+    numberHome: string
   };
-  iNation: Boolean;
-  nation: String;
-  identity: { identityNumber: String, dateRange: Date, placeRange: String };
-  placeRegisterHouseHold: String;//noi dang ki ho khau thuong tru
-  policyObject: String;
-  bloodGroup: String
+  hashNation: boolean;
+  nation: string;
+  identity: { identityNumber: string, dateRange: Date, placeRange: string };
+  placeRegisterHouseHold: string;//noi dang ki ho khau thuong tru
+  policyObject: string;
+  bloodGroup: string
 }

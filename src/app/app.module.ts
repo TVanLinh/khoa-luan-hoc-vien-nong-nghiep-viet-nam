@@ -76,6 +76,9 @@ import { CatalogPositionComponent } from './personnels/manager-catalog/catalog-p
 import { CatalogAcademicRankComponent } from './personnels/manager-catalog/catalog-academic-rank/catalog-academic-rank.component';
 import { SearchComponent } from './personnels/search-statistic/search/search.component';
 import { StatisticComponent } from './personnels/search-statistic/statistic/statistic.component';
+import { MessageComponent } from './components/message/message.component';
+import {EmailValid} from "./shares/email.valid";
+import {DataTextValid} from "./shares/data.valid";
 
 @NgModule({
   declarations: [
@@ -143,7 +146,10 @@ import { StatisticComponent } from './personnels/search-statistic/statistic/stat
     CatalogPositionComponent,
     CatalogAcademicRankComponent,
     SearchComponent,
-    StatisticComponent
+    StatisticComponent,
+    MessageComponent,
+    EmailValid,
+    DataTextValid
   ],
   imports: [
     BrowserModule,

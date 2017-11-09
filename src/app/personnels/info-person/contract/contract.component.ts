@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -15,8 +15,8 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   listContracts = new Collections.LinkedList<ContractForm>();
   positionUpdate = -1;
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
 

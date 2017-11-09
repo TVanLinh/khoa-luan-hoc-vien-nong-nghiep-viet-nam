@@ -98,23 +98,26 @@ input {
   border-color: #cccccc;
   border-radius: 0;
 }
-tr{
-    border: 1px solid #ccc;
+
+tr {
+  border: 1px solid #ccc;
 }
+
 th, td {
   text-align: left;
   vertical-align: middle !important;
   border: none !important;
-  max-width:200px;
-}
-td{
- border: none !important;
- padding: 0px 5px !important;
+  max-width: 200px;
 }
 
-thead>tr>th:last-child{
-	text-align:center;
-	width:90px;
+td {
+  border: none !important;
+  padding: 0px 5px !important;
+}
+
+thead > tr > th:last-child {
+  text-align: center;
+  width: 90px;
 }
 
 @media (max-width: 1199px) {
@@ -156,7 +159,15 @@ label {
   font-weight: 400;
 }
 
-input:focus,select:focus{
+input:focus, select:focus {
   outline: none !important;
   box-shadow: none;
 }
+
+/*input.ng-dirty, input.ng-invalid, input.ng-touched {*/
+  /*border: 1px solid #ff3620;*/
+/*}*/
+
+/*input.ng-valid {*/
+  /*border: 1px solid rgb(204, 204, 204);*/
+/*}*/

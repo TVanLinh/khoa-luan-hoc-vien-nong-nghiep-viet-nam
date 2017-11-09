@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -15,8 +15,8 @@ export class ProcedureRetireComponent extends BaseFormComponent implements OnIni
   formDetail: FormGroup;
 
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   ngOnInit() {

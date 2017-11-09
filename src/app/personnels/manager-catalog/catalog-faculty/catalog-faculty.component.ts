@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -16,8 +16,8 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   list = new Collections.LinkedList<CatalogFacultyModel>();
   showParent = false;
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   ngOnInit() {

@@ -8,7 +8,7 @@ declare const jQuery: any;
 })
 export class InfoComponent {
   titleFeature = "Thông tin nhân sự ";
-  constructor(private eleRef: ElementRef) {
+  constructor(protected eleRef: ElementRef) {
 
   }
 

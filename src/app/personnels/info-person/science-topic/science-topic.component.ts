@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -14,8 +14,8 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   listScienceTopic = new Collections.LinkedList<ScienceTopicForm>();
   positionUpdate = -1;
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
     let item: ScienceTopicForm = {
       name: "Khoa luan tot nghiep",
       code: "KHLT001",

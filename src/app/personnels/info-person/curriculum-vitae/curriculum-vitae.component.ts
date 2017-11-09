@@ -1,12 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
-import {NationalService} from "../../../shares/national.service";
-import {FileHolder} from "angular2-image-upload";
 import {TaskService} from "../../../shares/task.service";
-import {Http, Response} from "@angular/http";
 import {Config} from "../../../shares/config";
 import {MystorageService} from "../../../shares/mystorage.service";
+import {CvModel} from "./cv.model";
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -17,57 +15,49 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   avatar: string = "";
 
-  infoBasic = {
-    image: "https://scontent.fhan5-1.fna.fbcdn.net/v/t1.0-9/20155874_814558885374479_7866568993068759970_n.jpg?oh=c57bfe0ba86f10f060ee960b7276bb1c&oe=5A2D2D58",
-    staffCode: "1234569",
-    fullName: "Tran Van Linh",
-    birthDay: new Date(1995, 8, 18),
-    sex: 1,
-    email: "linhtran180895@gmail.com",
-    nameOther: "Tv linh",
-    nation: "Kinh",
-    identityCardNumber: "113660331",
-    dateRangeIdentityCard: new Date(2013, 9, 1),
-    placeRangeIdentityCard: "Tan lac hoa binh",
-    isNation: 0,
-    bloodGroup: "AB",
-    policyObject: 1,
-  };
-
-
-  //que quan
-  homeTown = {
-    city: "Hoa binh",
-    district: "Tan lac",
-    guild: "Dong lai"
-  };
-
-  //que quan
-  placeBirth = {
-    city: "Hoa binh",
-    district: "Tan lac",
-    guild: "Dong lai"
-  };
-
-  //guild : phuong xa,organ : co quan
-  phoneContact = {phone: "01644952648"};
-  listNation = [];
-  placeNow = {
-    city: "Hoa binh",
-    district: "Tan Lac",
-    guild: "Dong lai",
-    street: "Tan lai",
-    numberHome: ""
+  infoBasic: CvModel = {
+    fullName: "",
+    nameOther: "",
+    avatarUrl: "",
+    birthDay: new Date(),
+    sex: "0",
+    email: "",
+    phone: "",
+    placeBirth: {
+      city: "0",
+      district: "0",
+      guild: "0"
+    },
+    homeTown: {
+      city: "0",
+      district: "0",
+      guild: "0"
+    },
+    placeNow: {
+      city: "0",
+      district: "0",
+      guild: "0",
+      street: "",
+      numberHome: ""
+    },
+    hashNation: false,
+    nation: "0",
+    identity: {identityNumber: "0", dateRange: new Date(), placeRange: ""},
+    placeRegisterHouseHold: "",//noi dang ki ho khau thuong tru
+    policyObject: "0",
+    bloodGroup: "A"
   };
 
   formCV: FormGroup;
 
-  constructor(private taskService: TaskService) {
-    super();
+  constructor(private taskService: TaskService, protected eleRef: ElementRef) {
+    super(eleRef);
+    // this.getCV();
   }
 
   ngOnInit() {
     this.initForm();
+    // this.getCV();
     this.getNation();
   }
 
@@ -82,7 +72,6 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   initForm() {
     this.formCV = this.formBuilder.group({
-      staffCode: [this.infoBasic.staffCode],
       fullName: [this.infoBasic.fullName],
       birthDay: [this.infoBasic.birthDay],
       sex: [this.infoBasic.sex],
@@ -91,37 +80,36 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       bloodGroup: [this.infoBasic.bloodGroup],
       policyObject: [this.infoBasic.policyObject],
       nation: [this.infoBasic.nation],
-      isNation: [this.infoBasic.isNation],
-      phone: [this.phoneContact.phone],
+      hashNation: [this.infoBasic.hashNation],
+      phone: [this.infoBasic.phone],
       identity: this.formBuilder.group({
-        identityNumber: [this.infoBasic.identityCardNumber],
-        dateRange: [this.infoBasic.dateRangeIdentityCard],
-        placeRange: [this.infoBasic.placeRangeIdentityCard],
+        identityNumber: [this.infoBasic.identity.identityNumber],
+        dateRange: [this.infoBasic.identity.dateRange],
+        placeRange: [this.infoBasic.identity.placeRange],
       }),
 
       homeTown: this.formBuilder.group({
-        city: [this.homeTown.city],
-        district: [this.homeTown.district],
-        guild: [this.homeTown.guild],
+        city: [this.infoBasic.homeTown.city],
+        district: [this.infoBasic.homeTown.district],
+        guild: [this.infoBasic.homeTown.guild],
       }),
       placeBirth: this.formBuilder.group({
-        city: [this.placeBirth.city],
-        district: [this.placeBirth.district],
-        guild: [this.placeBirth.guild],
+        city: [this.infoBasic.placeBirth.city],
+        district: [this.infoBasic.placeBirth.district],
+        guild: [this.infoBasic.placeBirth.guild],
       }),
-      placeRegisterHouseHold: ["Dong lai tan lac hoa binh"],
+      placeRegisterHouseHold: this.infoBasic.placeRegisterHouseHold,
       placeNow: this.formBuilder.group({
-        city: [this.placeNow.city],
-        district: [this.placeNow.district],
-        guild: [this.placeNow.guild],
-        street: [this.placeNow.street],
-        numberHome: [this.placeNow.numberHome],
+        city: [this.infoBasic.placeNow.city],
+        district: [this.infoBasic.placeNow.district],
+        guild: [this.infoBasic.placeNow.guild],
+        street: [this.infoBasic.placeNow.street],
+        numberHome: [this.infoBasic.placeNow.numberHome],
       })
     });
   }
 
   avatarChange($even) {
-    var files = $even.target.files;
     var files = $even.target.files;
     var file = files[0];
     console.log(file.name);
@@ -135,42 +123,79 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   }
 
-  getTypeImage(file) {
-    let a = file.name.split('.');
-    if (a.length == 0) {
-      return null;
-    }
-    switch (a[a.length - 1]) {
-      case 'png':
-        return "data:image/png;base64,";
-      case 'jpg':
-        return "data:image/jpg;base64,";
-      case 'jpeg':
-        return "data:image/jpeg;base64,";
-      default:
-        return "data:image/png;base64,";
-    }
-  }
-
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     let base64textString = btoa(binaryString);
-    this.infoBasic.image = "data:image/png;base64," + base64textString;
+    this.infoBasic.avatarUrl = "data:image/png;base64," + base64textString;
     this.avatar = "data:image/png;base64," + base64textString;
-    // console.log(btoa(this.infoBasic.image));
+    // console.log(btoa(this.infoBasic.avatarUrl));
   }
 
   onSave() {
     let userName = MystorageService.getAcount()['user']["username"];
-    // console.log(userName);
     let formValue = this.formCV.value;
+    // let cv = formValue;
+    // cv['avatarUrl'] = this.infoBasic.avatarUrl;
+    // let data = {data: {staffCode: userName, cv: cv}};
+    // this.taskService.post(Config.CV_URL, data).subscribe(data => {
+    //   console.log(data);
+    // });
 
-    let cv = formValue;
-    cv['avatarUrl'] = this.avatar;
+    console.log(this.formCV);
+    this.updateView("cv", this.formCV.valid);
 
-    let data = {data: {userCode: userName, content: cv}};
-    this.taskService.post(Config.HOST_SERVER + "/info", data).subscribe(data => {
-      console.log(data);
+    if (this.formCV.invalid) {
+      this.updateMessge(this.messageError.please, "warning");
+      return;
+    }
+    console.log(this.formCV);
+  }
+
+  getCV() {
+    this.taskService.get(Config.CV_URL + "?username=" + this.acount['username']).subscribe((data) => {
+      if (data['cv']) {
+        this.infoBasic = data.cv;
+        this.updateForm(this.infoBasic);
+      }
+    });
+  }
+
+
+  private updateForm(value: CvModel) {
+    this.formCV.patchValue({
+      fullName: value.fullName,
+      birthDay: value.birthDay,
+      sex: value.sex,
+      email: value.email,
+      nameOther: value.nameOther,
+      bloodGroup: value.bloodGroup,
+      policyObject: value.policyObject,
+      nation: value.nation,
+      hashNation: value.hashNation,
+      phone: value.phone,
+      identity: {
+        identityNumber: value.identity.identityNumber,
+        dateRange: value.identity.dateRange,
+        placeRange: value.identity.placeRange,
+      },
+      homeTown: this.formBuilder.group({
+        city: value.homeTown.city,
+        district: value.homeTown.district,
+        guild: value.homeTown.guild,
+      }),
+      placeBirth: {
+        city: value.placeBirth.city,
+        district: value.placeBirth.district,
+        guild: value.placeBirth.guild,
+      },
+      placeRegisterHouseHold: value.placeRegisterHouseHold,
+      placeNow: {
+        city: value.placeNow.city,
+        district: value.placeNow.district,
+        guild: value.placeNow.guild,
+        street: value.placeNow.street,
+        numberHome: value.placeNow.numberHome,
+      }
     });
   }
 }

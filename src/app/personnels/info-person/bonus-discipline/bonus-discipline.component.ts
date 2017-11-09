@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -19,8 +19,8 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   listBonus = new Collections.LinkedList<BonusDisciplineForm>();
   listDiscipline = new Collections.LinkedList<BonusDisciplineForm>();
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
     let item: BonusDisciplineForm = {
       rankDecide: "Hoc vien",
       form: "Giay khen",

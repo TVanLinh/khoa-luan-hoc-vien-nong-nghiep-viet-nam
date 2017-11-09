@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
@@ -15,8 +15,8 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
   listTeaching = new Collections.LinkedList<ProcessTeachingForm>();
   positionUpdate = -1;
 
-  constructor(public nationalService: NationalService) {
-    super();
+  constructor(public nationalService: NationalService,protected eleRef: ElementRef) {
+    super(eleRef);
     let item: ProcessTeachingForm = {
       nameSubjects: "Toan cao cap ",
       levelEducation: "Dai hoc",

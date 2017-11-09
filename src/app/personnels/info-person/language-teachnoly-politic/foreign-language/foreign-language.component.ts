@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -15,8 +15,8 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
 
   positionUpdate = -1;
 
-  constructor(public nationalService: NationalService) {
-    super();
+  constructor(public nationalService: NationalService, protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   item: ForeignLanguageForm = {

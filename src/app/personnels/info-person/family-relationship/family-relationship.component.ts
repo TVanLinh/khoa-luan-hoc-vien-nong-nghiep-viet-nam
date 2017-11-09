@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
@@ -15,8 +15,8 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   positionUpdate = -1;
   listRelationFamily = new Collections.LinkedList<RelationFamily>();
 
-  constructor(public nationalService: NationalService) {
-    super();
+  constructor(public nationalService: NationalService,protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   ngOnInit() {

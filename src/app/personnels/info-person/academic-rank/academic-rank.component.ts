@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -22,8 +22,8 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   listRankAd = new Collections.LinkedList<RankAcademicForm>();
   listTitleTeachers = new Collections.LinkedList<TitleTeacher>();
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
     let rank: RankAcademicForm = {
       rank: "Giao su",
       placeRiceive: "Hoc vien nong nghiep viet nam",

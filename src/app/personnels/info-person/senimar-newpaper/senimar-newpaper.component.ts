@@ -28,8 +28,8 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
   openSenimar = true;
   openNewspaper = false;
 
-  constructor(private eleRef: ElementRef) {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   ngOnInit() {

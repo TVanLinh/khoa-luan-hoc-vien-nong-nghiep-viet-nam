@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -13,8 +13,8 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   formData: FormGroup;
   positionUpdate = -1;
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
   }
 
   item: InfoTechForm = {

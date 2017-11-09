@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -14,8 +14,8 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   formMain: FormGroup;
   listSalaryBrief = new Collections.LinkedList<SalaryBriefForm>();
 
-  constructor() {
-    super();
+  constructor(protected eleRef: ElementRef) {
+    super(eleRef);
     let item: SalaryBriefForm = {
       dateFrom: '20/10/2015',
       dateEnd: '20/06/2017',
