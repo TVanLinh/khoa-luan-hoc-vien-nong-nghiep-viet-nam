@@ -1,9 +1,12 @@
 <div class="form-item">
-<div class="form-item-title">Qúa trình hoạt động Đảng, Đoàn, Công Đoàn </div>
+  <div class="form-item-title">Qúa trình hoạt động Đảng, Đoàn, Công Đoàn</div>
   <form action="" [formGroup]="formData">
     <div class="action-form">
       <button (click)="onSave()">Ghi nhận</button>
-      <button (click)="blockData()">Khóa dữ liệu</button>
+      <!--<button (click)="blockData()">Khóa dữ liệu</button>-->
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6">
@@ -14,23 +17,23 @@
           </div>
           <div class="item-control">
             <label>Ngày vào Đảng </label>
-            <input type="text" formControlName="dateInParty">
+            <input type="date" formControlName="dateIn" [value]="party.dateIn | date:'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
             <label>Ngày vào chính thức vào Đảng </label>
-            <input type="text" placeholder="Ngày/Tháng/Năm " formControlName="dateInPartyfOficial">
+            <input type="date" formControlName="dateInOfical" [value]="party.dateInOfical | date:'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
             <label>Nơi kết nạp </label>
-            <input type="text" formControlName="placeInParty">
+            <input type="text" formControlName="placeIn">
           </div>
           <!---->
           <div class="item-control">
             <label class="mgr-15">Thông tin chi tiết : </label>
             <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalActionParty)">Qúa
-              trình hoạt động đảng </a>
+              trình hoạt động Đảng </a>
           </div>
         </div>
 
@@ -42,24 +45,21 @@
           <!---->
           <div class="item-control">
             <label>Ngày vào Đoàn </label>
-            <input type="text" placeholder="Ngày/Tháng/Năm" formControlName="dateInUnion">
+            <input type="date" formControlName="dateIn" [value]="union.dateIn | date:'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
             <label>Nơi kết nạp </label>
-            <input type="text" formControlName="placeInUnion">
+            <input type="text" formControlName="placeIn">
           </div>
           <!---->
           <div class="item-control">
-            <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
-            <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalUnion)">Qúa trình hoạt
+            <label class="mgr-15">Thông tin chi tiết: </label>
+            <a href="javascript:void(0)" style="text-decoration: underline" (click)="openModal(modalUnion)">Qúa trình
+              hoạt
               động Đoàn </a>
           </div>
           <!---->
-          <div class="item-control">
-            <label>Chức vụ cao nhất </label>
-            <input type="text" formControlName="postionTallest">
-          </div>
           <!---->
         </div>
 
@@ -72,32 +72,29 @@
           <div class="form-item-title">
             Quá trình hoạt động Quân ngũ
           </div>
-          <!---->
-          <!--<div class="item-control">-->
-            <!--<label class="mgr-15"> Đã tham gia quân đội </label>-->
-            <!--<input type="checkbox" formControlName="isArmy" value="1">-->
-          <!--</div>-->
-          <!---->
           <div class="item-control">
             <label>Ngày nhập ngũ/Xuất ngũ </label>
             <div class="text-right">
-              <input type="text" placeholder="Ngày nhập ngũ "
-                     class="mgb-10" style="float: none" formControlName="dateInArmy">
-              <input type="text" placeholder="Ngày xuất ngũ "
-                     style="float: none" formControlName="dateOutArmy">
+              <input type="date" placeholder="Ngày nhập ngũ "
+                     class="mgb-10" style="float: none" formControlName="dateIn"
+                     [value]="army.dateIn | date:'yyyy-MM-dd'">
+              <input type="date" placeholder="Ngày xuất ngũ "
+                     style="float: none" formControlName="dateOut" [value]="army.dateOut | date:'yyyy-MM-dd'">
             </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Quân hàm cao nhất </label>
             <select formControlName="rankTallest" class="form-control">
-              <option>--------- Lựa chọn --------</option>
+              <option value="">--------- Lựa chọn --------</option>
+              <option *ngFor="let item of rankArmy" [value]="item">{{item}}</option>
             </select>
           </div>
           <div class="item-control">
             <label>Hạng thương binh </label>
             <select formControlName="rankVeterans" class="form-control">
-              <option>--------- Lựa chọn --------</option>
+              <option value="">--------- Lựa chọn --------</option>
+              <option *ngFor="let item of rankVeterans" [value]="item">Hạng {{item + "/4"}}</option>
             </select>
           </div>
           <!---->
@@ -114,24 +111,20 @@
         </div>
 
         <!---qua trinh hoat dong cong doan-->
-        <div class="form-item" formGroupName="actionCD">
+        <div class="form-item" formGroupName="actionGroup">
           <div class="form-item-title">
             Quá trình hoạt động Công Đoàn
           </div>
           <!---->
           <div class="item-control">
             <label>Ngày vào Công Đoàn </label>
-            <input type="text" formControlName="dateInCD">
+            <input type="date" formControlName="dateIn" [value]="group.dateIn | date: 'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
-            <label class="mgr-15">Các thông tin dưới đây sẽ được cập nhật trong: </label>
-            <a href="javascript:void(0)" style="text-decoration: underline">Qúa trình hoạt động Công Đoàn </a>
-          </div>
-          <!---->
-          <div class="item-control">
-            <label>Chức vụ Công Đoàn cao nhất </label>
-            <input type="text" formControlName="positionTallest">
+            <label class="mgr-15">Thông tin chi tiết: </label>
+            <a href="javascript:void(0)" (click)="openModal(modalGroup)" style="text-decoration: underline">Qúa trình
+              hoạt động Công Đoàn </a>
           </div>
           <!---->
         </div>
@@ -145,23 +138,9 @@
 <!--modal qua trinh hoat dong dang-->
 <modal #modalActionParty size="lg" [cssClass]="cssClassModal" backdrop="false">
 
-
   <modal-body>
     <div class="action-form">
       <button (click)="closeModal(modalActionParty)" class="mgb-20">Thoát</button>
-      <div class="form-item">
-        <div class="form-item-title">
-          Chú ý
-        </div>
-        <div>
-          <p> Nếu chức vụ Đảng mà quý vị đã giữ không có trong ô chọn. Quý vị vui lòng chọn
-            <b>"---Chức vụ khác---"</b> và nhập chức vụ đó vào ô : <b>Chức vụ khác </b>
-          </p>
-          <p>Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
-            Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
-          </p>
-        </div>
-      </div>
     </div>
 
     <form [formGroup]="formDetailParty">
@@ -172,72 +151,46 @@
           <th>Từ ngày</th>
           <th>Nơi sinh hoạt</th>
           <th>Chức vụ đảng</th>
-          <th>Chức vụ đảng khác</th>
           <th>Hiện tại</th>
           <th>
-            <span class="pdr-10 action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon icon-remove-update"> <i class="fa fa-remove "></i></span>
           </th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
           <td></td>
           <td>
-            <input type="text" class="form-control" formControlName="dateFrom">
+            <input type="date" class="form-control" formControlName="dateFrom">
           </td>
           <td>
-            <input type="text" class="form-control" formControlName="placePerformance">
+            <input type="text" class="form-control" formControlName="place">
           </td>
           <td>
-            <select name="" id="" class="form-control" formControlName="position">
-              <option value="">----Chọn----</option>
-            </select>
+            <input type="text" formControlName="position">
           </td>
           <td>
-            <input type="text" class="form-control" formControlName="positionOther">
+            <input type="checkbox" value="true" formControlName="now">
           </td>
           <td>
-            <input type="checkbox" formControlName="now">
-          </td>
-          <td>
-            <span class="action-icon  pdb-20" (click)="addItem('party')"><i class="fa fa-save"></i></span>
+            <span class="action-icon  pdb-20" (click)="addParty()"><i class="fa fa-save"></i></span>
             <span class="action-icon  " (click)="resetForm(formDetailParty)"><i class="fa fa-remove "></i></span>
-            <!--<span class="action pdb-10"><i class="fa fa-lock"></i></span>-->
-          </td>
-        </tr>
-
-        <tr>
-          <td>1</td>
-          <td>23/1/2014</td>
-          <td>Dong lai tan lac hoa binh</td>
-          <td>Pho bi thu chi bo</td>
-          <td>
-
-          </td>
-          <td>
-            <span class="action pdb-10"><i class="fa fa-check "></i></span>
-          </td>
-          <td>
-            <span class="action-icon"><i class="fa fa-edit"></i></span>
-            <span class="action-icon"><i class="fa fa-remove"></i></span>
-            <span class="action-icon"><i class="fa fa-lock "></i></span>
           </td>
         </tr>
 
         <tr *ngFor="let item of listActionParty.toArray();let inx = index">
           <td>{{inx+1}}</td>
-          <td>{{item.dateFrom}}</td>
-          <td>{{item.placePerformance}}</td>
+          <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
+          <td>{{item.place}}</td>
           <td>{{item.position}}</td>
-          <td>{{item.positionOther}}</td>
-          <td><span class="action-icon pdb-10" *ngIf="item.now"><i class="fa fa-check "></i></span></td>
+          <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+          <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
           <td>
-            <span class="action-icon" (click)="editItem('party',i)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(listActionParty,inx)"><i class="fa fa-remove"></i></span>
-            <span class="action-icon"><i class="fa fa-lock "></i></span>
+            <span class="action-icon" (click)="editItem('party',item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(listActionParty,item)"><i class="fa fa-remove"></i></span>
           </td>
         </tr>
+
         </tbody>
       </table>
     </form>
@@ -251,19 +204,6 @@
   <modal-body>
     <div class="action-form">
       <button (click)="closeModal(modalUnion)" class="mgb-20">Thoát</button>
-      <div class="form-item">
-        <div class="form-item-title">
-          Chú ý
-        </div>
-        <div>
-          <p> Nếu chức vụ Đoàn mà quý vị đã giữ không có trong ô chọn. Quý vị vui lòng chọn
-            <b>"---Chức vụ khác---"</b> và nhập chức vụ đó vào ô : <b>Chức vụ khác </b>
-          </p>
-          <p>Ô nhập ngày tháng, nếu Qúy vị không nhớ rõ thì nhập ngày là 01,tháng năm bắt buộc phải nhập chính sác.
-            Khi chiết xuất dữ liệu chỉ sử dụng tháng năm
-          </p>
-        </div>
-      </div>
     </div>
 
     <form action="" [formGroup]="formDetailUnion">
@@ -276,8 +216,6 @@
           <th>Chức vụ Đoàn</th>
           <th>Chức vụ cao nhất</th>
           <th>
-            <span class="pdr-10 action-icon"><i class="fa fa-plus"></i></span>
-            <span class="action-icon"> <i class="fa fa-remove icon-remove-update"></i></span>
           </th>
         </tr>
         </thead>
@@ -285,50 +223,34 @@
         <tr>
           <td></td>
           <td>
-            <input type="text" class="form-control" formControlName="dateFrom">
+            <input type="date" class="form-control" formControlName="dateFrom">
           </td>
           <td>
-            <input type="text" class="form-control" formControlName="placePerformance">
+            <input type="text" class="form-control" formControlName="place">
           </td>
           <td>
-            <select class="form-control" formControlName="position">
-              <option value="">----Chọn----</option>
-            </select>
+            <input type="text" formControlName="position">
           </td>
           <td>
-            <input type="checkbox" class="" formControlName="postionTallest">
+            <input type="checkbox" class="" value="true" formControlName="now">
           </td>
           <td>
-            <span class="action-icon  " (click)="addItem('union')"><i class="fa fa-save"></i></span>
+            <span class="action-icon  " (click)="addUnion()"><i class="fa fa-save"></i></span>
             <span class="action-icon  " (click)="resetForm(formDetailUnion)"><i class="fa fa-remove "></i></span>
-          </td>
-        </tr>
-
-        <tr>
-          <td>1</td>
-          <td>23/1/2014</td>
-          <td>Dong lai tan lac hoa binh</td>
-          <td>Pho bi thu chi bo</td>
-          <td>
-
-          </td>
-          <td>
-            <span class="action-icon  "><i class="fa fa-edit"></i></span>
-            <span class="action-icon  "><i class="fa fa-remove"></i></span>
-            <span class="action-icon  "><i class="fa fa-lock "></i></span>
           </td>
         </tr>
 
         <tr *ngFor="let item of listActionUnion.toArray();let inx = index">
           <td>{{inx+1}}</td>
-          <td>{{item.dateFrom}}</td>
-          <td>{{item.placePerformance}}</td>
+          <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
+          <td>{{item.place}}</td>
           <td>{{item.position}}</td>
-          <td>{{item.postionTallest}}</td>
+          <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+          <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
           <td>
-            <span class="action-icon  " (click)="editItem('union',inx)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon  " (click)="removeItem(listActionUnion,inx)"><i class="fa fa-remove"></i></span>
-            <span class="action-icon  "><i class="fa fa-lock "></i></span>
+            <span class="action-icon  " (click)="editItem('union',item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon  " (click)="removeItem(listActionUnion,item)"><i class="fa fa-remove"></i></span>
+            <!--<span class="action-icon  "><i class="fa fa-lock "></i></span>-->
           </td>
         </tr>
 
@@ -338,3 +260,66 @@
     </form>
   </modal-body>
 </modal>
+
+
+<!--modal qua trinh hoat dong Doan-->
+<modal #modalGroup size='lg' cssClass="my-modal-lg" backdrop="false">
+  <modal-body>
+    <div class="action-form">
+      <button (click)="closeModal(modalGroup)" class="mgb-20">Thoát</button>
+    </div>
+
+    <form action="" [formGroup]="formDetailGroup">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Từ ngày</th>
+          <th>Nơi sinh hoạt</th>
+          <th>Chức vụ Công Đoàn</th>
+          <th>Chức vụ cao nhất</th>
+          <th>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>
+            <input type="date" class="form-control" formControlName="dateFrom">
+          </td>
+          <td>
+            <input type="text" class="form-control" formControlName="place">
+          </td>
+          <td>
+            <input type="text" formControlName="position">
+          </td>
+          <td>
+            <input type="checkbox" class="" value="true" formControlName="now">
+          </td>
+          <td>
+            <span class="action-icon  " (click)="addGroup()"><i class="fa fa-save"></i></span>
+            <span class="action-icon  " (click)="resetForm(formDetailGroup)"><i class="fa fa-remove "></i></span>
+          </td>
+        </tr>
+
+        <tr *ngFor="let item of listActionGroup.toArray();let inx = index">
+          <td>{{inx+1}}</td>
+          <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
+          <td>{{item.place}}</td>
+          <td>{{item.position}}</td>
+          <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+          <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+          <td>
+            <span class="action-icon  " (click)="editItem('group',item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon  " (click)="removeItem(listActionGroup,item)"><i class="fa fa-remove"></i></span>
+            <!--<span class="action-icon  "><i class="fa fa-lock "></i></span>-->
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </form>
+  </modal-body>
+</modal>
+

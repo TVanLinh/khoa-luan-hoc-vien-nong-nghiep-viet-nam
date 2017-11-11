@@ -1,5 +1,7 @@
 export class MessageError {
   please = "Vui lòng nhập đầy đủ thông tin ";
+  success = "Lưu thành công";
+  errorSave = "Lưu không thành công";
   //-------------------
   mail = "Email không được để trống và phải nhập đúng định dạng email (abc@..";
   fullName = "Chưa nhập họ tên  ";
@@ -7,7 +9,7 @@ export class MessageError {
   sex = "Chưa chọn giới tính  ";
   phone = "Chưa nhập số điện thoại  ";
   placeBirth = "Chưa nhập nơi sinh ";
-  indentityNumber = "Chưa nhập số chứng minh thư ";
+  identityNumber = "Chưa nhập số chứng minh thư ";
   dateRange = "Chưa nhập ngày cấp  ";
   placeRange = "Chưa nhập nơi cấp  ";
   city = "Chưa chọn  thành phố ";

@@ -1,10 +1,20 @@
 import {Component, ElementRef, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup} from "@angular/forms";
-// import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import LinkedList from "typescript-collections/dist/lib/LinkedList";
 import {BaseFormComponent} from "../../base-form.component";
+import {PartyModel} from "./model/party.model";
+import {ArmyModel} from "./model/army.model";
+import {UnionModel} from "./model/union.model";
+import {DetailAPUModel} from "./model/detail.model";
+import {PartyConfig} from "./party.config";
+import {TaskService} from "../../../shares/task.service";
+import {Config} from "../../../shares/config";
+import {MessageError} from "../../../shares/message.error";
+import {GroupModel} from "./model/group.model";
+
 declare const jQuery: any;
+
 @Component({
   selector: 'app-party-union',
   templateUrl: './party-union.component.html',
@@ -15,20 +25,56 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   formData: FormGroup;
   formDetailParty: FormGroup;
   formDetailUnion: FormGroup;
-  positonUpdate: number = -1;
+  formDetailGroup: FormGroup;
 
-  listActionParty = new Collections.LinkedList<DetailActionParty>();
-  listActionUnion = new Collections.LinkedList<DetailActionUnion>();
+  positionTemp: DetailAPUModel = null;
+
+  listActionParty = new Collections.LinkedList<DetailAPUModel>();
+  listActionUnion = new Collections.LinkedList<DetailAPUModel>();
+  listActionGroup = new Collections.LinkedList<DetailAPUModel>();
 
   cssClassModal: string = 'my-modal-lg';
 
-  constructor(protected eleRef: ElementRef) {
+  rankArmy = PartyConfig.RANK_AMRY;
+  rankVeterans = PartyConfig.RANK_VETERAN;
+
+  party: PartyModel = {
+    dateIn: new Date(),
+    dateInOfical: new Date(),
+    placeIn: "",
+    process: []
+  };
+
+
+  army: ArmyModel = {
+    dateIn: new Date(),
+    dateOut: new Date(),
+    rankTallest: "",
+    rankVeterans: "",
+    bookInjured: "",
+    formInjured: ""
+  };
+
+  union: UnionModel = {
+    dateIn: new Date(),
+    placeIn: "",
+    process: []
+  };
+
+  group: GroupModel = {
+    dateIn: new Date(),
+    process: []
+  };
+
+
+  constructor(protected eleRef: ElementRef, private  taskService: TaskService) {
     super(eleRef);
   }
 
   ngOnInit() {
     this.inInitForm();
-    jQuery(this.eleRef.nativeElement).find('.modal-lg').css({width:'1200px !important'});
+    this.getDataFromServer();
+    jQuery(this.eleRef.nativeElement).find('.modal-lg').css({width: '1200px !important'});
   }
 
 
@@ -37,65 +83,59 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
       //hoat dong dang
       actionParty: this.formBuilder.group({
-        // isParty: [true],
-        dateInParty: ['12/12/2013'],//ngay vao dang
-        dateInPartyfOficial: ['11/1/2014'],//ngay chinh thuc vao dang
-        placeInParty: ['Hoa binh'],//noi vao dang
-        positonNow: ['Dang vien'],//vi tri hien tai
-        placePerformanceParty: ['Hoa Binh'] //noi sinh hoat hien tai
+        dateIn: [this.party.dateIn],//ngay vao dang
+        dateInOfical: [this.party.dateInOfical],//ngay chinh thuc vao dang
+        placeIn: [this.party.placeIn]//noi vao dang
       }),
 
       //hoat dong doan
       actionUnion: this.formBuilder.group({
-        dateInUnion: [''],
-        placeInUnion: ['THPT Doan ket '],
-        postionTallest: []
+        dateIn: [this.union.dateIn],
+        placeIn: [this.union.placeIn]
       }),
 
       //hoat  dong quan ngu
       actionArmy: this.formBuilder.group({
-        isArmy: [true],
-        dateInArmy: [],//ngay nhap ngu
-        dateOutArmy: [],//ngay xuat ngu
-        rankTallest: [],// quan ham cao nhat
-        rankVeterans: [], // Hang thuong binh
-        bookInjured: [],//so thuong tat
-        formInjured: [],// hinh thuc thuong tat
+        dateIn: [this.army.dateIn],//ngay nhap ngu
+        dateOut: [this.army.dateOut],//ngay xuat ngu
+        rankTallest: [this.army.rankTallest],// quan ham cao nhat
+        rankVeterans: [this.army.rankVeterans], // Hang thuong binh
+        bookInjured: [this.army.bookInjured],//so thuong tat
+        formInjured: [this.army.formInjured],// hinh thuc thuong tat
       }),
 
       //quá trình hoạt động công đoàn
-      actionCD: this.formBuilder.group({
-        dateInCD: ['20/10/2013'],
-        positionTallest: ['Doi truong']
+      actionGroup: this.formBuilder.group({
+        dateIn: [this.group.dateIn]
       })
     });
 
     this.formDetailParty = this.formBuilder.group({
       dateFrom: [''],
-      placePerformance: [''],
+      place: [''],
       position: [''],
-      positionOther: [''],
       now: [false]
     });
 
     this.formDetailUnion = this.formBuilder.group({
       dateFrom: [''],
-      placePerformance: [''],
+      place: [''],
       position: [''],
-      postionTallest: [''],
+      now: [false],
+    });
+
+    this.formDetailGroup = this.formBuilder.group({
+      dateFrom: [''],
+      place: [''],
+      position: [''],
+      now: [false],
     });
   }
 
-  //xu ly form main
-  onSave() {
-    console.log(this.formData.value);
-  }
+//xu ly form main
 
-  blockData() {
 
-  }
-
-  //----------------
+//----------------
   openModal(target: any) {
     target.open();
     // this.modalComponent.open();
@@ -105,79 +145,237 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     target.close();
   }
 
-  //  ----------------
+//  ----------------
 
-  //xu ly form action detail party
-  addItem(target: string) {
-    let valueForm;
 
-    switch (target) {
-      case 'party':
-        valueForm = (this.formDetailParty.value);
-        if (this.positonUpdate == -1) {
-          this.listActionParty.add(valueForm);
-        } else {
-          this.listActionParty.removeElementAtIndex(this.positonUpdate);
-          this.listActionParty.add(valueForm, this.positonUpdate);
-        }
-        break;
-      case 'union':
-        valueForm = (this.formDetailUnion.value);
-        if (this.positonUpdate == -1) {
-          this.listActionUnion.add(valueForm);
-        } else {
-          this.listActionUnion.removeElementAtIndex(this.positonUpdate);
-          this.listActionUnion.add(valueForm, this.positonUpdate);
-        }
-        break;
+  addParty() {
+    let valueForm = this.formDetailParty.value;
+    console.log("valueForm : " + JSON.stringify(valueForm));
+
+    if (valueForm.now === true) {
+      this.toggleBoolean(this.listActionParty);
     }
+
+    if (this.positionTemp == null) {
+      this.listActionParty.add(valueForm);
+    } else {
+      let idex = this.listActionParty.indexOf(this.positionTemp);
+      this.listActionParty.remove(this.positionTemp);
+      this.listActionParty.add(valueForm, idex);
+
+    }
+    this.formDetailParty.reset();
+    this.positionTemp = null;
   }
 
-  removeItem(list: LinkedList<any>, i: number) {
-    this.positonUpdate = -1;
-    list.removeElementAtIndex(i);
+
+  addUnion() {
+    let valueForm = this.formDetailUnion.value;
+    console.log("valueForm : " + JSON.stringify(valueForm));
+
+    if (valueForm.now === true) {
+      this.toggleBoolean(this.listActionUnion);
+    }
+
+    if (this.positionTemp == null) {
+      this.listActionUnion.add(valueForm);
+    } else {
+      let idex = this.listActionUnion.indexOf(this.positionTemp);
+      this.listActionUnion.remove(this.positionTemp);
+      this.listActionUnion.add(valueForm, idex);
+    }
+    this.formDetailUnion.reset();
+    this.positionTemp = null;
   }
 
-  //resetForm
+  addGroup() {
+    let valueForm = this.formDetailGroup.value;
+    console.log("valueForm : " + JSON.stringify(valueForm));
+
+    if (valueForm.now === true) {
+      this.toggleBoolean(this.listActionGroup);
+    }
+    if (this.positionTemp == null) {
+      this.listActionGroup.add(valueForm);
+    } else {
+      let idex = this.listActionGroup.indexOf(this.positionTemp);
+      this.listActionGroup.remove(this.positionTemp);
+      this.listActionGroup.add(valueForm, idex);
+    }
+    this.formDetailGroup.reset();
+    this.positionTemp = null;
+  }
+
+  removeItem(list: LinkedList<any>, item: DetailAPUModel) {
+    list.remove(item);
+  }
+
+
+//resetForm
   resetForm(tartget: any) {
     tartget.reset();
   }
 
-  editItem(target: string, index: number) {
-    this.positonUpdate = index;
+  editItem(target: string, item: DetailAPUModel) {
+    this.positionTemp = item;
     switch (target) {
       case 'party':
         this.formDetailParty.setValue({
-          dateFrom: this.listActionParty.elementAtIndex(index).dateFrom,
-          placePerformance: this.listActionParty.elementAtIndex(index).placePerformance,
-          position: this.listActionParty.elementAtIndex(index).position,
-          positionOther: this.listActionParty.elementAtIndex(index).positionOther,
-          now: this.listActionParty.elementAtIndex(index).now
+          dateFrom: item.dateFrom,
+          place: item.place,
+          position: item.position,
+          now: item.now
         });
         break;
       case 'union':
         this.formDetailUnion.setValue({
-          dateFrom: this.listActionUnion.elementAtIndex(index).dateFrom,
-          placePerformance: this.listActionUnion.elementAtIndex(index).placePerformance,
-          position: this.listActionUnion.elementAtIndex(index).position,
-          postionTallest: this.listActionUnion.elementAtIndex(index).postionTallest
+          dateFrom: item.dateFrom,
+          place: item.place,
+          position: item.position,
+          now: item.now,
+        });
+        break;
+      case 'group':
+        this.formDetailGroup.setValue({
+          dateFrom: item.dateFrom,
+          place: item.place,
+          position: item.position,
+          now: item.now,
         });
         break;
     }
+
   }
-}
 
-interface DetailActionParty {
-  dateFrom: string,
-  placePerformance: string,
-  position: [''],
-  positionOther: boolean,
-  now: boolean
-}
 
-interface DetailActionUnion {
-  dateFrom: string,
-  placePerformance: string,
-  position: [''],
-  postionTallest: string,
+  onSave() {
+    console.log(this.formData.value);
+    let data = {};
+
+    let formArm = this.formData.value.actionArmy;
+    let army: ArmyModel = {
+      dateIn: formArm.dateIn,
+      dateOut: formArm.dateOut,
+      rankTallest: formArm.rankTallest,
+      rankVeterans: formArm.rankVeterans,
+      bookInjured: formArm.bookInjured,
+      formInjured: formArm.formInjured,
+    };
+
+
+    let formParty = this.formData.value.actionParty;
+    let party: PartyModel = {
+      dateIn: formParty.dateIn,
+      dateInOfical: formParty.dateInOfical,
+      placeIn: formParty.placeIn,
+      process: this.listActionParty.toArray()
+    };
+
+
+    let formUnion = this.formData.value.actionUnion;
+    let union: UnionModel = {
+      dateIn: formUnion.dateIn,
+      placeIn: formUnion.placeIn,
+      process: this.listActionUnion.toArray()
+    };
+
+    let formGroup = this.formData.value.actionGroup;
+    let group: GroupModel = {
+      dateIn: formGroup.dateIn,
+      process: this.listActionGroup.toArray()
+    };
+
+    data['army'] = army;
+    data['party'] = party;
+    data['union'] = union;
+    data['group'] = group;
+
+    let body = {};
+    body['armyPUG'] = data;
+    body['staffCode'] = this.acount['username'];
+    this.taskService.post(Config.ARMYPUG_URL, {data: body}).subscribe((data) => {
+      console.log(data);
+      this.updateMessge(this.messageError.success, "success");
+    }, (err) => {
+      this.updateMessge(this.messageError.errorSave, "success");
+    });
+    // console.log(JSON.stringify(data));
+
+  }
+
+  getDataFromServer() {
+    this.taskService.get(Config.ARMYPUG_URL + "?username=" + this.acount['username']).subscribe((data) => {
+      console.log("data:  " + JSON.stringify(data));
+      if (data['armyPUG']) {
+        this.updateForm(data['armyPUG']);
+      }
+
+    });
+  }
+
+
+  updateForm(data) {
+    let union = data['union'];
+    let party = data['party'];
+    let army = data['army'];
+    let group = data['group'];
+
+    if (party) {
+      this.party = party;
+      this.formData.patchValue({
+        actionParty: {
+          dateIn: party['dateIn'],//ngay vao dang
+          dateInOfical: party['dateInOfical'],//ngay chinh thuc vao dang
+          placeIn: party['placeIn']//noi vao dang
+        },
+      });
+      this.listActionParty.clear();
+      for (let item of party['process']) {
+        this.listActionParty.add(item);
+      }
+    }
+
+    if (army) {
+      this.army = army;
+      this.formData.patchValue({
+        actionArmy: {
+          dateIn: army['dateIn'],//ngay nhap ngu
+          dateOut: army['dateOut'],//ngay xuat ngu
+          rankTallest: army['rankTallest'],// quan ham cao nhat
+          rankVeterans: army['rankVeterans'], // Hang thuong binh
+          bookInjured: army['bookInjured'],//so thuong tat
+          formInjured: army['formInjured'],// hinh thuc thuong tat
+        }
+      });
+    }
+
+    if (union) {
+      this.union = union;
+      this.formData.patchValue({
+        actionUnion: {
+          dateIn: union['dateIn'],
+          placeIn: union['placeIn']
+        }
+      });
+
+      this.listActionUnion.clear();
+      for (let item of union['process']) {
+        this.listActionUnion.add(item);
+      }
+    }
+
+    if (group) {
+      this.group = group;
+      this.formData.patchValue({
+        actionGroup: {
+          dateIn: group['dateIn']
+        }
+      });
+
+      for (let item of group['process']) {
+        this.listActionGroup.add(item);
+      }
+    }
+  }
+
 }

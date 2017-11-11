@@ -4,6 +4,10 @@ import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
+import {FamilyModel} from "./family.model";
+import {TaskService} from "../../../shares/task.service";
+import {Config} from "../../../shares/config";
+
 @Component({
   selector: 'app-family-relationship',
   templateUrl: './family-relationship.component.html',
@@ -12,84 +16,106 @@ import {NationalService} from "../../../shares/national.service";
 export class FamilyRelationshipComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modalFamily') modal: ModalComponent;
   formData: FormGroup;
-  positionUpdate = -1;
-  listRelationFamily = new Collections.LinkedList<RelationFamily>();
+  updateTemp: FamilyModel = null;
 
-  constructor(public nationalService: NationalService,protected eleRef: ElementRef) {
+  listRelationFamily = new Collections.LinkedList<FamilyModel>();
+
+  constructor(public nationalService: NationalService,
+              private taskService: TaskService,
+              protected eleRef: ElementRef) {
     super(eleRef);
   }
 
+  listYear: number[] = [];
+  listRealtion: string[] = ["bố", "mẹ", "anh ", "chị ", "em ", "ông ", "bà"];
+
+  initYear() {
+    let date = new Date();
+    for (let i = date.getFullYear(); i > 1899; i--) {
+      this.listYear.push(i);
+    }
+  }
+
+  dataForm: FamilyModel = {
+    relation: 'bố',
+    name: '',
+    yearBirth: (new Date()).getFullYear(),
+    job: ''
+  };
+
   ngOnInit() {
-    let a: RelationFamily = {
-      relation: 'Bo',
-      fullName: "La Van Tai",
-      birthDay: "20/6/1976",
-      job: 'Giao Vien'
-    };
-    this.listRelationFamily.add(a);
+    this.listRealtion = this.listRealtion.sort();
+    this.initYear();
     this.initForm();
+    this.getDataFromServer();
   }
 
   initForm() {
     this.formData = this.formBuilder.group({
-      relation: [''],
-      fullName: [''],
-      birthDay: [''],
-      job: ['']
-    })
+      relation: [this.dataForm.relation],
+      name: [this.dataForm.name],
+      yearBirth: [this.dataForm.yearBirth],
+      job: [this.dataForm.job]
+    });
   }
 
   onSave() {
-    let valueForm = this.formData.value;
-    console.log(valueForm);
+
+    let body = {
+      "family": this.listRelationFamily.toArray(),
+      "staffCode": this.acount['username']
+    };
+    this.taskService.post(Config.FAMILY_URL, {data: body}).subscribe((data) => {
+      this.updateMessge(this.messageError.success, "success");
+    }, (err) => {
+      this.updateMessge(this.messageError.errorSave, "warning");
+    });
   }
 
   addItem() {
     let valueForm = this.formData.value;
-    if (this.positionUpdate == -1) {
+    if (this.updateTemp == null) {
       this.listRelationFamily.add(valueForm);
     } else {
-      this.listRelationFamily.removeElementAtIndex(this.positionUpdate);
-      this.listRelationFamily.add(valueForm, this.positionUpdate);
+      let indx = this.listRelationFamily.indexOf(this.updateTemp);
+      this.listRelationFamily.remove(this.updateTemp);
+      this.listRelationFamily.add(valueForm, indx);
     }
+
+    this.updateTemp = null;
 
     this.resetForm();
     this.closeModal(this.modal);
   }
 
   resetForm() {
-    this.formData.patchValue({
-      relation: [''],
-      fullName: [''],
-      birthDay: [''],
-      job: ['']
-    });
+    this.formData.reset();
   }
 
-  removeItem(index: number) {
-    this.listRelationFamily.removeElementAtIndex(index);
+  removeItem(item: FamilyModel) {
+    this.listRelationFamily.remove(item);
   }
 
-  editItem(index: number) {
-    this.positionUpdate = index;
-
-    let itemEdit = this.listRelationFamily.elementAtIndex(index);
+  editItem(item: FamilyModel) {
+    this.updateTemp = item;
     this.formData.setValue({
-      relation: itemEdit.relation,
-      fullName: itemEdit.fullName,
-      birthDay: itemEdit.birthDay,
-      job: itemEdit.job
+      relation: item.relation,
+      name: item.name,
+      yearBirth: item.yearBirth,
+      job: item.job
     });
 
     this.openModal(this.modal);
   }
 
+  getDataFromServer() {
+    this.taskService.get(Config.FAMILY_URL + "?username=" + this.acount['username']).subscribe((data) => {
+      if (data['family']) {
+        this.listRelationFamily = this.asList(data['family']);
+      }
+    });
+  }
 
 }
 
-export interface  RelationFamily {
-  relation: string,
-  fullName: string,
-  birthDay: string,
-  job: string
-}
+

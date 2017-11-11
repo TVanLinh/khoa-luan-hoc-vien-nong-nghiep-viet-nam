@@ -104,7 +104,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
-    if (MystorageService.getAcount()) {
+    if (MystorageService.getAcount() != null) {
       console.log("MystorageService.getAcount() " + MystorageService.getAcount()['user']);
       this.isLogin = true;
     }

@@ -50,6 +50,8 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   formCV: FormGroup;
 
+  listNation = [];
+
   constructor(private taskService: TaskService, protected eleRef: ElementRef) {
     super(eleRef);
     // this.getCV();
@@ -57,16 +59,15 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   ngOnInit() {
     this.initForm();
-    // this.getCV();
+    this.getCV();
     this.getNation();
   }
 
   private getNation() {
-    // this.http.get("/assets/data/dantoc.json").map((data: Response) => {
-    //   return data.json();
-    // }).subscribe((data: any) => {
-    //   console.log(data);
-    // });
+    this.taskService.get(Config.HOST_SERVER + "/nation").subscribe((data: any) => {
+      this.listNation = data;
+      this.listNation.sort();
+    });
   }
 
 
@@ -134,21 +135,22 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   onSave() {
     let userName = MystorageService.getAcount()['user']["username"];
     let formValue = this.formCV.value;
-    // let cv = formValue;
-    // cv['avatarUrl'] = this.infoBasic.avatarUrl;
-    // let data = {data: {staffCode: userName, cv: cv}};
-    // this.taskService.post(Config.CV_URL, data).subscribe(data => {
-    //   console.log(data);
-    // });
+    let cv = formValue;
+    cv['avatarUrl'] = this.infoBasic.avatarUrl;
+    let data = {data: {staffCode: userName, cv: cv}};
+    this.taskService.post(Config.CV_URL, data).subscribe(data => {
+      console.log(data);
+      this.updateMessge(this.messageError.success, "success");
+    });
 
-    console.log(this.formCV);
-    this.updateView("cv", this.formCV.valid);
-
-    if (this.formCV.invalid) {
-      this.updateMessge(this.messageError.please, "warning");
-      return;
-    }
-    console.log(this.formCV);
+    // console.log(this.formCV);
+    // this.updateView("cv", this.formCV.valid);
+    //
+    // if (this.formCV.invalid) {
+    //   this.updateMessge(this.messageError.please, "warning");
+    //   return;
+    // }
+    // console.log(this.formCV);
   }
 
   getCV() {
@@ -178,11 +180,11 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
         dateRange: value.identity.dateRange,
         placeRange: value.identity.placeRange,
       },
-      homeTown: this.formBuilder.group({
+      homeTown: {
         city: value.homeTown.city,
         district: value.homeTown.district,
         guild: value.homeTown.guild,
-      }),
+      },
       placeBirth: {
         city: value.placeBirth.city,
         district: value.placeBirth.district,

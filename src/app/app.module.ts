@@ -67,18 +67,20 @@ import {ManagerComponent} from "./personnels/manger.component";
 import {InfoComponent} from "./personnels/info-person/info.component";
 import {Ng2PageScrollModule} from "ng2-page-scroll";
 import {ImageUploadModule} from "angular2-image-upload";
-import { ManagerCatalogComponent } from './personnels/manager-catalog/manager-catalog.component';
-import { SearchStatisticComponent } from './personnels/search-statistic/search-statistic.component';
-import { ManagerSystemComponent } from './personnels/manager-system/manager-system.component';
-import { CatalogFacultyComponent } from './personnels/manager-catalog/catalog-faculty/catalog-faculty.component';
-import { CatalogRankComponent } from './personnels/manager-catalog/catalog-rank/catalog-rank.component';
-import { CatalogPositionComponent } from './personnels/manager-catalog/catalog-position/catalog-position.component';
-import { CatalogAcademicRankComponent } from './personnels/manager-catalog/catalog-academic-rank/catalog-academic-rank.component';
-import { SearchComponent } from './personnels/search-statistic/search/search.component';
-import { StatisticComponent } from './personnels/search-statistic/statistic/statistic.component';
-import { MessageComponent } from './components/message/message.component';
+import {ManagerCatalogComponent} from './personnels/manager-catalog/manager-catalog.component';
+import {SearchStatisticComponent} from './personnels/search-statistic/search-statistic.component';
+import {ManagerSystemComponent} from './personnels/manager-system/manager-system.component';
+import {CatalogFacultyComponent} from './personnels/manager-catalog/catalog-faculty/catalog-faculty.component';
+import {CatalogRankComponent} from './personnels/manager-catalog/catalog-rank/catalog-rank.component';
+import {CatalogPositionComponent} from './personnels/manager-catalog/catalog-position/catalog-position.component';
+import {CatalogAcademicRankComponent} from './personnels/manager-catalog/catalog-academic-rank/catalog-academic-rank.component';
+import {SearchComponent} from './personnels/search-statistic/search/search.component';
+import {StatisticComponent} from './personnels/search-statistic/statistic/statistic.component';
+import {MessageComponent} from './components/message/message.component';
 import {EmailValid} from "./shares/email.valid";
 import {DataTextValid} from "./shares/data.valid";
+import {ArraySortPipe} from "./shares/sort/sort.pipe";
+import {OrderModule} from "ngx-order-pipe";
 
 @NgModule({
   declarations: [
@@ -149,7 +151,8 @@ import {DataTextValid} from "./shares/data.valid";
     StatisticComponent,
     MessageComponent,
     EmailValid,
-    DataTextValid
+    DataTextValid,
+    ArraySortPipe
   ],
   imports: [
     BrowserModule,
@@ -163,10 +166,11 @@ import {DataTextValid} from "./shares/data.valid";
     PersonnelRouting,
     HttpModule,
     Ng2PageScrollModule,
+    OrderModule,
     ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
-  providers: [NationalService,TaskService],
+  providers: [NationalService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

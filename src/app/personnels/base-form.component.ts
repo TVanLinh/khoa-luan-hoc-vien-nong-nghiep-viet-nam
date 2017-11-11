@@ -3,6 +3,7 @@ import {MystorageService} from "../shares/mystorage.service";
 import {MessageError} from "../shares/message.error";
 import {MessageAlert} from "../shares/message.alert";
 import {ElementRef} from "@angular/core";
+import * as Collections from "typescript-collections";
 
 declare const jQuery: any;
 
@@ -21,8 +22,10 @@ export class BaseFormComponent {
       this.messageError = new MessageError();
     }
 
-    this.acount = MystorageService.getAcount()['user'];
-    this.token = MystorageService.getAcount()['token'];
+    if(MystorageService.getAcount()!=null) {
+      this.acount = MystorageService.getAcount()['user'];
+      this.token = MystorageService.getAcount()['token'];
+    }
   }
 
   protected resetForm(target: FormGroup) {
@@ -64,5 +67,20 @@ export class BaseFormComponent {
       ref.css(bd2);
       ref2.css({bd2});
     }
+  }
+
+  toggleBoolean(array: Collections.LinkedList<any>) {
+    for (let item of array.toArray()) {
+      item['now'] = false;
+    }
+    return array;
+  }
+
+  asList(arry: any[]) {
+    let list = new Collections.LinkedList<any>();
+    for (let item of arry) {
+      list.add(item);
+    }
+    return list;
   }
 }
