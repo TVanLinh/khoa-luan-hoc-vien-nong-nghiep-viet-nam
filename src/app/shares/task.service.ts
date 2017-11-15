@@ -10,9 +10,21 @@ export class TaskService {
   }
 
   public get(url: string): Observable<any> {
-    return this.http.get(url).map(data => {
-      return data.json();
+    let token = MystorageService.getAcount()['token'];
+    let headers = new Headers({
+      'authorization': 'Basic ' + token
     });
+    let options: RequestOptionsArgs = {headers: headers};
+    if (token) {
+      return this.http.get(url, options).map(data => {
+        return data.json();
+      });
+    } else {
+      return this.http.get(url).map(data => {
+        return data.json();
+      });
+    }
+
   }
 
   public postLogin(url, data: any): Observable<any> {
@@ -20,15 +32,22 @@ export class TaskService {
   }
 
   public post(url, data: any): Observable<any> {
-    // let token = MystorageService.getAcount()['token'];
-    // let headers = new Headers({
-    //   'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-    //   'authorization': 'Basic ' + token
-    // });
-    // let options: RequestOptionsArgs = {headers: headers};
-    return this.http.post(url, data).map(res => {
-      console.log("res " + res);
-      return res.json();
+    let token = MystorageService.getAcount()['token'];
+    let headers = new Headers({
+      'authorization': 'Basic ' + token
     });
+    let options: RequestOptionsArgs = {headers: headers};
+    if (token) {
+      return this.http.post(url, data, options).map(res => {
+        console.log("res " + res);
+        return res.json();
+      });
+    } else {
+      return this.http.post(url, data).map(res => {
+        console.log("res " + res);
+        return res.json();
+      });
+    }
+
   }
 }

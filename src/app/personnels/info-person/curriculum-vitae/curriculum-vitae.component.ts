@@ -129,7 +129,6 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     let base64textString = btoa(binaryString);
     this.infoBasic.avatarUrl = "data:image/png;base64," + base64textString;
     this.avatar = "data:image/png;base64," + base64textString;
-    // console.log(btoa(this.infoBasic.avatarUrl));
   }
 
   onSave() {
@@ -143,14 +142,6 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       this.updateMessge(this.messageError.success, "success");
     });
 
-    // console.log(this.formCV);
-    // this.updateView("cv", this.formCV.valid);
-    //
-    // if (this.formCV.invalid) {
-    //   this.updateMessge(this.messageError.please, "warning");
-    //   return;
-    // }
-    // console.log(this.formCV);
   }
 
   getCV() {

@@ -11,7 +11,7 @@ export class DataTextValid implements Validator {
   @Input() type: string;
 
   validate(control: AbstractControl): { [key: string]: any } {
-    console.log("touched: " + control.touched + "dirty : " + control.dirty + " valid " + control.valid);
+    // console.log("touched: " + control.touched + "dirty : " + control.dirty + " valid " + control.valid);
     let result = true;
     if ((this.type === 'text' || this.type === 'date' ) && control.value.toString().trim().length == 0 && (control.dirty || control.touched)) {
       result = false;

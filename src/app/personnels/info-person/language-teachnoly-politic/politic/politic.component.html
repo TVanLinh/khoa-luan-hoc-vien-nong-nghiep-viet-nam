@@ -3,10 +3,13 @@
     Trình độ chính trị
   </div>
   <form action="" [formGroup]="formDataMain">
-  <div class="action-form mgb-20">
-    <button (click)="onSave()">Ghi nhận</button>
-    <button>Khóa dữ liệu</button>
-  </div>
+    <div class="action-form mgb-20">
+      <button (click)="onSave()">Ghi nhận</button>
+      <!--<button>Khóa dữ liệu</button>-->
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
     <div class="table-reponsive">
       <table class="table table-bordered">
         <thead>
@@ -22,35 +25,24 @@
         </thead>
         <tbody>
         <!--Content-->
-        <tr>
-          <td>1</td>
+        <tr *ngFor="let item of listData.toArray();let i = index">
+          <td>{{i+1}}</td>
           <td>{{item.level}}</td>
           <td>{{item.yearLicense}}</td>
-
-          <td><input type="radio" class="" formControlName="now" [value]="item.now"></td>
+          <td>
+            <input type="radio" name="now" formControlName="now" [value]="i"  [checked]="item.now">
+          </td>
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon"><i class="fa fa-lock"></i></span>
+            <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
           </td>
         </tr>
         <!--Content-->
-        <tr>
-          <td>1</td>
-          <td>{{item1.level}}</td>
-          <td>{{item1.yearLicense}}</td>
-
-          <td><input type="radio" class="" formControlName="now" [value]="item1.now"></td>
-          <td>
-            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon"><i class="fa fa-lock"></i></span>
-          </td>
-        </tr>
         </tbody>
       </table>
     </div>
-</form>
+  </form>
 </div>
 
 <modal #politicModal size='lg' cssClass="my-modal-lg" backdrop="false">
@@ -69,15 +61,17 @@
 
           <div class="item-control pdt-i-0">
             <label>Trình độ chính trị</label>
-            <select  class="form-control" formControlName="level">
-              <option value="">---------Chọn--------</option>
+            <select class="form-control" formControlName="level">
+              <option value="loai1">---------Chọn--------</option>
+              <option value="loai2">---------Chọn loai1--------</option>
+              <option value="loai3">---------Chọn loai3--------</option>
             </select>
           </div>
           <!---->
 
           <div class="item-control">
             <label class="mgr-20">Năm công nhận</label>
-            <input type="number" style="width: 80px" formControlName="yearLicense">
+            <input type="text" pattern="^[0-9]{4}" style="width: 80px" formControlName="yearLicense">
           </div>
 
         </div>

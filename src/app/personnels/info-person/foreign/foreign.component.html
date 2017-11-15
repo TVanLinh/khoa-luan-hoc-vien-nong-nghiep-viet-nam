@@ -2,47 +2,48 @@
   <div class="form-item-title">
     Thông tin quá trình đi nước ngoài
   </div>
-<form>
+  <form>
     <div class="action-form" style="margin-bottom: 10px;">
       <button>Ghi nhận</button>
-      <button>Khóa dữ liêu</button>
+      <!--<button>Khóa dữ liêu</button>-->
+
     </div>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>STT</th>
-              <th>Từ ngày</th>
-              <th>Đến ngày</th>
-              <th>Đi nước</th>
-              <th>Mục đích</th>
-              <th>Sản phẩm</th>
-              <th>
-                <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Từ ngày</th>
+          <th>Đến ngày</th>
+          <th>Đi nước</th>
+          <th>Mục đích</th>
+          <th>Sản phẩm</th>
+          <th>
+            <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
 
-            <!--content-->
-            <tr *ngFor="let item of listForeignForm.toArray();let i = index">
-              <td>{{i+1}}</td>
-              <td>{{item.dateFrom}}</td>
-              <td>{{item.dateEnd}}</td>
-              <td>{{nationalService.getNationByCode(item.national).name}}</td>
-              <td>{{item.purpose}}</td>
-              <td>{{item.product}}</td>
-              <td>
-                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-                <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-                <span class="action-icon"><i class="fa fa-lock"></i></span>
-              </td>
-            </tr>
+        <!--content-->
+        <tr *ngFor="let item of listForeignForm.toArray();let i = index">
+          <td>{{i+1}}</td>
+          <td>{{item.dateFrom}}</td>
+          <td>{{item.dateEnd}}</td>
+          <td>{{(item.national).name}} nationalService.getNationByCode</td>
+          <td>{{item.purpose}}</td>
+          <td>{{item.product}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <span class="action-icon"><i class="fa fa-lock"></i></span>
+          </td>
+        </tr>
 
-            </tbody>
-          </table>
-        </div>
-</form>
+        </tbody>
+      </table>
+    </div>
+  </form>
 </div>
 
 
@@ -69,7 +70,7 @@
           <!---->
           <div class="item-control">
             <label>Đi nước </label>
-            <select class="form-control" formControlName="national"  style="width: 200px">
+            <select class="form-control" formControlName="national" style="width: 200px">
               <option value="not" *ngIf="positionUpdate == -1">------------ Chọn ------------</option>
               <option *ngFor="let item of nationalService.nationals" [value]="item.code">{{item.name}}</option>
             </select>
@@ -93,6 +94,6 @@
     </form>
   </modal-body>
   <modal-footer>
-      <button class="btn-action" (click)="addItem()">{{positionUpdate==-1?" Thêm ":" Cập nhật "}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate==-1?" Thêm ":" Cập nhật "}}</button>
   </modal-footer>
 </modal>

@@ -149,6 +149,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     MenuUtil.isLogin = false;
     this.isLogin = false;
     MystorageService.removeAcount();
+    this.router.navigate(['/']);
   }
 
 }

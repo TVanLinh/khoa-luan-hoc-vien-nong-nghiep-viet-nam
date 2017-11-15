@@ -294,7 +294,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     body['armyPUG'] = data;
     body['staffCode'] = this.acount['username'];
     this.taskService.post(Config.ARMYPUG_URL, {data: body}).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.updateMessge(this.messageError.success, "success");
     }, (err) => {
       this.updateMessge(this.messageError.errorSave, "success");
@@ -305,7 +305,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     this.taskService.get(Config.ARMYPUG_URL + "?username=" + this.acount['username']).subscribe((data) => {
-      console.log("data:  " + JSON.stringify(data));
+      // console.log("data:  " + JSON.stringify(data));
       if (data['armyPUG']) {
         this.updateForm(data['armyPUG']);
       }

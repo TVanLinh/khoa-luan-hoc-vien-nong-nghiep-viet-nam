@@ -3,45 +3,48 @@
     Trình độ ngoại ngữ
   </div>
   <form>
-  <div class="action-form" style="margin-bottom: 10px;">
-    <button (click)="onSave()">Ghi nhận</button>
-    <button>Khóa dữ liệu</button>
-  </div>
+    <div class="action-form" style="margin-bottom: 10px;">
+      <button (click)="onSave()">Ghi nhận</button>
+      <button>Khóa dữ liệu</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
 
     <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên ngoại ngữ</th>
-              <th>Kỹ năng</th>
-              <th>Chuyên nghành/chủ đề có thể giảng dạy</th>
-              <th><span class="action-icon" (click)="openModal(languageModal)"><i class="fa fa-plus"></i></span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>1</td>
-              <td>{{item.name}}</td>
-              <td style="text-align: left">
-                <span class=" mgr-20">Nghe: {{item.listen}}</span><br>
-                <span class="mgr-20">Nói: {{item.speak}}</span><br>
-                <span class="mgr-20">Đọc: {{item.read}}</span><br>
-                <span class="mgr-20">Viết: {{item.write}}</span><br>
-                <span class="">Dịch: {{item.translate}}</span><br>
-                <span class="">Giao tiếp: {{item.communicate}}</span>
-              </td>
-              <td>{{item.branch}}</td>
-              <td>
-                <span class="action-icon" (click)="editItem()"><i class="fa fa-edit"></i></span>
-                <span class="action-icon" (click)="removeItem()"><i class="fa fa-remove"></i></span>
-                <span class="action-icon"><i class="fa fa-lock"></i></span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-</form>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên ngoại ngữ</th>
+          <th>Kỹ năng</th>
+          <th>Chuyên nghành/chủ đề có thể giảng dạy</th>
+          <th><span class="action-icon" (click)="openModalNew(languageModal)"><i class="fa fa-plus"></i></span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of list.toArray(); let i = index">
+          <td>{{i+1}}</td>
+          <td>{{nationalService.getNationalByCode(nationals,item.name).name}}</td>
+          <td style="text-align: left">
+            <span class=" mgr-20">Nghe: {{foreignService.getLevelTitle(item.listen)}}</span><br>
+            <span class="mgr-20">Nói: {{foreignService.getLevelTitle(item.speak)}}</span><br>
+            <span class="mgr-20">Đọc: {{foreignService.getLevelTitle(item.read)}}</span><br>
+            <span class="mgr-20">Viết: {{foreignService.getLevelTitle(item.write)}}</span><br>
+            <span class="">Dịch: {{foreignService.getLevelTitle(item.translate)}}</span><br>
+            <span class="">Giao tiếp: {{foreignService.getLevelTitle(item.communicate)}}</span>
+          </td>
+          <td>{{item.branch}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+            <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
 </div>
 
 
@@ -61,29 +64,28 @@
           <div class="item-control">
             <label>Tên ngoại ngữ </label>
             <select class="form-control" formControlName="name" style="width: 200px">
-              <option value="not" *ngIf="positionUpdate == -1" selected>-----------Lựa chọn---------</option>
-              <option [value]="item.code" *ngFor="let item of nationalService.nationals">{{item.name}}</option>
+              <option [value]="item.code" *ngFor="let item of nationals">{{item.name}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Nghe </label>
-            <select class="form-control" formGroupName="listen">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="listen">
+              <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Nói </label>
-            <select class="form-control" formGroupName="speak">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="speak">
+              <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Đọc </label>
-            <select class="form-control" formGroupName="read">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="read">
+              <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
@@ -91,28 +93,28 @@
         <div class="col-xs-12 col-sm-5">
           <div class="item-control">
             <label>Viết </label>
-            <select class="form-control" formGroupName="write">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="write">
+              <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Dịch</label>
-            <select class="form-control" formGroupName="translate">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="translate">
+              <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Giao tiếp </label>
-            <select class="form-control" formGroupName="communicate">
-              <option value="">-----Chọn----</option>
+            <select class="form-control" formControlName="communicate">
+              <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Chuyên nghành/chủ đề <br>có thể giảng dạy </label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="branch">
           </div>
 
         </div>
@@ -121,7 +123,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{update == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>
