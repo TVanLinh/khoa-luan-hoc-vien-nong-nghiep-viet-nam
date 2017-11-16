@@ -18,15 +18,18 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   formDataMain: FormGroup;
   positionUpdate = -1;
   positionTemp: PoliticModel = null;
+
   item: PoliticModel = {
     level: "DH",
-    yearLicense: "2016",
+    yearLicense: 2016,
     now: true
   };
 
+  remove = false;
+
   item1: PoliticModel = {
     level: "DH",
-    yearLicense: "2016",
+    yearLicense: 2016,
     now: false
   };
 
@@ -48,15 +51,18 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
     this.formDataPoliticAdd = this.formBuilder.group({
       level: [''],
-      yearLicense: ['']
+      yearLicense: []
     });
+  }
+
+  openModal(politicModal) {
+    super.openModal(politicModal);
+    this.formDataPoliticAdd.reset();
   }
 
   addItem() {
     console.log(this.formDataPoliticAdd.value);
     //do something ------------
-
-    this.positionUpdate = -1;
     this.closeModal(this.politicModal);
 
     let valueForm = this.formDataPoliticAdd.value;
@@ -68,27 +74,26 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
       this.listData.remove(this.positionTemp);
       valueForm['now'] = this.positionTemp['now'];
       this.listData.add(valueForm, idex);
-
     }
 
     this.formDataPoliticAdd.reset();
     this.positionTemp = null;
   }
 
-  editItem(index: number) {
-    this.positionUpdate = index;
-    let item  = this.listData.elementAtIndex(index);
-
-    this.openModal(this.politicModal);
+  editItem(item) {
+    this.positionTemp = item;
+    this.formDataPoliticAdd.setValue({
+      level: item.level,
+      yearLicense: item.yearLicense,
+    });
+    super.openModal(this.politicModal);
   }
 
   removeItem(index: number) {
-    this.removeItem(index);
+    this.listData.removeElementAtIndex(index);
   }
 
   onSave() {
-    this.changeNow();
-    console.log(JSON.stringify(this.listData.toArray()));
 
     let body = {
       "politic": this.listData.toArray(),
@@ -103,14 +108,17 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
   }
 
-  changeNow() {
-    let index = this.formDataMain.value.now;
+  change(i){
     this.toggleBoolean(this.listData);
-    let temp: PoliticModel = this.listData.elementAtIndex(index);
-    temp.now = true;
-    this.listData.removeElementAtIndex(index);
-    this.listData.add(temp, index);
+    let temp: PoliticModel = this.listData.elementAtIndex(i);
+    if (temp != null) {
+      temp.now = true;
+    }
+    this.remove = true;
+    this.listData.removeElementAtIndex(i);
+    this.listData.add(temp, i);
   }
+
 
   getDataFromServer() {
     this.taskService.get(Config.CONTRACT_POLITIC + "?username=" + this.acount['username']).subscribe((data) => {

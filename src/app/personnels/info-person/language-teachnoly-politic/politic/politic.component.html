@@ -30,10 +30,10 @@
           <td>{{item.level}}</td>
           <td>{{item.yearLicense}}</td>
           <td>
-            <input type="radio" name="now" formControlName="now" [value]="i"  [checked]="item.now">
+            <input type="radio" name="now" formControlName="now" (click)="change(i)" [value]="i" [checked]="item.now">
           </td>
           <td>
-            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
           </td>
@@ -62,8 +62,8 @@
           <div class="item-control pdt-i-0">
             <label>Trình độ chính trị</label>
             <select class="form-control" formControlName="level">
-              <option value="loai1">---------Chọn--------</option>
-              <option value="loai2">---------Chọn loai1--------</option>
+              <option value="loai1">---------Chọn loai 1--------</option>
+              <option value="loai2">---------Chọn loai2--------</option>
               <option value="loai3">---------Chọn loai3--------</option>
             </select>
           </div>
@@ -80,7 +80,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionTemp == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

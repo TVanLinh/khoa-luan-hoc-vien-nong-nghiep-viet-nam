@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class NationalService {
-  private URL = 'http://localhost:3000/api/national';
+  private URL = 'http://localhost:3000/national';
   public nationals: National[] = [];
   private subScript = new Subscription();
   private nationalShare = null;

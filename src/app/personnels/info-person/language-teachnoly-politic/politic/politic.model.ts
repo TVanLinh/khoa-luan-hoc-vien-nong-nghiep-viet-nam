@@ -1,5 +1,5 @@
 export interface PoliticModel {
   level: string,
-  yearLicense: string,
+  yearLicense: number,
   now: boolean
 }

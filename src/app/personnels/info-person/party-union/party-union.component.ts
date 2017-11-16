@@ -171,7 +171,6 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
   addUnion() {
     let valueForm = this.formDetailUnion.value;
-    console.log("valueForm : " + JSON.stringify(valueForm));
 
     if (valueForm.now === true) {
       this.toggleBoolean(this.listActionUnion);

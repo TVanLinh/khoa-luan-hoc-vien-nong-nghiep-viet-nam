@@ -3,10 +3,13 @@
     Trình độ tin học
   </div>
   <form action="" [formGroup]="formData">
-  <div class="action-form mgb-20">
-    <button>Ghi nhận</button>
-    <button>Khóa dữ liệu</button>
-  </div>
+    <div class="action-form mgb-20">
+      <button (click)="onSave()">Ghi nhận</button>
+      <!--<button>Khóa dữ liệu</button>-->
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
 
     <div class="table-reponsive">
       <table class="table table-bordered">
@@ -15,7 +18,6 @@
           <th>STT</th>
           <th>Trình độ tin học</th>
           <th>Năm cấp</th>
-          <th>Thời hạn</th>
           <th>
             <span class="action-icon" (click)="openModal(technologyModal)"><i class="fa fa-plus"></i></span>
           </th>
@@ -23,15 +25,14 @@
         </thead>
         <tbody>
         <!--Content-->
-        <tr>
-          <td>1</td>
+        <tr *ngFor="let item of listData.toArray(); let i = index">
+          <td>{{i+1}}</td>
           <td>{{item.level}}</td>
           <td>{{item.yearLicense}}</td>
-          <td>{{item.deadLine}}</td>
           <td>
-            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
+            <!--<span class="action-icon" ><i class="fa fa-lock"></i></span>-->
           </td>
         </tr>
         <!---->
@@ -39,7 +40,7 @@
       </table>
     </div>
 
-</form>
+  </form>
 </div>
 
 
@@ -59,28 +60,25 @@
 
           <div class="item-control pdt-i-0">
             <label>Trình độ tin học</label>
-            <select  class="form-control" formControlName="level">
-              <option value="">---------Chọn--------</option>
-            </select>
+            <input type="text" class="form-control" formControlName="level">
+            <!--<select class="form-control" formControlName="level">-->
+            <!--<option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Chọn&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+            <!--</select>-->
           </div>
           <!---->
 
           <div class="item-control">
             <label class="mgr-20">Năm cấp</label>
-            <input type="number" style="width: 80px" formControlName="yearLicense">
+            <input type="text" class="form-control" formControlName="yearLicense">
           </div>
 
-          <div class="item-control">
-            <label>Thời hạn</label>
-            <input type="text" class="form-control" formControlName="deadLine">
-          </div>
         </div>
       </div>
     </form>
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>
