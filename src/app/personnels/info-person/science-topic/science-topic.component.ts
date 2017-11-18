@@ -3,6 +3,7 @@ import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 @Component({
   selector: 'app-science-topic',
   templateUrl: './science-topic.component.html',
@@ -14,8 +15,8 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   listScienceTopic = new Collections.LinkedList<ScienceTopicForm>();
   positionUpdate = -1;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef, taskService);
     let item: ScienceTopicForm = {
       name: "Khoa luan tot nghiep",
       code: "KHLT001",

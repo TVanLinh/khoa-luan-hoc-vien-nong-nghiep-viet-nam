@@ -4,6 +4,7 @@ import {MessageError} from "../shares/message.error";
 import {MessageAlert} from "../shares/message.alert";
 import {ElementRef} from "@angular/core";
 import * as Collections from "typescript-collections";
+import {TaskService} from "../shares/task.service";
 
 declare const jQuery: any;
 
@@ -13,7 +14,7 @@ export class BaseFormComponent {
   token = "";
   messageError: MessageError = null;
 
-  constructor(protected eleRef: ElementRef) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     if (this.formBuilder == null) {
       this.formBuilder = new FormBuilder();
     }
@@ -22,7 +23,7 @@ export class BaseFormComponent {
       this.messageError = new MessageError();
     }
 
-    if(MystorageService.getAcount()!=null) {
+    if (MystorageService.getAcount() != null) {
       this.acount = MystorageService.getAcount()['user'];
       this.token = MystorageService.getAcount()['token'];
     }
@@ -82,5 +83,28 @@ export class BaseFormComponent {
       list.add(item);
     }
     return list;
+  }
+
+  updateList(array: Collections.LinkedList<any>, item: any, itemNew: any) {
+    let index = array.indexOf(item);
+    array.remove(item);
+    array.add(itemNew, index);
+    return array;
+  }
+
+  getDataServer(url) {
+    return this.taskService.get(url + "?username=" + this.acount['username']);
+  }
+
+  pushDataServer(url, dataName, data: Collections.LinkedList<any>) {
+    let body = {
+      "staffCode": this.acount['username']
+    };
+    body[dataName] = data.toArray();
+    this.taskService.post(url, {data: body}).subscribe((resp) => {
+      this.updateMessge(this.messageError.success, "success");
+    }, (err) => {
+      this.updateMessge(this.messageError.errorSave, "warning");
+    });
   }
 }

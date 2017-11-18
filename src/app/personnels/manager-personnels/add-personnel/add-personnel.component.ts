@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit} from "@angular/core";
 
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
+import {TaskService} from "../../../shares/task.service";
 
 @Component({
   selector: 'app-add-personnel',
@@ -12,8 +13,8 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   showPass = false;
   formData: FormGroup;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

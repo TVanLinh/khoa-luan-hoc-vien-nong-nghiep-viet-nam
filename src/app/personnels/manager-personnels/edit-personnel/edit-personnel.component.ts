@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
+import {TaskService} from "../../../shares/task.service";
 
 @Component({
   selector: 'app-edit-personnel',
@@ -30,8 +31,8 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
     this.openModal(this.modalEdit);
   }
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
 
   }
 

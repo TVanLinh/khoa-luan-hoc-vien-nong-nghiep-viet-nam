@@ -3,6 +3,7 @@ import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 declare const jQuery: any;
 const SENIMAR: string = "SENIMAR";
 const NEWSPAPER: string = "NEWSPAPER";
@@ -28,8 +29,8 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
   openSenimar = true;
   openNewspaper = false;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

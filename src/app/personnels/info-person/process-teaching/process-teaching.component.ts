@@ -4,6 +4,8 @@ import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
+import {TaskService} from "../../../shares/task.service";
+
 @Component({
   selector: 'app-process-teaching',
   templateUrl: './process-teaching.component.html',
@@ -15,8 +17,8 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
   listTeaching = new Collections.LinkedList<ProcessTeachingForm>();
   positionUpdate = -1;
 
-  constructor(public nationalService: NationalService,protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(public nationalService: NationalService, public taskService: TaskService, protected eleRef: ElementRef) {
+    super(eleRef,taskService);
     let item: ProcessTeachingForm = {
       nameSubjects: "Toan cao cap ",
       levelEducation: "Dai hoc",
@@ -92,7 +94,8 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
   }
 }
-interface   ProcessTeachingForm {
+
+interface ProcessTeachingForm {
   nameSubjects: string,
   levelEducation: string,
   credit: number,

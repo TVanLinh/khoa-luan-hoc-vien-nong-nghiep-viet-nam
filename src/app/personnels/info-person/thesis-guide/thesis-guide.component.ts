@@ -3,6 +3,8 @@ import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
+
 @Component({
   selector: 'app-thesis-guide',
   templateUrl: './thesis-guide.component.html',
@@ -14,8 +16,8 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
   listThesiss = new Collections.LinkedList<ThesissForm>();
   positionUpdate = -1;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+    super(eleRef, taskService);
     let item: ThesissForm = {
       namePersonGuide: "Tran Van Linh",
       level: "Dai Hoc",

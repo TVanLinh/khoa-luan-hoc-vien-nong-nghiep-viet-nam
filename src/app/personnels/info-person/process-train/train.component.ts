@@ -3,6 +3,7 @@ import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
+import {TaskService} from "../../../shares/task.service";
 
 @Component({
   selector: 'app-train',
@@ -38,15 +39,17 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     description: 'Cu nhan tin hoc'
   };
 
-  constructor(public nationalService: NationalService,protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,
+              public taskService: TaskService,
+              public nationalService: NationalService,) {
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
     this.initForm();
   }
 
-  private  initForm() {
+  private initForm() {
     this.formData = this.formBuilder.group({
       generalEdu: ['']
     });
@@ -104,7 +107,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   }
 }
 
-interface  ShortTimeTrainForm {
+interface ShortTimeTrainForm {
   dateFrom: string,
   numberMonth: number,
   certificate: string,
@@ -113,7 +116,7 @@ interface  ShortTimeTrainForm {
   description: string
 }
 
-interface  LongTimeTrainForm {
+interface LongTimeTrainForm {
   yearFrom: string,
   yearEnd: string,
   specialized: string,//chuyen nghanh

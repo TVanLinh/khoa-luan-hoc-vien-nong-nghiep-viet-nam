@@ -3,6 +3,7 @@ import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 @Component({
   selector: 'app-salary-brief',
   templateUrl: './salary-brief.component.html',
@@ -14,8 +15,8 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   formMain: FormGroup;
   listSalaryBrief = new Collections.LinkedList<SalaryBriefForm>();
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,taskService: TaskService) {
+    super(eleRef,taskService);
     let item: SalaryBriefForm = {
       dateFrom: '20/10/2015',
       dateEnd: '20/06/2017',

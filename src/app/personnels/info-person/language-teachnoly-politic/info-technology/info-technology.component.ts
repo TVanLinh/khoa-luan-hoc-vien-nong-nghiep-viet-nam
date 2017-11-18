@@ -19,7 +19,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   listData = new Collections.LinkedList<InfoTeachnologyModel>();
 
   constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
-    super(eleRef);
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

@@ -3,6 +3,7 @@ import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 
 @Component({
   selector: 'app-process-evention',
@@ -16,8 +17,8 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   listEvention = new Collections.LinkedList<ProcessEventionForm>();
   positionUpdate = -1;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
     let item: ProcessEventionForm = {
       nameEvention: "Lap trinh ung dung",
       organLicense: "HVNNVN",

@@ -29,7 +29,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
               public foreignService: ForeignLanguageService,
               public  taskService: TaskService,
               protected eleRef: ElementRef) {
-    super(eleRef);
+    super(eleRef,taskService);
   }
 
   levels = [0, 1, 2, 3, 4];

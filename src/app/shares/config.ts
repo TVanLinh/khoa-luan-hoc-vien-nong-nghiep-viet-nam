@@ -7,6 +7,10 @@ export class Config {
   public static CONTRACT_FOREIGN = Config.HOST_SERVER + "/info/foreignlanguage";
   public static CONTRACT_POLITIC = Config.HOST_SERVER + "/info/politic";
   public static INFO_TECH = Config.HOST_SERVER + "/info/infotechnology";
+  public static BONUS_URL = Config.HOST_SERVER + "/info/bonus";
+  public static DISCIPLINE_URL = Config.HOST_SERVER + "/info/discipline";
+  public static ACADEMIC_RANK_URL = Config.HOST_SERVER + "/info/academicrank";
+  public static TEACHER_TITLE_URL = Config.HOST_SERVER + "/info/teachertitle";
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 

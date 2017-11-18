@@ -5,6 +5,7 @@ import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
 import {el} from "@angular/platform-browser/testing/src/browser_util";
+import {TaskService} from "../../../shares/task.service";
 @Component({
   selector: 'app-foreign',
   templateUrl: './foreign.component.html',
@@ -19,8 +20,10 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   listForeignForm = new Collections.LinkedList<ForeignForm>();
   positionUpdate = -1;
 
-  constructor(public nationalService: NationalService,protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(public nationalService: NationalService,
+              public taskService: TaskService,
+              protected eleRef: ElementRef) {
+    super(eleRef,taskService);
     let item: ForeignForm = {
       dateFrom: '20/10/2015',
       dateEnd: '20/10/2016',

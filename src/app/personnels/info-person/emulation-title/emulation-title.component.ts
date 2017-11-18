@@ -3,6 +3,7 @@ import *as Collections from "typescript-collections";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 @Component({
   selector: 'app-emulation-title',
   templateUrl: './emulation-title.component.html',
@@ -15,8 +16,8 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
   listEmulation = new Collections.LinkedList<EmulationTitleForm>();
   positionUpdate = -1;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+    super(eleRef,taskService);
     let item: EmulationTitleForm = {
       title: "Chien sy thi dua",
       dateLicense: "20/10/2014",

@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 
 @Component({
   selector: 'app-procedure-retire',
@@ -15,8 +16,8 @@ export class ProcedureRetireComponent extends BaseFormComponent implements OnIni
   formDetail: FormGroup;
 
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

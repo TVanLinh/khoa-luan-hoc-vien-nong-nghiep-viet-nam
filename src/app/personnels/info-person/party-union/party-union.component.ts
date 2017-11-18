@@ -67,8 +67,8 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   };
 
 
-  constructor(protected eleRef: ElementRef, private  taskService: TaskService) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

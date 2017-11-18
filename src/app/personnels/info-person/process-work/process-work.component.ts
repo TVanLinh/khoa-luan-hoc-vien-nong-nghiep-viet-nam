@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {TaskService} from "../../../shares/task.service";
 
 @Component({
   selector: 'app-process-work',
@@ -14,8 +15,8 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   formInfoProcess: FormGroup;
   positionUpdate = -1;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

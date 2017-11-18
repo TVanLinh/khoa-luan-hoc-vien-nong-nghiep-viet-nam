@@ -21,9 +21,9 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   listRelationFamily = new Collections.LinkedList<FamilyModel>();
 
   constructor(public nationalService: NationalService,
-              private taskService: TaskService,
+              public taskService: TaskService,
               protected eleRef: ElementRef) {
-    super(eleRef);
+    super(eleRef,taskService);
   }
 
   listYear: number[] = [];

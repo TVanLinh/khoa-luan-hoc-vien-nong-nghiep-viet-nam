@@ -5,6 +5,7 @@ import * as Collections from "typescript-collections";
 import {CatalogFacultyModel} from "./catalog-faculty.model";
 import {NgFor} from "@angular/common";
 import {NgForm} from "@angular/forms";
+import {TaskService} from "../../../shares/task.service";
 @Component({
   selector: 'app-catalog-faculty',
   templateUrl: './catalog-faculty.component.html',
@@ -16,8 +17,8 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   list = new Collections.LinkedList<CatalogFacultyModel>();
   showParent = false;
 
-  constructor(protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

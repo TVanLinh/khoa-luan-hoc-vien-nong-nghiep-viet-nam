@@ -36,7 +36,7 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   listData = new Collections.LinkedList<PoliticModel>();
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
-    super(eleRef);
+    super(eleRef,taskService);
   }
 
   ngOnInit() {

@@ -1,13 +1,15 @@
 <div class="form-item">
-  <div class="form-item-title">Thông tin học hàm, danh hiệu nhà giáo </div>
+  <div class="form-item-title">Thông tin học hàm, danh hiệu nhà giáo</div>
   <form action="">
-    <div class="action-form">
-      <button (click)="onSave()">Ghi nhận</button>
-      <button (click)="onSave()">Khóa dữ liệu</button>
-    </div>
     <div class="form-item">
       <div class="form-item-title">
         Thông tin học hàm
+      </div>
+      <div class="action-form" style="margin-bottom: 0 !important;">
+        <button (click)="onSave(0)">Ghi nhận</button>
+        <div *ngIf="message.condition && mode == 0" [ngClass]="'alert alert-'+ message.type">
+          {{message.content}}
+        </div>
       </div>
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -18,7 +20,7 @@
             <th>Nơi công nhận</th>
             <th>Năm phong</th>
             <th>
-              <span class="action-icon" (click)="openModal(academicRank)"><i class="fa fa-plus"></i></span>
+              <span class="action-icon" (click)="openModalByType(academicRank,0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
           </thead>
@@ -27,12 +29,12 @@
           <tr *ngFor="let item of listRankAd.toArray();let i = index ">
             <td>{{i+1}}</td>
             <td>{{item.rank}}</td>
-            <td>{{item.placeRiceive}}</td>
+            <td>{{item.placeReceive}}</td>
             <td>{{item.yearReceive}}</td>
             <td>
-              <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-              <span class="action-icon"><i class="fa fa-lock"></i></span>
+              <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
+              <span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>
+              <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
             </td>
           </tr>
 
@@ -45,6 +47,13 @@
       <div class="form-item-title">
         Danh hiệu nhà giáo
       </div>
+      <div class="action-form" style="margin-bottom: 0 !important;">
+        <button (click)="onSave(1)">Ghi nhận</button>
+        <div *ngIf="message.condition && mode == 1" [ngClass]="'alert alert-'+ message.type">
+          {{message.content}}
+        </div>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -53,7 +62,7 @@
             <th>Danh hiệu nhà giáo</th>
             <th>Năm phong</th>
             <th>
-              <span class="action-icon" (click)="openModal(titleTeachers)"><i class="fa fa-plus"></i></span>
+              <span class="action-icon" (click)="openModalByType(titleTeachers,1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
           </thead>
@@ -64,9 +73,9 @@
             <td>{{item.title}}</td>
             <td>{{item.yearReceive}}</td>
             <td>
-              <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-              <span class="action-icon"><i class="fa fa-lock"></i></span>
+              <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
+              <span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>
+              <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
             </td>
           </tr>
           </tbody>
@@ -83,6 +92,7 @@
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(academicRank)">Thoát</button>
+
     </div>
   </modal-header>
 
@@ -95,8 +105,8 @@
           <div class="item-control pdt-i-0">
             <label>Học hàm</label>
             <select class="form-control" formControlName="rank">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
+              <option value="1">--------Chọn---------</option>
+              <option value="2">--------Chọn---------</option>
             </select>
           </div>
           <!---->
@@ -116,7 +126,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdateAcademicRank == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addAcademic()">{{positionUpdateAca == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>
@@ -127,6 +137,7 @@
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(titleTeachers)">Thoát</button>
+
     </div>
   </modal-header>
 
@@ -137,10 +148,10 @@
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
           <div class="item-control pdt-i-0">
-            <label>Học hàm</label>
+            <label>Danh hiệu nhà giáo </label>
             <select class="form-control" formControlName="title">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
+              <option value="Nhà giáo nhân dân">Nhà giáo nhân dân</option>
+              <option value="Nhà giáo ưu tú">Nhà giáo ưu tú</option>
             </select>
           </div>
           <!---->
@@ -154,7 +165,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdateTitleTeachers == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addTeacher()">{{positionUpdateTeacher == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

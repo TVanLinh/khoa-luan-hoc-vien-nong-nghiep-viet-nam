@@ -52,8 +52,8 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   listNation = [];
 
-  constructor(private taskService: TaskService, protected eleRef: ElementRef) {
-    super(eleRef);
+  constructor(public taskService: TaskService, protected eleRef: ElementRef) {
+    super(eleRef,taskService);
     // this.getCV();
   }
 

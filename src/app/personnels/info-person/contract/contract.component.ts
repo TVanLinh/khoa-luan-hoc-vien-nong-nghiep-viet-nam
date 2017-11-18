@@ -34,7 +34,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public contactSevice: ContactService) {
-    super(eleRef);
+    super(eleRef,taskService);
     this.contactType = this.contactSevice.contactType;
   }
 
