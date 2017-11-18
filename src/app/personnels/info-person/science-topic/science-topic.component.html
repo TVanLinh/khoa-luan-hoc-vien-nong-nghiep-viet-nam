@@ -4,8 +4,11 @@
   </div>
   <form>
     <div class="action-form" style="margin-bottom: 10px;">
-      <button>Ghi nhận</button>
-      <button>Khóa dữ liệu</button>
+      <button (click)="onSave()">Ghi nhận</button>
+      <!--<button (click)="blockData()">Khóa dữ liệu</button>-->
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
@@ -20,10 +23,9 @@
               <th>Số tháng thực hiện</th>
               <th>Vai trò trong đề tài</th>
               <th>Cấp đề tài</th>
-              <th>Tiến độ dự án</th>
               <th>Đánh giá loại</th>
               <th>
-                <span class="action-icon" (click)="openModal(topicModal)"><i class="fa fa-plus"></i></span>
+                <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
               </th>
             </tr>
             </thead>
@@ -33,16 +35,15 @@
               <td>{{i+1}}</td>
               <td>{{item.name}}</td>
               <td>{{item.code}}</td>
-              <td>{{item.dateBegin}}</td>
+              <td>{{item.dateBegin | date:'dd/MM/yyyy'}}</td>
               <td>{{item.monthWork}}</td>
               <td>{{item.role}}</td>
               <td>{{item.level}}</td>
-              <td>{{item.progress}}</td>
               <td>{{item.specieObtain}}</td>
               <td>
-                <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
                 <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-                <span class="action-icon"><i class="fa fa-lock"></i></span>
+                <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
               </td>
             </tr>
             </tbody>
@@ -91,18 +92,20 @@
 
           <div class="item-control pdt-i-0">
             <label>Vai trò trong đề tài</label>
-            <input type="text" formControlName="role" >
+            <input type="text" formControlName="role">
           </div>
           <!---->
           <div class="item-control">
             <label>Cấp đề tài </label>
-            <input type="text" formControlName="level" >
+            <input type="text" formControlName="level">
           </div>
           <!---->
           <!---->
           <div class="item-control">
             <label>Đánh giá loại </label>
-            <input type="text" formControlName="specieObtain" >
+            <select formControlName="specieObtain" class="form-control">
+              <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
+            </select>
           </div>
           <!---->
         </div>
@@ -112,7 +115,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

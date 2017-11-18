@@ -5,7 +5,6 @@
   <form>
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
-      <button>Khóa dữ liệu</button>
       <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>

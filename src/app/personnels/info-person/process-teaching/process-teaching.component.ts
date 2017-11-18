@@ -20,7 +20,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
   listTeaching = new Collections.LinkedList<ProcessTeachingModel>();
   positionUpdate = -1;
   nationals: National[] = [];
-  rankTrains =["Trung cấp","Cao đẳng ","Đại học ","Cao học "];
+
 
   constructor(public nationalService: NationalService, public taskService: TaskService, protected eleRef: ElementRef) {
     super(eleRef, taskService);
@@ -109,9 +109,9 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
 
   onSave() {
-    if (this.listTeaching.size() > 0) {
+    //if (this.listTeaching.size() > 0) {
       super.pushDataServer(Config.PROCESS_TEACHING_URL, "process_teaching", this.listTeaching);
-    }
+   // }
   }
 
   getDataFromServer() {

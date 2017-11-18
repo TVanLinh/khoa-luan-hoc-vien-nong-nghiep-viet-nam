@@ -13,6 +13,8 @@ export class BaseFormComponent {
   acount = {};
   token = "";
   messageError: MessageError = null;
+  rankTrains = ["Trung cấp", "Cao đẳng ", "Đại học ", "Cao học "];
+  speciesObtain = ["Xuất sắc ", "Giỏi", "Khá", "Trung bình"];
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     if (this.formBuilder == null) {
@@ -79,6 +81,9 @@ export class BaseFormComponent {
 
   asList(arry: any[]) {
     let list = new Collections.LinkedList<any>();
+    if(arry == null) {
+      return list;
+    }
     for (let item of arry) {
       list.add(item);
     }
@@ -101,6 +106,18 @@ export class BaseFormComponent {
       "staffCode": this.acount['username']
     };
     body[dataName] = data.toArray();
+    this.taskService.post(url, {data: body}).subscribe((resp) => {
+      this.updateMessge(this.messageError.success, "success");
+    }, (err) => {
+      this.updateMessge(this.messageError.errorSave, "warning");
+    });
+  }
+
+  pushObjectServer(url, dataName, data: any) {
+    let body = {
+      "staffCode": this.acount['username']
+    };
+    body[dataName] = data;
     this.taskService.post(url, {data: body}).subscribe((resp) => {
       this.updateMessge(this.messageError.success, "success");
     }, (err) => {

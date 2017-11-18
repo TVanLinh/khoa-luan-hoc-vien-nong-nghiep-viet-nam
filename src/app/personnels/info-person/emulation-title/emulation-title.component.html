@@ -2,45 +2,45 @@
   <div class="form-item-title"> Danh hiệu thi đua</div>
   <form action="">
     <div class="action-form" style="margin-bottom: 10px;">
-      <button>Ghi  </button>
-      <button>Khóa dữ liệu</button>
-    </div>
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>STT</th>
-            <th>Danh hiệu thi đua </th>
-            <th>Ngày cấp </th>
-            <th>Số quyết định</th>
-            <th>
-              <span class="action-icon" (click)="openModal(emulationTitle)"><i class="fa fa-plus"></i></span>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <!---->
-          <!---->
-          <tr *ngFor="let item of listEmulation.toArray();let i = index ">
-            <td>{{i+1}}</td>
-            <td>{{item.title}}</td>
-            <td>{{item.dateLicense}}</td>
-            <td>{{item.numberDecide}}</td>
-            <td>
-              <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-              <span class="action-icon" ><i class="fa fa-lock"></i></span>
-            </td>
-          </tr>
-          <!---->
-          </tbody>
-        </table>
+      <button (click)="onSave()">Ghi</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
       </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Danh hiệu thi đua</th>
+          <th>Ngày cấp</th>
+          <th>Số quyết định</th>
+          <th>
+            <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+        <!---->
+        <tr *ngFor="let item of listEmulation.toArray();let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.dateLicense | date:'dd/MM/yyyy'}}</td>
+          <td>{{item.numberDecide}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <!--<span class="action-icon" ><i class="fa fa-lock"></i></span>-->
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
     <!---->
   </form>
 </div>
-
-
 
 
 <!---->
@@ -61,10 +61,7 @@
 
           <div class="item-control pdt-i-0">
             <label>Danh hiệu thi đua </label>
-            <select class="form-control" formControlName="title">
-              <option value="">--------Chọn---------</option>
-              <option value="">--------Chọn---------</option>
-            </select>
+            <input type="text" formControlName="title">
           </div>
           <!---->
 
@@ -83,7 +80,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

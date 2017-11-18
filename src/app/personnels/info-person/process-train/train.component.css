@@ -17,10 +17,15 @@
 .col-xs-12>.item-control:first-child{
   padding-top: 0;
 }
-input[type='number'] {
-  float: right;
-}
+/*input[type='number'] {*/
+  /*float: right;*/
+/*}*/
 
 thead>tr>th:last-child {
   width: 100px;
+}
+
+input[type="number"]{
+  width: 100% !important;
+  max-width: 100% !important;
 }

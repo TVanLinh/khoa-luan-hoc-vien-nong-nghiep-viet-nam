@@ -4,6 +4,9 @@ import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
+import {ScienceTopicModel} from "./science-topic.model";
+import {Config} from "../../../shares/config";
+
 @Component({
   selector: 'app-science-topic',
   templateUrl: './science-topic.component.html',
@@ -12,32 +15,23 @@ import {TaskService} from "../../../shares/task.service";
 export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   @ViewChild('topicModal') topicModal: ModalComponent;
   formData: FormGroup;
-  listScienceTopic = new Collections.LinkedList<ScienceTopicForm>();
-  positionUpdate = -1;
+  listScienceTopic = new Collections.LinkedList<ScienceTopicModel>();
+  positionUpdate: ScienceTopicModel = null;
 
-  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
-    let item: ScienceTopicForm = {
-      name: "Khoa luan tot nghiep",
-      code: "KHLT001",
-      dateBegin: "22/12/2016",
-      monthWork: 5,
-      role: "Thanh vien",
-      level: "Hoc vien",
-      specieObtain: "Chua co"
-    };
-    this.listScienceTopic.add(item);
   }
 
   ngOnInit() {
     this.initForm();
+    this.getDataFromServer();
   }
 
   initForm() {
     this.formData = this.formBuilder.group({
       name: [''],
       code: [''],
-      dateBegin: ['20/10/2016'],
+      dateBegin: [new Date()],
       monthWork: [5],
       role: [''],
       level: [''],
@@ -47,32 +41,29 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
 
   addItem() {
     let valueForm = this.formData.value;
-    if (this.positionUpdate == -1) {
+    console.log(JSON.stringify(valueForm));
+    if (this.positionUpdate == null) {
       this.listScienceTopic.add(valueForm);
     } else {
-      this.listScienceTopic.removeElementAtIndex(this.positionUpdate);
-      this.listScienceTopic.add(valueForm, this.positionUpdate);
+      super.updateList(this.listScienceTopic, this.positionUpdate, valueForm);
     }
 
-    this.positionUpdate = -1;
-    this.formData.reset();
+    this.positionUpdate = null;
     this.closeModal(this.topicModal);
-
   }
 
-  editItem(index: number) {
-    let valueEdit = this.listScienceTopic.elementAtIndex(index);
+  editItem(item) {
     this.formData.setValue({
-      name: valueEdit.name,
-      code: valueEdit.code,
-      dateBegin: valueEdit.dateBegin,
-      monthWork: valueEdit.monthWork,
-      role: valueEdit.role,
-      level: valueEdit.level,
-      specieObtain: valueEdit.specieObtain
+      name: item.name,
+      code: item.code,
+      dateBegin: item.dateBegin,
+      monthWork: item.monthWork,
+      role: item.role,
+      level: item.level,
+      specieObtain: item.specieObtain
     });
-    this.positionUpdate = index;
-    this.openModal(this.topicModal);
+    this.positionUpdate = item;
+    super.openModal(this.topicModal);
   }
 
   removeItem(index: number) {
@@ -80,16 +71,24 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+    super.pushDataServer(Config.SCIENCE_TOP_URL, "sciene_topic", this.listScienceTopic);
+  }
 
+  openModals() {
+    this.positionUpdate = null;
+    this.formData.reset();
+    this.formData.patchValue({
+      specieObtain: this.speciesObtain[0]
+    });
+    super.openModal(this.topicModal);
+  }
+
+  getDataFromServer() {
+    super.getDataServer(Config.SCIENCE_TOP_URL).subscribe(data => {
+      this.listScienceTopic = super.asList(data['sciene_topic']);
+    }, (err) => {
+
+    });
   }
 }
 
-interface ScienceTopicForm {
-  name: string,
-  code: string,
-  dateBegin: string,
-  monthWork: number,
-  role: string,
-  level: string,
-  specieObtain: string
-}

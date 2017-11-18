@@ -4,8 +4,11 @@ import {FormGroup} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
-import {el} from "@angular/platform-browser/testing/src/browser_util";
 import {TaskService} from "../../../shares/task.service";
+import {ForeignModel} from "./foreign.model";
+import {National} from "../../model/national.model";
+import {Config} from "../../../shares/config";
+
 @Component({
   selector: 'app-foreign',
   templateUrl: './foreign.component.html',
@@ -17,67 +20,62 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
 
   formData: FormGroup;
-  listForeignForm = new Collections.LinkedList<ForeignForm>();
-  positionUpdate = -1;
+  listForeignForm = new Collections.LinkedList<ForeignModel>();
+  positionUpdate: ForeignModel = null;
+
+  nationals: National[] = [];
 
   constructor(public nationalService: NationalService,
               public taskService: TaskService,
               protected eleRef: ElementRef) {
-    super(eleRef,taskService);
-    let item: ForeignForm = {
-      dateFrom: '20/10/2015',
-      dateEnd: '20/10/2016',
-      national: 'not',
-      organInvite: 'cn',
-      product: 'bai bao',
-      nameOrganInvite: 'CNLB duc',
-      purpose: 'Lao dong',
-    };
-    this.listForeignForm.add(item);
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
     this.initForm();
+    this.getDataFromServer();
+    this.initNations();
   }
 
   initForm() {
     this.formData = this.formBuilder.group({
-      dateFrom: ['20/10/2015'],
-      dateEnd: ['20/10/2016'],
+      dateFrom: [new Date()],
+      dateEnd: [new Date()],
       national: [''],
-      organInvite: ['cn'],
-      costGoBack: ['hv'],
-      product: ['bai bao'],
-      purpose: ['Lao dong'],
-      nameOrganInvite: ['CNLB duc'],
-      costLiving: ['dt']
+      product: [''],
+      purpose: [''],
     });
   }
 
   onSave() {
+    super.pushDataServer(Config.PROCESS_FOREIGN_URL, "process_foreign", this.listForeignForm);
+  }
 
+
+  openModals() {
+    super.openModal(this.modal);
+    this.positionUpdate = null;
   }
 
   addItem() {
-    if (this.positionUpdate > -1) {
-      this.listForeignForm.removeElementAtIndex(this.positionUpdate);
-      this.listForeignForm.add(this.formData.value, this.positionUpdate);
+    let valueForm = this.formData.value;
+    if (this.positionUpdate == null) {
+      this.listForeignForm.add(valueForm);
     } else {
-      this.listForeignForm.add(this.formData.value);
+      super.updateList(this.listForeignForm, this.positionUpdate, valueForm);
     }
-    this.positionUpdate = -1;
+    this.positionUpdate = null;
     this.closeModal(this.modal);
     this.resetForm();
   }
 
   resetForm() {
     this.formData.patchValue({
-      dateFrom: '',
-      dateEnd: '',
-      national: 'not',
-      product: 'bai bao',
-      purpose: 'Lao dong',
-      nameOrganInvite: 'CNLB duc',
+      dateFrom: new Date(),
+      dateEnd: new Date(),
+      national: '',
+      product: '',
+      purpose: ''
     })
   }
 
@@ -85,30 +83,28 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
     this.listForeignForm.removeElementAtIndex(index);
   }
 
-  editItem(index: number) {
-    let edit = this.listForeignForm.elementAtIndex(index);
+  editItem(item) {
     this.formData.setValue({
-      dateFrom: edit.dateFrom,
-      dateEnd: edit.dateEnd,
-      national: edit.national,
-      organInvite: edit.organInvite,
-      product: edit.product,
-      purpose: edit.purpose,
-      nameOrganInvite: edit.nameOrganInvite,
+      dateFrom: item.dateFrom,
+      dateEnd: item.dateEnd,
+      national: item.national,
+      product: item.product,
+      purpose: item.purpose,
     });
-    this.positionUpdate = index;
+    this.positionUpdate = item;
     this.openModal(this.modal);
   }
 
+  initNations() {
+    this.nationalService.getData().subscribe((data: National[]) => {
+      this.nationals = data;
+    })
+  }
 
-}
+  getDataFromServer() {
+    super.getDataServer(Config.PROCESS_FOREIGN_URL).subscribe(data => {
+      this.listForeignForm = super.asList(data['process_foreign']);
+    });
+  }
 
-interface  ForeignForm {
-  dateFrom: string,
-  dateEnd: string,
-  national: string,
-  organInvite: string,
-  product: string,
-  purpose: string,
-  nameOrganInvite: string,
 }

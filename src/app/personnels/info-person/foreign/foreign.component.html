@@ -4,9 +4,10 @@
   </div>
   <form>
     <div class="action-form" style="margin-bottom: 10px;">
-      <button>Ghi nhận</button>
-      <!--<button>Khóa dữ liêu</button>-->
-
+      <button (click)="onSave()">Ghi nhận</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -19,7 +20,7 @@
           <th>Mục đích</th>
           <th>Sản phẩm</th>
           <th>
-            <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
@@ -28,13 +29,13 @@
         <!--content-->
         <tr *ngFor="let item of listForeignForm.toArray();let i = index">
           <td>{{i+1}}</td>
-          <td>{{item.dateFrom}}</td>
-          <td>{{item.dateEnd}}</td>
-          <td>{{(item.national).name}} nationalService.getNationByCode</td>
+          <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
+          <td>{{item.dateEnd | date: 'dd/MM/yyyy'}}</td>
+          <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
           <td>{{item.purpose}}</td>
           <td>{{item.product}}</td>
           <td>
-            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <span class="action-icon"><i class="fa fa-lock"></i></span>
           </td>
@@ -60,19 +61,18 @@
         <div class="col-xs-12 col-sm-5 col-sm-offset-1 ">
           <div class="item-control">
             <label>Từ ngày </label>
-            <input type="text" formControlName="dateFrom">
+            <input type="date" formControlName="dateFrom">
           </div>
           <!---->
           <div class="item-control">
             <label>Đến ngày </label>
-            <input type="text" formControlName="dateEnd">
+            <input type="date" formControlName="dateEnd">
           </div>
           <!---->
           <div class="item-control">
             <label>Đi nước </label>
             <select class="form-control" formControlName="national" style="width: 200px">
-              <option value="not" *ngIf="positionUpdate == -1">------------ Chọn ------------</option>
-              <option *ngFor="let item of nationalService.nationals" [value]="item.code">{{item.name}}</option>
+              <option *ngFor="let item of nationals" [value]="item.code">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -94,6 +94,6 @@
     </form>
   </modal-body>
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate==-1?" Thêm ":" Cập nhật "}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate== null?" Thêm ":" Cập nhật "}}</button>
   </modal-footer>
 </modal>

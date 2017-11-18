@@ -5,44 +5,46 @@
 
   <form>
     <div class="action-form" style="margin-bottom: 10px;">
-      <button>Ghi nhận</button>
-      <button>Khóa dữ liệu</button>
+      <button (click)="onSave()">Ghi nhận</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
 
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>STT</th>
-            <th>Tên học viên</th>
-            <th>Bậc </th>
-            <th>Năm </th>
-            <th>Tên luận văn/luận án</th>
-            <th>Vai trò</th>
-            <th>Đạt loại</th>
-            <th>
-              <span class="action-icon" (click)="openModal(thesisGuide)"><i class="fa fa-plus"></i></span>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of listThesiss.toArray();let i = index ">
-            <td>{{i+1}}</td>
-            <td>{{item.namePersonGuide}}</td>
-            <td>{{item.level}}</td>
-            <td>{{item.yearGuide}}</td>
-            <td>{{item.thesisName}}</td>
-            <td>{{item.role}}</td>
-            <td>{{item.speciesObtain}}</td>
-            <td>
-              <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-              <span class="action-icon"><i class="fa fa-lock"></i></span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tên học viên</th>
+          <th>Bậc</th>
+          <th>Năm</th>
+          <th>Tên luận văn/luận án</th>
+          <th>Vai trò</th>
+          <th>Đạt loại</th>
+          <th>
+            <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of listThesiss.toArray();let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.namePersonGuide}}</td>
+          <td>{{item.level}}</td>
+          <td>{{item.yearGuide}}</td>
+          <td>{{item.thesisName}}</td>
+          <td>{{item.role}}</td>
+          <td>{{item.speciesObtain}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
     <!---->
   </form>
 </div>
@@ -69,7 +71,7 @@
           </div>
           <div class="item-control">
             <label>Năm hướng dẫn </label>
-            <input type="text" formControlName="yearGuide">
+            <input type="number" formControlName="yearGuide">
           </div>
 
         </div>
@@ -78,7 +80,7 @@
           <div class="item-control pdt-i-0">
             <label>Bậc </label>
             <select class="form-control" formControlName="level">
-              <option value="">---Chon---</option>
+              <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
           <div class="item-control">
@@ -87,7 +89,9 @@
           </div>
           <div class="item-control">
             <label>Đạt loại </label>
-            <input type="text" formControlName="speciesObtain">
+            <select class="form-control" formControlName="speciesObtain">
+              <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
+            </select>
           </div>
         </div>
       </div>
@@ -95,7 +99,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

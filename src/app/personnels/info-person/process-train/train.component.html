@@ -2,24 +2,20 @@
   <div class="form-item-title">
     Quá trình đào tạo
   </div>
-<form action="" [formGroup]="formData" style="border: none">
-  <div class="action-form">
-    <button>Ghi nhận</button>
-    <button>Khóa dữ liệu</button>
-  </div>
-  <!---->
+  <form action="" [formGroup]="formData" style="border: none">
+    <div class="action-form">
+      <button (click)="onSave()">Ghi nhận</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
+    <!---->
 
     <div class="mgb-20">
       <label>Trình độ giáo dục phổ thông </label>
       <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0"
               formControlName="generalEdu">
-        <option value="1">1/12</option>
-        <option value="2">2/12</option>
-        <option value="3">3/12</option>
-        <option value="4">4/12</option>
-        <option value="5">5/12</option>
-        <option value="6">6/12</option>
-        <option value="7">7/12</option>
+        <option *ngFor="let item of commons" [value]="item">{{item}}/12</option>
       </select>
     </div>
     <!---->
@@ -41,27 +37,26 @@
             <th>Trường đào tạo</th>
             <th>Nước đào tạo</th>
             <th>
-              <span class="action-icon" (click)="openModal(trainLongTimeModal)"><i class="fa fa-plus"></i></span>
+              <span class="action-icon" (click)="openModals(0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
           </thead>
 
           <tbody>
-          <tr>
+          <tr *ngFor="let item of longTimes.toArray();let i = index">
             <td>1</td>
-            <td>{{itemLong.yearFrom}}</td>
-            <td>{{itemLong.yearEnd}}</td>
-            <td>{{itemLong.specialized}}</td>
-            <td>{{itemLong.levelLearn}}</td>
-            <td>{{itemLong.academicRank}}</td>
-            <td>{{itemLong.spice}}</td>
-            <td>{{itemLong.school}}</td>
-            <td>{{itemLong.national}}</td>
+            <td>{{item.yearFrom}}</td>
+            <td>{{item.yearEnd}}</td>
+            <td>{{item.specialized}}</td>
+            <td>{{item.levelLearn}}</td>
+            <td>{{item.academicRank}}</td>
+            <td>{{item.spice}}</td>
+            <td>{{item.school}}</td>
+            <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
             <td>
-              <span class="action-icon"><i class="fa fa-edit"></i></span>
-              <span class="action-icon"><i
+              <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
+              <span class="action-icon" (click)="removeItem(i,0)"><i
                 class="fa fa-remove icon-remove-update"></i></span>
-              <span class="action-icon"><i class="fa fa-lock"></i></span>
             </td>
           </tr>
 
@@ -86,26 +81,25 @@
             <th>Nước đào tạo</th>
             <th>Mô tả</th>
             <th>
-              <span class="action-icon" (click)="openModal(trainShortTimeModal)"><i class="fa fa-plus"></i></span>
+              <span class="action-icon" (click)="openModals(1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
           </thead>
 
           <tbody>
           <!-- content-->
-          <tr>
+          <tr *ngFor="let item of shortTimes.toArray();let i = index">
             <td>1</td>
-            <td>{{itemShort.dateFrom}}</td>
-            <td>{{itemShort.numberMonth}}</td>
-            <td>{{itemShort.certificate}}</td>
-            <td>{{itemShort.placeTrain}}</td>
-            <td>{{itemShort.national}}</td>
-            <td>{{itemShort.description}}</td>
+            <td>{{item.dateFrom | date:'MM/yyyy'}}</td>
+            <td>{{item.numberMonth}}</td>
+            <td>{{item.certificate}}</td>
+            <td>{{item.placeTrain}}</td>
+            <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
+            <td>{{item.description}}</td>
             <td>
-              <span class="action-icon"><i class="fa fa-edit"></i></span>
-              <span class="action-icon"><i
+              <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
+              <span class="action-icon" (click)="removeItem(i,1)"><i
                 class="fa fa-remove icon-remove-update"></i></span>
-              <span class="action-icon"><i class="fa fa-lock"></i></span>
             </td>
           </tr>
           <!---->
@@ -115,7 +109,7 @@
       </div>
     </div>
 
-</form>
+  </form>
 </div>
 
 
@@ -155,7 +149,7 @@
           <div class="item-control">
             <label>Bậc học</label>
             <select name="" class="form-control" formControlName="levelLearn">
-              <option value="">----Chọn-----</option>
+              <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
 
@@ -164,14 +158,15 @@
         <div class="col-xs-12 col-sm-5">
           <div class="item-control">
             <label>Học vị đạt được</label>
-            <input type="text" formControlName="academicRank"/>
+            <select name="" class="form-control" formControlName="academicRank">
+              <option *ngFor="let item of catalogRankAcademic" [value]="item.name">{{item.name}}</option>
+            </select>
           </div>
-
           <!---->
           <div class="item-control">
             <label>Xếp loại</label>
             <select name="" class="form-control" formControlName="spice">
-              <option value="">----Chọn-----</option>
+              <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
             </select>
           </div>
           <!---->
@@ -184,8 +179,7 @@
           <div class="item-control">
             <label>Nước đào tạo</label>
             <select name="" class="form-control" formControlName="national" style="width: 200px">
-              <option value="not" *ngIf="positionUpdateLongTime == -1">----Chọn-----</option>
-              <option *ngFor="let item of nationalService.nationals " [value]="item.code">
+              <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
             </select>
@@ -197,7 +191,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdateLongTime == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem(0)">{{positionUpdateLong == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>
@@ -224,7 +218,7 @@
 
           <div class="item-control">
             <label>Số tháng</label>
-            <input type="number" class="date"  min="1" formControlName="numberMonth"/>
+            <input type="number" class="date" min="1" formControlName="numberMonth"/>
           </div>
 
 
@@ -237,7 +231,7 @@
         <div class="col-xs-12 col-sm-5 ">
 
           <div class="item-control">
-            <label>Nước đào tạo</label>
+            <label>Nơi đào tạo</label>
             <input type="text" formControlName="placeTrain"/>
           </div>
 
@@ -245,8 +239,7 @@
           <div class="item-control">
             <label>Nước đào tạo</label>
             <select name="" class="form-control" formControlName="national" style="width: 200px">
-              <option value="not" *ngIf="positionUpdateShortTime == -1">----Chọn-----</option>
-              <option *ngFor="let item of nationalService.nationals " [value]="item.code">
+              <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
             </select>
@@ -263,7 +256,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdateShortTime == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem(1)">{{positionUpdateShort == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

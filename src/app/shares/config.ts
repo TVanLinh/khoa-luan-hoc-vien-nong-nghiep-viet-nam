@@ -13,6 +13,13 @@ export class Config {
   public static TEACHER_TITLE_URL = Config.HOST_SERVER + "/info/teachertitle";
   public static CATALOG_ACADEMIC_RANK_URL = Config.HOST_SERVER + "/catalog_academic";
   public static PROCESS_TEACHING_URL = Config.HOST_SERVER + "/info/processteaching";
+  public static EMULATION_TITLE_URL = Config.HOST_SERVER + "/info/emulationtitle";
+  public static PROCESS_FOREIGN_URL = Config.HOST_SERVER + "/info/processforeign";
+  public static THESIS_GUIDE_URL = Config.HOST_SERVER + "/info/thesisguide";
+  public static SCIENCE_TOP_URL = Config.HOST_SERVER + "/info/scienetopic";
+  public static SEMINAR_TOP_URL = Config.HOST_SERVER + "/info/seminar";
+  public static NEWSPAPER_TOP_URL = Config.HOST_SERVER + "/info/newspaper";
+  public static TRAIN_URL = Config.HOST_SERVER + "/info/train";
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 
