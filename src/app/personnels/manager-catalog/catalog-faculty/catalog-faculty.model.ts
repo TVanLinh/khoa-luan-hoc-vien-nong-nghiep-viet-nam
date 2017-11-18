@@ -1,6 +1,6 @@
-export class CatalogFacultyModel{
-  _id: number;
-   name:string;
-   parent: CatalogFacultyModel;
-   level: number;
+export class CatalogFacultyModel {
+  id: string;
+  name: string;
+  parent: CatalogFacultyModel;
+  level: string;
 }

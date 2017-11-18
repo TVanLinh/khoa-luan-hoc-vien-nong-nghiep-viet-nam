@@ -75,7 +75,7 @@ input {
 
 .item-control input[type='number'] {
   padding: 5px;
-  width: 80px;
+  /*width: 80px;*/
 }
 
 .item-control input[type='radio'], .item-control input[type='checkbox'] {

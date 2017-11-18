@@ -1,25 +1,27 @@
 <div class="form-item">
   <div class="form-item-title">
-    Quá trình  phát minh
+    Quá trình phát minh
   </div>
-<form action="" [formGroup]="formData">
-  <div class="action-form" style="margin-bottom: 10px;">
-    <button>Ghi nhận </button>
-    <button>Khóa dữ liệu</button>
-  </div>
+  <form action="" [formGroup]="formData">
+    <div class="action-form" style="margin-bottom: 10px;">
+      <button (click)="onSave()">Ghi nhận</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
 
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
         <tr>
           <th>STT</th>
-          <th>Tên phát minh/sáng chế/văn bằng bảo hộ  </th>
-          <th>Cơ quan cấp  </th>
-          <th>Ngày cấp </th>
-          <th>Số tác giả </th>
-          <th>Diễn giải  </th>
+          <th>Tên PM/SC</th>
+          <th>Cơ quan cấp</th>
+          <th>Ngày cấp</th>
+          <th>Số tác giả</th>
+          <th>Diễn giải</th>
           <th>
-            <span class="action-icon" (click)="openModal(evention)"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
@@ -27,15 +29,14 @@
         <!---->
         <tr *ngFor="let item of listEvention.toArray();let i = index ">
           <td>{{i+1}}</td>
-          <td>{{item.nameEvention}}</td>
+          <td>{{item.name}}</td>
           <td>{{item.organLicense}}</td>
-          <td>{{item.dateOfIssue}}</td>
+          <td>{{item.dateOfIssue | date:'dd/MM/yyyy'}}</td>
           <td>{{item.numberAuthor}}</td>
           <td>{{item.description}}</td>
           <td>
-            <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-            <span class="action-icon" ><i class="fa fa-lock"></i></span>
           </td>
         </tr>
         <!---->
@@ -43,7 +44,7 @@
       </table>
     </div>
 
-</form>
+  </form>
 </div>
 
 
@@ -62,8 +63,8 @@
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
           <div class="item-control pdt-i-0">
-            <label>Tên phát minh/sáng chế/văn bằng bảo hộ </label>
-            <input type="date" formControlName="nameEvention">
+            <label>Tên phát minh/sáng chế </label>
+            <input type="text" formControlName="name">
           </div>
           <!---->
 
@@ -78,11 +79,11 @@
           </div>
           <div class="item-control  ">
             <label>Số tác giả </label>
-            <input type="text" formControlName="numberAuthor">
+            <input type="number" formControlName="numberAuthor">
           </div>
           <div class="item-control  ">
             <label>Diễn giải </label>
-            <input type="text" formControlName="description">
+            <textarea rows="5" class="form-control" type="text" formControlName="description"></textarea>
           </div>
         </div>
       </div>
@@ -90,7 +91,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

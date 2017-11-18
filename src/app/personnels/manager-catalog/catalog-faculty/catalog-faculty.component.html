@@ -1,4 +1,7 @@
 <h4 class="text-center"> Danh mục khoa, phòng ban </h4>
+<div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+  {{message.content}}
+</div>
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
@@ -17,10 +20,10 @@
       <td>{{i+1}}</td>
       <td class="name">{{item.name}}</td>
       <td class="name">{{item.level}}</td>
-      <td class="name">{{item.parent.name}}</td>
+      <td class="name">{{item.parent?item.parent.name:''}}</td>
       <td style="width:10%">
-        <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-edit"></i></span>
-        <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-remove"></i></span>
+        <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+        <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
       </td>
     </tr>
     </tbody>
@@ -42,14 +45,13 @@
         <div class="col-xs-12">
           <div class="item-control">
             <label>Tên khoa phòng ban </label>
-            <input name="inputData" ngModel class="form-control" style="width: 100%!important;"/>
+            <input name="name" ngModel class="form-control" style="width: 100%!important;"/>
           </div>
           <div class="item-control">
             <label>Cấp </label>
-            <select name="level" ngModel #level="ngModel" class="form-control" (change)="changeLevel(level)">
+            <select name="level" ngModel #level="ngModel" class="form-control" (change)="changeLevel(level.value)">
               <option value="1">1</option>
               <option value="2">2</option>
-              <option value="3">3</option>
             </select>
           </div>
 
@@ -60,14 +62,14 @@
           <div class="item-control" *ngIf="showParent">
             <label>Đơn vị cấp cha </label>
             <select name="parent" ngModel #parent="ngModel" class="form-control" style="width: 100%">
-              <option value="1">1</option>
-              <option value="2">1</option>
-              <option value="3">1</option>
+              <option *ngFor="let item of list.toArray() | level:levelFilter;let i = index " [value]="item._id">
+                {{item.name}}
+              </option>
             </select>
           </div>
-          <div class="error" *ngIf="parent.touched && parent.value == '' && level.value !== '1'">
-            Chưa chọn cấp
-          </div>
+          <!--<div class="error" *ngIf="parent.touched && parent.value == '' && level.value !== '1'">-->
+          <!--Chưa chọn cấp-->
+          <!--</div>-->
         </div>
       </div>
     </form>

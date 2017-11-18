@@ -20,6 +20,9 @@ export class Config {
   public static SEMINAR_TOP_URL = Config.HOST_SERVER + "/info/seminar";
   public static NEWSPAPER_TOP_URL = Config.HOST_SERVER + "/info/newspaper";
   public static TRAIN_URL = Config.HOST_SERVER + "/info/train";
+  public static PROCESS_EVENT_URL = Config.HOST_SERVER + "/info/processevent";
+  public static PROCESS_PUBLISH_URL = Config.HOST_SERVER + "/info/processpublish";
+  public static CATATLOG_FACUTY_URL = Config.HOST_SERVER + "/catalogfaculty";
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 

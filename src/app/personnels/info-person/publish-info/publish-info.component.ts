@@ -4,6 +4,9 @@ import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
+import {PublishInfoModel} from "app/personnels/info-person/publish-info/publish-info.model";
+import {Config} from "../../../shares/config";
+
 @Component({
   selector: 'app-publish-info',
   templateUrl: './publish-info.component.html',
@@ -12,63 +15,67 @@ import {TaskService} from "../../../shares/task.service";
 export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   @ViewChild('publish') publish: ModalComponent;
   formData: FormGroup;
-  listPublish = new Collections.LinkedList<PublishForm>();
-  positionUpdate = -1;
+  listPublish = new Collections.LinkedList<PublishInfoModel>();
+  positionUpdate: PublishInfoModel = null;
 
-  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
-    super(eleRef,taskService);
-    let item: PublishForm = {
-      name: 'Nong hoc',
-      year: 2017,
-      publishCompany: 'NXBHN',
-      role: ''
-    };
-    this.listPublish.add(item);
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
     this.initForm();
+    this.getDataFromServer();
   }
 
   initForm() {
     this.formData = this.formBuilder.group({
-      name: ['Nong hoc'],
+      name: [''],
       year: [2017],
-      publishCompany: ['NXBHN'],
+      publishCompany: [''],
       role: []
     });
   }
 
+  onSave() {
+    super.pushDataServer(Config.PROCESS_PUBLISH_URL, "process_publish", this.listPublish);
+  }
+
   addItem() {
     let valueForm = this.formData.value;
-    this.listPublish.add(valueForm);
 
-    this.positionUpdate = -1;
-
+    if (this.positionUpdate == null) {
+      this.listPublish.add(valueForm);
+    } else {
+      super.updateList(this.listPublish, this.positionUpdate, valueForm);
+    }
+    this.positionUpdate = null;
     this.closeModal(this.publish);
   }
 
   removeItem(index: number) {
     this.listPublish.removeElementAtIndex(index);
-
   }
 
-  editItem(index: number) {
-    let itemEdit = this.listPublish.elementAtIndex(index);
+  editItem(item) {
+    this.positionUpdate = item;
     this.formData.setValue({
-      name: itemEdit.name,
-      year: itemEdit.year,
-      publishCompany: itemEdit.publishCompany,
-      role: itemEdit.role
+      name: item.name,
+      year: item.year,
+      publishCompany: item.publishCompany,
+      role: item.role
     });
 
-    this.positionUpdate = index;
     this.openModal(this.publish);
   }
-}
-interface PublishForm {
-  name: string,
-  year: number,
-  publishCompany: string,
-  role: string
+
+  openModals() {
+    this.formData.reset();
+    super.openModal(this.publish);
+  }
+
+  getDataFromServer() {
+    super.getDataServer(Config.PROCESS_PUBLISH_URL).subscribe((data) => {
+      this.listPublish = super.asList(data['process_publish']);
+    });
+  }
 }

@@ -50,4 +50,53 @@ export class TaskService {
     }
 
   }
+
+  public put(url, data: any): Observable<any> {
+    let token = MystorageService.getAcount()['token'];
+    let headers = new Headers({
+      'authorization': 'Basic ' + token
+    });
+    let options: RequestOptionsArgs = {headers: headers};
+    if (token) {
+      return this.http.put(url, data, options).map(res => {
+        console.log("res " + res);
+        return res.json();
+      });
+    } else {
+      return this.http.post(url, data).map(res => {
+        console.log("res " + res);
+        return res.json();
+      });
+    }
+
+  }
+
+  public delete(url, name?: any[], data?: any[]): Observable<any> {
+    let token = MystorageService.getAcount()['token'];
+    let headers = new Headers({
+      'authorization': 'Basic ' + token
+    });
+    let options: RequestOptionsArgs = {headers: headers};
+
+    var temp = "";
+
+    if (name && data) {
+      for (let i = 0; i < name.length; i++) {
+        temp += name[i] + "=" + data[i] + "&";
+      }
+    }
+
+    if (token) {
+      return this.http.delete(url + "?" + temp, options).map(res => {
+        console.log("res " + res);
+        return res.json();
+      });
+    } else {
+      return this.http.delete(url + "?" + temp).map(res => {
+        console.log("res " + res);
+        return res.json();
+      });
+    }
+
+  }
 }

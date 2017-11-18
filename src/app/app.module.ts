@@ -81,6 +81,7 @@ import {EmailValid} from "./shares/email.valid";
 import {DataTextValid} from "./shares/data.valid";
 import {ArraySortPipe} from "./shares/sort/sort.pipe";
 import {OrderModule} from "ngx-order-pipe";
+import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/catalog-faculty.pipe";
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import {OrderModule} from "ngx-order-pipe";
     MessageComponent,
     EmailValid,
     DataTextValid,
-    ArraySortPipe
+    ArraySortPipe,
+    CatalogFacultyPipe
   ],
   imports: [
     BrowserModule,
