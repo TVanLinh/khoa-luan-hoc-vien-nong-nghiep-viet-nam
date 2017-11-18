@@ -27,6 +27,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   listRankAd = new Collections.LinkedList<AcademicRankModel>();
   listTitleTeachers = new Collections.LinkedList<TeacherTitleModel>();
+  catalogAcademicRank: { name: string }[];
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -36,7 +37,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
       yearReceive: 2015
     };
     let title: TeacherTitleModel = {
-      title: "Nha gia uu tu",
+      title: "Nhà giáo nhân dân",
       yearReceive: 2016
     };
   }
@@ -138,6 +139,10 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
     }, (err) => {
 
     });
+
+    this.getDataServer(Config.CATALOG_ACADEMIC_RANK_URL).subscribe((data: any[]) => {
+      this.catalogAcademicRank = data;
+    })
   }
 
 

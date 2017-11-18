@@ -4,8 +4,10 @@
   </div>
   <form action="">
     <div class="action-form" style="margin-bottom: 10px;">
-      <button>Ghi nhận</button>
-      <button>Khóa dữ liệu</button>
+      <button (click)="onSave()">Ghi nhận</button>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
 
     <div class="table-responsive">
@@ -20,7 +22,7 @@
           <th>Năm bắt đầu giảng dạy</th>
           <th>Ngôn ngữ giảng dạy</th>
           <th>
-            <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="openModals();"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
@@ -33,7 +35,7 @@
           <td>{{item.credit}}</td>
           <td>{{item.organTeaching}}</td>
           <td>{{item.yearTeaching}}</td>
-          <td>{{item.languageTeaching}}</td>
+          <td>{{nationalService.getNationalByCode(nationals,item.languageTeaching).name}}</td>
           <td>
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
@@ -68,9 +70,7 @@
           <div class="item-control">
             <label>Bậc đào tạo</label>
             <select class="form-control" formControlName="levelEducation">
-              <option value="">--------Chọn---------</option>
-              <option value="">Cử nhân, kỹ sư</option>
-              <option value="">Cao học</option>
+              <option  *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
 
@@ -81,9 +81,7 @@
 
           <div class="item-control">
             <label>Đơn vị giảng dạy</label>
-            <select class="form-control" formControlName="organTeaching">
-              <option value="">--------Chọn---------</option>
-            </select>
+            <input type="text" formControlName="organTeaching">
           </div>
           <div class="item-control">
             <label>Năm bắt đầu giảng dạy</label>
@@ -94,7 +92,7 @@
             <label>Ngôn ngữ giảng dạy</label>
             <select class="form-control" formControlName="languageTeaching" style="width: 200px">
               <option value="not" *ngIf="positionUpdate == -1">--------Chọn---------</option>
-              <option *ngFor="let item of nationalService.nationals" [value]="item.code">
+              <option *ngFor="let item of nationals" [value]="item.code">
                 {{item.name}}
               </option>
             </select>

@@ -105,8 +105,7 @@
           <div class="item-control pdt-i-0">
             <label>Học hàm</label>
             <select class="form-control" formControlName="rank">
-              <option value="1">--------Chọn---------</option>
-              <option value="2">--------Chọn---------</option>
+              <option *ngFor="let item of catalogAcademicRank" [value]="item.name">{{item.name}}</option>
             </select>
           </div>
           <!---->
