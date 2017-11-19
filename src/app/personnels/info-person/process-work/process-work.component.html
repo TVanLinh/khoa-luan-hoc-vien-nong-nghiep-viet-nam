@@ -1,42 +1,55 @@
 <div class="form-item">
   <div class="form-item-title"> Quá trình công tác</div>
-    <div class="action-form">
-      <button>Ghi nhận</button>
-      <button>Khóa dữ liệu</button>
+  <div class="action-form">
+    <button (click)="onSave()">Ghi nhận</button>
+    <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
     </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="form-item">
-          <div class="form-item-title">
-            Thông tin quá trình
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Nơi công tác</th>
-                    <th>Từ ngày</th>
-                    <th>Đến ngày</th>
-                    <th>Chức vụ</th>
-                    <th>Công việc đảm nhận</th>
-                    <th>
-                      <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-
-                  </tbody>
-                </table>
-              </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-item">
+        <div class="form-item-title">
+          Thông tin quá trình
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Nơi công tác</th>
+                  <th>Từ ngày</th>
+                  <th>Đến ngày</th>
+                  <th>Chức vụ</th>
+                  <th>Công việc đảm nhận</th>
+                  <th>
+                    <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of processWorks.toArray();let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.level1}}</td>
+                  <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
+                  <td>{{item.dateEnd | date:'dd/MM/yyyy'}}</td>
+                  <td>{{item.position}}</td>
+                  <td>{{item.job}}</td>
+                  <td>
+                    <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+                    <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>
 
 <modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
@@ -50,33 +63,46 @@
   <modal-body>
     <form action="" class="mgb-i-10" [formGroup]="formInfoProcess">
       <div class="row">
-         <div class="col-xs-12 col-sm-4">
-            <div class="item-control">
-              <input type="checkbox" checked formControlName="isNotBelogtoHV"> <span>Đánh dấu nếu đơn vị hiện tại không trực thuộc HVNNVN </span>
-            </div>
-            <div class="item-control">
-              <label>Đơn vị công tác cấp 1 </label>
-              <select class="form-control" formControlName="level1">
-                <option value="">asssasasa</option>
-                <option value="">asssasasa</option>
-              </select>
-            </div>
-            <div class="item-control">
-              <label>Đơn vị công tác cấp 2</label>
-              <select class="form-control" formControlName="level2">
-                <option value="">asssasasa</option>
-                <option value="">asssasasa</option>
-              </select>
-            </div>
-            <div class="item-control">
-              <input type="checkbox" formControlName="concurrently"> <span>Đánh dấu nếu đây là đơn vị công tác kiêm nhiệm </span>
-            </div>
-         </div>
         <div class="col-xs-12 col-sm-4">
-            <div class="item-control">
-              <label>Từ ngày </label>
-              <input type="date"  formControlName="dateFrom">
-            </div>
+          <div class="item-control">
+            <input type="checkbox" value="true" [checked]="!isBelong" (change)="isBelong =!isBelong">
+            <span>Đánh dấu nếu đơn vị hiện tại không trực thuộc HVNNVN </span>
+          </div>
+
+          <div class="item-control" *ngIf="!isBelong">
+            <label>Đơn vị </label>
+            <input class="form-control" formControlName="organ"/>
+            <!--<input class="form-control"/>-->
+          </div>
+
+
+          <div class="item-control" *ngIf="isBelong">
+            <label>Đơn vị công tác cấp 1 </label>
+            <select class="form-control" #level1 formControlName="level1" (change)="catalogLevelChange(level1.value)">
+              <option *ngFor="let item of listCatalog | level:1;let i = index " [value]="item.name">
+                {{item.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="item-control" *ngIf="isBelong">
+            <label>Đơn vị công tác cấp 2</label>
+            <select class="form-control" formControlName="level2">
+              <option *ngFor="let item of listCatalogLevel2;let i = index " [value]="item.name">
+                {{item.name}}
+              </option>
+            </select>
+          </div>
+          <div class="item-control" *ngIf="isBelong">
+            <input type="checkbox" value="true"  formControlName="now">
+            <span>Đánh dấu nếu đây là đơn vị công tác kiêm nhiệm </span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="item-control">
+            <label>Từ ngày </label>
+            <input type="date" formControlName="dateFrom">
+          </div>
 
           <div class="item-control">
             <label>Chức vụ </label>
@@ -84,18 +110,18 @@
           </div>
 
         </div>
-          <!---->
+        <!---->
         <div class="col-xs-12 col-sm-4">
-            <div class="item-control" >
-              <label>Đến  ngày </label>
-              <input type="date"  formControlName="dateEnd">
-            </div>
+          <div class="item-control">
+            <label>Đến ngày </label>
+            <input type="date" formControlName="dateEnd">
+          </div>
 
           <!---->
-            <div class="item-control">
-              <label >Công việc đảm nhận </label>
-              <input type="text" class="" formControlName="job">
-            </div>
+          <div class="item-control">
+            <label>Công việc đảm nhận </label>
+            <input type="text" class="" formControlName="job">
+          </div>
 
         </div>
       </div>
@@ -103,7 +129,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

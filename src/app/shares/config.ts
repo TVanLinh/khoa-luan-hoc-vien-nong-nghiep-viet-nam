@@ -11,7 +11,6 @@ export class Config {
   public static DISCIPLINE_URL = Config.HOST_SERVER + "/info/discipline";
   public static ACADEMIC_RANK_URL = Config.HOST_SERVER + "/info/academicrank";
   public static TEACHER_TITLE_URL = Config.HOST_SERVER + "/info/teachertitle";
-  public static CATALOG_ACADEMIC_RANK_URL = Config.HOST_SERVER + "/catalog_academic";
   public static PROCESS_TEACHING_URL = Config.HOST_SERVER + "/info/processteaching";
   public static EMULATION_TITLE_URL = Config.HOST_SERVER + "/info/emulationtitle";
   public static PROCESS_FOREIGN_URL = Config.HOST_SERVER + "/info/processforeign";
@@ -22,7 +21,11 @@ export class Config {
   public static TRAIN_URL = Config.HOST_SERVER + "/info/train";
   public static PROCESS_EVENT_URL = Config.HOST_SERVER + "/info/processevent";
   public static PROCESS_PUBLISH_URL = Config.HOST_SERVER + "/info/processpublish";
+  public static PROCESS_WORK_URL = Config.HOST_SERVER + "/info/processwork";
+
+  public static CATALOG_ACADEMIC_RANK_URL = Config.HOST_SERVER + "/catalog_academic";
   public static CATATLOG_FACUTY_URL = Config.HOST_SERVER + "/catalogfaculty";
+
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 

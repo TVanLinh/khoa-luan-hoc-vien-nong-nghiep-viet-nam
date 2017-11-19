@@ -1,6 +1,10 @@
 .item-control{
   text-align: left;
 }
+.form-control {
+  width: 100%;
+  max-width: 100%;
+}
 
 .input-date{
   width: 50px;
