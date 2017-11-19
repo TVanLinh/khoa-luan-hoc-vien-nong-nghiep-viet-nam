@@ -82,6 +82,7 @@ import {DataTextValid} from "./shares/data.valid";
 import {ArraySortPipe} from "./shares/sort/sort.pipe";
 import {OrderModule} from "ngx-order-pipe";
 import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/catalog-faculty.pipe";
+import {CatalogSalaryService} from "./shares/catalog-salary.service";
 
 @NgModule({
   declarations: [
@@ -172,7 +173,7 @@ import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/c
     ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
-  providers: [NationalService, TaskService],
+  providers: [NationalService,CatalogSalaryService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

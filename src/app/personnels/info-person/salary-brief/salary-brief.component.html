@@ -24,7 +24,7 @@
                 <th>HSL</th>
                 <th>Số QD</th>
                 <th>Hiên tại</th>
-                <th>  <span class="action-icon" (click)="openModal(modalSalary)"><i class="fa fa-plus"></i></span></th>
+                <th><span class="action-icon" (click)="openModal(modalSalary)"><i class="fa fa-plus"></i></span></th>
               </tr>
               </thead>
               <tbody>
@@ -71,15 +71,17 @@
 
           <div class="item-control">
             <label>Loại ngạch </label>
-            <select class="form-control" formControlName="specie">
-              <option value="">Chọn loại ngạch</option>
+            <select name="specie" class="form-control" [(ngModel)]="speice" formControlName="specie"
+                    (change)="spieceChange()">
+              <option *ngFor="let item of spieceRanks" [value]="item">{{item}}</option>
             </select>
           </div>
           <!---->
           <div class="item-control">
             <label>Nhóm ngạch </label>
-            <select class="form-control" formControlName="group">
+            <select class="form-control" formControlName="group" [(ngModel)]="group" (change)="groupChange()">
               <option value="">Nhóm ngạch</option>
+              <option *ngFor="let item of listGroup" [value]="item.group.name">{{item.group.name}}</option>
             </select>
           </div>
 
@@ -100,20 +102,20 @@
         <div class="col-xs-12 col-sm-6">
           <div class="item-control">
             <label>Ngạch </label>
-            <select class="form-control" formControlName="brief">
-              <option value="">Chọn ngạch</option>
+            <select class="form-control" [(ngModel)]="rank" formControlName="rank" (change)="rankChange()">
+              <option *ngFor="let item of listRank" [value]="item">{{item}}</option>
             </select>
           </div>
           <!---->
           <div class="item-control">
             <label>Bậc </label>
-            <select class="form-control" formControlName="level">
-              <option value="">Chọn Bậc</option>
+            <select class="form-control" [(ngModel)]="levelChoise" formControlName="level" (change)="levelChange()">
+              <option *ngFor="let item of level" [value]="item.name">{{item.name}}</option>
             </select>
           </div>
           <!---->
           <div class="item-control">
-            <label>Hệ số lương </label>
+            <label>Hệ số lương {{salary}} </label>
             <input type="text" formControlName="factorSalary">
           </div>
 
