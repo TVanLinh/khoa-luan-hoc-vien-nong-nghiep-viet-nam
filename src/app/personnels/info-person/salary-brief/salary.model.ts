@@ -5,5 +5,6 @@ export interface SalaryModel {
   group: string,
   rank: string,
   level: string,
-  factorSalary: number
+  factorSalary: number,
+  numberDecide: string;
 }

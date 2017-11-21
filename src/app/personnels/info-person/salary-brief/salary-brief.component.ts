@@ -7,6 +7,7 @@ import {SalaryModel} from "./salary.model";
 import {CatalogRankModel} from "../../model/catalog-rank.model";
 import {CatalogSalaryService} from "../../../shares/catalog-salary.service";
 import  * as Collections from "typescript-collections";
+import {Config} from "../../../shares/config";
 
 @Component({
   selector: 'app-salary-brief',
@@ -28,12 +29,14 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   levelChoise = "";
   level = [];
   rank = "";
+  positionUpdate: SalaryModel  = null;
 
   constructor(protected eleRef: ElementRef,
               public  catalogRankService: CatalogSalaryService
     ,
               taskService: TaskService) {
     super(eleRef, taskService);
+
   }
 
 
@@ -66,7 +69,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   rankChange() {
     this.levelChoise = "1";
     this.levelChange();
-    this.salary = this.level[this.levelChoise].salary;
+    //this.salary = this.level[this.levelChoise].salary;
     this.levelChoise = "-1";
   }
 
@@ -79,6 +82,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.getCatalogs();
+      this.getDataFromServer();
   }
 
   initForm() {
@@ -93,22 +97,67 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
       group: [''],
       rank: [''],
       level: [''],
-      factorSalary: []
+      numberDecide: []
+     // factorSalary: []
     });
   }
 
   addItem() {
     console.log(this.formData.value);
-    this.closeModal(this.modalSalary);
-    this.listSalaryBrief.add(this.formData.value);
+    let formValue = this.formData.value;
+    console.log(JSON.stringify(formValue));
+    let temp = formValue;
+    temp['factorSalary'] = this.salary;
+    if(this.positionUpdate == null) {
+       this.listSalaryBrief.add(temp);
+    }else{
+      this.updateList(this.listSalaryBrief,this.positionUpdate,temp);
+    }
+    this.positionUpdate = null;
+    super.closeModal(this.modalSalary);
+
+  }
+
+  editItem(item) {
+    this.positionUpdate = item;
+
+    this.speice = item.speice;
+    this.group = item.group;
+    this.salary = item.factorSalary;
+    this.rank = item.rank;
+    this.levelChoise  = item.level;
+    this.formData.setValue({
+      dateFrom:item.dateFrom,
+      dateEnd: item.dateEnd,
+      specie:item.specie,
+      group: item.group,
+      rank:item.rank,
+      level: item.level,
+      numberDecide: item.numberDecide
+    });
+     super.openModal(this.modalSalary);
   }
 
   onSave() {
-    console.log(this.formData.value);
-    this.listSalaryBrief.add(this.formData.value);
+    super.pushDataServer(Config.PROCESS_SALARY_URL, "salary", this.listSalaryBrief);
   }
 
   removeItem(index: number) {
     this.listSalaryBrief.removeElementAtIndex(index);
+  }
+
+  openModals() {
+    this.formData.reset();
+    this.positionUpdate = null;
+     super.openModal(this.modalSalary);
+  }
+
+   getDataFromServer() {
+    super.getDataServer(Config.PROCESS_SALARY_URL).subscribe(data => {
+      this.listSalaryBrief = super.asList(data['salary']);
+      console.log(JSON.stringify(data['salary']));
+    }, (err) => {
+
+    });
   }
 }

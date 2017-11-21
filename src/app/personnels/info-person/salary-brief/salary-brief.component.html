@@ -4,7 +4,10 @@
   </div>
   <form [formGroup]="formMain">
     <div class="action-form">
-      <button>Khóa dữ liệu</button>
+      <button (click)="onSave()">Ghi nhận</button>
+       <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
@@ -23,27 +26,27 @@
                 <th>Bậc</th>
                 <th>HSL</th>
                 <th>Số QD</th>
-                <th>Hiên tại</th>
-                <th><span class="action-icon" (click)="openModal(modalSalary)"><i class="fa fa-plus"></i></span></th>
+                <!-- <th>Hiên tại</th> -->
+                <th><span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span></th>
               </tr>
               </thead>
               <tbody>
               <!---->
               <tr *ngFor="let item of listSalaryBrief.toArray();let i = index ">
                 <td>{{i+1}}</td>
-                <td>{{item.dateFrom}}</td>
-                <td>{{item.dateEnd}}</td>
-                <td>{{item.brief}}</td>
+                <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
+                <td>{{item.dateEnd  | date:'dd/MM/yyyy'}}</td>
+                <td>{{item.rank}}</td>
                 <td>{{item.level}}</td>
                 <td>{{item.factorSalary}}</td>
                 <td>{{item.numberDecide}}</td>
-                <td>
+                <!-- <td>
                   <input type="radio" style="width: auto" formControlName="now" [value]="i">
-                </td>
+                </td> -->
                 <td>
-                  <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
+                  <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
                   <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove"></i></span>
-                  <span class="action-icon" (click)="blockItem(i)"><i class="fa fa-lock"></i></span>
+                <!--   <span class="action-icon" (click)="blockItem(i)"><i class="fa fa-lock"></i></span> -->
                 </td>
               </tr>
               <!---->
@@ -115,8 +118,8 @@
           </div>
           <!---->
           <div class="item-control">
-            <label>Hệ số lương {{salary}} </label>
-            <input type="text" formControlName="factorSalary">
+            <label> Số quyết định {{salary}} </label>
+            <input type="text" formControlName="numberDecide" >
           </div>
 
         </div>
@@ -125,7 +128,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="addItem()">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="addItem()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
 
 </modal>

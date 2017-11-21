@@ -22,7 +22,8 @@ export class Config {
   public static PROCESS_EVENT_URL = Config.HOST_SERVER + "/info/processevent";
   public static PROCESS_PUBLISH_URL = Config.HOST_SERVER + "/info/processpublish";
   public static PROCESS_WORK_URL = Config.HOST_SERVER + "/info/processwork";
-
+  public static PROCESS_SALARY_URL = Config.HOST_SERVER + "/info/salary";
+  
   public static CATALOG_ACADEMIC_RANK_URL = Config.HOST_SERVER + "/catalog_academic";
   public static CATATLOG_FACUTY_URL = Config.HOST_SERVER + "/catalogfaculty";
   public static CATALOG_RANK_URL = Config.HOST_SERVER + "/catalogrank";
