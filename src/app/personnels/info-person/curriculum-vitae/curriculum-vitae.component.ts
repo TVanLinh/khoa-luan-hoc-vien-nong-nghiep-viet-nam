@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit} from "@angular/core";
 import {FormGroup} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {TaskService} from "../../../shares/task.service";
+import {AddressService} from "../../../shares/address.service";
 import {Config} from "../../../shares/config";
 import {MystorageService} from "../../../shares/mystorage.service";
 import {CvModel} from "./cv.model";
@@ -15,6 +16,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   avatar: string = "";
 
+  
   infoBasic: CvModel = {
     fullName: "",
     nameOther: "",
@@ -51,9 +53,14 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   formCV: FormGroup;
 
   listNation = [];
-
-  constructor(public taskService: TaskService, protected eleRef: ElementRef) {
+  listCity:any[] = [];	
+  
+  listDistrictBirthDay:any[]= [];
+  listGuidBirthDay:any[]= [];
+  
+  constructor(public taskService: TaskService, protected eleRef: ElementRef,public addressService: AddressService ) {
     super(eleRef,taskService);
+	this.addressService.getALl();
     // this.getCV();
   }
 
@@ -61,6 +68,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     this.initForm();
     this.getCV();
     this.getNation();
+	this.initListCity();
   }
 
   private getNation() {
@@ -69,7 +77,32 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       this.listNation.sort();
     });
   }
+  
+  
+   initListCity() {
+	this.addressService.geCities().subscribe((data:any[])=>{
+		this.listCity = data;
+	});
+  }
+  
+  cityBirthDayChange(id: number) {
+     this.listDistrictBirthDay =[];
+	 this.addressService.getDistrictByCityID(id).subscribe((data:any[])=>{
+		this.listDistrictBirthDay = data;
+	});
+  }
+  
+   districtBirthDayChange(id: number) {
+	  this.listGuidBirthDay =[];
+	  this.addressService.getGuildByDistrictId(id).subscribe((data:any[])=>{
+		this.listGuidBirthDay = data;
+	});
+  }
+  
+  
+  
 
+ 
 
   initForm() {
     this.formCV = this.formBuilder.group({

@@ -63,6 +63,7 @@ import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/langua
 import {HttpModule} from "@angular/http";
 import {NationalService} from "./shares/national.service";
 import {TaskService} from "./shares/task.service";
+import {AddressService} from "./shares/address.service";
 import {ManagerComponent} from "./personnels/manger.component";
 import {InfoComponent} from "./personnels/info-person/info.component";
 import {Ng2PageScrollModule} from "ng2-page-scroll";
@@ -173,7 +174,7 @@ import {CatalogSalaryService} from "./shares/catalog-salary.service";
     ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
-  providers: [NationalService,CatalogSalaryService, TaskService],
+  providers: [NationalService,CatalogSalaryService, TaskService,AddressService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -11,7 +11,8 @@ export class NationalService {
   public nationals: National[] = [];
   private subScript = new Subscription();
   private nationalShare = null;
-
+ 
+  
   constructor(public  taskService: TaskService) {
     this.getData();
   }

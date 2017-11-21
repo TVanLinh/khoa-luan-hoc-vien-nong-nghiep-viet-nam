@@ -107,9 +107,10 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label><span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control" #guild required type="select" text-validator>
-            <option value="0">----Chọn-----</option>
-            <option value="Gia Lam">Gia Lam</option>
+          <select formControlName="guild" #guidBithDay class="form-control" 
+		  required type="select" text-validator 
+		  >
+             <option *ngFor="let item of listGuidBirthDay" [value]="item['ID']">{{item['Title']}}</option>
           </select>
 
           <div class="star" *ngIf="(!formCV.controls.placeBirth.controls.guild.errors.valid)">
@@ -121,9 +122,10 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control" #district required type="select" text-validator>
-            <option value="0">----Chọn-----</option>
-            <option value="Gia Lam">Gia Lam</option>
+          <select formControlName="district" class="form-control" #districtBirthDay required type="select"
+		  text-validator 
+		   (change)="districtBirthDayChange(districtBirthDay.value)">
+           <option *ngFor="let item of listDistrictBirthDay" [value]="item['ID']">{{item['Title']}}</option>
           </select>
         </div>
 
@@ -135,9 +137,9 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Tình/TP </label>
-          <select formControlName="city" class="form-control" #city required type="select" text-validator>
-            <option value="0">----Chọn-----</option>
-            <option value="Gia Lam">Gia Lam</option>
+          <select formControlName="city" class="form-control"  
+		  required type="select" text-validator #cityBirthDay (change)="cityBirthDayChange(cityBirthDay.value)" >
+            <option *ngFor="let item of listCity" [value]="item['ID']">{{item['Title']}}</option>
           </select>
         </div>
 

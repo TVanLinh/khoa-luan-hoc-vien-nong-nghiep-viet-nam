@@ -27,7 +27,7 @@ export class Config {
   public static CATALOG_ACADEMIC_RANK_URL = Config.HOST_SERVER + "/catalog_academic";
   public static CATATLOG_FACUTY_URL = Config.HOST_SERVER + "/catalogfaculty";
   public static CATALOG_RANK_URL = Config.HOST_SERVER + "/catalogrank";
-
+  public static CATALOG_ADDRESS_URL = Config.HOST_SERVER + "/catalog_address";
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 
