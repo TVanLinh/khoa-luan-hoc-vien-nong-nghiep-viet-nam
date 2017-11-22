@@ -1,12 +1,13 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {Config} from "../../../shares/config";
 import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog-faculty.model";
 import * as Collections from "typescript-collections";
 import {ProcessWorkModel} from "./process-work.model";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-process-work',
@@ -22,6 +23,7 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   listCatalog: CatalogFacultyModel[] = [];
   listCatalogLevel2: CatalogFacultyModel[] = [];
   processWorks = new Collections.LinkedList<ProcessWorkModel>();
+  formNotValid = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -37,14 +39,14 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   innitForm() {
 
     this.formInfoProcess = this.formBuilder.group({
-      level1: [''],
-      organ: [''],
-      level2: [''],
+      level1: ['', Validators.required],
+      organ: ['', Validators.required],
+      level2: ['', Validators.required],
       now: [],// kiem nhiem
-      dateFrom: [(new Date)],
-      dateEnd: [(new Date)],
-      position: [''],
-      job: ['']
+      dateFrom: ['', Validators.required],
+      dateEnd: ['', Validators.required],
+      position: ['', Validators.required],
+      job: ['', Validators.required]
     });
   }
 
@@ -64,8 +66,10 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
     this.formInfoProcess.reset();
     this.formInfoProcess.patchValue({
       now: false,
-      dateFrom: (new Date),
-      dateEnd: (new Date)
+      dateFrom: (''),
+      level1: '',
+      level2: '',
+      dateEnd: ('')
     });
     this.isBelong = true;
     super.openModal(this.modal);
@@ -73,10 +77,26 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
 
 
   addItem() {
-    console.log(this.formInfoProcess.value);
+    console.log(this.isBelong);
 
     let valueForm = this.formInfoProcess.value;
+    let data: any[] = [];
+    if (this.isBelong) {
+      data = [valueForm.level1, valueForm.level2, valueForm.position, valueForm.job, valueForm.dateFrom, valueForm.dateEnd];
+    } else {
+      data = [valueForm.organ, valueForm.position, valueForm.job, valueForm.dateFrom, valueForm.dateEnd];
+    }
 
+    this.updateView("formInfoProcess", this.formInfoProcess.valid);
+
+    if (!ValidService.isNotBlanks(data) || this.formInfoProcess.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = false;
+    //------------------------------------
     if (this.positionUpdate == null) {
       this.processWorks.add(this.getProcessWorkModel());
     } else {
@@ -88,6 +108,8 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(item) {
+    this.updateValid("formInfoProcess");
+
     this.positionUpdate = item;
     if (item.level2) {
       this.isBelong = true;

@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {InfoTeachnologyModel} from "./info-teachnoloy.model";
 import * as Collections from "typescript-collections";
 import {Config} from "../../../../shares/config";
 import {TaskService} from "../../../../shares/task.service";
+import {ValidService} from "../../../../shares/valid.service";
 
 @Component({
   selector: 'app-info-technology',
@@ -17,9 +18,10 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   formData: FormGroup;
   positionUpdate: InfoTeachnologyModel = null;
   listData = new Collections.LinkedList<InfoTeachnologyModel>();
+  formNotValid = false;
 
   constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
-    super(eleRef,taskService);
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
@@ -30,13 +32,26 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
 
   initForm() {
     this.formData = this.formBuilder.group({
-      level: [''],
-      yearLicense: [2015],
+      level: ['', Validators.required],
+      yearLicense: [2015, [Validators.required, Validators.min(1900)]],
     });
   }
 
   addItem() {
     let valueForm: InfoTeachnologyModel = this.formData.value;
+
+    let data: any[] = [valueForm.level, valueForm.yearLicense];
+
+    this.updateView("technology-info", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+    this.formNotValid = false;
+
+    ///---------------------------------------------------------
     if (this.positionUpdate == null) {
       this.listData.add(valueForm);
     } else {
@@ -49,6 +64,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   }
 
   editItem(item: InfoTeachnologyModel) {
+    this.updateValid("technology-info");
     this.positionUpdate = item;
     console.log(JSON.stringify(item));
     this.formData.setValue({

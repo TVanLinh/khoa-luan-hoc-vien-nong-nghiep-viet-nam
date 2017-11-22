@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {TaskService} from "../../../shares/task.service";
 import {AddressService} from "../../../shares/address.service";
@@ -16,7 +16,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   avatar: string = "";
 
-  
+
   infoBasic: CvModel = {
     fullName: "",
     nameOther: "",
@@ -53,13 +53,13 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   formCV: FormGroup;
 
   listNation = [];
-  listCity:any[] = [];	
-  
-  listDistrictBirthDay:any[]= [];
-  listGuidBirthDay:any[]= [];
-  
-  constructor(public taskService: TaskService, protected eleRef: ElementRef,public addressService: AddressService ) {
-    super(eleRef,taskService);
+  listCity: any[] = [];
+
+  listDistrictBirthDay: any[] = [];
+  listGuidBirthDay: any[] = [];
+
+  constructor(public taskService: TaskService, protected eleRef: ElementRef, public addressService: AddressService) {
+    super(eleRef, taskService);
 //	this.addressService.getALl();
     // this.getCV();
   }
@@ -68,7 +68,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     this.initForm();
     this.getCV();
     this.getNation();
-	this.initListCity();
+    this.initListCity();
   }
 
   private getNation() {
@@ -77,71 +77,67 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       this.listNation.sort();
     });
   }
-  
-  
-   initListCity() {
-	this.addressService.geCities().subscribe((data:any[])=>{
-		this.listCity = data;
-	});
-  }
-  
-  cityBirthDayChange(id: number) {
-     this.listDistrictBirthDay =[];
-	 this.addressService.geDistrict().subscribe((data:any[])=>{
-		this.listDistrictBirthDay = data.filter(item => item['TinhThanhID'] == id);
-	});
-  }
-  
-   districtBirthDayChange(id: number,cityBirthDay:number ) {
-	console.log(id);
-	  this.listGuidBirthDay =[];
-	  
-	  this.addressService.getGuild().subscribe((data:any[])=>{
-		this.listGuidBirthDay = data.filter(item => item['QuanHuyenID'] == id && item['TinhThanhID']==cityBirthDay);;
-		console.log(JSON.stringify(data));
-	});
-  }
-  
-  
-  
 
- 
+
+  initListCity() {
+    this.addressService.geCities().subscribe((data: any[]) => {
+      this.listCity = data;
+    });
+  }
+
+  cityBirthDayChange(id: number) {
+    this.listDistrictBirthDay = [];
+    this.addressService.geDistrict().subscribe((data: any[]) => {
+      this.listDistrictBirthDay = data.filter(item => item['TinhThanhID'] == id);
+    });
+  }
+
+  districtBirthDayChange(id: number, cityBirthDay: number) {
+    console.log(id);
+    this.listGuidBirthDay = [];
+
+    this.addressService.getGuild().subscribe((data: any[]) => {
+      this.listGuidBirthDay = data.filter(item => item['QuanHuyenID'] == id && item['TinhThanhID'] == cityBirthDay);
+      console.log(JSON.stringify(data));
+    });
+  }
+
 
   initForm() {
     this.formCV = this.formBuilder.group({
-      fullName: [this.infoBasic.fullName],
-      birthDay: [this.infoBasic.birthDay],
-      sex: [this.infoBasic.sex],
-      email: [this.infoBasic.email],
+      fullName: [this.infoBasic.fullName,Validators.required],
+      birthDay: [this.infoBasic.birthDay,Validators.required],
+      sex: [this.infoBasic.sex ,Validators.required],
+      email: [this.infoBasic.email,Validators.required],
       nameOther: [this.infoBasic.nameOther],
-      bloodGroup: [this.infoBasic.bloodGroup],
+      bloodGroup: [this.infoBasic.bloodGroup, Validators.required],
       policyObject: [this.infoBasic.policyObject],
-      nation: [this.infoBasic.nation],
-      hashNation: [this.infoBasic.hashNation],
-      phone: [this.infoBasic.phone],
+      nation: [this.infoBasic.nation,Validators.required],
+      hashNation: [this.infoBasic.hashNation, Validators.required],
+      phone: [this.infoBasic.phone, Validators.required],
       identity: this.formBuilder.group({
-        identityNumber: [this.infoBasic.identity.identityNumber],
-        dateRange: [this.infoBasic.identity.dateRange],
-        placeRange: [this.infoBasic.identity.placeRange],
+        identityNumber: [this.infoBasic.identity.identityNumber,Validators.required],
+        dateRange: [this.infoBasic.identity.dateRange, Validators.required],
+        placeRange: [this.infoBasic.identity.placeRange,Validators.required ],
       }),
 
       homeTown: this.formBuilder.group({
-        city: [this.infoBasic.homeTown.city],
-        district: [this.infoBasic.homeTown.district],
-        guild: [this.infoBasic.homeTown.guild],
+        city: [this.infoBasic.homeTown.city, Validators.required],
+        district: [this.infoBasic.homeTown.district, Validators.required],
+        guild: [this.infoBasic.homeTown.guild, Validators.required],
       }),
       placeBirth: this.formBuilder.group({
-        city: [this.infoBasic.placeBirth.city],
-        district: [this.infoBasic.placeBirth.district],
-        guild: [this.infoBasic.placeBirth.guild],
+        city: [this.infoBasic.placeBirth.city, Validators.required],
+        district: [this.infoBasic.placeBirth.district, Validators.required],
+        guild: [this.infoBasic.placeBirth.guild, Validators.required],
       }),
       placeRegisterHouseHold: this.infoBasic.placeRegisterHouseHold,
       placeNow: this.formBuilder.group({
-        city: [this.infoBasic.placeNow.city],
-        district: [this.infoBasic.placeNow.district],
-        guild: [this.infoBasic.placeNow.guild],
-        street: [this.infoBasic.placeNow.street],
-        numberHome: [this.infoBasic.placeNow.numberHome],
+        city: [this.infoBasic.placeNow.city, Validators.required],
+        district: [this.infoBasic.placeNow.district, Validators.required],
+        guild: [this.infoBasic.placeNow.guild, Validators.required],
+        street: [this.infoBasic.placeNow.street, Validators.required],
+        numberHome: [this.infoBasic.placeNow.numberHome, Validators.required],
       })
     });
   }
@@ -168,6 +164,12 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
+
+    this.updateView("cv", this.formCV.valid);
+    if (!this.formCV.valid) {
+       return;
+    }
+
     let userName = MystorageService.getAcount()['user']["username"];
     let formValue = this.formCV.value;
     let cv = formValue;

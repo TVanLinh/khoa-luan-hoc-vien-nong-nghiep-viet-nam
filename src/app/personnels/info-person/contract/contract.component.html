@@ -6,7 +6,7 @@
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button>Khóa dữ liêu</button>-->
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
 
@@ -58,10 +58,13 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modalContract)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="contract-form">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 ">
@@ -73,7 +76,8 @@
           <!---->
           <div class="item-control">
             <label>Ngày hiệu lực </label>
-            <input type="date" class="form-control" formControlName="dateEffect" [value]="initData.dateEffect | date:'yyyy-MM-dd'">
+            <input type="date" class="form-control" formControlName="dateEffect"
+                   [value]="initData.dateEffect | date:'yyyy-MM-dd'">
           </div>
           <div class="item-control">
             <label>Đơn vị tuyển dụng </label>
@@ -92,7 +96,8 @@
 
           <div class="item-control">
             <label>Ngày hết hiệu lực </label>
-            <input type="date" class="form-control" formControlName="dateEndEffect" [value]="initData.dateEndEffect | date:'yyyy-MM-dd'">
+            <input type="date" class="form-control" formControlName="dateEndEffect"
+                   [value]="initData.dateEndEffect | date:'yyyy-MM-dd'">
           </div>
 
           <div class="item-control">

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
@@ -8,6 +8,7 @@ import {TaskService} from "../../../shares/task.service";
 import {ForeignModel} from "./foreign.model";
 import {National} from "../../model/national.model";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-foreign',
@@ -31,6 +32,8 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
     super(eleRef, taskService);
   }
 
+  formNotValid = false;
+
   ngOnInit() {
     this.initForm();
     this.getDataFromServer();
@@ -39,11 +42,11 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
 
   initForm() {
     this.formData = this.formBuilder.group({
-      dateFrom: [new Date()],
-      dateEnd: [new Date()],
-      national: [''],
-      product: [''],
-      purpose: [''],
+      dateFrom: ['', Validators.required],
+      dateEnd: ['', Validators.required],
+      national: ['', Validators.required],
+      product: ['', Validators.required],
+      purpose: ['', Validators.required],
     });
   }
 
@@ -59,6 +62,20 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
 
   addItem() {
     let valueForm = this.formData.value;
+
+    let data: any[] = [valueForm.dateFrom, valueForm.dateEnd, valueForm.national, valueForm.purpose];
+
+    this.updateView("foreign-form", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = false;
+
+    //-----------------------------------------
     if (this.positionUpdate == null) {
       this.listForeignForm.add(valueForm);
     } else {
@@ -84,6 +101,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(item) {
+    this.updateValid("foreign-form");
     this.formData.setValue({
       dateFrom: item.dateFrom,
       dateEnd: item.dateEnd,

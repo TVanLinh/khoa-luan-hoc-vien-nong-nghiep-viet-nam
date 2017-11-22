@@ -58,38 +58,39 @@ export class BaseFormComponent {
     }, this.message.timout);
   }
 
-  updateView(id: string, condition: boolean) {
-    let ref = jQuery(this.eleRef.nativeElement).find("#" + id + ".ng-invalid ");
-    //let ref2 = jQuery(this.eleRef.nativeElement).find("#" + id + ".ng-valid ");
-    let bd1 = {border: "1px solid red !important"};
-    let bd2 = {border: "1px solid #ff3620 !important"};
-	console.log("condition "+condition+ "   "+ref.toString() );
+  updateView(taget: string, condition: boolean) {
+    let id = "#" + taget;
+
+    let ref = (jQuery)(id + " input.ng-invalid");
+    let ref2 = (jQuery)(id + " select.ng-invalid");
+
+    let bd1 = {border: "1px solid red "};
+    let bd2 = {border: "1px solid #CCCCCC "};
+
+    console.log(condition);
+
     if (!condition) {
       ref.css(bd1);
-     // ref2.css({bd1});
-	   ref.addClass("error");
-	//  ref2.addClass("error");
-    } else {
+      ref2.css(bd1);
+      ref = (jQuery)(id + " input.ng-valid");
+      ref2 = (jQuery)(id + " select.ng-valid");
       ref.css(bd2);
-    //  ref2.css({bd2});
+      ref2.css(bd2);
+    } else {
+      ref = (jQuery)(id + " input.ng-valid");
+      ref2 = (jQuery)(id + " select.ng-valid");
+      ref.css(bd2);
+      ref2.css(bd2);
     }
   }
-  
-  updateViewNotId (condition : boolean) {
-  let ref = jQuery(this.eleRef.nativeElement).find( " input.ng-invalid ");
-    let ref2 = jQuery(this.eleRef.nativeElement).find( " select.ng-valid");
-    let bd1 = {border: "1px solid #ff0000 !important"};
-    let bd2 = {border: "1px solid #ff3620 !important"};
-	console.log("condition "+ condition+ "   "+ref.toString() );
-    if (!condition) {
-     // ref.css(bd1);
-	  ref.addClass("error");
-	  ref2.addClass("error");
-     // ref2.css({bd1});
-    } else {
-      ref.css(bd2);
-      ref2.css({bd2});
-    }
+
+  updateValid(taget: string) {
+    let id = "#" + taget;
+    let bd2 = {border: "1px solid #CCCCCC "};
+    let ref = (jQuery)(id + " input.ng-invalid");
+    let ref2 = (jQuery)(id + " select.ng-invalid");
+    ref.css(bd2);
+    ref2.css(bd2);
   }
 
   toggleBoolean(array: Collections.LinkedList<any>) {
@@ -101,7 +102,7 @@ export class BaseFormComponent {
 
   asList(arry: any[]) {
     let list = new Collections.LinkedList<any>();
-    if(arry == null) {
+    if (arry == null) {
       return list;
     }
     for (let item of arry) {

@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {ScienceTopicModel} from "./science-topic.model";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-science-topic',
@@ -17,6 +18,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   formData: FormGroup;
   listScienceTopic = new Collections.LinkedList<ScienceTopicModel>();
   positionUpdate: ScienceTopicModel = null;
+  formNotValid = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -29,19 +31,33 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
 
   initForm() {
     this.formData = this.formBuilder.group({
-      name: [''],
-      code: [''],
-      dateBegin: [new Date()],
-      monthWork: [5],
-      role: [''],
-      level: [''],
-      specieObtain: ['']
+      name: ['', Validators.required],
+      code: ['', Validators.required],
+      dateBegin: ['', Validators.required],
+      monthWork: [5, Validators.required],
+      role: ['', Validators.required],
+      level: ['', Validators.required],
+      specieObtain: ['', Validators.required]
     });
   }
 
   addItem() {
     let valueForm = this.formData.value;
-    console.log(JSON.stringify(valueForm));
+
+    let data: any = [valueForm.name, valueForm.code, valueForm.dateBegin,
+      valueForm.monthWork, valueForm.role, valueForm.level, valueForm.specieObtain];
+
+    this.updateView("science-topic-form", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = false;
+    //------------------------------------------
+
     if (this.positionUpdate == null) {
       this.listScienceTopic.add(valueForm);
     } else {
@@ -53,6 +69,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(item) {
+    this.updateValid("science-topic-form");
     this.formData.setValue({
       name: item.name,
       code: item.code,

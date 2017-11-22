@@ -6,7 +6,7 @@
   <form>
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -55,23 +55,26 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(thesisGuide)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="thesis-guide-form">
       <div class="row">
         <div class="col-xs-12 col-sm-6 ">
           <div class="item-control pdt-i-0">
             <label>Tên luận văn/luận án </label>
-            <input type="text" formControlName="thesisName">
+            <input type="text" formControlName="thesisName" required>
           </div>
           <div class="item-control ">
             <label>Tên người được hướng dẫn </label>
-            <input type="text" formControlName="namePersonGuide">
+            <input type="text" formControlName="namePersonGuide" required>
           </div>
           <div class="item-control">
             <label>Năm hướng dẫn </label>
-            <input type="number" formControlName="yearGuide">
+            <input type="number" formControlName="yearGuide" required>
           </div>
 
         </div>
@@ -79,17 +82,17 @@
         <div class="col-xs-12 col-sm-6 ">
           <div class="item-control pdt-i-0">
             <label>Bậc </label>
-            <select class="form-control" formControlName="level">
+            <select class="form-control" formControlName="level" required>
               <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
           <div class="item-control">
             <label>Vai trò giảng viên </label>
-            <input type="text" formControlName="role">
+            <input type="text" formControlName="role" required>
           </div>
           <div class="item-control">
             <label>Đạt loại </label>
-            <select class="form-control" formControlName="speciesObtain">
+            <select class="form-control" formControlName="speciesObtain" required>
               <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
             </select>
           </div>

@@ -6,7 +6,7 @@
     <div class="action-form mgb-20">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button>Khóa dữ liệu</button>-->
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -51,9 +51,11 @@
       <button (click)="closeModal(technologyModal)">Thoát</button>
     </div>
   </modal-header>
-
+  <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+    {{message.content}}
+  </div>
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="technology-info">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
@@ -61,15 +63,12 @@
           <div class="item-control pdt-i-0">
             <label>Trình độ tin học</label>
             <input type="text" class="form-control" formControlName="level">
-            <!--<select class="form-control" formControlName="level">-->
-            <!--<option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Chọn&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--</select>-->
           </div>
           <!---->
 
           <div class="item-control">
             <label class="mgr-20">Năm cấp</label>
-            <input type="text" class="form-control" formControlName="yearLicense">
+            <input type="number" class="form-control" formControlName="yearLicense">
           </div>
 
         </div>

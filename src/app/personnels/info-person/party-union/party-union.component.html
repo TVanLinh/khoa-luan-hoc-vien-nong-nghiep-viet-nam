@@ -1,4 +1,4 @@
-<div class="form-item">
+<div class="form-item" id="party-union-info">
   <div class="form-item-title">Qúa trình hoạt động Đảng, Đoàn, Công Đoàn</div>
   <form action="" [formGroup]="formData">
     <div class="action-form">
@@ -143,7 +143,11 @@
       <button (click)="closeModal(modalActionParty)" class="mgb-20">Thoát</button>
     </div>
 
-    <form [formGroup]="formDetailParty">
+    <div *ngIf="message.condition && partyNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
+    <form [formGroup]="formDetailParty" id="formDetailParty">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -206,7 +210,11 @@
       <button (click)="closeModal(modalUnion)" class="mgb-20">Thoát</button>
     </div>
 
-    <form action="" [formGroup]="formDetailUnion">
+    <div *ngIf="message.condition && unionNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
+    <form action="" [formGroup]="formDetailUnion" id="formDetailUnion">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -269,7 +277,11 @@
       <button (click)="closeModal(modalGroup)" class="mgb-20">Thoát</button>
     </div>
 
-    <form action="" [formGroup]="formDetailGroup">
+    <div *ngIf="message.condition && groupNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
+    <form action="" [formGroup]="formDetailGroup" id="formDetailGroup">
       <table class="table table-bordered">
         <thead>
         <tr>

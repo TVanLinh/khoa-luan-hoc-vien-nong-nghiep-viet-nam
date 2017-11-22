@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {ThesissGuideModel} from "./thesiss-guide.model";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-thesis-guide',
@@ -18,6 +19,7 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
   listThesiss = new Collections.LinkedList<ThesissGuideModel>();
   positionUpdate: ThesissGuideModel = null;
 
+  formNotValid = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -30,18 +32,31 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
 
   initForm() {
     this.formData = this.formBuilder.group({
-      namePersonGuide: [''],
-      level: [this.rankTrains[0]],
-      role: [''],
-      thesisName: [''],
-      yearGuide: [2016],
-      speciesObtain: [this.speciesObtain[0]]
+      namePersonGuide: ['', Validators.required],
+      level: [this.rankTrains[0], Validators.required],
+      role: ['', Validators.required],
+      thesisName: ['', Validators.required],
+      yearGuide: [2016, [Validators.required, Validators.min(1900)]],
+      speciesObtain: [this.speciesObtain[0],Validators.required]
     });
   }
 
   addItem() {
     let valueForm = this.formData.value;
-    console.log(JSON.stringify(valueForm));
+
+    let data: any[] = [valueForm.namePersonGuide, valueForm.namePersonGuide,
+      valueForm.level, valueForm.role, valueForm.thesisName, valueForm.yearGuide, valueForm.speciesObtain];
+
+    this.updateView("thesis-guide-form", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = false;
+
     if (this.positionUpdate == null) {
       this.listThesiss.add(valueForm);
     } else {

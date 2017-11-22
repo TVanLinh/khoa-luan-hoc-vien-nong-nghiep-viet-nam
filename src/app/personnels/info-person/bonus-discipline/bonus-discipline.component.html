@@ -3,15 +3,16 @@
     Thông tin khen thưởng, kỷ luật
   </div>
   <form action="">
-    <div class="action-form">
-      <button (click)="onSave(1)">Ghi nhận</button>
-      <div *ngIf="message.condition && mode == 1" [ngClass]="'alert alert-'+ message.type">
-        {{message.content}}
-      </div>
-    </div>
+
     <div class="form-item">
       <div class="form-item-title">
         Thông tin khen thưởng
+      </div>
+      <div class="action-form" style="margin-bottom: 0 !important;">
+        <button (click)="onSave(1)">Ghi nhận</button>
+        <div *ngIf="message.condition && mode == 1  && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
+          {{message.content}}
+        </div>
       </div>
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -55,7 +56,7 @@
       </div>
       <div class="action-form" style="margin-bottom: 0px !important;">
         <button (click)="onSave(0)">Ghi nhận</button>
-        <div *ngIf="message.condition && mode == 0" [ngClass]="'alert alert-'+ message.type">
+        <div *ngIf="message.condition && mode == 0 &&  formNotValid == false" [ngClass]="'alert alert-'+ message.type">
           {{message.content}}
         </div>
       </div>
@@ -108,10 +109,15 @@
     <div class="action-form mgb-i-10">
       <button (click)="modalBonus.close()">Thoát</button>
     </div>
+
+    <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="form-bonus-discipline">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 ">
@@ -119,19 +125,11 @@
           <div class="item-control pdt-i-0">
             <label>Cấp quyết định</label>
             <input type="text" formControlName="rankDecide">
-            <!--<select class="form-control" formControlName="rankDecide">-->
-            <!--<option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--<option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--</select>-->
           </div>
           <!---->
           <div class="item-control">
             <label>Hình thức</label>
             <input type="text" formControlName="form">
-            <!--<select class="form-control" formControlName="form">-->
-            <!--<option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--<option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Chọn-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-            <!--</select>-->
           </div>
 
           <div class="item-control">

@@ -7,7 +7,8 @@
       </div>
       <div class="action-form" style="margin-bottom: 0 !important;">
         <button (click)="onSave(0)">Ghi nhận</button>
-        <div *ngIf="message.condition && mode == 0" [ngClass]="'alert alert-'+ message.type">
+        <div *ngIf="message.condition && mode == 0 && formAcadNotValid == false"
+             [ngClass]="'alert alert-'+ message.type">
           {{message.content}}
         </div>
       </div>
@@ -49,7 +50,8 @@
       </div>
       <div class="action-form" style="margin-bottom: 0 !important;">
         <button (click)="onSave(1)">Ghi nhận</button>
-        <div *ngIf="message.condition && mode == 1" [ngClass]="'alert alert-'+ message.type">
+        <div *ngIf="message.condition && mode == 1 && formTitleNotValid == false"
+             [ngClass]="'alert alert-'+ message.type">
           {{message.content}}
         </div>
       </div>
@@ -92,19 +94,23 @@
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(academicRank)">Thoát</button>
-
     </div>
+    <div *ngIf="message.condition &&  formAcadNotValid"
+         [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formAcademicRank">
+    <form action="" class="mgb-i-10" [formGroup]="formAcademicRank" id="form-academic">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
           <div class="item-control pdt-i-0">
             <label>Học hàm</label>
-            <select class="form-control" formControlName="rank">
+            <select class="form-control" formControlName="rank" required>
               <option *ngFor="let item of catalogAcademicRank" [value]="item.name">{{item.name}}</option>
             </select>
           </div>
@@ -112,12 +118,12 @@
 
           <div class="item-control">
             <label>Nơi công nhận</label>
-            <input type="text" formControlName="placeReceive">
+            <input type="text" formControlName="placeReceive" required>
           </div>
 
           <div class="item-control  ">
             <label class="mgr-20">Năm phong</label>
-            <input type="number" formControlName="yearReceive">
+            <input type="number" formControlName="yearReceive" required>
           </div>
         </div>
       </div>
@@ -136,19 +142,22 @@
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(titleTeachers)">Thoát</button>
-
+    </div>
+    <div *ngIf="message.condition &&  formTitleNotValid"
+         [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
     </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formTitleTeachers">
+    <form action="" class="mgb-i-10" [formGroup]="formTitleTeachers" id="form-title">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
           <div class="item-control pdt-i-0">
             <label>Danh hiệu nhà giáo </label>
-            <select class="form-control" formControlName="title">
+            <select class="form-control" formControlName="title" required>
               <option value="Nhà giáo nhân dân">Nhà giáo nhân dân</option>
               <option value="Nhà giáo ưu tú">Nhà giáo ưu tú</option>
             </select>
@@ -156,7 +165,7 @@
           <!---->
           <div class="item-control ">
             <label class="mgr-20">Năm phong</label>
-            <input type="number" formControlName="yearReceive">
+            <input type="number" formControlName="yearReceive" required>
           </div>
         </div>
       </div>

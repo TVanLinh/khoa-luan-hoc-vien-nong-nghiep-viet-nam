@@ -6,7 +6,7 @@
     <div class="action-form mgb-20">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button>Khóa dữ liệu</button>-->
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid  == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -51,17 +51,20 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(politicModal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formDataPoliticAdd">
+    <form action="" class="mgb-i-10" [formGroup]="formDataPoliticAdd" id="politic-form">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
           <div class="item-control pdt-i-0">
             <label>Trình độ chính trị</label>
-            <select class="form-control" formControlName="level">
+            <select class="form-control" formControlName="level" required>
               <option value="loai1">---------Chọn loai 1--------</option>
               <option value="loai2">---------Chọn loai2--------</option>
               <option value="loai3">---------Chọn loai3--------</option>
@@ -71,7 +74,7 @@
 
           <div class="item-control">
             <label class="mgr-20">Năm công nhận</label>
-            <input type="text" pattern="^[0-9]{4}" style="width: 80px" formControlName="yearLicense">
+            <input type="number"  formControlName="yearLicense" required>
           </div>
 
         </div>

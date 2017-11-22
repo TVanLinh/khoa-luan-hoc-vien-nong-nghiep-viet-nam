@@ -1,10 +1,10 @@
-import {AbstractControl, NG_VALIDATORS, Validator} from "@angular/forms";
+import {AbstractControl, NG_VALIDATORS, Validator, Validators} from "@angular/forms";
 import {Directive, Input} from "@angular/core";
 
 
 @Directive({
   selector: '[text-validator]',
-  providers: [{provide: NG_VALIDATORS, useExisting: DataTextValid, multi: true}]
+  providers: [{provide: NG_VALIDATORS, useExisting: [DataTextValid], multi: true}]
 })
 
 export class DataTextValid implements Validator {

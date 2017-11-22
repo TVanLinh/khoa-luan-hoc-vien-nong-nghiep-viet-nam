@@ -5,7 +5,7 @@
   <form action="">
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -56,42 +56,44 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="process-teaching">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
           <div class="item-control">
             <label>Tên môn học</label>
-            <input type="text" formControlName="nameSubjects">
+            <input type="text" formControlName="nameSubjects" required>
           </div>
 
           <div class="item-control">
             <label>Bậc đào tạo</label>
-            <select class="form-control" formControlName="levelEducation">
-              <option  *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
+            <select class="form-control" formControlName="levelEducation" required>
+              <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Số tín chỉ</label>
-            <input type="number" min="1" style="width:70px;" formControlName="credit">
+            <input type="number" min="1"  formControlName="credit" >
           </div>
 
           <div class="item-control">
             <label>Đơn vị giảng dạy</label>
-            <input type="text" formControlName="organTeaching">
+            <input type="text" formControlName="organTeaching" required>
           </div>
           <div class="item-control">
             <label>Năm bắt đầu giảng dạy</label>
-            <input type="number" style="width:70px;" formControlName="yearTeaching">
+            <input type="number"  formControlName="yearTeaching" required>
           </div>
 
           <div class="item-control">
             <label>Ngôn ngữ giảng dạy</label>
-            <select class="form-control" formControlName="languageTeaching" style="width: 200px">
-              <option value="not" *ngIf="positionUpdate == -1">--------Chọn---------</option>
+            <select class="form-control" formControlName="languageTeaching" style="width: 200px" required>
               <option *ngFor="let item of nationals" [value]="item.code">
                 {{item.name}}
               </option>

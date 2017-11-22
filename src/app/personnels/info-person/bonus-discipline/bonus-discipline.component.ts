@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BonusDisciplineModel} from "./bonus-discipline.model";
 import {TaskService} from "app/shares/task.service";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 const MODE_BONUS = 1;
 const MODE_DISCIPLINE = 0;
@@ -35,6 +36,8 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     reason: ""
   };
 
+  formNotValid = false;
+
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
   }
@@ -46,11 +49,11 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
   initForm() {
     this.formData = this.formBuilder.group({
-      rankDecide: [this.initFormData.rankDecide],
-      form: [this.initFormData.form],
-      numberDecide: [this.initFormData.numberDecide],
-      dateDecide: [this.initFormData.dateDecide],
-      reason: [this.initFormData.reason]
+      rankDecide: [this.initFormData.rankDecide, Validators.required],
+      form: [this.initFormData.form, Validators.required],
+      numberDecide: [this.initFormData.numberDecide, Validators.required],
+      dateDecide: [this.initFormData.dateDecide, Validators.required],
+      reason: [this.initFormData.reason, Validators.required]
     })
   }
 
@@ -72,8 +75,24 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
   addItem() {
     //valid in here
-
     let valueForm = this.formData.value;
+
+    let data: any[] = [valueForm.rankDecide, valueForm.form, valueForm.numberDecide,
+      valueForm.dateDecide, valueForm.reason
+    ];
+
+    this.updateView("form-bonus-discipline", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = true;
+    //-------------------------------------
+
+
     if (this.positionUpdate == null) {
       if (this.mode == MODE_DISCIPLINE) {
         this.listDiscipline.add(valueForm);
@@ -95,6 +114,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
 
   editItem(item, mode) {
+    this.updateValid("form-bonus-discipline");
     this.mode = mode;
     this.positionUpdate = item;
     this.initFormData = item;
@@ -121,7 +141,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   getDataFromServer() {
     super.getDataServer(Config.DISCIPLINE_URL).subscribe((data: any[]) => {
       this.listDiscipline = super.asList(data['discipline']);
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
     }, () => {
 
     });

@@ -3,7 +3,7 @@
   <form action="">
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -51,28 +51,31 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(emulationTitle)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="emulation-title">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
           <div class="item-control pdt-i-0">
             <label>Danh hiệu thi đua </label>
-            <input type="text" formControlName="title">
+            <input type="text" formControlName="title" required>
           </div>
           <!---->
 
           <div class="item-control">
             <label>Ngày cấp</label>
-            <input type="date" formControlName="dateLicense">
+            <input type="date" formControlName="dateLicense" required>
           </div>
 
           <div class="item-control  ">
             <label>Số quyết định</label>
-            <input type="text" formControlName="numberDecide">
+            <input type="text" formControlName="numberDecide" required>
           </div>
         </div>
       </div>

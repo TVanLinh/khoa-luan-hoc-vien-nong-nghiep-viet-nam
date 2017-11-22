@@ -3,7 +3,8 @@
   <form>
     <div class="action-form">
       <button (click)="onSave(0)">Ghi nhận</button>
-      <div *ngIf="message.condition && mode == 0" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && mode == 0 && formSeminarNotValid == false && formNewspaperNotValid == false"
+           [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -63,7 +64,8 @@
         <div class="form-item">
           <div class="action-form" style="margin-bottom: 0 !important;">
             <button (click)="onSave(1)">Ghi nhận</button>
-            <div *ngIf="message.condition && mode == 1" [ngClass]="'alert alert-'+ message.type">
+            <div *ngIf="message.condition && mode == 1  && formSeminarNotValid == false && formNewspaperNotValid == false"
+                 [ngClass]="'alert alert-'+ message.type">
               {{message.content}}
             </div>
           </div>
@@ -117,39 +119,42 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(seminaModal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && mode == 0 && formSeminarNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formSemina">
+    <form action="" class="mgb-i-10" [formGroup]="formSemina" id="semina-form">
       <div class="row">
         <div class="col-xs-12">
           <div class="row">
             <div class="col-xs-12 col-sm-4 col-sm-offset-2">
               <div class="item-control">
                 <label>Tên báo cáo </label>
-                <input type="text" formControlName="name">
+                <input type="text" formControlName="name" required>
               </div>
               <div class="item-control">
                 <label>Tên hôi nghị </label>
-                <input type="text" formControlName="nameConvention">
+                <input type="text" formControlName="nameConvention" required>
               </div>
               <div class="item-control">
                 <label>Trang đăng </label>
-                <input type="number" min="1" formControlName="pagePost">
+                <input type="number" min="1" formControlName="pagePost" required>
               </div>
             </div>
             <div class="col-xs-12 col-sm-4 ">
               <div class="item-control">
                 <label>Năm </label>
-                <input type="number" min="1900" formControlName="year">
+                <input type="number" min="1900" formControlName="year" required>
               </div>
               <div class="item-control">
                 <label>Số tác giả </label>
-                <input type="number" min="1" formControlName="numberAuthor">
+                <input type="number" min="1" formControlName="numberAuthor" required>
               </div>
               <div class="item-control">
                 <label>Trong nước/ngoài nước </label>
-                <select class="form-control" formControlName="location">
+                <select class="form-control" formControlName="location" required>
                   <option *ngFor="let item of location" [value]="item">{{item}}</option>
                 </select>
               </div>
@@ -177,43 +182,47 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(newspaperModal)">Thoát</button>
     </div>
+
+    <div *ngIf="message.condition && mode == 1 && formNewspaperNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formNewspaper">
+    <form action="" class="mgb-i-10" [formGroup]="formNewspaper" id="newspaper-form">
       <div class="row">
         <div class="col-xs-12">
           <div class="row">
             <div class="col-xs-12 col-sm-4 col-sm-offset-2">
               <div class="item-control">
                 <label>Tên bài báo </label>
-                <input type="text" formControlName="name">
+                <input type="text" formControlName="name" required>
               </div>
               <div class="item-control">
                 <label>Tên tạp chí </label>
-                <input type="text" formControlName="nameMagazine">
+                <input type="text" formControlName="nameMagazine" required>
               </div>
               <div class="item-control">
                 <label>Tạp chỉ số </label>
-                <input type="number" min="1" formControlName="numberMagazine">
+                <input type="number" min="1" formControlName="numberMagazine" required>
               </div>
               <div class="item-control">
                 <label>Trang đăng </label>
-                <input type="number" min="1" formControlName="pagePost">
+                <input type="number" min="1" formControlName="pagePost" required>
               </div>
             </div>
             <div class="col-xs-12 col-sm-4 ">
               <div class="item-control">
                 <label>Năm </label>
-                <input type="number" min="1900" formControlName="year">
+                <input type="number" min="1900" formControlName="year" required>
               </div>
               <div class="item-control">
                 <label>Số tác giả </label>
-                <input type="number" formControlName="numberAuthor">
+                <input type="number" formControlName="numberAuthor" required>
               </div>
               <div class="item-control">
                 <label>Trong nước/ngoài nước </label>
-                <select class="form-control" formControlName="location">
+                <select class="form-control" formControlName="location" required>
                   <option *ngFor="let item of location" [value]="item">{{item}}</option>
                 </select>
               </div>

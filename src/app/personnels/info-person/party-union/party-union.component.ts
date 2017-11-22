@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import LinkedList from "typescript-collections/dist/lib/LinkedList";
 import {BaseFormComponent} from "../../base-form.component";
@@ -12,6 +12,7 @@ import {TaskService} from "../../../shares/task.service";
 import {Config} from "../../../shares/config";
 import {MessageError} from "../../../shares/message.error";
 import {GroupModel} from "./model/group.model";
+import {ValidService} from "../../../shares/valid.service";
 
 declare const jQuery: any;
 
@@ -66,9 +67,12 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     process: []
   };
 
+  partyNotValid = false;
+  unionNotValid = false;
+  groupNotValid = false;
 
   constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
-    super(eleRef,taskService);
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
@@ -80,7 +84,6 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
   inInitForm() {
     this.formData = this.formBuilder.group({
-
       //hoat dong dang
       actionParty: this.formBuilder.group({
         dateIn: [this.party.dateIn],//ngay vao dang
@@ -110,30 +113,32 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       })
     });
 
+
+
     this.formDetailParty = this.formBuilder.group({
-      dateFrom: [''],
-      place: [''],
-      position: [''],
+      dateFrom: ['', Validators.required],
+      place: ['', Validators.required],
+      position: ['', Validators.required],
       now: [false]
     });
 
     this.formDetailUnion = this.formBuilder.group({
-      dateFrom: [''],
-      place: [''],
-      position: [''],
+      dateFrom: ['', Validators.required],
+      place: ['', Validators.required],
+      position: ['', Validators.required],
       now: [false],
     });
 
+
     this.formDetailGroup = this.formBuilder.group({
-      dateFrom: [''],
-      place: [''],
-      position: [''],
+      dateFrom: ['', Validators.required],
+      place: ['', Validators.required],
+      position: ['', Validators.required],
       now: [false],
     });
   }
 
 //xu ly form main
-
 
 //----------------
   openModal(target: any) {
@@ -150,8 +155,21 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
   addParty() {
     let valueForm = this.formDetailParty.value;
-    console.log("valueForm : " + JSON.stringify(valueForm));
 
+    let data: any[] = [valueForm.dateFrom, valueForm.place, valueForm.position];
+
+    this.updateView("formDetailParty", this.formDetailParty.valid);
+
+    console.log(this.formDetailParty.valid + "  " + ValidService.isNotBlanks(data));
+    if (!ValidService.isNotBlanks(data) || !this.formDetailParty.valid) {
+      this.partyNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.partyNotValid = false;
+
+    //--------------------------------------
     if (valueForm.now === true) {
       this.toggleBoolean(this.listActionParty);
     }
@@ -172,6 +190,17 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   addUnion() {
     let valueForm = this.formDetailUnion.value;
 
+    let data = [valueForm.dateFrom, valueForm.place, valueForm.position];
+
+    this.updateView("formDetailUnion", this.formDetailUnion.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formDetailUnion.valid) {
+      this.unionNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+    this.unionNotValid = false;
+    //------------------------------------------------------
     if (valueForm.now === true) {
       this.toggleBoolean(this.listActionUnion);
     }
@@ -191,6 +220,19 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     let valueForm = this.formDetailGroup.value;
     console.log("valueForm : " + JSON.stringify(valueForm));
 
+
+    let data = [valueForm.dateFrom, valueForm.place, valueForm.position];
+
+    this.updateView("formDetailGroup", this.formDetailGroup.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formDetailGroup.valid) {
+      this.groupNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.groupNotValid = false;
+    //------------------------------------------
     if (valueForm.now === true) {
       this.toggleBoolean(this.listActionGroup);
     }
@@ -219,6 +261,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     this.positionTemp = item;
     switch (target) {
       case 'party':
+        this.updateValid("formDetailParty");
         this.formDetailParty.setValue({
           dateFrom: item.dateFrom,
           place: item.place,
@@ -227,6 +270,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
         });
         break;
       case 'union':
+        this.updateValid("formDetailUnion");
         this.formDetailUnion.setValue({
           dateFrom: item.dateFrom,
           place: item.place,
@@ -235,6 +279,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
         });
         break;
       case 'group':
+        this.updateValid("formDetailGroup");
         this.formDetailGroup.setValue({
           dateFrom: item.dateFrom,
           place: item.place,
@@ -250,7 +295,6 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   onSave() {
     console.log(this.formData.value);
     let data = {};
-
     let formArm = this.formData.value.actionArmy;
     let army: ArmyModel = {
       dateIn: formArm.dateIn,

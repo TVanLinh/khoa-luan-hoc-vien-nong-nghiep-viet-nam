@@ -2,7 +2,7 @@
   <div class="form-item-title"> Quá trình công tác</div>
   <div class="action-form">
     <button (click)="onSave()">Ghi nhận</button>
-    <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+    <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
   </div>
@@ -58,10 +58,14 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+
+    <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formInfoProcess">
+    <form action="" class="mgb-i-10" [formGroup]="formInfoProcess" id="formInfoProcess">
       <div class="row">
         <div class="col-xs-12 col-sm-4">
           <div class="item-control">

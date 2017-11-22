@@ -1,13 +1,14 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {SalaryModel} from "./salary.model";
 import {CatalogRankModel} from "../../model/catalog-rank.model";
 import {CatalogSalaryService} from "../../../shares/catalog-salary.service";
-import  * as Collections from "typescript-collections";
+import * as Collections from "typescript-collections";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-salary-brief',
@@ -29,7 +30,9 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   levelChoise = "";
   level = [];
   rank = "";
-  positionUpdate: SalaryModel  = null;
+  positionUpdate: SalaryModel = null;
+
+  formNotValid = false;
 
   constructor(protected eleRef: ElementRef,
               public  catalogRankService: CatalogSalaryService
@@ -43,7 +46,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   getCatalogs() {
     this.catalogRankService.getData().subscribe(data => {
       this.catalogRanks = data;
-      console.log(JSON.stringify(this.catalogRanks));
+      // console.log(JSON.stringify(this.catalogRanks));
     });
   }
 
@@ -82,7 +85,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.getCatalogs();
-      this.getDataFromServer();
+    this.getDataFromServer();
   }
 
   initForm() {
@@ -91,27 +94,43 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
     });
 
     this.formData = this.formBuilder.group({
-      dateFrom: [new Date()],
-      dateEnd: [new Date()],
-      specie: [''],
-      group: [''],
-      rank: [''],
-      level: [''],
-      numberDecide: []
-     // factorSalary: []
+      dateFrom: ['', Validators.required],
+      dateEnd: ['', Validators.required],
+      specie: ['', Validators.required],
+      group: ['', Validators.required],
+      rank: ['', Validators.required],
+      level: ['', Validators.required],
+      numberDecide: [, Validators.required]
+      // factorSalary: []
     });
   }
 
   addItem() {
     console.log(this.formData.value);
-    let formValue = this.formData.value;
-    console.log(JSON.stringify(formValue));
-    let temp = formValue;
+    let valueForm = this.formData.value;
+
+    let data: any = [valueForm.dateFrom, valueForm.dateEnd, valueForm.specie,
+      valueForm.group, valueForm.rank, valueForm.level, valueForm.numberDecide
+    ];
+
+    this.updateView("salary-brief", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = false;
+
+
+    //---------------------------------
+    let temp = valueForm;
     temp['factorSalary'] = this.salary;
-    if(this.positionUpdate == null) {
-       this.listSalaryBrief.add(temp);
-    }else{
-      this.updateList(this.listSalaryBrief,this.positionUpdate,temp);
+    if (this.positionUpdate == null) {
+      this.listSalaryBrief.add(temp);
+    } else {
+      this.updateList(this.listSalaryBrief, this.positionUpdate, temp);
     }
     this.positionUpdate = null;
     super.closeModal(this.modalSalary);
@@ -119,23 +138,25 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(item) {
+    this.updateValid("salary-brief");
+
     this.positionUpdate = item;
 
     this.speice = item.speice;
     this.group = item.group;
     this.salary = item.factorSalary;
     this.rank = item.rank;
-    this.levelChoise  = item.level;
+    this.levelChoise = item.level;
     this.formData.setValue({
-      dateFrom:item.dateFrom,
+      dateFrom: item.dateFrom,
       dateEnd: item.dateEnd,
-      specie:item.specie,
+      specie: item.specie,
       group: item.group,
-      rank:item.rank,
+      rank: item.rank,
       level: item.level,
       numberDecide: item.numberDecide
     });
-     super.openModal(this.modalSalary);
+    super.openModal(this.modalSalary);
   }
 
   onSave() {
@@ -149,13 +170,13 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   openModals() {
     this.formData.reset();
     this.positionUpdate = null;
-     super.openModal(this.modalSalary);
+    super.openModal(this.modalSalary);
   }
 
-   getDataFromServer() {
+  getDataFromServer() {
     super.getDataServer(Config.PROCESS_SALARY_URL).subscribe(data => {
       this.listSalaryBrief = super.asList(data['salary']);
-      console.log(JSON.stringify(data['salary']));
+      // console.log(JSON.stringify(data['salary']));
     }, (err) => {
 
     });

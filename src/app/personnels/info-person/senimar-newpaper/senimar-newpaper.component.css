@@ -4,7 +4,7 @@ textarea {
   height: 100px;
 }
 
-input[type=number] {
+input {
   width: 100% !important;
   max-width: 100%;
 }

@@ -7,6 +7,7 @@ import {ContractModel} from "./contract.model";
 import {ContactService} from "./contact.service";
 import {Config} from "../../../shares/config";
 import {TaskService} from "../../../shares/task.service";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-contract',
@@ -31,10 +32,12 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
     job: "job'"
   };
 
+  formNotValid = false;
+
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public contactSevice: ContactService) {
-    super(eleRef,taskService);
+    super(eleRef, taskService);
     this.contactType = this.contactSevice.contactType;
   }
 
@@ -46,6 +49,23 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
   addItem() {
     let valueForm = this.formData.value;
+
+    let data = [valueForm.numberContact,
+      valueForm.specie,
+      valueForm.dateEffect, valueForm.dateEffect,
+      valueForm.unitOrgan, valueForm.job];
+
+    this.updateView("contract-form", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+    this.formNotValid = false;
+
+    //------------------------------------------
+
     if (this.positionUpdate > -1) {
       this.listContracts.removeElementAtIndex(this.positionUpdate);
       this.listContracts.add(valueForm, this.positionUpdate);
@@ -65,8 +85,10 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(index: number) {
+    this.updateValid("contract-form");
+
     this.positionUpdate = index;
-    console.log(index);
+
     this.initData = this.listContracts.elementAtIndex(index);
 
     // console.log("getContact(item.specie) " + JSON.stringify(value));
@@ -103,12 +125,12 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
   private initForm() {
     this.formData = this.formBuilder.group({
-      numberContact: [this.initData.numberContact],
-      specie: [this.initData.specie],
-      dateEffect: [this.initData.dateEffect],
-      dateEndEffect: [this.initData.dateEndEffect],
-      unitOrgan: [this.initData.unitOrgan],
-      job: [this.initData.job]
+      numberContact: [this.initData.numberContact, Validators.required],
+      specie: [this.initData.specie, Validators.required],
+      dateEffect: [this.initData.dateEffect, Validators.required],
+      dateEndEffect: [this.initData.dateEndEffect, Validators.required],
+      unitOrgan: [this.initData.unitOrgan, Validators.required],
+      job: [this.initData.job, Validators.required]
     });
   }
 

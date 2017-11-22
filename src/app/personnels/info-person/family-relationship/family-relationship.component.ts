@@ -7,7 +7,10 @@ import {NationalService} from '../../../shares/national.service';
 import {FamilyModel} from './family.model';
 import {TaskService} from '../../../shares/task.service';
 import {Config} from '../../../shares/config';
+import {ValidService} from "../../../shares/valid.service";
+
 declare const jQuery: any;
+
 @Component({
   selector: 'app-family-relationship',
   templateUrl: './family-relationship.component.html',
@@ -43,6 +46,8 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
     job: ''
   };
 
+  formNotValid = false;
+
   ngOnInit() {
     this.listRealtion = this.listRealtion.sort();
     this.initYear();
@@ -74,13 +79,21 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
 
   addItem() {
     const valueForm = this.formData.value;
-	
-    super.updateView("cv-name",this.formData.valid);
-      
-	
-    return ;
-    
-  /*  if(this.updateTemp == null) {
+
+    let data = [valueForm.relation, valueForm.name, valueForm.job,valueForm.yearBirth];
+
+    this.updateView("form-family", this.formData.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      this.formNotValid = true;
+      return;
+    }
+
+    this.formNotValid = false;
+
+
+    if (this.updateTemp == null) {
       this.listRelationFamily.add(valueForm);
     } else {
       const indx = this.listRelationFamily.indexOf(this.updateTemp);
@@ -91,7 +104,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
     this.updateTemp = null;
 
     this.resetForm();
-    this.closeModal(this.modal);*/
+    this.closeModal(this.modal);
   }
 
   resetForm() {
@@ -103,6 +116,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   editItem(item: FamilyModel) {
+    this.updateValid("form-family");
     this.updateTemp = item;
     this.formData.setValue({
       relation: item.relation,

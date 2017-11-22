@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../../shares/national.service";
@@ -9,6 +9,7 @@ import {ForeignLanguageService} from "./foreign-language.service";
 import * as Collections from "typescript-collections";
 import {TaskService} from "../../../../shares/task.service";
 import {Config} from "../../../../shares/config";
+import {ValidService} from "../../../../shares/valid.service";
 
 @Component({
   selector: 'app-foreign-language',
@@ -29,7 +30,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
               public foreignService: ForeignLanguageService,
               public  taskService: TaskService,
               protected eleRef: ElementRef) {
-    super(eleRef,taskService);
+    super(eleRef, taskService);
   }
 
   levels = [0, 1, 2, 3, 4];
@@ -47,6 +48,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
     communicate: 1,
     branch: ""
   };
+  formNotValid = false;
 
   ngOnInit() {
     this.initNationals();
@@ -62,13 +64,13 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
 
   initForm() {
     this.formData = this.formBuilder.group({
-      name: [this.initData.name],
-      listen: [this.initData.listen],
-      read: [this.initData.read],
-      speak: [this.initData.speak],
-      write: [this.initData.write],
-      translate: [this.initData.translate],
-      communicate: [this.initData.communicate],
+      name: [this.initData.name, Validators.required],
+      listen: [this.initData.listen, Validators.required],
+      read: [this.initData.read, Validators.required],
+      speak: [this.initData.speak, Validators.required],
+      write: [this.initData.write, Validators.required],
+      translate: [this.initData.translate, Validators.required],
+      communicate: [this.initData.communicate, Validators.required],
       branch: [this.initData.branch]
     })
   }
@@ -76,12 +78,12 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
   resetForm() {
     this.formData.patchValue({
       name: [''],
-      listen: [1 + ""],
-      read: [1],
-      speak: [1],
-      write: [1],
-      translate: [1],
-      communicate: [1],
+      listen: [""],
+      read: [''],
+      speak: [''],
+      write: [''],
+      translate: [''],
+      communicate: [''],
       branch: ['']
     })
   }
@@ -91,7 +93,6 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
       "foreign_language": this.list.toArray(),
       "staffCode": this.acount['username']
     };
-    console.log(Config.CONTRACT_FOREIGN);
     this.taskService.post(Config.CONTRACT_FOREIGN, {data: body}).subscribe((data) => {
       this.updateMessge(this.messageError.success, "success");
     }, (err) => {
@@ -101,7 +102,22 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
 
   addItem() {
     let valueForm = this.formData.value;
+    console.log(valueForm);
+    let data: any[] = [valueForm.name, valueForm.listen, valueForm.read,
+      valueForm.write, valueForm.speak,
+      valueForm.translate, valueForm.communicate];
 
+    this.updateView("language-info", this.formData.valid);
+
+
+    if (!ValidService.isNotBlanks(data) || !this.formData.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    this.formNotValid = false;
+    //----------------------
     if (this.update == null) {
       console.log(valueForm);
       this.list.add(valueForm);
@@ -117,6 +133,8 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
   }
 
   editItem(item: ForeignLanguageModel) {
+    this.updateValid("language-info");
+
     this.update = item;
     this.formData.setValue({
       name: this.update.name,
@@ -135,12 +153,12 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
     this.openModal(this.languageModal);
     this.formData.setValue({
       name: 'vi',
-      listen: 1,
-      read: 1,
-      speak: 1,
-      write: 1,
-      translate: 1,
-      communicate: 1,
+      listen: '',
+      read: "",
+      speak: "",
+      write: "",
+      translate: "",
+      communicate: "",
       branch: ''
     });
   }

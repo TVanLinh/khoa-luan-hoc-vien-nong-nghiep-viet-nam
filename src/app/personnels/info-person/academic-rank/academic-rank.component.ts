@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -7,6 +7,7 @@ import {TaskService} from "../../../shares/task.service";
 import {AcademicRankModel} from "./academic-rank.model";
 import {TeacherTitleModel} from "./teacher-title.model";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-academic-rank',
@@ -29,6 +30,9 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   listTitleTeachers = new Collections.LinkedList<TeacherTitleModel>();
   catalogAcademicRank: { name: string }[];
 
+  formAcadNotValid = false;
+  formTitleNotValid = false;
+
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
     let rank: AcademicRankModel = {
@@ -49,13 +53,13 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   initForm() {
     this.formAcademicRank = this.formBuilder.group({
-      rank: [''],
-      placeReceive: [''],
-      yearReceive: [2016]
+      rank: ['', Validators.required],
+      placeReceive: ['', Validators.required],
+      yearReceive: [2016, [Validators.required, Validators.min(1900)]]
     });
     this.formTitleTeachers = this.formBuilder.group({
-      title: [''],
-      yearReceive: [2016]
+      title: ['', Validators.required],
+      yearReceive: [2016, [Validators.required, Validators.min(1900)]]
     });
   }
 
@@ -70,6 +74,19 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   addAcademic() {
     let valueForm = this.formAcademicRank.value;
+
+    let data = [valueForm.rank, valueForm.placeReceive, valueForm.yearReceive];
+
+    this.updateView("form-academic", this.formAcademicRank.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formAcademicRank.valid) {
+      this.formAcadNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+    this.formAcadNotValid = false;
+
+    //----------------------------------------
     if (this.positionUpdateAca == null) {
       this.listRankAd.add(valueForm);
     } else {
@@ -81,6 +98,20 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   addTeacher() {
     let valueForm = this.formTitleTeachers.value;
+
+
+    let data = [valueForm.title, valueForm.yearReceive];
+
+    this.updateView("form-title", this.formTitleTeachers.valid);
+
+    if (!ValidService.isNotBlanks(data) || !this.formTitleTeachers.valid) {
+      this.formTitleNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+    this.formTitleNotValid = false;
+
+    //-------------------------------------------
     if (this.positionUpdateTeacher == null) {
       this.listTitleTeachers.add(valueForm);
     } else {
@@ -101,8 +132,10 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(item, type) {
-    console.log("item " + JSON.stringify(item));
+
+
     if (type == 0) {
+      this.updateValid("form-academic");
       this.positionUpdateAca = item;
       this.formAcademicRank.setValue({
         rank: item.rank,
@@ -111,6 +144,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
       });
       super.openModal(this.academicRank);
     } else {
+      this.updateValid("form-title");
       this.positionUpdateTeacher = item;
       this.formTitleTeachers.setValue({
         title: item.title,

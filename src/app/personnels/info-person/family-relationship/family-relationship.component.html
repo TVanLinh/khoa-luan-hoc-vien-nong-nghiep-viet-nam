@@ -4,7 +4,7 @@
     <!---->
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -50,6 +50,9 @@
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modalFamily)">Thoát</button>
+    </div>
+    <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
     </div>
   </modal-header>
   <modal-body>

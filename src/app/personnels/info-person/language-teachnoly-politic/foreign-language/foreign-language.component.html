@@ -5,7 +5,7 @@
   <form>
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -53,37 +53,40 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(languageModal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="language-info">
       <div class="row">
         <div class="col-xs-12 col-sm-5 col-sm-offset-1">
 
           <div class="item-control">
             <label>Tên ngoại ngữ </label>
-            <select class="form-control" formControlName="name" style="width: 200px">
+            <select class="form-control" formControlName="name" style="width: 200px" required>
               <option [value]="item.code" *ngFor="let item of nationals">{{item.name}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Nghe </label>
-            <select class="form-control" formControlName="listen">
+            <select class="form-control" formControlName="listen" required>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Nói </label>
-            <select class="form-control" formControlName="speak">
+            <select class="form-control" formControlName="speak" required>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Đọc </label>
-            <select class="form-control" formControlName="read">
+            <select class="form-control" formControlName="read" required>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
@@ -92,21 +95,21 @@
         <div class="col-xs-12 col-sm-5">
           <div class="item-control">
             <label>Viết </label>
-            <select class="form-control" formControlName="write">
+            <select class="form-control" formControlName="write" required>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Dịch</label>
-            <select class="form-control" formControlName="translate">
+            <select class="form-control" formControlName="translate" required>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>
 
           <div class="item-control">
             <label>Giao tiếp </label>
-            <select class="form-control" formControlName="communicate">
+            <select class="form-control" formControlName="communicate" required>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
           </div>

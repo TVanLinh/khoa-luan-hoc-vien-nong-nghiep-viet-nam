@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../../base-form.component";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {PoliticModel} from "./politic.model";
 import * as Collections from "typescript-collections";
 import {TaskService} from "../../../../shares/task.service";
 import {Config} from "../../../../shares/config";
+import {ValidService} from "../../../../shares/valid.service";
 
 @Component({
   selector: 'app-politic',
@@ -34,9 +35,10 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   };
 
   listData = new Collections.LinkedList<PoliticModel>();
+  formNotValid = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
-    super(eleRef,taskService);
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
@@ -50,8 +52,8 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
     });
 
     this.formDataPoliticAdd = this.formBuilder.group({
-      level: [''],
-      yearLicense: []
+      level: ['', Validators.required],
+      yearLicense: ['', [Validators.required, Validators.min(1900)]]
     });
   }
 
@@ -61,11 +63,22 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   }
 
   addItem() {
-    console.log(this.formDataPoliticAdd.value);
     //do something ------------
-    this.closeModal(this.politicModal);
 
     let valueForm = this.formDataPoliticAdd.value;
+
+    let data = [valueForm.level, valueForm.yearLicense];
+
+    this.updateView("politic-form", this.formDataPoliticAdd.valid);
+
+    if (!ValidService.isNotBlanks(data) && !this.formDataPoliticAdd.valid) {
+      this.formNotValid = true;
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+    this.formNotValid = false;
+
+    ///-------------------------------------------------
     if (this.positionTemp == null) {
       this.listData.add(valueForm);
       valueForm['now'] = false;
@@ -74,13 +87,16 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
       this.listData.remove(this.positionTemp);
       valueForm['now'] = this.positionTemp['now'];
       this.listData.add(valueForm, idex);
+
     }
 
     this.formDataPoliticAdd.reset();
     this.positionTemp = null;
+    this.closeModal(this.politicModal);
   }
 
   editItem(item) {
+    this.updateValid("politic-form");
     this.positionTemp = item;
     this.formDataPoliticAdd.setValue({
       level: item.level,
@@ -108,7 +124,7 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
   }
 
-  change(i){
+  change(i) {
     this.toggleBoolean(this.listData);
     let temp: PoliticModel = this.listData.elementAtIndex(i);
     if (temp != null) {
