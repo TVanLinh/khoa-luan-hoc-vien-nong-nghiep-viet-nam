@@ -124,7 +124,7 @@
           <label>Quận/Huyện </label>
           <select formControlName="district" class="form-control" #districtBirthDay required type="select"
 		  text-validator 
-		   (change)="districtBirthDayChange(districtBirthDay.value)">
+		   (change)="districtBirthDayChange(districtBirthDay.value,cityBirthDay.value)">
            <option *ngFor="let item of listDistrictBirthDay" [value]="item['ID']">{{item['Title']}}</option>
           </select>
         </div>

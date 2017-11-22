@@ -13,12 +13,12 @@ export  class  AddressService  {
 	api = "/";
 	listCity = null;
 	constructor(public taskService: TaskService) {
-		if(this.listCity == null){
+		/*if(this.listCity == null){
 			this.taskService.get(Config.CATALOG_ADDRESS_URL +"/city").subscribe(data=>{
 				this.listCity = data;
 				console.log("city: "+JSON.stringify (this.listCity));
 			});
-		}
+		}*/
 	}
 	
 	getAllCity() {

@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
-import {BaseFormComponent} from "../../base-form.component";
-import {FormGroup} from "@angular/forms";
-import * as Collections from "typescript-collections";
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {NationalService} from "../../../shares/national.service";
-import {FamilyModel} from "./family.model";
-import {TaskService} from "../../../shares/task.service";
-import {Config} from "../../../shares/config";
-
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {BaseFormComponent} from '../../base-form.component';
+import {FormGroup, Validators} from '@angular/forms';
+import * as Collections from 'typescript-collections';
+import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
+import {NationalService} from '../../../shares/national.service';
+import {FamilyModel} from './family.model';
+import {TaskService} from '../../../shares/task.service';
+import {Config} from '../../../shares/config';
+declare const jQuery: any;
 @Component({
   selector: 'app-family-relationship',
   templateUrl: './family-relationship.component.html',
@@ -23,14 +23,14 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   constructor(public nationalService: NationalService,
               public taskService: TaskService,
               protected eleRef: ElementRef) {
-    super(eleRef,taskService);
+    super(eleRef, taskService);
   }
 
   listYear: number[] = [];
-  listRealtion: string[] = ["bố", "mẹ", "anh ", "chị ", "em ", "ông ", "bà"];
+  listRealtion: string[] = ['bố', 'mẹ', 'anh ', 'chị ', 'em ', 'ông ', 'bà'];
 
   initYear() {
-    let date = new Date();
+    const date = new Date();
     for (let i = date.getFullYear(); i > 1899; i--) {
       this.listYear.push(i);
     }
@@ -52,32 +52,38 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
 
   initForm() {
     this.formData = this.formBuilder.group({
-      relation: [this.dataForm.relation],
-      name: [this.dataForm.name],
-      yearBirth: [this.dataForm.yearBirth],
-      job: [this.dataForm.job]
+      relation: [this.dataForm.relation, Validators.required],
+      name: [this.dataForm.name, Validators.required],
+      yearBirth: [this.dataForm.yearBirth, Validators.required],
+      job: [this.dataForm.job, Validators.required]
     });
   }
 
   onSave() {
-
-    let body = {
-      "family": this.listRelationFamily.toArray(),
-      "staffCode": this.acount['username']
+    const body = {
+      'family': this.listRelationFamily.toArray(),
+      'staffCode': this.acount['username']
     };
     this.taskService.post(Config.FAMILY_URL, {data: body}).subscribe((data) => {
-      this.updateMessge(this.messageError.success, "success");
+      this.updateMessge(this.messageError.success, 'success');
     }, (err) => {
-      this.updateMessge(this.messageError.errorSave, "warning");
+      this.updateMessge(this.messageError.errorSave, 'warning');
     });
+
   }
 
   addItem() {
-    let valueForm = this.formData.value;
-    if (this.updateTemp == null) {
+    const valueForm = this.formData.value;
+	
+    super.updateView("cv-name",this.formData.valid);
+      
+	
+    return ;
+    
+  /*  if(this.updateTemp == null) {
       this.listRelationFamily.add(valueForm);
     } else {
-      let indx = this.listRelationFamily.indexOf(this.updateTemp);
+      const indx = this.listRelationFamily.indexOf(this.updateTemp);
       this.listRelationFamily.remove(this.updateTemp);
       this.listRelationFamily.add(valueForm, indx);
     }
@@ -85,7 +91,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
     this.updateTemp = null;
 
     this.resetForm();
-    this.closeModal(this.modal);
+    this.closeModal(this.modal);*/
   }
 
   resetForm() {
@@ -109,7 +115,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   getDataFromServer() {
-    this.taskService.get(Config.FAMILY_URL + "?username=" + this.acount['username']).subscribe((data) => {
+    this.taskService.get(Config.FAMILY_URL + '?username=' + this.acount['username']).subscribe((data) => {
       if (data['family']) {
         this.listRelationFamily = this.asList(data['family']);
       }

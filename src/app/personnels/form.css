@@ -164,9 +164,10 @@ input:focus, select:focus {
   box-shadow: none;
 }
 
-/*input.ng-dirty, input.ng-invalid, input.ng-touched {*/
-  /*border: 1px solid #ff3620;*/
-/*}*/
+/*input.ng-dirty, input.ng-invalid, input.ng-touched {
+  border: 1px solid #ff3620;
+}
+
 
 /*input.ng-valid {*/
   /*border: 1px solid rgb(204, 204, 204);*/

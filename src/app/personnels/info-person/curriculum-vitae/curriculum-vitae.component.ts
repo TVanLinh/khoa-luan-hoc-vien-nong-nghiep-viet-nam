@@ -60,7 +60,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   
   constructor(public taskService: TaskService, protected eleRef: ElementRef,public addressService: AddressService ) {
     super(eleRef,taskService);
-	this.addressService.getALl();
+//	this.addressService.getALl();
     // this.getCV();
   }
 
@@ -87,15 +87,18 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   
   cityBirthDayChange(id: number) {
      this.listDistrictBirthDay =[];
-	 this.addressService.getDistrictByCityID(id).subscribe((data:any[])=>{
-		this.listDistrictBirthDay = data;
+	 this.addressService.geDistrict().subscribe((data:any[])=>{
+		this.listDistrictBirthDay = data.filter(item => item['TinhThanhID'] == id);
 	});
   }
   
-   districtBirthDayChange(id: number) {
+   districtBirthDayChange(id: number,cityBirthDay:number ) {
+	console.log(id);
 	  this.listGuidBirthDay =[];
-	  this.addressService.getGuildByDistrictId(id).subscribe((data:any[])=>{
-		this.listGuidBirthDay = data;
+	  
+	  this.addressService.getGuild().subscribe((data:any[])=>{
+		this.listGuidBirthDay = data.filter(item => item['QuanHuyenID'] == id && item['TinhThanhID']==cityBirthDay);;
+		console.log(JSON.stringify(data));
 	});
   }
   

@@ -53,7 +53,7 @@
     </div>
   </modal-header>
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="form-family">
       <div class="row">
         <div class="col-xs-12 col-sm-6 ">
           <!---->
@@ -61,7 +61,7 @@
           <!---->
           <div class="item-control pdt-i-0">
             <label>Họ tên</label>
-            <input type="text" class="form-control" formControlName="name"/>
+            <input id="cv-name" type="text" class="form-control" formControlName="name"/>
           </div>
           <!---->
 
@@ -69,7 +69,6 @@
           <div class="item-control ">
             <label>Quan hệ </label>
             <select class="form-control" formControlName="relation">
-              <option value="">----Lựa chọn-----</option>
               <option style="text-transform: capitalize" *ngFor="let item of listRealtion" [value]="item">{{item}}
               </option>
             </select>

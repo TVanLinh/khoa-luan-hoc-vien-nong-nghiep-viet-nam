@@ -59,13 +59,33 @@ export class BaseFormComponent {
   }
 
   updateView(id: string, condition: boolean) {
-    let ref = jQuery(this.eleRef.nativeElement).find("#" + id + " input.ng-invalid ");
-    let ref2 = jQuery(this.eleRef.nativeElement).find("#" + id + " select.ng-valid");
-    let bd1 = {border: "1px solid #ff3620"};
-    let bd2 = {border: "1px solid #ff3620"};
+    let ref = jQuery(this.eleRef.nativeElement).find("#" + id + ".ng-invalid ");
+    //let ref2 = jQuery(this.eleRef.nativeElement).find("#" + id + ".ng-valid ");
+    let bd1 = {border: "1px solid red !important"};
+    let bd2 = {border: "1px solid #ff3620 !important"};
+	console.log("condition "+condition+ "   "+ref.toString() );
     if (!condition) {
       ref.css(bd1);
-      ref2.css({bd1});
+     // ref2.css({bd1});
+	   ref.addClass("error");
+	//  ref2.addClass("error");
+    } else {
+      ref.css(bd2);
+    //  ref2.css({bd2});
+    }
+  }
+  
+  updateViewNotId (condition : boolean) {
+  let ref = jQuery(this.eleRef.nativeElement).find( " input.ng-invalid ");
+    let ref2 = jQuery(this.eleRef.nativeElement).find( " select.ng-valid");
+    let bd1 = {border: "1px solid #ff0000 !important"};
+    let bd2 = {border: "1px solid #ff3620 !important"};
+	console.log("condition "+ condition+ "   "+ref.toString() );
+    if (!condition) {
+     // ref.css(bd1);
+	  ref.addClass("error");
+	  ref2.addClass("error");
+     // ref2.css({bd1});
     } else {
       ref.css(bd2);
       ref2.css({bd2});

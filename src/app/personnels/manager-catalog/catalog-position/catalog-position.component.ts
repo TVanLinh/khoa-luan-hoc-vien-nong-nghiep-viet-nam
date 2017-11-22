@@ -40,7 +40,7 @@ export class CatalogPositionComponent implements OnInit {
 	list:AddressModel[];
 	ngOnInit() {
 		let item:AddressModel = new AddressModel();
-		this.list =[];
+		/*this.list =[];
 		for(let i=0;i<this.tinh.length;i++) {
 			item = new AddressModel();
             item.districts =[];	
@@ -56,10 +56,10 @@ export class CatalogPositionComponent implements OnInit {
 			}
 		this.list.push(item);
 		}
-		this.str  = JSON.stringify(this.list);
+		this.str  = JSON.stringify(this.list);*/
 	}
   
   
 
-}
+//}
 }
