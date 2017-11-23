@@ -21,6 +21,7 @@ export class ValidService {
     }
 
     for (let item of strs) {
+      console.log("item " + item);
       if (!ValidService.isNotBlank(item)) {
         console.log("item " + item);
         return false;

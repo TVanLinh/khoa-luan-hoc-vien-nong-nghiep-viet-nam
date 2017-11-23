@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {NationalService} from "../../../shares/national.service";
 import {TaskService} from "../../../shares/task.service";
@@ -9,6 +9,7 @@ import {LongtimeTrainModel} from "./longtime-train.model";
 import {ShorttimeTrainModel} from "./shorttime-train.model";
 import {National} from "../../model/national.model";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 export const LONG_TIME = 0;
 export const SHORT_TIME = 1;
@@ -36,6 +37,10 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   nationals: National [] = [];
   commons: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+  formValid = false;
+  shortTimeNotValid = false;
+  longTimeNotValid = false;
+
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public nationalService: NationalService,) {
@@ -56,31 +61,44 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
 
   private initForm() {
     this.formData = this.formBuilder.group({
-      generalEdu: [12]
+      generalEdu: [12, Validators.required]
     });
 
     this.formLongTime = this.formBuilder.group({
-      yearFrom: [''],
-      yearEnd: [''],
-      specialized: [''],//chuyen nghanh
-      levelLearn: [this.rankTrains[0]],//bac hoc
-      academicRank: ['Cử nhân'],//hoc vi
-      spice: [this.speciesObtain[0]],//xep loai
-      school: [''],
-      national: ['vi']
+      yearFrom: ['', [Validators.required, Validators.min(1900)]],
+      yearEnd: ['', [Validators.required, Validators.min(1900)]],
+      specialized: ['', Validators.required],//chuyen nghanh
+      levelLearn: [this.rankTrains[0], Validators.required],//bac hoc
+      academicRank: ['Cử nhân', Validators.required],//hoc vi
+      spice: [this.speciesObtain[0], Validators.required],//xep loai
+      school: ['', Validators.required],
+      national: ['vi', Validators.required]
     });
     this.formShortTime = this.formBuilder.group({
-      dateFrom: [''],
-      numberMonth: [''],
-      certificate: [''],
-      placeTrain: [''],
-      national: ['vi'],
-      description: ['']
+      dateFrom: ['', Validators.required],
+      numberMonth: ['', [Validators.required, Validators.min(1)]],
+      certificate: ['', Validators.required],
+      placeTrain: ['', Validators.required],
+      national: ['vi', Validators.required],
+      description: ['', Validators.required]
     });
   }
 
   onSave() {
     let valueForm = this.formData.value;
+    this.updateView("train-main-form", this.formData.valid);
+    this.formValid = true;
+
+    if (!valueForm.generalEdu) {
+      this.updateMessge("Vui lòng chọn trình độ giáo dục phổ thông ", "warning");
+      return;
+    }
+
+    if (this.longTimes.size() == 0) {
+      this.updateMessge("Bạn chưa nhập quá trình đào tạo dài hạn ", "warning");
+      return;
+    }
+
 
     let train = {};
     train['general'] = valueForm.generalEdu;
@@ -93,7 +111,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   resetFormData(target) {
     if (target === SHORT_TIME) {
       this.formShortTime.setValue({
-        dateFrom: new Date(),
+        dateFrom: '',
         numberMonth: 1,
         certificate: '',
         placeTrain: '',
@@ -102,8 +120,8 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       });
     } else if (target === LONG_TIME) {
       this.formLongTime.setValue({
-        yearFrom: new Date(),
-        yearEnd: new Date(),
+        yearFrom: '',
+        yearEnd: '',
         specialized: '',//chuyen nghanh
         levelLearn: this.rankTrains[0],//bac hoc
         academicRank: 'Cử nhân',//hoc v
@@ -112,16 +130,30 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
         national: 'vi'
       });
     }
+
+
   }
 
+
   addItem(mode) {
+    this.formValid = false;
     let shortForm = this.formShortTime.value;
     let longForm = this.formLongTime.value;
 
-    console.log(shortForm);
-    console.log(longForm);
-
     if (mode == SHORT_TIME) {
+      let data = [shortForm.dateFrom, shortForm.numberMonth,
+        shortForm.certificate, shortForm.placeTrain, shortForm.national, shortForm.description];
+      this.updateView("form-short-time", this.formShortTime.valid);
+
+      if (!ValidService.isNotBlanks(data) || !this.formShortTime.valid) {
+        this.shortTimeNotValid = true;
+        this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+        return;
+      }
+
+      this.shortTimeNotValid = false;
+
+      ///---------------------------------
       if (this.positionUpdateShort == null) {
         this.shortTimes.add(shortForm);
       } else {
@@ -130,6 +162,20 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       this.positionUpdateShort = null;
       super.closeModal(this.trainShortTimeModal);
     } else {
+      let data = [longForm.yearFrom, longForm.yearEnd,
+        longForm.specialized, longForm.levelLearn,
+        longForm.academicRank, longForm.spice,
+        longForm.school, longForm.national];
+      this.updateView("form-long-time", this.formLongTime.valid);
+
+      if (!ValidService.isNotBlanks(data) || !this.formLongTime.valid) {
+        this.longTimeNotValid = true;
+        this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+        return;
+      }
+
+      this.longTimeNotValid = false;
+      //---------------------------------------------------
       if (this.positionUpdateLong == null) {
         this.longTimes.add(longForm);
       } else {

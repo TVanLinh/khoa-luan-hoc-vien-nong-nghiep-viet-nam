@@ -3,7 +3,7 @@
   <form>
     <div class="action-form">
       <button (click)="onSave(0)">Ghi nhận</button>
-      <div *ngIf="message.condition && mode == 0 && formSeminarNotValid == false && formNewspaperNotValid == false"
+      <div *ngIf="message.condition && mode == 0"
            [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
@@ -64,7 +64,7 @@
         <div class="form-item">
           <div class="action-form" style="margin-bottom: 0 !important;">
             <button (click)="onSave(1)">Ghi nhận</button>
-            <div *ngIf="message.condition && mode == 1  && formSeminarNotValid == false && formNewspaperNotValid == false"
+            <div *ngIf="message.condition && mode == 1 "
                  [ngClass]="'alert alert-'+ message.type">
               {{message.content}}
             </div>
@@ -182,8 +182,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(newspaperModal)">Thoát</button>
     </div>
-
-    <div *ngIf="message.condition && mode == 1 && formNewspaperNotValid " [ngClass]="'alert alert-'+ message.type">
+    <div *ngIf="message.condition && formNewspaperNotValid " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
   </modal-header>

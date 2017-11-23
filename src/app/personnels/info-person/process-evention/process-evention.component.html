@@ -5,7 +5,7 @@
   <form action="" [formGroup]="formData">
     <div class="action-form" style="margin-bottom: 10px;">
       <button (click)="onSave()">Ghi nhận</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
@@ -54,32 +54,37 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(evention)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && formNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formData">
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="process-event">
       <div class="row">
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
+
           <div class="item-control pdt-i-0">
             <label>Tên phát minh/sáng chế </label>
-            <input type="text" formControlName="name">
+            <input type="text" formControlName="name" required>
           </div>
           <!---->
 
           <div class="item-control">
             <label>Cơ quan cấp</label>
-            <input type="text" formControlName="organLicense">
+            <input type="text" formControlName="organLicense" required>
           </div>
 
           <div class="item-control  ">
             <label>Ngày cấp</label>
-            <input type="date" formControlName="dateOfIssue">
+            <input type="date" formControlName="dateOfIssue" required>
           </div>
           <div class="item-control  ">
             <label>Số tác giả </label>
-            <input type="number" formControlName="numberAuthor">
+            <input type="number" formControlName="numberAuthor" required>
           </div>
           <div class="item-control  ">
             <label>Diễn giải </label>

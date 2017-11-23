@@ -2,12 +2,13 @@
   <div class="form-item-title">
     Quá trình đào tạo
   </div>
-  <form action="" [formGroup]="formData" style="border: none">
+  <form action="" [formGroup]="formData" style="border: none" id="train-main-form">
     <div class="action-form">
       <button (click)="onSave()">Ghi nhận</button>
-      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      <div *ngIf="message.condition && formValid == true" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
+      {{message.content}}
     </div>
     <!---->
 
@@ -56,7 +57,7 @@
             <td>
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,0)"><i
-                class="fa fa-remove icon-remove-update"></i></span>
+                class="fa fa-remove "></i></span>
             </td>
           </tr>
 
@@ -99,7 +100,7 @@
             <td>
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,1)"><i
-                class="fa fa-remove icon-remove-update"></i></span>
+                class="fa fa-remove"></i></span>
             </td>
           </tr>
           <!---->
@@ -120,35 +121,38 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(trainLongTimeModal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && longTimeNotValid == true" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formLongTime">
+    <form action="" class="mgb-i-10" [formGroup]="formLongTime" id="form-long-time">
       <div class="row">
 
         <div class="col-xs-12 col-sm-5 col-sm-offset-1">
 
           <div class="item-control">
             <label>Từ năm</label>
-            <input type="number" class="date" formControlName="yearFrom"/>
+            <input type="number" class="date" formControlName="yearFrom" required/>
           </div>
 
 
           <div class="item-control">
             <label>Đến năm</label>
-            <input type="number" class="date" formControlName="yearEnd"/>
+            <input type="number" class="date" formControlName="yearEnd" required/>
           </div>
 
 
           <div class="item-control">
             <label>Chuyên nghành</label>
-            <input type="text" formControlName="specialized"/>
+            <input type="text" formControlName="specialized" required/>
           </div>
 
 
           <div class="item-control">
             <label>Bậc học</label>
-            <select name="" class="form-control" formControlName="levelLearn">
+            <select name="" class="form-control" formControlName="levelLearn" required>
               <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
@@ -158,14 +162,14 @@
         <div class="col-xs-12 col-sm-5">
           <div class="item-control">
             <label>Học vị đạt được</label>
-            <select name="" class="form-control" formControlName="academicRank">
+            <select name="" class="form-control" formControlName="academicRank" required>
               <option *ngFor="let item of catalogRankAcademic" [value]="item.name">{{item.name}}</option>
             </select>
           </div>
           <!---->
           <div class="item-control">
             <label>Xếp loại</label>
-            <select name="" class="form-control" formControlName="spice">
+            <select name="" class="form-control" formControlName="spice" required>
               <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
             </select>
           </div>
@@ -173,12 +177,12 @@
 
           <div class="item-control">
             <label>Trường đào tạo</label>
-            <input type="text" formControlName="school"/>
+            <input type="text" formControlName="school" required/>
           </div>
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national" style="width: 200px">
+            <select name="" class="form-control" formControlName="national" style="width: 200px" required>
               <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
@@ -203,28 +207,31 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(trainShortTimeModal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition && shortTimeNotValid " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form action="" class="mgb-i-10" [formGroup]="formShortTime">
+    <form action="" class="mgb-i-10" [formGroup]="formShortTime" id="form-short-time">
       <div class="row">
 
         <div class="col-xs-12 col-sm-5 col-sm-offset-1">
           <div class="item-control">
             <label>Từ tháng/năm</label>
-            <input type="date" class="" formControlName="dateFrom"/>
+            <input type="date" class="" formControlName="dateFrom" required/>
           </div>
 
 
           <div class="item-control">
             <label>Số tháng</label>
-            <input type="number" class="date" min="1" formControlName="numberMonth"/>
+            <input type="number" class="date" min="1" formControlName="numberMonth" required/>
           </div>
 
 
           <div class="item-control">
             <label>Chứng chỉ</label>
-            <input type="text" formControlName="certificate"/>
+            <input type="text" formControlName="certificate" required/>
           </div>
         </div>
 
@@ -232,13 +239,13 @@
 
           <div class="item-control">
             <label>Nơi đào tạo</label>
-            <input type="text" formControlName="placeTrain"/>
+            <input type="text" formControlName="placeTrain" required/>
           </div>
 
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national" style="width: 200px">
+            <select name="" class="form-control" formControlName="national" style="width: 200px" required>
               <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
@@ -247,7 +254,7 @@
           <!---->
           <div class="item-control">
             <label>Mô tả</label>
-            <input type="text" formControlName="description"/>
+            <input type="text" formControlName="description" required/>
           </div>
           <!---->
         </div>

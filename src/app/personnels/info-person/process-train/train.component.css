@@ -1,31 +1,36 @@
-.long-time input,.long-time select,.short-time input,.short-time select{
+.long-time input, .long-time select, .short-time input, .short-time select {
   float: none !important;
   min-width: 0 !important;
   max-width: 100%;
   width: 100px;
 }
-.short-time input,.short-time select{
+
+.short-time input, .short-time select {
   width: 150px;
 }
-.date {
-  min-width: 200px;
+
+input[type='number'] {
+  min-width: 200px !important;
+  float: right;
 }
-.item-control{
+
+.item-control {
   /*padding-top: 0;*/
 }
 
-.col-xs-12>.item-control:first-child{
+.col-xs-12 > .item-control:first-child {
   padding-top: 0;
 }
+
 /*input[type='number'] {*/
-  /*float: right;*/
+/*float: right;*/
 /*}*/
 
-thead>tr>th:last-child {
+thead > tr > th:last-child {
   width: 100px;
 }
 
-input[type="number"]{
-  width: 100% !important;
-  max-width: 100% !important;
-}
+/*input[type="number"] {*/
+  /*width: 100% !important;*/
+  /*max-width: 100% !important;*/
+/*}*/
