@@ -1,4 +1,4 @@
 export class GuildModel {
-	code: number;
+	code: number
 	name: string;
 }

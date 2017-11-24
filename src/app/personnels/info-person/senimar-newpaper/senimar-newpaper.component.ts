@@ -35,6 +35,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
   formSeminarNotValid = false;
   formNewspaperNotValid = false;
+  formValid = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -71,7 +72,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
   addItem(target: string) {
     let valueFormSemina = this.formSemina.value;
     let valueFormNewspaper = this.formNewspaper.value;
-
+    this.formValid = false;
     if (target == SENIMAR) {
       let data = [valueFormSemina.name, valueFormSemina.nameConvention, valueFormSemina.pagePost, valueFormSemina.year,
         valueFormSemina.numberAuthor, valueFormSemina.location];
@@ -174,6 +175,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
   onSave(mode) {
     this.mode = mode;
+    this.formValid = true;
     if (mode == 0) {
       super.pushDataServer(Config.SEMINAR_TOP_URL, 'seminar', this.listSenimar);
     } else {

@@ -32,10 +32,10 @@
 
             <div class="item-control" style="clear: none">
               <label class="item-title">2, Họ và tên <span class="star">*</span></label>
-              <input name="fullName" type="text" formControlName="fullName" required />
+              <input name="fullName" type="text" formControlName="fullName" required/>
 
               <!--<div class="star" *ngIf="(!formCV.controls.fullName.errors.valid)">-->
-                <!--{{messageError.fullName}}-->
+              <!--{{messageError.fullName}}-->
               <!--</div>-->
 
 
@@ -51,21 +51,21 @@
             <label class="item-title">4, Ngày sinh <span class="star">*</span></label>
             <input type="date" style="width: 30%;margin-right: 20px"
                    [value]="infoBasic.birthDay | date:'yyyy-MM-dd'" required
-                   formControlName="birthDay" #birthDay />
+                   formControlName="birthDay" #birthDay/>
 
             <!--<div class="star" *ngIf="(!formCV.controls.birthDay.errors.valid )">-->
-              <!--{{messageError.birthDay}}-->
+            <!--{{messageError.birthDay}}-->
             <!--</div>-->
 
             <label class="item-title">5, Giới tính <span class="star">*</span></label>
-            <select formControlName="sex" class="form-control" #sex type="select" >
+            <select formControlName="sex" class="form-control" #sex type="select">
               <option value="1">Nam</option>
               <option value="2">Nữ</option>
               <option value="2">Khác</option>
             </select>
 
             <!--<div class="star" *ngIf="!formCV.controls.sex.errors.valid">-->
-              <!--{{messageError.sex}}-->
+            <!--{{messageError.sex}}-->
             <!--</div>-->
 
           </div>
@@ -73,10 +73,11 @@
 
           <div class="item-control">
             <label class="item-title">6,Email <span class="star">*</span></label>
-            <input type="email" formControlName="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" style="width: 30%;margin-right: 20px" required
-                   #email />
+            <input type="email" formControlName="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                   style="width: 30%;margin-right: 20px" required
+                   #email/>
 
-            <label class="item-title" >7,Điện thoại <span class="star">*</span></label>
+            <label class="item-title">7,Điện thoại <span class="star">*</span></label>
             <input type="text" style="width: 200px" formControlName="phone" pattern="[0-9]*" required #phone>
 
           </div>
@@ -94,48 +95,35 @@
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
-          <label><span>Phường/xã   </span> </label>
-          <select formControlName="guild" #guidBithDay class="form-control"
-		  required type="select"
-		  >
-             <option *ngFor="let item of listGuidBirthDay" [value]="item['ID']">{{item['Title']}}</option>
+          <label>Tình/TP </label>
+          <select formControlName="city" class="form-control"
+                  required type="select" #cityBirthDay (change)="cityChange(cityBirthDay.value,'NS')">
+            <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
-
-          <!--<div class="star" *ngIf="(!formCV.controls.placeBirth.controls.guild.errors.valid)">-->
-            <!--{{messageError.guild}}-->
-          <!--</div>-->
-
         </div>
+
+
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Quận/Huyện </label>
           <select formControlName="district" class="form-control" #districtBirthDay required type="select"
-
-		   (change)="districtBirthDayChange(districtBirthDay.value,cityBirthDay.value)">
-           <option *ngFor="let item of listDistrictBirthDay" [value]="item['ID']">{{item['Title']}}</option>
+                  (change)="districtChange(districtBirthDay.value,'NS')">
+            <option *ngFor="let item of birthDays.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
         </div>
-
-        <!--<div class="star" *ngIf="(!formCV.controls.placeBirth.controls.district.errors.valid)">-->
-          <!--{{messageError.district}}-->
-        <!--</div>-->
-
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
-          <label>Tình/TP </label>
-          <select formControlName="city" class="form-control"
-		  required type="select"  #cityBirthDay (change)="cityBirthDayChange(cityBirthDay.value)" >
-            <option *ngFor="let item of listCity" [value]="item['ID']">{{item['Title']}}</option>
+          <label><span>Phường/xã   </span> </label>
+          <select formControlName="guild" #guidBithDay class="form-control"
+                  required type="select">
+            <option *ngFor="let item of guidsBithday" [value]="item['code']">{{item['name']}}</option>
           </select>
+
         </div>
-
-        <!--<div class="star" *ngIf="!formCV.controls.placeBirth.controls.city.errors.valid">-->
-          <!--{{messageError.city}}-->
-        <!--</div>-->
-
       </div>
+
     </div>
 
     <div class="row place" formGroupName="homeTown">
@@ -144,43 +132,35 @@
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
-          <!--<span>Noi sinh</span>-->
-          <label><span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control" #homeTownGuid required type="select" >
-            <option value="0">----Chọn-----</option>
-            <option value="Gia lam">Gia lam</option>
+          <label>Tình/TP </label>
+          <select formControlName="city" class="form-control"
+                  required type="select" #homeTownCity (change)="cityChange(homeTownCity.value,'QUEQUAN')">
+            <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
-
-          <!--<div class="star" *ngIf="!formCV.controls.homeTown.controls.guild.errors.valid">-->
-            <!--{{messageError.guild}}-->
-          <!--</div>-->
-
         </div>
+
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Quận/Huyện </label>
           <select formControlName="district" class="form-control" #homeTownDistrict required type="select"
-                  >
-            <option value="0" selected>----Chọn-----</option>
-            <option value="Gia lam">Gia lam</option>
+                  (change)="districtChange(homeTownDistrict.value,'QUEQUAN')">
+            <option *ngFor="let item of homeTown.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
-
-          <!--<div class="star" *ngIf="(!formCV.controls.homeTown.controls.district.errors.valid)">-->
-            <!--{{messageError.district}}-->
-          <!--</div>-->
-
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
-          <label>Tình/TP </label>
-          <select formControlName="city" class="form-control" #homeTownCity type="select" >
-            <option value="Gia lam">Gia lam</option>
+          <label><span>Phường/xã   </span> </label>
+          <select formControlName="guild" #homeTownGuid class="form-control"
+                  required type="select">
+            <option *ngFor="let item of guilsHomeTown" [value]="item['code']">{{item['name']}}</option>
           </select>
-        </div>
 
+        </div>
       </div>
+
+
     </div>
     <!--ton giao dan toc -->
     <div class="row ">
@@ -188,8 +168,8 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control">
           <label class="item-title">10, Dân tộc </label>
-          <select class="form-control" formControlName="nation" type="select" required >
-             <option [value]="item.name" *ngFor="let item of listNation  | orderBy: 'name'">{{item.name}}</option>
+          <select class="form-control" formControlName="nation" type="select" required>
+            <option [value]="item.name" *ngFor="let item of listNation  | orderBy: 'name'">{{item.name}}</option>
           </select>
 
         </div>
@@ -211,12 +191,12 @@
     <!--So chung minh thu-->
     <div class="row place" formGroupName="identity">
       <div class="col-xs-12">
-        <label class="item-title" style="width: auto" >12, Số chứng minh thư <span class="star">*</span> </label>
+        <label class="item-title" style="width: auto">12, Số chứng minh thư <span class="star">*</span> </label>
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label class="hidden-xs"></label>
-          <input type="text" formControlName="identityNumber" minlength="6" pattern="[0-9]*" required #identityNumber />
+          <input type="text" formControlName="identityNumber" minlength="6" pattern="[0-9]*" required #identityNumber/>
 
         </div>
       </div>
@@ -225,7 +205,7 @@
         <div class="item-control pdt-i-0">
           <label>Ngày cấp </label>
           <input formControlName="dateRange" type="date"
-                 [value]="infoBasic.identity.dateRange | date:'yyyy-MM-dd'" required #dateRange />
+                 [value]="infoBasic.identity.dateRange | date:'yyyy-MM-dd'" required #dateRange/>
 
         </div>
       </div>
@@ -233,7 +213,7 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Nơi cấp </label>
-          <input formControlName="placeRange" type="text" required #placeRange />
+          <input formControlName="placeRange" type="text" required #placeRange/>
 
 
         </div>
@@ -246,7 +226,7 @@
         <div class="item-control">
           <label class="mgr-20 item-title" style="width:auto;">13, Nơi đăng kí hộ khẩu thường chú <span
             class="star">*</span></label>
-          <input style="width: 71%" type="text" formControlName="placeRegisterHouseHold" required />
+          <input style="width: 71%" type="text" formControlName="placeRegisterHouseHold" required/>
           <span style="display: block">(Số nhà đường thành phố /  Thôn xóm xã huyện tỉnh )</span>
 
 
@@ -274,7 +254,7 @@
       <div class="col-xs-12 col-sm-5">
         <div class="item-control">
           <label class="item-title mgr-20" style="width: auto">15, Nhóm máu </label>
-          <select formControlName="bloodGroup" class="form-control" required type="select" >
+          <select formControlName="bloodGroup" class="form-control" required type="select">
             <option value="A">A</option>
             <option value="B">A</option>
             <option value="AB">AB</option>
@@ -283,7 +263,7 @@
 
 
           <!--<div class="star" *ngIf="!formCV.controls.bloodGroup.errors.valid">-->
-            <!--{{messageError.bloodGroup}}-->
+          <!--{{messageError.bloodGroup}}-->
           <!--</div>-->
 
         </div>
@@ -293,6 +273,43 @@
     <div class="row address" formGroupName="placeNow">
       <div class="col-xs-12">
         <span class="item-title">16, Nơi ở hiện nay <span class="star">*</span></span>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <div class="item-control">
+          <label>Tình/TP </label>
+          <select formControlName="city" class="form-control" #placeNowC required type="select">
+            <option value="0">----Chọn-----</option>
+            <option value="1">1</option>
+          </select>
+          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.city.errors.valid)">-->
+          <!--{{messageError.city}}-->
+          <!--</div>-->
+
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <div class="item-control">
+          <label>Quận/Huyện </label>
+          <select formControlName="district" class="form-control" #placeNowD required type="select">
+            <option value="0">----Chọn-----</option>
+            <option value="1">----Chọn 1-----</option>
+          </select>
+          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.district.errors.valid)">-->
+          <!--{{messageError.district}}-->
+          <!--</div>-->
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-2">
+        <div class="item-control">
+          <label> <span>Phường/xã   </span> </label>
+          <select formControlName="guild" class="form-control" #placeNowG required type="select">
+            <option value="0">----Chọn-----</option>
+            <option value="Gia Lam">Gia Lam</option>
+          </select>
+          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.guild.errors.valid)">-->
+          <!--{{messageError.guild}}-->
+          <!--</div>-->
+        </div>
       </div>
       <div class="col-xs-12 col-sm-3">
         <div class="item-control">
@@ -304,53 +321,15 @@
       <div class="col-xs-12 col-sm-3">
         <div class="item-control">
           <label>Đường/Thôn </label>
-          <input type="text" formControlName="street" required #street >
+          <input type="text" formControlName="street" required #street>
 
           <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.street.errors.valid ) ">-->
-            <!--{{messageError.street}}-->
+          <!--{{messageError.street}}-->
           <!--</div>-->
 
         </div>
       </div>
 
-      <div class="col-xs-12 col-sm-2">
-        <div class="item-control">
-          <label> <span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control" #placeNowG required type="select" >
-            <option value="0">----Chọn-----</option>
-            <option value="Gia Lam">Gia Lam</option>
-          </select>
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.guild.errors.valid)">-->
-            <!--{{messageError.guild}}-->
-          <!--</div>-->
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-2">
-        <div class="item-control">
-          <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control" #placeNowD required type="select" >
-            <option value="0">----Chọn-----</option>
-            <option value="1">----Chọn 1-----</option>
-          </select>
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.district.errors.valid)">-->
-            <!--{{messageError.district}}-->
-          <!--</div>-->
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-2">
-        <div class="item-control">
-          <label>Tình/TP </label>
-          <select formControlName="city" class="form-control" #placeNowC required type="select" >
-            <option value="0">----Chọn-----</option>
-            <option value="1">1</option>
-          </select>
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.city.errors.valid)">-->
-            <!--{{messageError.city}}-->
-          <!--</div>-->
-
-        </div>
-      </div>
 
     </div>
   </form>

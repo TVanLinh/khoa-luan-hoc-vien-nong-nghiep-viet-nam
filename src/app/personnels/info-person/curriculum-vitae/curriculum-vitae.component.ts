@@ -6,6 +6,9 @@ import {AddressService} from "../../../shares/address.service";
 import {Config} from "../../../shares/config";
 import {MystorageService} from "../../../shares/mystorage.service";
 import {CvModel} from "./cv.model";
+import {AddressModel} from "../../model/address.model";
+import {DistrictModel} from "../../model/district.model";
+import {GuildModel} from "../../model/guild.model";
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -22,46 +25,47 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     nameOther: "",
     avatarUrl: "",
     birthDay: new Date(),
-    sex: "0",
+    sex: "",
     email: "",
     phone: "",
     placeBirth: {
-      city: "0",
-      district: "0",
-      guild: "0"
+      city: "",
+      district: "",
+      guild: ""
     },
     homeTown: {
-      city: "0",
-      district: "0",
-      guild: "0"
+      city: "",
+      district: "",
+      guild: ""
     },
     placeNow: {
-      city: "0",
-      district: "0",
-      guild: "0",
+      city: "",
+      district: "",
+      guild: "",
       street: "",
       numberHome: ""
     },
     hashNation: false,
-    nation: "0",
-    identity: {identityNumber: "0", dateRange: new Date(), placeRange: ""},
+    nation: "",
+    identity: {identityNumber: "", dateRange: null, placeRange: ""},
     placeRegisterHouseHold: "",//noi dang ki ho khau thuong tru
-    policyObject: "0",
+    policyObject: "",
     bloodGroup: "A"
   };
 
   formCV: FormGroup;
 
   listNation = [];
-  listCity: any[] = [];
+  listCity: AddressModel[] = [];
+  guidsBithday: GuildModel[] = [];
+  guilsHomeTown: GuildModel[] = [];
 
-  listDistrictBirthDay: any[] = [];
-  listGuidBirthDay: any[] = [];
+  birthDays: AddressModel = new AddressModel();
+  homeTown: AddressModel = new AddressModel();
 
   constructor(public taskService: TaskService, protected eleRef: ElementRef, public addressService: AddressService) {
     super(eleRef, taskService);
-//	this.addressService.getALl();
-    // this.getCV();
+    this.getCV();
   }
 
   ngOnInit() {
@@ -78,47 +82,67 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     });
   }
 
+  cityChange(id: number, target: string) {
+    console.log("id " + id + "  target " + target);
+
+    if (target == "NS") {
+      this.birthDays = this.addressService.findAddressByCityId(this.listCity, id);
+    } else if (target == 'QUEQUAN') {
+      this.homeTown = this.addressService.findAddressByCityId(this.listCity, id);
+    }
+  }
+
+  districtChange(id: number, target: string) {
+    if (target == "NS") {
+      this.guidsBithday = this.addressService.findGuildByDistrictId(this.birthDays, id);
+    } else if (target == 'QUEQUAN') {
+      this.guilsHomeTown = this.addressService.findGuildByDistrictId(this.homeTown, id);
+    }
+  }
 
   initListCity() {
-    this.addressService.geCities().subscribe((data: any[]) => {
-      this.listCity = data;
+    // this.addressService.getAllCity().subscribe((data: any) => {
+    //   this.listCity = data['LtsItem'];
+    //   this.listCity.sort();
+    // });
+    this.addressService.getData().subscribe((data: any[]) => {
+      for (let i = 0; i < data.length; i++) {
+
+        // if (item !== 'undefined' && item.code !== 'undefined' && item.code.name !== 'undefined') {
+        //   console.log(data)
+        if (typeof data[i].city != 'undefined') {
+          console.log("typeof data[i].city " + data[i].city.code + " " + typeof data[i].city + "   " + JSON.stringify(data[i].city));
+          let a = new AddressModel();
+          a.city = data[i]['city'];
+          a.districts = data[i]['districts'];
+          this.listCity.push(a);
+        } else {
+          console.log("ofdkfkdfddfjkfkd " + JSON.stringify(data[i]))
+        }
+
+
+        // }
+
+      }
     });
   }
-
-  cityBirthDayChange(id: number) {
-    this.listDistrictBirthDay = [];
-    this.addressService.geDistrict().subscribe((data: any[]) => {
-      this.listDistrictBirthDay = data.filter(item => item['TinhThanhID'] == id);
-    });
-  }
-
-  districtBirthDayChange(id: number, cityBirthDay: number) {
-    console.log(id);
-    this.listGuidBirthDay = [];
-
-    this.addressService.getGuild().subscribe((data: any[]) => {
-      this.listGuidBirthDay = data.filter(item => item['QuanHuyenID'] == id && item['TinhThanhID'] == cityBirthDay);
-      console.log(JSON.stringify(data));
-    });
-  }
-
 
   initForm() {
     this.formCV = this.formBuilder.group({
-      fullName: [this.infoBasic.fullName,Validators.required],
-      birthDay: [this.infoBasic.birthDay,Validators.required],
-      sex: [this.infoBasic.sex ,Validators.required],
-      email: [this.infoBasic.email,Validators.required],
+      fullName: [this.infoBasic.fullName, Validators.required],
+      birthDay: [this.infoBasic.birthDay, Validators.required],
+      sex: [this.infoBasic.sex, Validators.required],
+      email: [this.infoBasic.email, Validators.required],
       nameOther: [this.infoBasic.nameOther],
       bloodGroup: [this.infoBasic.bloodGroup, Validators.required],
       policyObject: [this.infoBasic.policyObject],
-      nation: [this.infoBasic.nation,Validators.required],
+      nation: [this.infoBasic.nation, Validators.required],
       hashNation: [this.infoBasic.hashNation, Validators.required],
       phone: [this.infoBasic.phone, Validators.required],
       identity: this.formBuilder.group({
-        identityNumber: [this.infoBasic.identity.identityNumber,Validators.required],
+        identityNumber: [this.infoBasic.identity.identityNumber, Validators.required],
         dateRange: [this.infoBasic.identity.dateRange, Validators.required],
-        placeRange: [this.infoBasic.identity.placeRange,Validators.required ],
+        placeRange: [this.infoBasic.identity.placeRange, Validators.required],
       }),
 
       homeTown: this.formBuilder.group({
@@ -167,7 +191,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
     this.updateView("cv", this.formCV.valid);
     if (!this.formCV.valid) {
-       return;
+      return;
     }
 
     let userName = MystorageService.getAcount()['user']["username"];
