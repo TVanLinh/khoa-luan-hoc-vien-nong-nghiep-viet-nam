@@ -99,4 +99,28 @@ export class TaskService {
     }
 
   }
+
+
+  public delete2(url, data): Observable<any> {
+    let token = MystorageService.getAcount()['token'];
+    let headers = new Headers({
+      'authorization': 'Basic ' + token
+    });
+    let options: RequestOptionsArgs = {headers: headers};
+
+    var temp = "";
+
+    options.body = data;
+
+    if (token) {
+      return this.http.delete(url + "?" + temp, options).map(res => {
+        return res.json();
+      });
+    } else {
+      return this.http.delete(url + "?" + temp).map(res => {
+        return res.json();
+      });
+    }
+
+  }
 }

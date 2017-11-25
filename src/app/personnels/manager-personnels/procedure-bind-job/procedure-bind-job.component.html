@@ -1,62 +1,62 @@
-<form  style="padding-top: 25px" action="" [formGroup]="formSearch">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="form-item" formGroupName="infoSearch">
-        <div class="form-item-title">
-          Làm thủ tục buộc thôi việc
-        </div>
-        <div class="item-control">
-          <label>Phòng ban </label>
-          <select class="form-control" formControlName="department">
-            <option value="">---Quan tri mang va an ninh he thong</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label class="mgr-20 " style="margin-right: 116px;">Nhập tên hoặc mã cán bộ để kiếm </label>
-          <input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">
-          <button class="btn-action" (click)="onSearch()">Tìm kiếm</button>
-        </div>
-      </div>
-    </div>
-    <!---->
-    <div class="col-xs-12">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-          <tr (click)="openModal(modalBindJob)">
-            <th>STT</th>
-            <th>Mã cán bộ</th>
-            <th>Họ tên</th>
-            <th>Ngày sinh</th>
-            <th>Giới tính </th>
-            <th>Thư điện tử </th>
-          </tr>
-          </thead>
-          <tbody>
-          <!---->
-
-          <!--<tr>-->
-          <!--<td>{{1}}</td>-->
-          <!--<td>{{item.personnelCode}}</td>-->
-          <!--<td>{{item.fullName}}</td>-->
-          <!--<td>{{item.dateOfBirth}}</td>-->
-          <!--<td>{{item.email}}</td>-->
-          <!--<td>{{item.acountSignIn}}</td>-->
-          <!--<td>-->
-          <!--<span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>-->
-          <!--</td>-->
-          <!--<td>-->
-          <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
-          <!--</td>-->
+<!--<form  style="padding-top: 25px" action="" [formGroup]="formSearch">-->
+  <!--<div class="row">-->
+    <!--<div class="col-xs-12">-->
+      <!--<div class="form-item" formGroupName="infoSearch">-->
+        <!--<div class="form-item-title">-->
+          <!--Làm thủ tục buộc thôi việc-->
+        <!--</div>-->
+        <!--<div class="item-control">-->
+          <!--<label>Phòng ban </label>-->
+          <!--<select class="form-control" formControlName="department">-->
+            <!--<option value="">-&#45;&#45;Quan tri mang va an ninh he thong</option>-->
+          <!--</select>-->
+        <!--</div>-->
+        <!--<div class="item-control">-->
+          <!--<label class="mgr-20 " style="margin-right: 116px;">Nhập tên hoặc mã cán bộ để kiếm </label>-->
+          <!--<input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">-->
+          <!--<button class="btn-action" (click)="onSearch()">Tìm kiếm</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
+    <!--<div class="col-xs-12">-->
+      <!--<div class="table-responsive">-->
+        <!--<table class="table table-bordered">-->
+          <!--<thead>-->
+          <!--<tr (click)="openModal(modalBindJob)">-->
+            <!--<th>STT</th>-->
+            <!--<th>Mã cán bộ</th>-->
+            <!--<th>Họ tên</th>-->
+            <!--<th>Ngày sinh</th>-->
+            <!--<th>Giới tính </th>-->
+            <!--<th>Thư điện tử </th>-->
           <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+          <!--&lt;!&ndash;&ndash;&gt;-->
 
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+          <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>{{1}}</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>{{item.personnelCode}}</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>{{item.fullName}}</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>{{item.dateOfBirth}}</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>{{item.email}}</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>{{item.acountSignIn}}</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>&ndash;&gt;-->
+          <!--&lt;!&ndash;</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td>&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>&ndash;&gt;-->
+          <!--&lt;!&ndash;</td>&ndash;&gt;-->
+          <!--&lt;!&ndash;</tr>&ndash;&gt;-->
 
-</form>
+          <!--</tbody>-->
+        <!--</table>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+<!--</form>-->
 
 <modal #modalBindJob size='lg' cssClass="my-modal-lg" backdrop="false">
 

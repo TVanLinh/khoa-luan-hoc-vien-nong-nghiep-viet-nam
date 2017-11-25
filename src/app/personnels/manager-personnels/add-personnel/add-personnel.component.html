@@ -1,29 +1,29 @@
-<form [formGroup]="formData"  style="border-color: transparent">
+<form [formGroup]="formData" style="border-color: transparent">
   <div class="col-xs-12 col-sm-8 col-sm-offset-2">
     <div class="form-item">
       <div class="form-item-title">
         Thêm mới cán bộ
       </div>
       <div class="item-control">
-        <label> Chọn đơn vị </label>
-        <select class="form-control" formControlName="organ">
-          <option value="">---Chọn---</option>
+        <label> Chọn khoa phòng ban cấp 1 </label>
+        <select class="form-control" formControlName="organ" #organ (click)="level1Change(organ.value)">
+          <option *ngFor="let item of listLevel1" [value]="item.name">{{item.name}}</option>
         </select>
       </div>
       <div class="item-control">
-        <label>Chọn phòng ban </label>
+        <label>Chọn phòng ban cấp 2</label>
         <select class="form-control" formControlName="department">
-          <option value="">---Chọn---</option>
+          <option *ngFor="let item of listLevel2" [value]="item.name">{{item.name}}</option>
         </select>
       </div>
 
       <div class="item-control">
         <label>Mã cán bộ: </label>
-        <input type="text" required formControlName="personnelCode" >
+        <input type="text" required formControlName="personnelCode">
       </div>
       <div class="item-control">
         <label>Họ tên: </label>
-        <input type="text" required  formControlName="fullName">
+        <input type="text" required formControlName="fullName">
       </div>
       <div class="item-control">
         <label>Ngày sinh: </label>
@@ -31,7 +31,7 @@
       </div>
       <div class="item-control">
         <label>Email: </label>
-        <input type="email" required formControlName="email" >
+        <input type="email" required formControlName="email">
       </div>
       <div class="item-control">
         <label>Tài khoản đăng nhập: </label>
@@ -42,7 +42,7 @@
         <input [type]="showPass == true?'text':'password'" required formControlName="passWord">
       </div>
       <div class="item-control">
-        <label >Hiện rõ </label>
+        <label>Hiện rõ </label>
         <input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">
       </div>
       <div class="item-control">

@@ -84,6 +84,7 @@ import {ArraySortPipe} from "./shares/sort/sort.pipe";
 import {OrderModule} from "ngx-order-pipe";
 import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/catalog-faculty.pipe";
 import {CatalogSalaryService} from "./shares/catalog-salary.service";
+import {CatalogFacultyService} from "./shares/catalog-faculty.service";
 
 @NgModule({
   declarations: [
@@ -174,7 +175,9 @@ import {CatalogSalaryService} from "./shares/catalog-salary.service";
     ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
-  providers: [NationalService,CatalogSalaryService, TaskService,AddressService],
+  providers: [NationalService,CatalogSalaryService,
+    CatalogFacultyService,
+    TaskService,AddressService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

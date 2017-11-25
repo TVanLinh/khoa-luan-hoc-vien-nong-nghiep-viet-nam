@@ -38,7 +38,7 @@ export class ProcedureBindJobComponent extends BaseFormComponent implements OnIn
   }
 
   onSearch() {
-    console.log(this.formSearch.value);
+    // console.log(this.formSearch.value);
   }
 
   onProcess() {

@@ -58,6 +58,7 @@ export class BaseFormComponent {
     }, this.message.timout);
   }
 
+
   updateView(taget: string, condition: boolean) {
     let id = "#" + taget;
 
