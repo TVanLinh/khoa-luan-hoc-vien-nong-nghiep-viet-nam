@@ -58,7 +58,7 @@ export class AddressService {
     }
   }
 
-  findAddressByCityId(array: AddressModel[], id: number) {
+  findAddressByCityId(array: AddressModel[], id: any) {
     for (let item of array) {
       if (item.city.code == id) {
         return item;
@@ -67,7 +67,10 @@ export class AddressService {
     return new AddressModel();
   }
 
-  findGuildByDistrictId(object: AddressModel, id: number) {
+  findGuildByDistrictId(object: AddressModel, id: any) {
+    if (!Array.isArray(object.districts)) {
+      return [];
+    }
     for (let item of object.districts) {
       if (item.code == id) {
         return item.guids;

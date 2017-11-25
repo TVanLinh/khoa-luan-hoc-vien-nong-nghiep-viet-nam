@@ -277,38 +277,29 @@
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
           <label>Tình/TP </label>
-          <select formControlName="city" class="form-control" #placeNowC required type="select">
-            <option value="0">----Chọn-----</option>
-            <option value="1">1</option>
+          <select formControlName="city" class="form-control"
+                  required type="select" #placeNowC (change)="cityChange(placeNowC.value,'NOIOHIENTAI')">
+            <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.city.errors.valid)">-->
-          <!--{{messageError.city}}-->
-          <!--</div>-->
 
         </div>
       </div>
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
           <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control" #placeNowD required type="select">
-            <option value="0">----Chọn-----</option>
-            <option value="1">----Chọn 1-----</option>
+          <select formControlName="district" class="form-control"
+                  required type="select" #placeNowD (change)="districtChange(placeNowD.value,'NOIOHIENTAI')">
+            <option *ngFor="let item of placeNow.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.district.errors.valid)">-->
-          <!--{{messageError.district}}-->
-          <!--</div>-->
         </div>
       </div>
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
           <label> <span>Phường/xã   </span> </label>
-          <select formControlName="guild" class="form-control" #placeNowG required type="select">
-            <option value="0">----Chọn-----</option>
-            <option value="Gia Lam">Gia Lam</option>
+          <select formControlName="guild" #placeNowG class="form-control"
+                  required type="select">
+            <option *ngFor="let item of guilsPlaceNow" [value]="item['code']">{{item['name']}}</option>
           </select>
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.guild.errors.valid)">-->
-          <!--{{messageError.guild}}-->
-          <!--</div>-->
         </div>
       </div>
       <div class="col-xs-12 col-sm-3">
@@ -322,10 +313,6 @@
         <div class="item-control">
           <label>Đường/Thôn </label>
           <input type="text" formControlName="street" required #street>
-
-          <!--<div class="star" *ngIf="(!formCV.controls.placeNow.controls.street.errors.valid ) ">-->
-          <!--{{messageError.street}}-->
-          <!--</div>-->
 
         </div>
       </div>

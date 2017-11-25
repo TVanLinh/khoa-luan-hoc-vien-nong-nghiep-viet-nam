@@ -9,6 +9,9 @@ import {CvModel} from "./cv.model";
 import {AddressModel} from "../../model/address.model";
 import {DistrictModel} from "../../model/district.model";
 import {GuildModel} from "../../model/guild.model";
+import {ValidService} from "../../../shares/valid.service";
+
+declare const jQuery: any;
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -29,17 +32,17 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     email: "",
     phone: "",
     placeBirth: {
-      city: "",
+      city: "1",
       district: "",
       guild: ""
     },
     homeTown: {
-      city: "",
+      city: "1",
       district: "",
       guild: ""
     },
     placeNow: {
-      city: "",
+      city: "1",
       district: "",
       guild: "",
       street: "",
@@ -59,20 +62,21 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   listCity: AddressModel[] = [];
   guidsBithday: GuildModel[] = [];
   guilsHomeTown: GuildModel[] = [];
+  guilsPlaceNow: GuildModel[] = [];
 
   birthDays: AddressModel = new AddressModel();
   homeTown: AddressModel = new AddressModel();
+  placeNow: AddressModel = new AddressModel();
 
   constructor(public taskService: TaskService, protected eleRef: ElementRef, public addressService: AddressService) {
     super(eleRef, taskService);
-    this.getCV();
+
   }
 
   ngOnInit() {
-    this.initForm();
-    this.getCV();
-    this.getNation();
     this.initListCity();
+    this.initForm();
+    this.getNation();
   }
 
   private getNation() {
@@ -87,47 +91,76 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
     if (target == "NS") {
       this.birthDays = this.addressService.findAddressByCityId(this.listCity, id);
+      this.formCV.patchValue({
+        placeBirth: {
+          district: '',
+          guild: ''
+        }
+      });
     } else if (target == 'QUEQUAN') {
       this.homeTown = this.addressService.findAddressByCityId(this.listCity, id);
+      this.formCV.patchValue({
+        homeTown: {
+          district: '',
+          guild: ''
+        }
+      });
+    } else if (target == 'NOIOHIENTAI') {
+      this.placeNow = this.addressService.findAddressByCityId(this.listCity, id);
+      this.formCV.patchValue({
+        placeNow: {
+          district: '',
+          guild: ''
+        }
+      });
     }
   }
 
   districtChange(id: number, target: string) {
     if (target == "NS") {
       this.guidsBithday = this.addressService.findGuildByDistrictId(this.birthDays, id);
+      this.formCV.patchValue({
+        placeBirth: {
+          guild: ''
+        }
+      });
     } else if (target == 'QUEQUAN') {
       this.guilsHomeTown = this.addressService.findGuildByDistrictId(this.homeTown, id);
+      this.formCV.patchValue({
+        homeTown: {
+          guild: ''
+        }
+      });
+    } else if (target == 'NOIOHIENTAI') {
+      this.guilsPlaceNow = this.addressService.findGuildByDistrictId(this.placeNow, id);
+      this.formCV.patchValue({
+        placeNow: {
+          guild: ''
+        }
+      });
     }
   }
 
   initListCity() {
-    // this.addressService.getAllCity().subscribe((data: any) => {
-    //   this.listCity = data['LtsItem'];
-    //   this.listCity.sort();
-    // });
     this.addressService.getData().subscribe((data: any[]) => {
       for (let i = 0; i < data.length; i++) {
 
-        // if (item !== 'undefined' && item.code !== 'undefined' && item.code.name !== 'undefined') {
-        //   console.log(data)
         if (typeof data[i].city != 'undefined') {
-          console.log("typeof data[i].city " + data[i].city.code + " " + typeof data[i].city + "   " + JSON.stringify(data[i].city));
           let a = new AddressModel();
           a.city = data[i]['city'];
           a.districts = data[i]['districts'];
           this.listCity.push(a);
         } else {
-          console.log("ofdkfkdfddfjkfkd " + JSON.stringify(data[i]))
         }
-
-
-        // }
-
       }
+    }, err => {
+    }, () => {
+      this.getCV();
     });
   }
 
   initForm() {
+
     this.formCV = this.formBuilder.group({
       fullName: [this.infoBasic.fullName, Validators.required],
       birthDay: [this.infoBasic.birthDay, Validators.required],
@@ -155,7 +188,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
         district: [this.infoBasic.placeBirth.district, Validators.required],
         guild: [this.infoBasic.placeBirth.guild, Validators.required],
       }),
-      placeRegisterHouseHold: this.infoBasic.placeRegisterHouseHold,
+      placeRegisterHouseHold: [this.infoBasic.placeRegisterHouseHold, Validators.required],
       placeNow: this.formBuilder.group({
         city: [this.infoBasic.placeNow.city, Validators.required],
         district: [this.infoBasic.placeNow.district, Validators.required],
@@ -188,9 +221,22 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
+    let valueForm = this.formCV.value;
 
-    this.updateView("cv", this.formCV.valid);
-    if (!this.formCV.valid) {
+    console.log(valueForm);
+
+
+    let valid = [valueForm.fullName, valueForm.birthDay, valueForm.sex, valueForm.email, valueForm.phone,
+      valueForm.placeBirth, valueForm.homeTown.city, valueForm.homeTown.district, valueForm.homeTown.guild,
+      valueForm.placeBirth.city, valueForm.placeBirth.district, valueForm.placeBirth.guild,
+      valueForm.placeNow.city, valueForm.placeNow.district, valueForm.placeNow.guild,
+      valueForm.placeNow.street, valueForm.placeNow.numberHome, valueForm.placeRegisterHouseHold,
+      valueForm.identity.identityNumber, valueForm.identity.dateRange, valueForm.identity.placeRange, valueForm.nation
+    ];
+
+    this.updateView("form-cv", this.formCV.valid);
+    if (!ValidService.isNotBlanks(valid) || !this.formCV.valid) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
       return;
     }
 
@@ -210,6 +256,16 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     this.taskService.get(Config.CV_URL + "?username=" + this.acount['username']).subscribe((data) => {
       if (data['cv']) {
         this.infoBasic = data.cv;
+        // this.gui
+        this.birthDays = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeBirth.city);
+        this.guidsBithday = this.addressService.findGuildByDistrictId(this.birthDays, this.infoBasic.placeBirth.district);
+        // console.log(JSON.stringify(this.birthDays));
+        this.homeTown = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.homeTown.city);
+        this.guilsHomeTown = this.addressService.findGuildByDistrictId(this.homeTown, this.infoBasic.homeTown.district);
+
+        this.placeNow = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeNow.city);
+        this.guilsPlaceNow = this.addressService.findGuildByDistrictId(this.placeNow, this.infoBasic.placeNow.district);
+
         this.updateForm(this.infoBasic);
       }
     });
