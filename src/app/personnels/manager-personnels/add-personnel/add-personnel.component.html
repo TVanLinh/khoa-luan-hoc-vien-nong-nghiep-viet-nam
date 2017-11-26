@@ -1,4 +1,4 @@
-<form [formGroup]="formData" style="border-color: transparent">
+<form [formGroup]="formData" style="border-color: transparent" id="form-add-user">
   <div class="col-xs-12 col-sm-8 col-sm-offset-2">
     <div class="form-item">
       <div class="form-item-title">
@@ -6,20 +6,25 @@
       </div>
       <div class="item-control">
         <label> Chọn khoa phòng ban cấp 1 </label>
-        <select class="form-control" formControlName="organ" #organ (click)="level1Change(organ.value)">
-          <option *ngFor="let item of listLevel1" [value]="item.name">{{item.name}}</option>
+        <select class="form-control" required formControlName="level1" #level1 (click)="level1Change(level1.value)">
+          <option *ngFor="let item of listLevel1" [value]="item.name" >{{item.name}}</option>
         </select>
       </div>
+
       <div class="item-control">
         <label>Chọn phòng ban cấp 2</label>
-        <select class="form-control" formControlName="department">
+        <select class="form-control" required formControlName="level1">
           <option *ngFor="let item of listLevel2" [value]="item.name">{{item.name}}</option>
         </select>
       </div>
 
       <div class="item-control">
         <label>Mã cán bộ: </label>
-        <input type="text" required formControlName="personnelCode">
+        <input type="text" required formControlName="personnelCode" #personnelCode ngModel>
+        <!--{{formData.forms.personnelCode.touched}}-->
+        <div class="error" *ngIf="personnelCode.touched">
+
+        </div>
       </div>
       <div class="item-control">
         <label>Họ tên: </label>
@@ -27,15 +32,11 @@
       </div>
       <div class="item-control">
         <label>Ngày sinh: </label>
-        <input type="text" required placeholder="Ngày/tháng/năm" formControlName="dateOfBirth">
+        <input type="date" required  formControlName="dateOfBirth">
       </div>
       <div class="item-control">
         <label>Email: </label>
-        <input type="email" required formControlName="email">
-      </div>
-      <div class="item-control">
-        <label>Tài khoản đăng nhập: </label>
-        <input type="text" required formControlName="acountSignIn">
+        <input type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" formControlName="email">
       </div>
       <div class="item-control">
         <label>Mật khẩu: </label>

@@ -64,26 +64,49 @@
         <div class="col-xs-12 col-sm-5 col-sm-offset-1 ">
           <div class="item-control">
             <label>Từ ngày </label>
-            <input type="date" formControlName="dateFrom" required>
+            <input type="date" formControlName="dateFrom" required #dateFrom>
           </div>
           <!---->
+          <div class="item-control" *ngIf="dateFrom.value.trim()  =='' && formTouch">
+            <div class="error">
+              Chưa nhập từ ngày
+            </div>
+          </div>
+
           <div class="item-control">
             <label>Đến ngày </label>
-            <input type="date" formControlName="dateEnd" required>
+            <input type="date" formControlName="dateEnd" required #dateEnd>
+          </div>
+          <div class="item-control" *ngIf="dateEnd.value.trim()  =='' && formTouch">
+            <div class="error">
+              Chưa nhập đến ngày
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Đi nước </label>
-            <select class="form-control" formControlName="national" style="width: 200px" required>
+            <select class="form-control" formControlName="national" style="width: 200px" required #national>
               <option *ngFor="let item of nationals" [value]="item.code">{{item.name}}</option>
             </select>
+
+            <div class="item-control" *ngIf="national.value.trim()  =='' && formTouch">
+              <div class="error">
+                Chưa chọn nước
+              </div>
+            </div>
           </div>
         </div>
+
 
         <div class="col-xs-12 col-sm-5 ">
           <div class="item-control">
             <label>Mục đích </label>
-            <input type="text" formControlName="purpose" required/>
+            <input type="text" formControlName="purpose" required #purpose/>
+          </div>
+          <div class="item-control" *ngIf="purpose.value.trim()  =='' && formTouch">
+            <div class="error">
+              Chưa nhập mục đích
+            </div>
           </div>
           <!---->
           <div class="item-control">

@@ -19,6 +19,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   listScienceTopic = new Collections.LinkedList<ScienceTopicModel>();
   positionUpdate: ScienceTopicModel = null;
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -42,6 +43,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
 
     let data: any = [valueForm.name, valueForm.code, valueForm.dateBegin,
@@ -98,6 +100,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
       specieObtain: this.speciesObtain[0]
     });
     super.openModal(this.topicModal);
+    this.formTouch = false;
   }
 
   getDataFromServer() {

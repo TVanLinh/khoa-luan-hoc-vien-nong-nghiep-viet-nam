@@ -66,15 +66,24 @@
         <div class="col-xs-12 col-sm-6 ">
           <div class="item-control pdt-i-0">
             <label>Tên luận văn/luận án </label>
-            <input type="text" formControlName="thesisName" required>
+            <input type="text" formControlName="thesisName" required #thesisName>
+            <div class="error" *ngIf="thesisName.value.trim()  =='' && formTouch">
+              Chưa nhập tên luận văn/luận án
+            </div>
           </div>
           <div class="item-control ">
             <label>Tên người được hướng dẫn </label>
-            <input type="text" formControlName="namePersonGuide" required>
+            <input type="text" formControlName="namePersonGuide" required #namePersonGuide>
+            <div class="error" *ngIf="namePersonGuide.value.trim()  =='' && formTouch">
+              Chưa nhập tên người được hướng dẫn
+            </div>
           </div>
           <div class="item-control">
             <label>Năm hướng dẫn </label>
-            <input type="number" formControlName="yearGuide" required>
+            <input type="number" formControlName="yearGuide" required #yearGuide>
+            <div class="error" *ngIf="yearGuide.value.trim()  =='' && formTouch">
+              Chưa nhập năm hướng dẫn
+            </div>
           </div>
 
         </div>
@@ -82,19 +91,28 @@
         <div class="col-xs-12 col-sm-6 ">
           <div class="item-control pdt-i-0">
             <label>Bậc </label>
-            <select class="form-control" formControlName="level" required>
+            <select class="form-control" formControlName="level" required #level>
               <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
+            <div class="error" *ngIf="level.value.trim()  =='' && formTouch">
+              Chưa chọn bậc
+            </div>
           </div>
           <div class="item-control">
             <label>Vai trò giảng viên </label>
-            <input type="text" formControlName="role" required>
+            <input type="text" formControlName="role" required #role>
+            <div class="error" *ngIf="role.value.trim()  =='' && formTouch">
+              Chưa nhập vai trò
+            </div>
           </div>
           <div class="item-control">
             <label>Đạt loại </label>
-            <select class="form-control" formControlName="speciesObtain" required>
+            <select class="form-control" formControlName="speciesObtain" required #speciesObtains>
               <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
             </select>
+            <div class="error" *ngIf="speciesObtains.value.trim()  =='' && formTouch">
+              Chưa chọn đạt loại
+            </div>
           </div>
         </div>
       </div>

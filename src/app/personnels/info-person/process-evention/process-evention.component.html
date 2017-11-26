@@ -69,26 +69,42 @@
 
           <div class="item-control pdt-i-0">
             <label>Tên phát minh/sáng chế </label>
-            <input type="text" formControlName="name" required>
+            <input type="text" formControlName="name" required #name>
+            <div class="error" *ngIf="name.value.trim()  =='' && formTouch">
+              Chưa nhập tên phát minh/sáng chế
+            </div>
           </div>
           <!---->
 
           <div class="item-control">
             <label>Cơ quan cấp</label>
-            <input type="text" formControlName="organLicense" required>
+            <input type="text" formControlName="organLicense" required #organLicense>
+            <div class="error" *ngIf="organLicense.value.trim()  =='' && formTouch">
+              Chưa nhập cơ quan cấp
+            </div>
           </div>
 
           <div class="item-control  ">
             <label>Ngày cấp</label>
-            <input type="date" formControlName="dateOfIssue" required>
+            <input type="date" formControlName="dateOfIssue" required #dateOfIssue>
+            <div class="error" *ngIf="dateOfIssue.value.trim()  =='' && formTouch">
+              Chưa nhập ngày cấp
+            </div>
           </div>
           <div class="item-control  ">
             <label>Số tác giả </label>
-            <input type="number" formControlName="numberAuthor" required>
+            <input type="number" formControlName="numberAuthor" required #numberAuthor>
+            <div class="error" *ngIf="numberAuthor.value.trim()  =='' && formTouch">
+              Chưa nhập số tác giả
+            </div>
           </div>
           <div class="item-control  ">
             <label>Diễn giải </label>
-            <textarea rows="5" class="form-control" type="text" formControlName="description"></textarea>
+            <textarea rows="5" class="form-control" type="text" formControlName="description" #description required></textarea>
+            <div class="error"
+                 *ngIf="description.value.trim()  =='' && formTouch || description.value.trim().length < 50 && formTouch">
+              Chưa nhập diễn giải, diễn giải ít nhất 50 kí tự
+            </div>
           </div>
         </div>
       </div>

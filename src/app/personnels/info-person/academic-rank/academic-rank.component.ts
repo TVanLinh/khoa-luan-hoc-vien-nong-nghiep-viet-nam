@@ -33,6 +33,9 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   formAcadNotValid = false;
   formTitleNotValid = false;
 
+  formAcademicTouch = false;
+  formTitleTouch = false;
+
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
     let rank: AcademicRankModel = {
@@ -73,6 +76,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   }
 
   addAcademic() {
+    this.formAcademicTouch = true;
     let valueForm = this.formAcademicRank.value;
 
     let data = [valueForm.rank, valueForm.placeReceive, valueForm.yearReceive];
@@ -97,6 +101,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   }
 
   addTeacher() {
+    this.formTitleTouch = true;
     let valueForm = this.formTitleTeachers.value;
 
 
@@ -122,6 +127,8 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   openModalByType(academicRank, type) {
     this.openModal(academicRank);
+    this.formAcademicTouch = false;
+    this.formTitleTouch = false;
     if (type == 0) {
       this.positionUpdateAca = null;
       this.formAcademicRank.reset();

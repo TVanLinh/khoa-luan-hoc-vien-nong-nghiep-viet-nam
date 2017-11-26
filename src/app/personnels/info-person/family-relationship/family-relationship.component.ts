@@ -20,7 +20,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   @ViewChild('modalFamily') modal: ModalComponent;
   formData: FormGroup;
   updateTemp: FamilyModel = null;
-
+  formTouch = false;
   listRelationFamily = new Collections.LinkedList<FamilyModel>();
 
   constructor(public nationalService: NationalService,
@@ -78,9 +78,10 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   addItem() {
+    this.formTouch = true;
     const valueForm = this.formData.value;
 
-    let data = [valueForm.relation, valueForm.name, valueForm.job,valueForm.yearBirth];
+    let data = [valueForm.relation, valueForm.name, valueForm.job, valueForm.yearBirth];
 
     this.updateView("form-family", this.formData.valid);
 
@@ -134,6 +135,11 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
         this.listRelationFamily = this.asList(data['family']);
       }
     });
+  }
+
+  openModals() {
+    this.openModal(this.modal);
+    this.formTouch = false;
   }
 
 }

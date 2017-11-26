@@ -25,14 +25,16 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   speice = "";
   group = "";
   salary = 0;
+  rank = "";
+  levelChoise = "";
   listGroup: CatalogRankModel[] = [];
   listRank: any[] = [];
-  levelChoise = "";
+
   level = [];
-  rank = "";
   positionUpdate: SalaryModel = null;
 
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef,
               public  catalogRankService: CatalogSalaryService
@@ -58,6 +60,10 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
       this.groupChange();
     }
 
+    this.group = "";
+    this.rank = "";
+    this.levelChoise = "";
+
   }
 
   groupChange() {
@@ -66,14 +72,16 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
       this.listRank = a['group']['listRank'];
       this.level = a['group']['level'];
     }
+    this.rank = "";
+    this.rank = "";
+    this.levelChoise = "";
     return a;
   }
 
   rankChange() {
-    this.levelChoise = "1";
+    this.levelChoise = "";
     this.levelChange();
-    //this.salary = this.level[this.levelChoise].salary;
-    this.levelChoise = "-1";
+    this.levelChoise = "";
   }
 
 
@@ -106,6 +114,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   addItem() {
+    this.formTouch = true;
     console.log(this.formData.value);
     let valueForm = this.formData.value;
 
@@ -171,6 +180,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
     this.formData.reset();
     this.positionUpdate = null;
     super.openModal(this.modalSalary);
+    this.formTouch = false;
   }
 
   getDataFromServer() {

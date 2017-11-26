@@ -63,22 +63,34 @@
 
           <div class="item-control pdt-i-0">
             <label>Tên sách </label>
-            <input type="text" formControlName="name" required>
+            <input type="text" formControlName="name" required #name>
+            <div class="error" *ngIf="name.value.trim()  =='' && formTouch">
+              Chưa nhập tên sách
+            </div>
           </div>
           <!---->
 
           <div class="item-control">
             <label class="mgr-20">Năm xuất bản</label>
-            <input type="number" formControlName="year" style="width: 80px" required>
+            <input type="number" formControlName="year" style="width: 80px" required #year>
+            <div class="error" *ngIf="year.value.trim()  =='' && formTouch">
+              Chưa nhập năm xuất bản
+            </div>
           </div>
 
           <div class="item-control  ">
             <label>Nhà xuất bản</label>
-            <input type="text" formControlName="publishCompany" required>
+            <input type="text" formControlName="publishCompany" required #publishCompany>
+            <div class="error" *ngIf="publishCompany.value.trim()  =='' && formTouch">
+              Chưa nhập nhà xuất bản
+            </div>
           </div>
           <div class="item-control  ">
             <label>Vai trò </label>
-            <input type="text" formControlName="role" required>
+            <input type="text" formControlName="role" required #role>
+            <div class="error" *ngIf="role.value.trim()  =='' && formTouch">
+              Chưa nhập vai trò
+            </div>
           </div>
         </div>
       </div>

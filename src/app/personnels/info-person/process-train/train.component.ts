@@ -40,6 +40,8 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   formValid = false;
   shortTimeNotValid = false;
   longTimeNotValid = false;
+  formLongTouch = false;
+  formShortTouch = false;
 
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
@@ -80,7 +82,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       certificate: ['', Validators.required],
       placeTrain: ['', Validators.required],
       national: ['vi', Validators.required],
-      description: ['', Validators.required]
+      description: ['', [Validators.required, Validators.min(50)]]
     });
   }
 
@@ -140,7 +142,10 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     let shortForm = this.formShortTime.value;
     let longForm = this.formLongTime.value;
 
+
     if (mode == SHORT_TIME) {
+      this.formShortTouch = true;
+
       let data = [shortForm.dateFrom, shortForm.numberMonth,
         shortForm.certificate, shortForm.placeTrain, shortForm.national, shortForm.description];
       this.updateView("form-short-time", this.formShortTime.valid);
@@ -153,6 +158,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
 
       this.shortTimeNotValid = false;
 
+
       ///---------------------------------
       if (this.positionUpdateShort == null) {
         this.shortTimes.add(shortForm);
@@ -162,6 +168,8 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       this.positionUpdateShort = null;
       super.closeModal(this.trainShortTimeModal);
     } else {
+      this.formLongTouch = true;
+
       let data = [longForm.yearFrom, longForm.yearEnd,
         longForm.specialized, longForm.levelLearn,
         longForm.academicRank, longForm.spice,
@@ -227,9 +235,11 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     if (mode == SHORT_TIME) {
       super.openModal(this.trainShortTimeModal);
       this.positionUpdateShort = null;
+      this.formShortTouch = false;
     } else {
       super.openModal(this.trainLongTimeModal);
       this.positionUpdateLong = null;
+      this.formLongTouch = false;
     }
   }
 

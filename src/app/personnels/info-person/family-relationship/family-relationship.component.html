@@ -19,7 +19,7 @@
           <th>Năm sinh</th>
           <th>Nghề nghiệp</th>
           <th>
-            <span class="action-icon" (click)="openModal(modalFamily)"><i class="fa fa-plus"></i></span>
+            <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
         </thead>
@@ -64,17 +64,23 @@
           <!---->
           <div class="item-control pdt-i-0">
             <label>Họ tên</label>
-            <input id="cv-name" type="text" class="form-control" formControlName="name"/>
+            <input id="cv-name" type="text" class="form-control" #name formControlName="name"/>
+            <div class="error" *ngIf="name.value.trim()  =='' && formTouch">
+              Chưa nhập họ tên
+            </div>
           </div>
           <!---->
 
 
           <div class="item-control ">
             <label>Quan hệ </label>
-            <select class="form-control" formControlName="relation">
+            <select class="form-control" formControlName="relation" #relation>
               <option style="text-transform: capitalize" *ngFor="let item of listRealtion" [value]="item">{{item}}
               </option>
             </select>
+            <div class="error" *ngIf="relation.value.trim()  =='' && formTouch">
+               Chưa chọn quan hệ
+            </div>
           </div>
 
 
@@ -83,15 +89,20 @@
         <div class="col-xs-12 col-sm-6">
           <div class="item-control pdt-i-0">
             <label>Năm sinh </label>
-            <select class="form-control" formControlName="yearBirth">
+            <select class="form-control" formControlName="yearBirth" #yearBirth>
               <option *ngFor="let item of listYear" [value]="item">{{item}}</option>
             </select>
-
+            <div class="error" *ngIf="yearBirth.value.trim()  =='' && formTouch">
+              Chưa chọn năm sinh
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Nghề nghiệp </label>
-            <input type="text" class="form-control" formControlName="job"/>
+            <input type="text" class="form-control" formControlName="job" #job/>
+            <div class="error" *ngIf="job.value.trim()  =='' && formTouch">
+             Chưa nhập nghề nghiệp
+            </div>
           </div>
         </div>
       </div>

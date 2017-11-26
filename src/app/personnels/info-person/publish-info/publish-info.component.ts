@@ -20,6 +20,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   listPublish = new Collections.LinkedList<PublishInfoModel>();
   positionUpdate: PublishInfoModel = null;
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -44,6 +45,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
     let data = [valueForm.name, valueForm.year, valueForm.publishCompany, valueForm.role];
     this.updateView("publish-info-form", this.formData.valid);
@@ -84,6 +86,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   openModals() {
     this.formData.reset();
     super.openModal(this.publish);
+    this.formTouch = false;
   }
 
   getDataFromServer() {

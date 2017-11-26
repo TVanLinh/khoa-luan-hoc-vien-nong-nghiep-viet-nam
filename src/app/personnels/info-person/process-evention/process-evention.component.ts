@@ -21,6 +21,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   positionUpdate: ProcessEventModel = null;
 
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -38,11 +39,12 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
       organLicense: ["", Validators.required],
       dateOfIssue: ['', Validators.required],
       numberAuthor: [4, [Validators.required, Validators.min(1)]],
-      description: [""]
+      description: ["", [Validators.required, Validators.min(50)]]
     })
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
 
     let data = [valueForm.name, valueForm.organLicense, valueForm.dateOfIssue, valueForm.numberAuthor];
@@ -90,6 +92,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   openModals() {
     this.formData.reset();
     super.openModal(this.evention);
+    this.formTouch = false;
   }
 
   getDataFromServer() {

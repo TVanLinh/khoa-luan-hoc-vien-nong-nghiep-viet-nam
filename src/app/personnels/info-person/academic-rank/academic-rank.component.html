@@ -110,20 +110,29 @@
 
           <div class="item-control pdt-i-0">
             <label>Học hàm</label>
-            <select class="form-control" formControlName="rank" required>
+            <select class="form-control" formControlName="rank" required #acaRank>
               <option *ngFor="let item of catalogAcademicRank" [value]="item.name">{{item.name}}</option>
             </select>
+            <div class="error" *ngIf="acaRank.value.trim()  =='' && formAcademicTouch">
+              Chưa chọn học hàm
+            </div>
           </div>
           <!---->
 
           <div class="item-control">
             <label>Nơi công nhận</label>
-            <input type="text" formControlName="placeReceive" required>
+            <input type="text" formControlName="placeReceive" required #placeReceiveAca>
+            <div class="error" *ngIf="placeReceiveAca.value.trim()  =='' && formAcademicTouch">
+              Chưa nhập nơi công nhận
+            </div>
           </div>
 
           <div class="item-control  ">
             <label class="mgr-20">Năm phong</label>
-            <input type="number" formControlName="yearReceive" required>
+            <input type="number" formControlName="yearReceive" required #yearReceiveAca>
+            <div class="error" *ngIf="yearReceiveAca.value.trim()  =='' && formAcademicTouch">
+              Chưa nhập năm phong
+            </div>
           </div>
         </div>
       </div>
@@ -157,15 +166,21 @@
 
           <div class="item-control pdt-i-0">
             <label>Danh hiệu nhà giáo </label>
-            <select class="form-control" formControlName="title" required>
+            <select class="form-control" formControlName="title" required #title>
               <option value="Nhà giáo nhân dân">Nhà giáo nhân dân</option>
               <option value="Nhà giáo ưu tú">Nhà giáo ưu tú</option>
             </select>
+            <div class="error" *ngIf="title.value.trim()  =='' && formTitleTouch">
+              Chưa chọn danh hiệu nhà giáo
+            </div>
           </div>
           <!---->
           <div class="item-control ">
             <label class="mgr-20">Năm phong</label>
-            <input type="number" formControlName="yearReceive" required>
+            <input type="number" formControlName="yearReceive" required #yearReceiveTitle>
+            <div class="error" *ngIf="yearReceiveTitle.value.trim()  =='' && formTitleTouch">
+              Chưa nhập năm phong
+            </div>
           </div>
         </div>
       </div>

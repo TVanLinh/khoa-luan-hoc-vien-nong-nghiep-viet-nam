@@ -72,22 +72,34 @@
         <div class="col-xs-12 col-sm-6 ">
           <div class="item-control pdt-i-0">
             <label>Tên đề tài </label>
-            <input type="text" formControlName="name" required>
+            <input type="text" formControlName="name" required #name>
+            <div class="error" *ngIf="name.value.trim()  =='' && formTouch">
+              Chưa nhập tên đề tài
+            </div>
           </div>
 
           <div class="item-control">
             <label>Mã đề tài </label>
-            <input type="text" formControlName="code" required>
+            <input type="text" formControlName="code" required #code>
+            <div class="error" *ngIf="code.value.trim()  =='' && formTouch">
+              Chưa nhập mã đề tài
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Ngày bắt đầu</label>
-            <input type="date" formControlName="dateBegin" required>
+            <input type="date" formControlName="dateBegin" required #dateBegin>
+            <div class="error" *ngIf="dateBegin.value.trim()  =='' && formTouch">
+              Chưa nhập ngày bắt đầu
+            </div>
           </div>
 
           <div class="item-control  ">
             <label class="mgr-20">Số tháng thực hiện</label>
-            <input type="number" formControlName="monthWork" style="width: 80px" required>
+            <input type="number" formControlName="monthWork" style="width: 80px" required #monthWork>
+            <div class="error" *ngIf="monthWork.value.trim()  =='' && formTouch">
+              Chưa nhập số tháng thực hiện
+            </div>
           </div>
         </div>
 
@@ -95,20 +107,29 @@
 
           <div class="item-control pdt-i-0">
             <label>Vai trò trong đề tài</label>
-            <input type="text" formControlName="role" required>
+            <input type="text" formControlName="role" required #role>
+            <div class="error" *ngIf="role.value.trim()  =='' && formTouch">
+              Chưa nhập vai trò trong đề tài
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Cấp đề tài </label>
-            <input type="text" formControlName="level" required>
+            <input type="text" formControlName="level" required #level>
+            <div class="error" *ngIf="level.value.trim()  =='' && formTouch">
+              Chưa nhập cấp đề tài
+            </div>
           </div>
           <!---->
           <!---->
           <div class="item-control">
             <label>Đánh giá loại </label>
-            <select formControlName="specieObtain" class="form-control" required>
+            <select formControlName="specieObtain" class="form-control" required #speciesObtains>
               <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
             </select>
+            <div class="error" *ngIf="speciesObtains.value.trim()  =='' && formTouch">
+              Chưa chọn đánh giá loại
+            </div>
           </div>
           <!---->
         </div>

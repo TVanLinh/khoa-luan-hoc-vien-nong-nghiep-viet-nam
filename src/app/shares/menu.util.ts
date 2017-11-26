@@ -52,7 +52,7 @@ export class MenuUtil {
   ];
 
   private static menuManagerPerson: MenuModel[] = [
-    {href: '/manager/manager-personnel/add-personnel', title: 'Thêm mới cập nhật hồ sơ'},
+    {href: '/manager/manager-personnel/add-personnel', title: 'Thêm mới cán bộ'},
     {href: '/manager/manager-personnel/edit-personnel', title: 'Chỉnh sửa thông tin cán bộ '},
     {href: '/manager/manager-personnel/procedure-leave-job', title: 'Làm thủ tục nghỉ việc  '},
     {href: '/manager/manager-personnel/procedure-bind-job', title: 'Làm thủ tục buộc thôi việc  '},

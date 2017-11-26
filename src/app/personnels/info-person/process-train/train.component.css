@@ -30,7 +30,8 @@ thead > tr > th:last-child {
   width: 100px;
 }
 
-/*input[type="number"] {*/
-  /*width: 100% !important;*/
-  /*max-width: 100% !important;*/
-/*}*/
+textarea {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}

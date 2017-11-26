@@ -132,31 +132,49 @@
             <div class="col-xs-12 col-sm-4 col-sm-offset-2">
               <div class="item-control">
                 <label>Tên báo cáo </label>
-                <input type="text" formControlName="name" required>
+                <input type="text" formControlName="name" required #nameSemina>
+                <div class="error" *ngIf="nameSemina.value.trim()  =='' && formSeminaTouch">
+                  Chưa nhập tên báo cáo
+                </div>
               </div>
               <div class="item-control">
                 <label>Tên hôi nghị </label>
-                <input type="text" formControlName="nameConvention" required>
+                <input type="text" formControlName="nameConvention" required #nameConventionS>
+                <div class="error" *ngIf="nameConventionS.value.trim()  =='' && formSeminaTouch">
+                  Chưa nhập tên hội nghị
+                </div>
               </div>
               <div class="item-control">
                 <label>Trang đăng </label>
-                <input type="number" min="1" formControlName="pagePost" required>
+                <input type="number" min="1" formControlName="pagePost" required #pagePostC>
+                <div class="error" *ngIf="pagePostC.value.trim()  =='' && formSeminaTouch">
+                  Chưa nhập trang đăng
+                </div>
               </div>
             </div>
             <div class="col-xs-12 col-sm-4 ">
               <div class="item-control">
                 <label>Năm </label>
-                <input type="number" min="1900" formControlName="year" required>
+                <input type="number" min="1900" formControlName="year" required #yearSemina>
+                <div class="error" *ngIf="yearSemina.value.trim()  =='' && formSeminaTouch">
+                  Chưa nhập năm
+                </div>
               </div>
               <div class="item-control">
                 <label>Số tác giả </label>
-                <input type="number" min="1" formControlName="numberAuthor" required>
+                <input type="number" min="1" formControlName="numberAuthor" required #numberAuthorSe>
+                <div class="error" *ngIf="numberAuthorSe.value.trim()  =='' && formSeminaTouch">
+                  Chưa nhập số tác giả
+                </div>
               </div>
               <div class="item-control">
                 <label>Trong nước/ngoài nước </label>
-                <select class="form-control" formControlName="location" required>
+                <select class="form-control" formControlName="location" required #locationSemina>
                   <option *ngFor="let item of location" [value]="item">{{item}}</option>
                 </select>
+                <div class="error" *ngIf="locationSemina.value.trim()  =='' && formSeminaTouch">
+                  Chưa chọn Trong nước/ngoài nước
+                </div>
               </div>
               <div class="item-control">
                 <label>Đồng tác giả </label>
@@ -195,35 +213,56 @@
             <div class="col-xs-12 col-sm-4 col-sm-offset-2">
               <div class="item-control">
                 <label>Tên bài báo </label>
-                <input type="text" formControlName="name" required>
+                <input type="text" formControlName="name" required #nameNew>
+                <div class="error" *ngIf="nameNew.value.trim()  =='' && formNewsTouch">
+                  Chưa nhập tên bài báo
+                </div>
               </div>
               <div class="item-control">
                 <label>Tên tạp chí </label>
-                <input type="text" formControlName="nameMagazine" required>
+                <input type="text" formControlName="nameMagazine" required #nameMagazine>
+                <div class="error" *ngIf="nameMagazine.value.trim()  =='' && formNewsTouch">
+                  Chưa nhập tên tạp chí
+                </div>
               </div>
               <div class="item-control">
-                <label>Tạp chỉ số </label>
-                <input type="number" min="1" formControlName="numberMagazine" required>
+                <label>Tạp chí số </label>
+                <input type="number" min="1" formControlName="numberMagazine" required #numberMagazine>
+                <div class="error" *ngIf="numberMagazine.value.trim()  =='' && formNewsTouch">
+                  Chưa nhập số tạp chí
+                </div>
               </div>
               <div class="item-control">
                 <label>Trang đăng </label>
-                <input type="number" min="1" formControlName="pagePost" required>
+                <input type="number" min="1" formControlName="pagePost" required #pagePostN>
+                <div class="error" *ngIf="pagePostN.value.trim()  =='' && formNewsTouch">
+                  Chưa nhập trang đăng
+                </div>
               </div>
             </div>
             <div class="col-xs-12 col-sm-4 ">
               <div class="item-control">
                 <label>Năm </label>
-                <input type="number" min="1900" formControlName="year" required>
+                <input type="number" min="1900" formControlName="year" required #yearNew>
+                <div class="error" *ngIf="yearNew.value.trim()  =='' && formNewsTouch">
+                  Chưa nhập năm
+                </div>
               </div>
               <div class="item-control">
                 <label>Số tác giả </label>
-                <input type="number" formControlName="numberAuthor" required>
+                <input type="number" formControlName="numberAuthor" required #numberAuthorNew>
+                <div class="error" *ngIf="numberAuthorNew.value.trim()  =='' && formNewsTouch">
+                  Chưa nhập số tác giả
+                </div>
               </div>
               <div class="item-control">
                 <label>Trong nước/ngoài nước </label>
-                <select class="form-control" formControlName="location" required>
+                <select class="form-control" formControlName="location" required #locationN>
                   <option *ngFor="let item of location" [value]="item">{{item}}</option>
                 </select>
+                <div class="error" *ngIf="locationN.value.trim()  =='' && formNewsTouch">
+                  Chưa chọn Trong nước/ngoài nước
+                </div>
               </div>
               <div class="item-control">
                 <label>Đồng tác giả </label>

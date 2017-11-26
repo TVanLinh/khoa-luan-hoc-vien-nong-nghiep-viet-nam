@@ -31,11 +31,11 @@ label.img-ul-upload.img-ul-button {
   height: 100%;
 }
 
-.active{
+.active {
   color: #8d9c00 !important;
 }
 
 .error {
-	border: 1px solid #000 !important;
+  color: red;
 }
 

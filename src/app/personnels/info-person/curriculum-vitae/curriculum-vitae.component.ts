@@ -22,6 +22,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   avatar: string = "";
 
+  formTouch = false;
 
   infoBasic: CvModel = {
     fullName: "",
@@ -205,7 +206,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     console.log(file.name);
     if (files && file) {
       var reader = new FileReader();
-
+      // console.log(file.getSize());
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
     }
@@ -221,6 +222,8 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
+    this.formTouch = true;
+
     let valueForm = this.formCV.value;
 
     console.log(valueForm);

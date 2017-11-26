@@ -20,6 +20,7 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
   positionUpdate: ThesissGuideModel = null;
 
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -37,11 +38,12 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
       role: ['', Validators.required],
       thesisName: ['', Validators.required],
       yearGuide: [2016, [Validators.required, Validators.min(1900)]],
-      speciesObtain: [this.speciesObtain[0],Validators.required]
+      speciesObtain: [this.speciesObtain[0], Validators.required]
     });
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
 
     let data: any[] = [valueForm.namePersonGuide, valueForm.namePersonGuide,
@@ -93,7 +95,8 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
     this.formData.patchValue({
       level: this.rankTrains[0],
       speciesObtain: this.speciesObtain[0]
-    })
+    });
+    this.formTouch = false;
   }
 
   onSave() {

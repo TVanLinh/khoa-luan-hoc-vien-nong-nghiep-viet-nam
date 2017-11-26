@@ -19,6 +19,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   positionUpdate: InfoTeachnologyModel = null;
   listData = new Collections.LinkedList<InfoTeachnologyModel>();
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
     super(eleRef, taskService);
@@ -33,11 +34,12 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   initForm() {
     this.formData = this.formBuilder.group({
       level: ['', Validators.required],
-      yearLicense: [2015, [Validators.required, Validators.min(1900)]],
+      yearLicense: [2015, [Validators.required, Validators.min(1900), Validators.max((new Date()).getFullYear())]],
     });
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm: InfoTeachnologyModel = this.formData.value;
 
     let data: any[] = [valueForm.level, valueForm.yearLicense];
@@ -78,6 +80,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
     this.positionUpdate = null;
     this.formData.reset();
     super.openModal(modal);
+    this.formTouch = false;
   }
 
   removeItem(index: number) {

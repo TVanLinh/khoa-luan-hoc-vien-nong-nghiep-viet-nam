@@ -87,6 +87,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     }
 
     MenuUtil.publishMenu(nextMenu);
+    this.router.navigate([item.href]);
   }
 
   constructor(protected _eref: ElementRef, public taskService: TaskService, private  router: Router) {

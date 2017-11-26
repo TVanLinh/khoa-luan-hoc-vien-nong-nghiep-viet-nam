@@ -37,6 +37,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   };
 
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -61,6 +62,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     this.mode = mode;
     this.positionUpdate = null;
     super.openModal(this.modalBonus);
+    this.formTouch = false;
   }
 
   onSave(mode) {
@@ -74,6 +76,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
 
   addItem() {
+    this.formTouch = true;
     //valid in here
     let valueForm = this.formData.value;
 

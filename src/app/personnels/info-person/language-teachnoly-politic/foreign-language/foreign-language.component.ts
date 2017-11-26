@@ -24,7 +24,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
   positionUpdate = -1;
   update: ForeignLanguageModel = null;
   list = new Collections.LinkedList<ForeignLanguageModel>();
-
+  formTouch = false;
 
   constructor(public nationalService: NationalService,
               public foreignService: ForeignLanguageService,
@@ -101,6 +101,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
     console.log(valueForm);
     let data: any[] = [valueForm.name, valueForm.listen, valueForm.read,
@@ -161,6 +162,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
       communicate: "",
       branch: ''
     });
+    this.formTouch = false;
   }
 
   removeItem(item: ForeignLanguageModel) {

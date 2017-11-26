@@ -67,37 +67,68 @@
         <div class="col-xs-12 col-sm-6 col-sm-offset-3">
           <div class="item-control">
             <label>Tên môn học</label>
-            <input type="text" formControlName="nameSubjects" required>
+            <input type="text" formControlName="nameSubjects" required #nameSubjects>
           </div>
+
+          <div class="item-control" *ngIf="nameSubjects.value.trim()  =='' && formTouch">
+            <div class="error" >
+              Chưa nhập tên môn học
+            </div>
+          </div>
+
 
           <div class="item-control">
             <label>Bậc đào tạo</label>
-            <select class="form-control" formControlName="levelEducation" required>
+            <select class="form-control" formControlName="levelEducation" #levelEducation required >
               <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
 
+          <div class="item-control" *ngIf="levelEducation.value.trim()  =='' && formTouch">
+            <div class="error" >
+              Chưa  chọn bậc đào tạo
+            </div>
+          </div>
+
           <div class="item-control">
             <label>Số tín chỉ</label>
-            <input type="number" min="1"  formControlName="credit" >
+            <input type="number" min="1"  formControlName="credit" #credit >
           </div>
 
           <div class="item-control">
             <label>Đơn vị giảng dạy</label>
-            <input type="text" formControlName="organTeaching" required>
+            <input type="text" formControlName="organTeaching" required #organTeaching>
           </div>
+
+          <div class="item-control" *ngIf="organTeaching.value.trim()  =='' && formTouch">
+            <div class="error" >
+              Chưa  nhập đơn vị giảng dạy
+            </div>
+          </div>
+
           <div class="item-control">
             <label>Năm bắt đầu giảng dạy</label>
-            <input type="number"  formControlName="yearTeaching" required>
+            <input type="number"  formControlName="yearTeaching" required #yearTeaching>
+          </div>
+
+          <div class="item-control" *ngIf="yearTeaching.value.trim()  =='' && formTouch">
+            <div class="error" >
+              Chưa  nhập năm bắt đầu giảng dạy
+            </div>
           </div>
 
           <div class="item-control">
             <label>Ngôn ngữ giảng dạy</label>
-            <select class="form-control" formControlName="languageTeaching" style="width: 200px" required>
+            <select class="form-control" formControlName="languageTeaching" style="width: 200px" required #languageTeaching>
               <option *ngFor="let item of nationals" [value]="item.code">
                 {{item.name}}
               </option>
             </select>
+          </div>
+          <div class="item-control" *ngIf="languageTeaching.value.trim()  =='' && formTouch">
+            <div class="error" >
+              Chưa  chọn ngôn ngữ giảng dạy
+            </div>
           </div>
         </div>
       </div>

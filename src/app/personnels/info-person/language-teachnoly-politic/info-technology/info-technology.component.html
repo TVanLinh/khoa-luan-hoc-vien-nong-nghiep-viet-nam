@@ -62,13 +62,19 @@
 
           <div class="item-control pdt-i-0">
             <label>Trình độ tin học</label>
-            <input type="text" class="form-control" formControlName="level">
+            <input type="text" class="form-control" formControlName="level" #level>
+            <div class="error" *ngIf="level.value.trim()  =='' && formTouch">
+              Chưa nhập trình độ tin học
+            </div>
           </div>
           <!---->
 
           <div class="item-control">
             <label class="mgr-20">Năm cấp</label>
-            <input type="number" class="form-control" formControlName="yearLicense">
+            <input type="number" class="form-control" formControlName="yearLicense" #yearLicense>
+            <div class="error" *ngIf="yearLicense.value.trim()  =='' && formTouch">
+              Chưa nhập năm cấp
+            </div>
           </div>
 
         </div>

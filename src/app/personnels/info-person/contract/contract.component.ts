@@ -8,6 +8,7 @@ import {ContactService} from "./contact.service";
 import {Config} from "../../../shares/config";
 import {TaskService} from "../../../shares/task.service";
 import {ValidService} from "../../../shares/valid.service";
+import {DataValid} from "../../../shares/date.valid";
 
 @Component({
   selector: 'app-contract',
@@ -23,6 +24,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   positionUpdate = -1;
   contactType = [];
 
+  formTouch = false;
   initData: ContractModel = {
     numberContact: "",
     specie: 0,
@@ -48,6 +50,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
 
     let data = [valueForm.numberContact,
@@ -111,6 +114,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+
     let body = {
       "contract": this.listContracts.toArray(),
       "staffCode": this.acount['username']
@@ -125,7 +129,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
   private initForm() {
     this.formData = this.formBuilder.group({
-      numberContact: [this.initData.numberContact, Validators.required],
+      numberContact: [this.initData.numberContact, [Validators.required]],
       specie: [this.initData.specie, Validators.required],
       dateEffect: [this.initData.dateEffect, Validators.required],
       dateEndEffect: [this.initData.dateEndEffect, Validators.required],

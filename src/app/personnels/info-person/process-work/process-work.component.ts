@@ -24,6 +24,7 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   listCatalogLevel2: CatalogFacultyModel[] = [];
   processWorks = new Collections.LinkedList<ProcessWorkModel>();
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -63,6 +64,7 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   }
 
   openModals() {
+    this.formTouch = false;
     this.formInfoProcess.reset();
     this.formInfoProcess.patchValue({
       now: false,
@@ -77,6 +79,7 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
 
 
   addItem() {
+    this.formTouch = true;
     console.log(this.isBelong);
 
     let valueForm = this.formInfoProcess.value;

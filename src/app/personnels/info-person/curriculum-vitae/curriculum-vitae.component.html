@@ -32,13 +32,10 @@
 
             <div class="item-control" style="clear: none">
               <label class="item-title">2, Họ và tên <span class="star">*</span></label>
-              <input name="fullName" type="text" formControlName="fullName" required/>
-
-              <!--<div class="star" *ngIf="(!formCV.controls.fullName.errors.valid)">-->
-              <!--{{messageError.fullName}}-->
-              <!--</div>-->
-
-
+              <input name="fullName" type="text" #fullName formControlName="fullName" required/>
+              <div class="error" *ngIf="fullName.value.trim()  =='' && formTouch">
+                Chưa nhập họ tên
+              </div>
             </div>
 
             <div class="item-control">
@@ -52,11 +49,6 @@
             <input type="date" style="width: 30%;margin-right: 20px"
                    [value]="infoBasic.birthDay | date:'yyyy-MM-dd'" required
                    formControlName="birthDay" #birthDay/>
-
-            <!--<div class="star" *ngIf="(!formCV.controls.birthDay.errors.valid )">-->
-            <!--{{messageError.birthDay}}-->
-            <!--</div>-->
-
             <label class="item-title">5, Giới tính <span class="star">*</span></label>
             <select formControlName="sex" class="form-control" #sex type="select">
               <option value="1">Nam</option>
@@ -64,12 +56,17 @@
               <option value="2">Khác</option>
             </select>
 
-            <!--<div class="star" *ngIf="!formCV.controls.sex.errors.valid">-->
-            <!--{{messageError.sex}}-->
-            <!--</div>-->
+            <div class="error" *ngIf="sex.value.trim()  =='' && formTouch">
+              Chưa chọn giới tính
+            </div>
 
           </div>
 
+          <div class="item-control">
+            <div class="error" *ngIf="birthDay.value.trim()  =='' && formTouch">
+              Chưa nhập ngày sinh
+            </div>
+          </div>
 
           <div class="item-control">
             <label class="item-title">6,Email <span class="star">*</span></label>
@@ -77,9 +74,19 @@
                    style="width: 30%;margin-right: 20px" required
                    #email/>
 
+
             <label class="item-title">7,Điện thoại <span class="star">*</span></label>
             <input type="text" style="width: 200px" formControlName="phone" pattern="[0-9]*" required #phone>
 
+          </div>
+
+          <div class="item-control">
+            <div class="error" *ngIf="email.value.trim()  =='' && formTouch">
+              Chưa nhập mail
+            </div>
+            <div class="error" *ngIf="phone.value.trim()  =='' && formTouch">
+              Chưa nhập số điện thoại
+            </div>
           </div>
 
         </div>
@@ -100,6 +107,9 @@
                   required type="select" #cityBirthDay (change)="cityChange(cityBirthDay.value,'NS')">
             <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
+          <div class="error" *ngIf="cityBirthDay.value.trim()  =='' && formTouch">
+            Chưa chọn tình thành phố
+          </div>
         </div>
 
 
@@ -111,6 +121,9 @@
                   (change)="districtChange(districtBirthDay.value,'NS')">
             <option *ngFor="let item of birthDays.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
+          <div class="error" *ngIf="districtBirthDay.value.trim()  =='' && formTouch">
+            Chưa chọn quận huyện
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
@@ -120,7 +133,9 @@
                   required type="select">
             <option *ngFor="let item of guidsBithday" [value]="item['code']">{{item['name']}}</option>
           </select>
-
+          <div class="error" *ngIf="guidBithDay.value.trim()  =='' && formTouch">
+            Chưa chọn phường xã
+          </div>
         </div>
       </div>
 
@@ -137,6 +152,9 @@
                   required type="select" #homeTownCity (change)="cityChange(homeTownCity.value,'QUEQUAN')">
             <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
+          <div class="error" *ngIf="homeTownCity.value.trim()  =='' && formTouch">
+            Chưa chọn tỉnh thành phố
+          </div>
         </div>
 
       </div>
@@ -147,6 +165,9 @@
                   (change)="districtChange(homeTownDistrict.value,'QUEQUAN')">
             <option *ngFor="let item of homeTown.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
+          <div class="error" *ngIf="homeTownDistrict.value.trim()  =='' && formTouch">
+            Chưa chọn quận huyện
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-4">
@@ -157,6 +178,9 @@
             <option *ngFor="let item of guilsHomeTown" [value]="item['code']">{{item['name']}}</option>
           </select>
 
+          <div class="error" *ngIf="homeTownGuid.value.trim()  =='' && formTouch">
+            Chưa chọn phường xã
+          </div>
         </div>
       </div>
 
@@ -168,20 +192,25 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control">
           <label class="item-title">10, Dân tộc </label>
-          <select class="form-control" formControlName="nation" type="select" required>
+          <select class="form-control" formControlName="nation" #nation type="select" required>
             <option [value]="item.name" *ngFor="let item of listNation  | orderBy: 'name'">{{item.name}}</option>
           </select>
-
+          <div class="error" *ngIf="nation.value.trim()  =='' && formTouch">
+            Chưa chọn dân tộc
+          </div>
         </div>
       </div>
 
       <div class="col-xs-12 col-sm-4">
         <div class="item-control">
           <label class="item-title">11, Tôn giáo</label>
-          <select class="form-control" formControlName="hashNation">
+          <select class="form-control" formControlName="hashNation" #hashNation>
             <option value="false">Không</option>
             <option value="true">Có</option>
           </select>
+          <div class="error" *ngIf="hashNation.value.trim()  =='' && formTouch">
+            Chưa chọn tôn giáo
+          </div>
         </div>
       </div>
 
@@ -197,7 +226,9 @@
         <div class="item-control pdt-i-0">
           <label class="hidden-xs"></label>
           <input type="text" formControlName="identityNumber" minlength="6" pattern="[0-9]*" required #identityNumber/>
-
+          <div class="error" *ngIf="identityNumber.value.trim()  =='' && formTouch">
+            Chưa nhập số chứng minh thư
+          </div>
         </div>
       </div>
 
@@ -206,7 +237,9 @@
           <label>Ngày cấp </label>
           <input formControlName="dateRange" type="date"
                  [value]="infoBasic.identity.dateRange | date:'yyyy-MM-dd'" required #dateRange/>
-
+          <div class="error" *ngIf="dateRange.value.trim()  =='' && formTouch">
+            Chưa nhập ngày cấp
+          </div>
         </div>
       </div>
 
@@ -215,7 +248,9 @@
           <label>Nơi cấp </label>
           <input formControlName="placeRange" type="text" required #placeRange/>
 
-
+          <div class="error" *ngIf="placeRange.value.trim()  =='' && formTouch">
+            Chưa nhập nơi cấp
+          </div>
         </div>
       </div>
 
@@ -226,9 +261,12 @@
         <div class="item-control">
           <label class="mgr-20 item-title" style="width:auto;">13, Nơi đăng kí hộ khẩu thường chú <span
             class="star">*</span></label>
-          <input style="width: 71%" type="text" formControlName="placeRegisterHouseHold" required/>
+          <input style="width: 71%" type="text" formControlName="placeRegisterHouseHold" #placeRegisterHouseHold
+                 required/>
           <span style="display: block">(Số nhà đường thành phố /  Thôn xóm xã huyện tỉnh )</span>
-
+          <div class="error" *ngIf="placeRegisterHouseHold.value.trim()  =='' && formTouch">
+            Chưa nhập nơi đăng kí hộ khẩu thường chú
+          </div>
 
         </div>
       </div>
@@ -254,17 +292,16 @@
       <div class="col-xs-12 col-sm-5">
         <div class="item-control">
           <label class="item-title mgr-20" style="width: auto">15, Nhóm máu </label>
-          <select formControlName="bloodGroup" class="form-control" required type="select">
+          <select formControlName="bloodGroup" class="form-control" required type="select" #bloodGroup>
             <option value="A">A</option>
             <option value="B">A</option>
             <option value="AB">AB</option>
             <option value="0">O</option>
           </select>
 
-
-          <!--<div class="star" *ngIf="!formCV.controls.bloodGroup.errors.valid">-->
-          <!--{{messageError.bloodGroup}}-->
-          <!--</div>-->
+          <div class="error" *ngIf="bloodGroup.value.trim()  =='' && formTouch">
+            Chưa chọn nhóm máu
+          </div>
 
         </div>
       </div>
@@ -281,7 +318,9 @@
                   required type="select" #placeNowC (change)="cityChange(placeNowC.value,'NOIOHIENTAI')">
             <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
-
+          <div class="error" *ngIf="placeNowC.value.trim()  =='' && formTouch">
+            Chưa chọn tỉnh thành phố
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-2">
@@ -291,6 +330,9 @@
                   required type="select" #placeNowD (change)="districtChange(placeNowD.value,'NOIOHIENTAI')">
             <option *ngFor="let item of placeNow.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
+          <div class="error" *ngIf="placeNowD.value.trim()  =='' && formTouch">
+            Chưa chọn quận huyện
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-2">
@@ -300,12 +342,18 @@
                   required type="select">
             <option *ngFor="let item of guilsPlaceNow" [value]="item['code']">{{item['name']}}</option>
           </select>
+          <div class="error" *ngIf="placeNowG.value.trim()  =='' && formTouch">
+            Chưa chọn phường xã
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-3">
         <div class="item-control">
           <label>Số nhà / Đội </label>
-          <input type="text" formControlName="numberHome" required>
+          <input type="text" formControlName="numberHome" #numberHome required>
+          <div class="error" *ngIf="numberHome.value.trim()  =='' && formTouch">
+            Chưa nhập số nhà / đội
+          </div>
         </div>
       </div>
 
@@ -313,7 +361,9 @@
         <div class="item-control">
           <label>Đường/Thôn </label>
           <input type="text" formControlName="street" required #street>
-
+          <div class="error" *ngIf="street.value.trim()  =='' && formTouch">
+            Chưa nhập đường thôn
+          </div>
         </div>
       </div>
 

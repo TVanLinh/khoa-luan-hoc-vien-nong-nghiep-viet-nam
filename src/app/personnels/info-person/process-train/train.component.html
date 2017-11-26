@@ -8,7 +8,6 @@
       <div *ngIf="message.condition && formValid == true" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
-      {{message.content}}
     </div>
     <!---->
 
@@ -134,27 +133,50 @@
 
           <div class="item-control">
             <label>Từ năm</label>
-            <input type="number" class="date" formControlName="yearFrom" required/>
+            <input type="number" class="date" formControlName="yearFrom" required #yearFromLong/>
           </div>
 
+          <div class="item-control"  *ngIf="yearFromLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa nhập từ năm
+            </div>
+          </div>
 
           <div class="item-control">
             <label>Đến năm</label>
-            <input type="number" class="date" formControlName="yearEnd" required/>
+            <input type="number" class="date" formControlName="yearEnd" required #yearEndLong/>
           </div>
 
+          <div class="item-control"  *ngIf="yearEndLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa nhập đến năm
+            </div>
+          </div>
 
           <div class="item-control">
-            <label>Chuyên nghành</label>
-            <input type="text" formControlName="specialized" required/>
+            <label>Chuyên ngành</label>
+            <input type="text" formControlName="specialized" required #specializedLong/>
+          </div>
+
+          <div class="item-control"  *ngIf="specializedLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa nhập chuyên ngành
+            </div>
           </div>
 
 
           <div class="item-control">
             <label>Bậc học</label>
-            <select name="" class="form-control" formControlName="levelLearn" required>
+            <select name="" class="form-control" formControlName="levelLearn" required #levelLearnLong>
               <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
+          </div>
+
+
+          <div class="item-control"  *ngIf="levelLearnLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa chọn bậc học
+            </div>
           </div>
 
         </div>
@@ -162,31 +184,55 @@
         <div class="col-xs-12 col-sm-5">
           <div class="item-control">
             <label>Học vị đạt được</label>
-            <select name="" class="form-control" formControlName="academicRank" required>
+            <select name="" class="form-control" formControlName="academicRank" required #academicRanLong>
               <option *ngFor="let item of catalogRankAcademic" [value]="item.name">{{item.name}}</option>
             </select>
+          </div>
+
+
+          <div class="item-control"  *ngIf="academicRanLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa chọn học vị đạt được
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Xếp loại</label>
-            <select name="" class="form-control" formControlName="spice" required>
+            <select name="" class="form-control" formControlName="spice" required #spiceLong>
               <option *ngFor="let item of speciesObtain" [value]="item">{{item}}</option>
             </select>
+          </div>
+
+          <div class="item-control"  *ngIf="spiceLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa chọn xếp loại
+            </div>
           </div>
           <!---->
 
           <div class="item-control">
             <label>Trường đào tạo</label>
-            <input type="text" formControlName="school" required/>
+            <input type="text" formControlName="school" required #schoolLong/>
+          </div>
+          <div class="item-control"  *ngIf="schoolLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa nhập trường đào tạo
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national" style="width: 200px" required>
+            <select name="" class="form-control" formControlName="national" style="width: 200px" required #nationalLong>
               <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
             </select>
+          </div>
+
+          <div class="item-control"  *ngIf="nationalLong.value.trim()  =='' && formLongTouch">
+            <div class="error">
+              Chưa chọn nước đào tạo
+            </div>
           </div>
           <!---->
         </div>
@@ -218,20 +264,38 @@
 
         <div class="col-xs-12 col-sm-5 col-sm-offset-1">
           <div class="item-control">
-            <label>Từ tháng/năm</label>
-            <input type="date" class="" formControlName="dateFrom" required/>
+            <label>Từ ngày </label>
+            <input type="date" class="" formControlName="dateFrom" required #dateFromShort/>
+
           </div>
 
+          <div class="item-control"  *ngIf="dateFromShort.value.trim()  =='' && formShortTouch">
+            <div class="error">
+              Chưa nhập từ ngày
+            </div>
+          </div>
 
           <div class="item-control">
             <label>Số tháng</label>
-            <input type="number" class="date" min="1" formControlName="numberMonth" required/>
+            <input type="number" class="date" min="1" formControlName="numberMonth" required #numberMonthShort/>
+          </div>
+
+          <div class="item-control"  *ngIf="numberMonthShort.value.trim()  =='' && formShortTouch">
+            <div class="error">
+              Chưa nhập số tháng
+            </div>
           </div>
 
 
           <div class="item-control">
             <label>Chứng chỉ</label>
-            <input type="text" formControlName="certificate" required/>
+            <input type="text" formControlName="certificate" required #certificate>
+          </div>
+
+          <div class="item-control"  *ngIf="certificate.value.trim()  =='' && formShortTouch">
+            <div class="error">
+              Chưa nhập chứng chỉ
+            </div>
           </div>
         </div>
 
@@ -239,22 +303,41 @@
 
           <div class="item-control">
             <label>Nơi đào tạo</label>
-            <input type="text" formControlName="placeTrain" required/>
+            <input type="text" formControlName="placeTrain" required #placeTrain/>
           </div>
 
+          <div class="item-control"  *ngIf="placeTrain.value.trim()  =='' && formShortTouch">
+            <div class="error">
+              Chưa nhập nơi đào tạo
+            </div>
+          </div>
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national" style="width: 200px" required>
+            <select name="" class="form-control" formControlName="national" style="width: 200px" required #nationalShort>
               <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
             </select>
+
           </div>
+
+          <div class="item-control"  *ngIf="nationalShort.value.trim()  =='' && formShortTouch">
+            <div class="error">
+              Chưa chọn nước đào tạo
+            </div>
+          </div>
+
           <!---->
           <div class="item-control">
             <label>Mô tả</label>
-            <input type="text" formControlName="description" required/>
+            <textarea rows="10"  formControlName="description" required #descriptionShort></textarea>
+          </div>
+
+          <div class="item-control"  *ngIf="descriptionShort.value.trim()  =='' && formShortTouch">
+            <div class="error">
+              Chưa nhập mô tả, tối thiếu 50 kí tự
+            </div>
           </div>
           <!---->
         </div>

@@ -36,6 +36,7 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
   listData = new Collections.LinkedList<PoliticModel>();
   formNotValid = false;
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -53,18 +54,19 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
     this.formDataPoliticAdd = this.formBuilder.group({
       level: ['', Validators.required],
-      yearLicense: ['', [Validators.required, Validators.min(1900)]]
+      yearLicense: ['', [Validators.required, Validators.min(1900), Validators.max((new Date()).getFullYear())]]
     });
   }
 
   openModal(politicModal) {
     super.openModal(politicModal);
     this.formDataPoliticAdd.reset();
+    this.formTouch = false;
   }
 
   addItem() {
     //do something ------------
-
+    this.formTouch = true;
     let valueForm = this.formDataPoliticAdd.value;
 
     let data = [valueForm.level, valueForm.yearLicense];

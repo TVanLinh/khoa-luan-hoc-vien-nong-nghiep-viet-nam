@@ -124,17 +124,26 @@
 
           <div class="item-control pdt-i-0">
             <label>Cấp quyết định</label>
-            <input type="text" formControlName="rankDecide">
+            <input type="text" formControlName="rankDecide" #rankDecide required>
+            <div class="error" *ngIf="rankDecide.value.trim()  =='' && formTouch">
+              Chưa nhập cấp quyết định
+            </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Hình thức</label>
-            <input type="text" formControlName="form">
+            <input type="text" formControlName="form" #form required>
+            <div class="error" *ngIf="form.value.trim()  =='' && formTouch">
+              Chưa nhập hình thức
+            </div>
           </div>
 
           <div class="item-control">
             <label>Số quyết định </label>
-            <input type="text" formControlName="numberDecide">
+            <input type="text" formControlName="numberDecide" #numberDecide required>
+            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
+              Chưa nhập số quyết định
+            </div>
           </div>
         </div>
 
@@ -142,12 +151,18 @@
           <div class="item-control pdt-i-0 ">
             <label>Ngày quyết định</label>
             <input type="date" formControlName="dateDecide"
-                   [value]="initFormData.dateDecide | date:'yyyy-MM-dd'">
+                   [value]="initFormData.dateDecide | date:'yyyy-MM-dd'" #dateDecide required>
+            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+              Chưa nhập ngày quyết định
+            </div>
           </div>
 
           <div class="item-control">
             <label>Lí do </label>
-            <input type="text" formControlName="reason">
+            <input type="text" formControlName="reason" #reason required>
+            <div class="error" *ngIf="reason.value.trim()  =='' && formTouch">
+              Chưa nhập lí do
+            </div>
           </div>
         </div>
       </div>

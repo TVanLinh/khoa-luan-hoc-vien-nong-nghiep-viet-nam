@@ -1,10 +1,12 @@
-export class DateValid{
-  // static germanDate(control: Control): ValidationResult {
-  //   let germanDatePattern = /^\d{1,2}\.\d{1,2}\.\d{4}$/;
-  //
-  //   if (!control.value.match(germanDatePattern))
-  //     return { "germanDate": true };
-  //
-  //   return null;
-  // }
+/** A hero's name can't match the given regular expression */
+import {AbstractControl, ValidatorFn} from "@angular/forms";
+
+export class DataValid {
+  static textValid(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      const forbidden = control.value != null && control.value.trim() != '';
+      console.log("forbidden "+forbidden);
+      return forbidden ? {'textValid': {value: control.value}} : null;
+    };
+  }
 }

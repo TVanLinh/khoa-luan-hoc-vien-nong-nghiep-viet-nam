@@ -65,59 +65,80 @@
 
           <div class="item-control">
             <label>Tên ngoại ngữ </label>
-            <select class="form-control" formControlName="name" style="width: 200px" required>
+            <select class="form-control" formControlName="name" style="width: 200px" #name required>
               <option [value]="item.code" *ngFor="let item of nationals">{{item.name}}</option>
             </select>
+            <div class="error" *ngIf="name.value.trim()  =='' && formTouch">
+              Chưa chọn tên ngoại ngữ
+            </div>
           </div>
 
           <div class="item-control">
             <label>Nghe </label>
-            <select class="form-control" formControlName="listen" required>
+            <select class="form-control" formControlName="listen" required #listen>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
+            <div class="error" *ngIf="listen.value.trim()  =='' && formTouch">
+              Chưa chọn khả năng nghe
+            </div>
           </div>
 
           <div class="item-control">
             <label>Nói </label>
-            <select class="form-control" formControlName="speak" required>
+            <select class="form-control" formControlName="speak" required #speak>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
+            <div class="error" *ngIf="speak.value.trim()  =='' && formTouch">
+              Chưa chọn khả năng nói
+            </div>
           </div>
 
           <div class="item-control">
             <label>Đọc </label>
-            <select class="form-control" formControlName="read" required>
+            <select class="form-control" formControlName="read" required #read>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
+            <div class="error" *ngIf="read.value.trim()  =='' && formTouch">
+              Chưa chọn khả năng đọc
+            </div>
           </div>
 
         </div>
         <div class="col-xs-12 col-sm-5">
           <div class="item-control">
             <label>Viết </label>
-            <select class="form-control" formControlName="write" required>
+            <select class="form-control" formControlName="write" required #write>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
+            <div class="error" *ngIf="write.value.trim()  =='' && formTouch">
+              Chưa chọn khả năng viết
+            </div>
           </div>
 
           <div class="item-control">
             <label>Dịch</label>
-            <select class="form-control" formControlName="translate" required>
+            <select class="form-control" formControlName="translate" required #translate>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
+            <div class="error" *ngIf="translate.value.trim()  =='' && formTouch">
+              Chưa chọn khả năng dịch
+            </div>
           </div>
 
           <div class="item-control">
             <label>Giao tiếp </label>
-            <select class="form-control" formControlName="communicate" required>
+            <select class="form-control" formControlName="communicate" required #communicate>
               <option *ngFor="let item of levels" [value]="item">{{foreignService.getLevelTitle(item)}}</option>
             </select>
+            <div class="error" *ngIf="communicate.value.trim()  =='' && formTouch">
+              Chưa chọn khả năng giao tiếp
+            </div>
           </div>
 
           <div class="item-control">
-            <label>Chuyên nghành/chủ đề <br>có thể giảng dạy </label>
-            <input type="text" class="form-control" formControlName="branch">
-          </div>
+          <label>Chuyên nghành/chủ đề <br>có thể giảng dạy </label>
+          <input type="text" class="form-control" formControlName="branch">
+        </div>
 
         </div>
       </div>

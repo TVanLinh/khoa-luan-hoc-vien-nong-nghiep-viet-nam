@@ -71,17 +71,30 @@
 
           <div class="item-control pdt-i-0">
             <label>Số HD</label>
-            <input type="text" class="form-control" formControlName="numberContact" [value]="initData.numberContact">
+            <input type="text" class="form-control" #numberContact formControlName="numberContact"
+                   [value]="initData.numberContact">
+            <div class="error" *ngIf="numberContact.value.trim()  =='' && formTouch">
+              Chưa nhập số hợp đồng
+            </div>
           </div>
+
+
           <!---->
           <div class="item-control">
             <label>Ngày hiệu lực </label>
-            <input type="date" class="form-control" formControlName="dateEffect"
+            <input type="date" class="form-control" #dateEffect formControlName="dateEffect"
                    [value]="initData.dateEffect | date:'yyyy-MM-dd'">
+            <div class="error" *ngIf="dateEffect.value.trim()  =='' && formTouch">
+              Chưa nhập ngày hiệu lực
+            </div>
           </div>
           <div class="item-control">
             <label>Đơn vị tuyển dụng </label>
-            <input type="text" class="form-control" formControlName="unitOrgan" [value]="initData.unitOrgan">
+            <input type="text" class="form-control" #unitOrgan formControlName="unitOrgan" [value]="initData.unitOrgan">
+          </div>
+
+          <div class="error" *ngIf="unitOrgan.value.trim()  =='' && formTouch">
+            Chưa nhập đơn vị tuyển dụng
           </div>
 
         </div>
@@ -89,20 +102,29 @@
         <div class="col-xs-12 col-sm-6 ">
           <div class="item-control pdt-i-0 ">
             <label>Loại HD </label>
-            <select class="form-control" formControlName="specie" [value]="initData.specie">
+            <select class="form-control" formControlName="specie" #specie [value]="initData.specie">
               <option *ngFor="let item of contactType" [value]="item.value">{{item.title}}</option>
             </select>
+            <div class="error" *ngIf="specie.value.trim()  =='' && formTouch">
+              Chưa chọn loại hóa đơn
+            </div>
           </div>
 
           <div class="item-control">
             <label>Ngày hết hiệu lực </label>
-            <input type="date" class="form-control" formControlName="dateEndEffect"
+            <input type="date" class="form-control"  #dateEndEffect formControlName="dateEndEffect"
                    [value]="initData.dateEndEffect | date:'yyyy-MM-dd'">
+            <div class="error" *ngIf="dateEndEffect.value.trim()  =='' && formTouch">
+              Chưa nhập ngày hết hiệu lực
+            </div>
           </div>
 
           <div class="item-control">
             <label>Công việc đảm nhận </label>
-            <input type="text" class="form-control" formControlName="job" [value]="initData.job">
+            <input type="text" class="form-control" #job formControlName="job" [value]="initData.job">
+          </div>
+          <div class="error" *ngIf="job.value.trim()  =='' && formTouch">
+            Chưa nhập công việc đảm nhận
           </div>
         </div>
       </div>

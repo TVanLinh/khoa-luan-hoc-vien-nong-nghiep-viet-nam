@@ -23,6 +23,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
   nationals: National[] = [];
 
   formNotValid = false;
+  formTouch = false;
 
   constructor(public nationalService: NationalService, public taskService: TaskService, protected eleRef: ElementRef) {
     super(eleRef, taskService);
@@ -58,6 +59,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
     this.formData.reset();
     this.positionUpdate = -1;
     super.openModal(this.modal);
+    this.formTouch = false;
   }
 
   initNationals() {
@@ -78,6 +80,8 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
   }
 
   addItem() {
+    this.formTouch = true;
+
     let valueForm = this.formData.value;
 
     let data: any[] = [valueForm.levelEducation, valueForm.organTeaching,

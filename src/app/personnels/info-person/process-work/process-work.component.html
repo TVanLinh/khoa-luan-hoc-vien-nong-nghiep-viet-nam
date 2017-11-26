@@ -75,8 +75,10 @@
 
           <div class="item-control" *ngIf="!isBelong">
             <label>Đơn vị </label>
-            <input class="form-control" formControlName="organ"/>
-            <!--<input class="form-control"/>-->
+            <input class="form-control" formControlName="organ" #organ/>
+            <div class="error" *ngIf="organ.value.trim()  =='' && formTouch">
+              Chưa nhập đơn vị
+            </div>
           </div>
 
 
@@ -87,15 +89,21 @@
                 {{item.name}}
               </option>
             </select>
+            <div class="error" *ngIf="level1.value.trim()  =='' && formTouch">
+              Chưa chọn đơn vị công tác cấp 1
+            </div>
           </div>
 
           <div class="item-control" *ngIf="isBelong">
             <label>Đơn vị công tác cấp 2</label>
-            <select class="form-control" formControlName="level2">
+            <select class="form-control" formControlName="level2" #level2>
               <option *ngFor="let item of listCatalogLevel2;let i = index " [value]="item.name">
                 {{item.name}}
               </option>
             </select>
+            <div class="error" *ngIf="level2.value.trim()  =='' && formTouch">
+              Chưa chọn đơn vị công tác cấp 2
+            </div>
           </div>
           <div class="item-control" *ngIf="isBelong">
             <input type="checkbox" value="true"  formControlName="now">
@@ -105,12 +113,18 @@
         <div class="col-xs-12 col-sm-4">
           <div class="item-control">
             <label>Từ ngày </label>
-            <input type="date" formControlName="dateFrom">
+            <input type="date" formControlName="dateFrom" #dateFrom>
+            <div class="error" *ngIf="dateFrom.value.trim()  =='' && formTouch">
+              Chưa nhập từ ngày
+            </div>
           </div>
 
           <div class="item-control">
             <label>Chức vụ </label>
-            <input type="text" formControlName="position">
+            <input type="text" formControlName="position" #position>
+            <div class="error" *ngIf="position.value.trim()  =='' && formTouch">
+              Chưa nhập chức vụ
+            </div>
           </div>
 
         </div>
@@ -118,13 +132,19 @@
         <div class="col-xs-12 col-sm-4">
           <div class="item-control">
             <label>Đến ngày </label>
-            <input type="date" formControlName="dateEnd">
+            <input type="date" formControlName="dateEnd" #dateEnd>
+            <div class="error" *ngIf="dateEnd.value.trim()  =='' && formTouch">
+              Chưa nhập đến ngày
+            </div>
           </div>
 
           <!---->
           <div class="item-control">
             <label>Công việc đảm nhận </label>
-            <input type="text" class="" formControlName="job">
+            <input type="text" class="" formControlName="job" #job>
+            <div class="error" *ngIf="job.value.trim()  =='' && formTouch">
+              Chưa nhập công việc đảm nhận
+            </div>
           </div>
 
         </div>

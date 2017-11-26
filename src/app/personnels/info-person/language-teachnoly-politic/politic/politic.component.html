@@ -64,17 +64,24 @@
 
           <div class="item-control pdt-i-0">
             <label>Trình độ chính trị</label>
-            <select class="form-control" formControlName="level" required>
+            <select class="form-control" formControlName="level" #level required>
               <option value="loai1">---------Chọn loai 1--------</option>
               <option value="loai2">---------Chọn loai2--------</option>
               <option value="loai3">---------Chọn loai3--------</option>
             </select>
+
+            <div class="error" *ngIf="level.value.trim()  =='' && formTouch">
+              Chưa chọn trình độ chính trị
+            </div>
           </div>
           <!---->
 
           <div class="item-control">
             <label class="mgr-20">Năm công nhận</label>
-            <input type="number"  formControlName="yearLicense" required>
+            <input type="number"  formControlName="yearLicense" required #yearLicense>
+            <div class="error" *ngIf="yearLicense.value.trim()  =='' && formTouch">
+              Chưa nhập năm công nhận
+            </div>
           </div>
 
         </div>

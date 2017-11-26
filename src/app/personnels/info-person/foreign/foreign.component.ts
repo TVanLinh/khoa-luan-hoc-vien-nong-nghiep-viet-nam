@@ -33,6 +33,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   formNotValid = false;
+  formTouch = false;
 
   ngOnInit() {
     this.initForm();
@@ -57,10 +58,13 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
 
   openModals() {
     super.openModal(this.modal);
+    this.formData.reset();
     this.positionUpdate = null;
+    this.formTouch = false;
   }
 
   addItem() {
+    this.formTouch = true;
     let valueForm = this.formData.value;
 
     let data: any[] = [valueForm.dateFrom, valueForm.dateEnd, valueForm.national, valueForm.purpose];

@@ -36,6 +36,8 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
   formSeminarNotValid = false;
   formNewspaperNotValid = false;
   formValid = false;
+  formSeminaTouch = false;
+  formNewsTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -74,6 +76,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     let valueFormNewspaper = this.formNewspaper.value;
     this.formValid = false;
     if (target == SENIMAR) {
+      this.formSeminaTouch = true;
       let data = [valueFormSemina.name, valueFormSemina.nameConvention, valueFormSemina.pagePost, valueFormSemina.year,
         valueFormSemina.numberAuthor, valueFormSemina.location];
       this.updateView("semina-form", this.formSemina.valid);
@@ -86,6 +89,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     }
 
     if (target == NEWSPAPER) {
+      this.formNewsTouch = true;
       let data = [valueFormNewspaper.name, valueFormNewspaper.nameMagazine, valueFormNewspaper.numberMagazine, valueFormNewspaper.pagePost,
         valueFormNewspaper.year, valueFormNewspaper.numberAuthor, valueFormNewspaper.location];
       this.updateView("newspaper-form", this.formNewspaper.valid);
@@ -95,6 +99,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
         return;
       }
       this.formNewspaperNotValid = false;
+
     }
 
 
@@ -165,10 +170,12 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
       this.positionSeminaUpdate = null;
       this.formSemina.reset();
       super.openModal(this.seminaModal);
+      this.formSeminaTouch = false;
     } else {
       this.positionNewspaperUpdate = null;
       this.formNewspaper.reset();
       super.openModal(this.newspaperModal);
+      this.formNewsTouch = false;
     }
 
   }
