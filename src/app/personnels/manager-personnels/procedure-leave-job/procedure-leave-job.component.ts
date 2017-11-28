@@ -1,8 +1,13 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
+import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog-faculty.model";
+import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
+import {ValidService} from "../../../shares/valid.service";
+import {Config} from "../../../shares/config";
+import {MessageAlert} from "../../../shares/message.alert";
 
 @Component({
   selector: 'app-procedure-leave-job',
@@ -13,9 +18,11 @@ export class ProcedureLeaveJobComponent extends BaseFormComponent implements OnI
   @ViewChild('modalLeaveJob') modalLeaveJob: ModalComponent;
   formSearch: FormGroup;
   formLeaveJob: FormGroup;
+  formTouch = false;
+  user: any;
 
-  constructor(protected eleRef: ElementRef, taskService: TaskService) {
-    super(eleRef,taskService);
+  constructor(protected eleRef: ElementRef, taskService: TaskService, public  catalogFaculty: CatalogFacultyService) {
+    super(eleRef, taskService);
   }
 
   ngOnInit() {
@@ -23,24 +30,54 @@ export class ProcedureLeaveJobComponent extends BaseFormComponent implements OnI
   }
 
   initForm() {
-    this.formSearch = this.formBuilder.group({
-      department: [''],
-      nameOrCodePersonnel: ['']
-    });
+
     this.formLeaveJob = this.formBuilder.group({
       fullName: [''],
       personnelCode: [''],
-      numberDecide: [''],
-      dateDecide: [''],
-      contentDecide: ['']
+      numberDecide: ['', Validators.required],
+      dateDecide: ['', Validators.required],
+      contentDecide: ['', Validators.required]
     })
   }
 
-  onSearch() {
-    console.log(this.formSearch.value);
-  }
-
   onProcess() {
+    this.formTouch = true;
+
+    let valueForm = this.formLeaveJob.value;
+    let valid = [valueForm.numberDecide, valueForm.dateDecide, valueForm.contentDecide];
+    if (!ValidService.isNotBlanks(valid) || !this.formLeaveJob.valid) {
+      return;
+    }
+
+    let body = {
+      numberDecide: valueForm.numberDecide,
+      dateDecide: valueForm.dateDecide,
+      contentDecide: valueForm.contentDecide,
+      user: this.user
+    };
+    this.taskService.post(Config.LEAVE_JOB_URL, {data: body}).subscribe((data) => {
+      this.updateMessge("Thành công ", "success");
+      setTimeout(() => {
+        this.formLeaveJob.reset();
+        this.closeModal(this.modalLeaveJob);
+      }, 2000);
+    }, (err) => {
+      this.updateMessge("Không thành công ", "warning");
+
+    });
 
   }
+
+  onChoiseHandler($event) {
+    this.formTouch = false;
+    let data = $event;
+    this.user = $event;
+    this.formLeaveJob.patchValue({
+      fullName: data.fullname,
+      personnelCode: data.username
+    });
+
+    super.openModal(this.modalLeaveJob);
+  }
+
 }

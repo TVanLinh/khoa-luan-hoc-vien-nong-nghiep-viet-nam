@@ -7,14 +7,14 @@
       <div class="item-control">
         <label> Chọn khoa phòng ban cấp 1 </label>
         <select class="form-control" required formControlName="level1" #level1 (click)="level1Change(level1.value)">
-          <option *ngFor="let item of listLevel1" [value]="item.name" >{{item.name}}</option>
+          <option *ngFor="let item of listLevel1" [value]="item._id" >{{item.name}}</option>
         </select>
       </div>
 
       <div class="item-control">
         <label>Chọn phòng ban cấp 2</label>
-        <select class="form-control" required formControlName="level1">
-          <option *ngFor="let item of listLevel2" [value]="item.name">{{item.name}}</option>
+        <select class="form-control" required formControlName="level2">
+          <option *ngFor="let item of listLevel2" [value]="item._id"> {{item.name}}</option>
         </select>
       </div>
 

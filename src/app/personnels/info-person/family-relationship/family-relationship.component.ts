@@ -30,7 +30,8 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   listYear: number[] = [];
-  listRealtion: string[] = ['bố', 'mẹ', 'anh ', 'chị ', 'em ', 'ông ', 'bà'];
+  listRealtion: string[] = ['bố', 'mẹ', 'anh ', 'chị ', 'em ', 'ông ', 'bà','vợ',
+    'chồng','con','chú','thím','bác','cậu','mợ','con dâu','con rể','chắt','khác'];
 
   initYear() {
     const date = new Date();

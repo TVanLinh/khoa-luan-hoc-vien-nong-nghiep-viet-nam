@@ -39,3 +39,6 @@ label.img-ul-upload.img-ul-button {
   color: red;
 }
 
+textarea {
+  max-width: 100%;
+}

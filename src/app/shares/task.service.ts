@@ -40,12 +40,12 @@ export class TaskService {
     if (token) {
       return this.http.post(url, data, options).map(res => {
         console.log("res " + res);
-        return res.json();
+        return res;
       });
     } else {
       return this.http.post(url, data).map(res => {
         console.log("res " + res);
-        return res.json();
+        return res;
       });
     }
 

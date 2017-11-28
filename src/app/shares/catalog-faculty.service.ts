@@ -20,8 +20,20 @@ export class CatalogFacultyService {
   }
 
 
+  findById(array: CatalogFacultyModel[], id) {
+    if (Array.isArray(array)) {
+      for (let item of array) {
+        if (item._id == id) {
+          return item;
+        }
+      }
+    }
+    return null
+  }
+
+
   findByIdParent(array: CatalogFacultyModel[], idParent) {
-    return array.filter(item => item.parent.id == idParent);
+    return array.filter(item => item.parent && item.parent.id == idParent);
   }
 
   findByLevel(array: CatalogFacultyModel[], level) {

@@ -23,11 +23,16 @@ export class Config {
   public static PROCESS_PUBLISH_URL = Config.HOST_SERVER + "/info/processpublish";
   public static PROCESS_WORK_URL = Config.HOST_SERVER + "/info/processwork";
   public static PROCESS_SALARY_URL = Config.HOST_SERVER + "/info/salary";
-  
+
   public static CATALOG_ACADEMIC_RANK_URL = Config.HOST_SERVER + "/catalog_academic";
   public static CATATLOG_FACUTY_URL = Config.HOST_SERVER + "/catalogfaculty";
   public static CATALOG_RANK_URL = Config.HOST_SERVER + "/catalogrank";
   public static CATALOG_ADDRESS_URL = Config.HOST_SERVER + "/catalog_address";
+  public static USER_URL = Config.HOST_SERVER + "/user";
+  public static LEAVE_JOB_URL = Config.HOST_SERVER + "/leavejob";
+  public static BIND_JOB_URL = Config.HOST_SERVER + "/bindjob";
+  public static LEAVE_ORGAN_URL = Config.HOST_SERVER + "/leaveorgan";
+  public static RETIRE_URL = Config.HOST_SERVER + "/retire";
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 

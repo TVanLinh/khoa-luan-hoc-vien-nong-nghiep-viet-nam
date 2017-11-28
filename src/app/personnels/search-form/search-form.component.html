@@ -1,0 +1,57 @@
+<form style="padding-top: 25px" action="">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-item">
+        <div class="form-item-title">
+          {{title}}
+        </div>
+        <div class="item-control">
+          <label class="mgr-20 " style="margin-right: 116px;">Nhập mã cán bộ để tìm kiếm </label>
+          <input type="text" name="staffCode" class="mgb-15 form-control mgr-20" style="float: none;width: 50%"
+                 [(ngModel)]="staffCode">
+          <button class="btn-action" (click)="onSearchShare()">Tìm kiếm</button>
+          <div *ngIf="message.condition"
+               [ngClass]="'alert alert-'+ message.type">
+            {{message.content}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---->
+  </div>
+
+</form>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+        <tr >
+          <th>Mã cán bộ</th>
+          <th>Họ tên</th>
+          <th>Khoa / Phòng ban</th>
+          <th style="text-align: left !important;">Thư điện tử</th>
+          <th *ngIf="showAction"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+
+        <tr *ngIf="data" (click)="onChoiseShare()">
+          <td>{{data.username}}</td>
+          <td>{{data.fullname}}</td>
+          <td>{{data.organ?data.organ.level1.name:''}}</td>
+          <td>{{data.email}}</td>
+          <td *ngIf="showAction">
+            <span class="action-icon" (click)="onEditShare()"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="onRemoveShare()"><i class="fa fa-remove "></i></span>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

@@ -51,15 +51,14 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
     });
   }
 
-  choseItem(item: any) {
-    this.showFormDetail = true;
+  onChoiseHandler($event) {
+    let data = $event;
+    console.log("event " + data);
     this.formDetail.patchValue({
-      personnelCode: item.personnelCode,
-      fullName: item.fullName,
-      dateOfBirth: item.dateOfBirth,
-      sex: item.sex
+      fullName: data.fullname,
+      personnelCode: data.username
     });
-    this.openModal(this.modal);
+    super.openModal(this.modal);
   }
 
   onSearch() {

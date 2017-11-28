@@ -1,63 +1,4 @@
-<form style="padding-top: 25px" action="" [formGroup]="formSearch">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="form-item">
-        <div class="form-item-title">
-          Làm thủ tục về hưu trí
-        </div>
-        <div class="item-control">
-          <label>Phòng ban </label>
-          <select class="form-control" formControlName="department">
-            <option value="">---Quan tri mang va an ninh he thong</option>
-          </select>
-        </div>
-        <div class="item-control">
-          <label class="mgr-20 " style="margin-right: 116px;">Nhập tên hoặc mã cán bộ để kiếm </label>
-          <input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">
-          <button class="btn-action" (click)="onSearch()">Tìm kiếm</button>
-        </div>
-      </div>
-    </div>
-    <!---->
-    <div class="col-xs-12">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-          <tr (click)="openModal(modal)">
-            <th>STT</th>
-            <th>Mã cán bộ</th>
-            <th>Họ tên</th>
-            <th>Ngày sinh</th>
-            <th>Giới tính </th>
-            <th>Thư điện tử </th>
-          </tr>
-          </thead>
-          <tbody>
-          <!---->
-
-          <!--<tr>-->
-          <!--<td>{{1}}</td>-->
-          <!--<td>{{item.personnelCode}}</td>-->
-          <!--<td>{{item.fullName}}</td>-->
-          <!--<td>{{item.dateOfBirth}}</td>-->
-          <!--<td>{{item.email}}</td>-->
-          <!--<td>{{item.acountSignIn}}</td>-->
-          <!--<td>-->
-          <!--<span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>-->
-          <!--</td>-->
-          <!--<td>-->
-          <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
-          <!--</td>-->
-          <!--</tr>-->
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-</form>
-
+<app-search-form title="Làm thủ tục về hưu trí" (onChoise)="onChoiseHandler($event)"></app-search-form>
 
 <modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
 
@@ -71,35 +12,45 @@
     <form action="" style="border: none" class="mgb-i-10" [formGroup]="formDetail">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-            <div class="item-control">
-              <label>Họ tên: </label>
-              <input type="text" required formControlName="fullName">
-            </div>
+          <div class="item-control">
+            <label>Mã cán bộ: </label>
+            <input type="text" class="form-control" disabled required formControlName="personnelCode">
+          </div>
+          <div class="item-control">
+            <label>Họ tên: </label>
+            <input type="text" class="form-control" disabled required formControlName="fullName">
+          </div>
 
-            <div class="item-control">
-              <label>Mã cán bộ: </label>
-              <input type="text" required formControlName="personnelCode">
-            </div>
 
-            <div class="item-control">
-              <label>Số quyết định : </label>
-              <input type="text" required formControlName="numberDecide">
-            </div>
-            <div class="item-control">
-              <label>Ngày quyết định : </label>
-              <input type="text" required formControlName="dateDecide">
-            </div>
-            <div class="item-control ">
-              <label>Tóm tắt nột dung quyết định : </label>
-              <textarea class="form-control mgb-20" style="width: 100%;height: 150px"  formControlName="contentDecide"> </textarea>
+          <div class="item-control">
+            <label>Số quyết định : </label>
+            <input type="text" class="form-control" required #numberDecide formControlName="numberDecide">
+            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
+              Chưa nhập số quyết định
             </div>
           </div>
+          <div class="item-control">
+            <label>Ngày quyết định : </label>
+            <input type="date"  class="form-control"  required #dateDecide formControlName="dateDecide">
+            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+              Chưa nhập ngày quyết định
+            </div>
+          </div>
+          <div class="item-control ">
+            <label>Nội dung quyết định : </label>
+            <textarea class="form-control mgb-20" style="width: 100%;height: 150px"
+                      formControlName="contentDecide"> </textarea>
+            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+              Chưa nhập nội dung quyết định
+            </div>
+          </div>
+        </div>
       </div>
     </form>
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="onProcess()">Ghi nhận </button>
+    <button class="btn-action" (click)="onProcess()">Ghi nhận</button>
   </modal-footer>
 
 </modal>

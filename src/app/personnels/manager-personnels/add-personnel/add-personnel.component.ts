@@ -5,6 +5,8 @@ import {BaseFormComponent} from "../../base-form.component";
 import {TaskService} from "../../../shares/task.service";
 import {CatalogFacultyService} from "app/shares/catalog-faculty.service";
 import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog-faculty.model";
+import {UserModel} from "./user.model";
+import {Config} from "../../../shares/config";
 
 @Component({
   selector: 'app-add-personnel',
@@ -31,7 +33,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   }
 
   level1Change(idParent) {
-    this.listLevel2 = this.catalogService.findByNameParent(this.listFaculty, idParent);
+    this.listLevel2 = this.catalogService.findByIdParent(this.listFaculty, idParent);
   }
 
   getCatalogFaculty() {
@@ -57,14 +59,27 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
 
   onSubmit() {
     let valueForm = this.formData.value;
+    let user = new UserModel();
+    let organ = {
+      level1: this.catalogService.findById(this.listFaculty, valueForm.level1),
+      level2: this.catalogService.findById(this.listFaculty, valueForm.level2)
+    };
+    user.organ = organ;
+    user.username = valueForm.personnelCode;
+    user.fullname = valueForm.fullName;
+    user.email = valueForm.email;
+    user.hashedPass = valueForm.passWord;
 
-    this.updateView("form-add-user",this.formData.valid);
+    this.updateView("form-add-user", this.formData.valid);
+
+    this.pushObjectServer(Config.USER_URL, 'data', user);
 
     let infoPerson: AddPersonnelForm = this.formData.value;
 
   }
 
 }
+
 
 interface AddPersonnelForm {
   organ: string,

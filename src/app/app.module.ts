@@ -85,6 +85,7 @@ import {OrderModule} from "ngx-order-pipe";
 import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/catalog-faculty.pipe";
 import {CatalogSalaryService} from "./shares/catalog-salary.service";
 import {CatalogFacultyService} from "./shares/catalog-faculty.service";
+import { SearchFormComponent } from './personnels/search-form/search-form.component';
 
 @NgModule({
   declarations: [
@@ -157,7 +158,8 @@ import {CatalogFacultyService} from "./shares/catalog-faculty.service";
     EmailValid,
     DataTextValid,
     ArraySortPipe,
-    CatalogFacultyPipe
+    CatalogFacultyPipe,
+    SearchFormComponent
   ],
   imports: [
     BrowserModule,
