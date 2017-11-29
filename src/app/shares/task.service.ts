@@ -60,12 +60,12 @@ export class TaskService {
     if (token) {
       return this.http.put(url, data, options).map(res => {
         console.log("res " + res);
-        return res.json();
+        return res;
       });
     } else {
       return this.http.post(url, data).map(res => {
         console.log("res " + res);
-        return res.json();
+        return res;
       });
     }
 
@@ -89,12 +89,12 @@ export class TaskService {
     if (token) {
       return this.http.delete(url + "?" + temp, options).map(res => {
         console.log("res " + res);
-        return res.json();
+        return res;
       });
     } else {
       return this.http.delete(url + "?" + temp).map(res => {
         console.log("res " + res);
-        return res.json();
+        return res;
       });
     }
 

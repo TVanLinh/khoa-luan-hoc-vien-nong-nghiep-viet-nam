@@ -172,3 +172,6 @@ input.ng-dirty.ng-invalid.ng-touched {
 input.ng-valid {
   border: 1px solid rgb(204, 204, 204) ;
 }
+h3{
+  font-size: 20px;
+}

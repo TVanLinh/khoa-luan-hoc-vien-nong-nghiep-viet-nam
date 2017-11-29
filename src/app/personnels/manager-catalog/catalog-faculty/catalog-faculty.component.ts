@@ -3,10 +3,11 @@ import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
 import {CatalogFacultyModel} from "./catalog-faculty.model";
-import {NgForm} from "@angular/forms";
+import {FormGroup, NgForm, Validators} from "@angular/forms";
 import {TaskService} from "../../../shares/task.service";
 import {Config} from "../../../shares/config";
-import {CatalogFacultyPipe} from "./catalog-faculty.pipe";
+import {ValidService} from "../../../shares/valid.service";
+import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 
 @Component({
   selector: 'app-catalog-faculty',
@@ -15,21 +16,28 @@ import {CatalogFacultyPipe} from "./catalog-faculty.pipe";
 })
 export class CatalogFacultyComponent extends BaseFormComponent implements OnInit {
   @ViewChild("modal") modal: ModalComponent;
-  // @ViewChild("") formData: NgForm = new NgForm();
-  positionUpdate = -1;
-  list = new Collections.LinkedList<CatalogFacultyModel>();
-  showParent = false;
+  @ViewChild("modalDetail") modalDetail: ModalComponent;
 
-  // listCatalog  = new
-  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+  formData: FormGroup;
+  positionUpdate = null;
+  list = new Collections.LinkedList<CatalogFacultyModel>();
+  listParent = new Collections.LinkedList<CatalogFacultyModel>();
+  showParent = false;
+  touched = false;
+  details = new Collections.LinkedList<CatalogFacultyModel>();
+  titleDetail: string = '';
+
+  constructor(protected eleRef: ElementRef,
+              public taskService: TaskService,
+              public  catalogFacService: CatalogFacultyService) {
     super(eleRef, taskService);
   }
 
   levelFilter = 1;
 
   ngOnInit() {
-    // this.initForm();
     this.getCatalog();
+    this.initForm();
   }
 
   changeLevel(level) {
@@ -37,56 +45,148 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   }
 
   initForm() {
-    // this.formData.form.patchValue({
-    //   level: 1
-    // });
+    this.formData = this.formBuilder.group({
+      name: ['', Validators.required],
+      level: ['', Validators.required],
+      type: ['', Validators.required],
+      parent: ['', Validators.required],
+      url: ['']
+    });
   }
 
-  onSave(formData: NgForm) {
-    let formValue = formData.value;
+  onSave() {
+    this.touched = true;
+    let formValue = this.formData.value;
+    let valid = [formValue.name, formValue.level, formValue.type, formValue.parent];
+
+    if (formValue.level == '2') {
+      valid = [formValue.name, formValue.parent];
+    }
+
+    if (formValue.level == '1') {
+      valid = [formValue.name, formValue.type];
+    }
+
     console.log(formValue);
-    this.showParent = false;
+    if (!ValidService.isNotBlanks(valid)) {
+      return;
+    }
+
+    // this.showParent = false;
+
     let body = new CatalogFacultyModel();
     body.name = formValue.name;
     body.level = formValue.level;
+    body.type = formValue.type;
+    body.url = formValue.url;
     let parent = new CatalogFacultyModel();
-    if (formValue.parent != null) {
+    if (formValue.parent && formValue.parent.id != '') {
       body.parent = parent;
       body.parent.id = formValue.parent;
     }
-    let data = {
-      data: body
-    };
-    this.taskService.post(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
-      this.getCatalog();
-      super.closeModal(this.modal);
-      this.updateMessge("Lưu thành công ", "success");
-    }, error => {
-      console.log(error);
-      super.closeModal(this.modal);
-      this.updateMessge("Lưu không thành công ", "waring");
-    });
-    formData.form.patchValue({
-      level: 1
-    });
+
+    if (this.positionUpdate == null) {
+      let data = {
+        data: body
+      };
+
+      this.taskService.post(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
+        this.getCatalog();
+        this.closeModals();
+        this.updateMessge("Lưu thành công ", "success");
+      }, error => {
+        console.log(error);
+        this.closeModals();
+        this.updateMessge("Lưu không thành công ", "waring");
+      });
+
+    } else {
+      body._id = this.positionUpdate._id;
+      if (body.level == 1) {
+        body.parent = null;
+      }
+      let data = {
+        data: body
+      };
+
+      this.taskService.put(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
+        this.getCatalog();
+        this.closeModals();
+        this.updateMessge("Cập nhật thành công ", "success");
+      }, error => {
+        console.log(error);
+        this.closeModals();
+        this.updateMessge("Cập nhật không thành công ", "waring");
+      });
+    }
+
+
+  }
+
+  closeModals() {
+    setTimeout(() => {
+      this.closeModal(this.modal);
+      this.touched = false;
+      this.showParent = false;
+      // this.formData.reset();
+    }, 2000)
   }
 
   getCatalog() {
     this.taskService.get(Config.CATATLOG_FACUTY_URL).subscribe((data: any[]) => {
       this.list = super.asList(data);
+      this.listParent = super.asList(this.catalogFacService.findByLevel(this.list.toArray(), 1));
     });
   }
 
   removeItem(item) {
     this.taskService.delete(Config.CATATLOG_FACUTY_URL, ["id"], [item._id]).subscribe(() => {
       this.updateMessge("Xóa thành công ", "success");
+      this.listParent.remove(item);
       this.list.remove(item);
+      this.details.remove(item);
+      setTimeout(() => {
+        super.closeModal(this.modalDetail);
+      }, 2000);
     }, err => {
       this.updateMessge("Xóa không thành công ", "success");
     });
   }
 
   editItem(item) {
+    super.closeModal(this.modalDetail);
+    this.touched = false;
+    this.positionUpdate = item;
+    this.formData.patchValue({
+      name: item.name,
+      level: item.level,
+      type: item.type,
+      url: item.uri,
+    });
+    this.showParent = false;
+    if (item.parent) {
+      this.showParent = true;
+      this.formData.patchValue({
+        parent: item.parent.id
+      });
+    }
+    super.openModal(this.modal);
+  }
 
+  openModals() {
+    this.positionUpdate = null;
+    this.formData.reset();
+    super.openModal(this.modal);
+    this.touched = false;
+  }
+
+  viewDetail(item) {
+    if (item.type == 'khoa') {
+      this.titleDetail = "Danh sách phòng ban của  khoa " + item.name;
+    }else{
+      this.titleDetail = "Danh sách phòng ban chi tiết của " + item.name;
+    }
+    this.details = super.asList(this.catalogFacService.findByIdParent(this.list.toArray(), item._id));
+    super.openModal(this.modalDetail);
   }
 }

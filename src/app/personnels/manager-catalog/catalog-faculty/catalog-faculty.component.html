@@ -1,29 +1,26 @@
 <h4 class="text-center mgb-15" style="font-size: 20px"> Danh mục khoa, phòng ban </h4>
-<div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
-  {{message.content}}
-</div>
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
     <tr>
       <th style="width:5%">STT</th>
       <th>Tên (khoa/phòng ban)</th>
-      <th>Cấp</th>
-      <th>Đơn vị cấp cha</th>
+      <th>Địa chỉ website</th>
       <th>
-        <span class="action-icon" (click)="openModal(modal)"><i class="fa fa-plus"></i></span>
+        <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
       </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of list.toArray();let i = index ">
+    <tr *ngFor="let item of listParent.toArray();let i = index ">
       <td>{{i+1}}</td>
       <td class="name">{{item.name}}</td>
-      <td class="name">{{item.level}}</td>
-      <td class="name">{{item.parent?item.parent.name:''}}</td>
+      <td class="name"><a [href]="item.url" target="_blank">{{item.url}}</a></td>
       <td style="width:10%">
-        <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-        <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+        <span class="action-icon" title="Chi tiết " (click)="viewDetail(item)"><i class="fa fa-eye"
+                                                                                  aria-hidden="true"></i></span>
+        <span class="action-icon" title="Chỉnh sửa " (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+        <span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
       </td>
     </tr>
     </tbody>
@@ -37,46 +34,122 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
-    <form #formData="ngForm" class="mgb-i-10">
+    <form [formGroup]="formData" class="mgb-i-10">
       <div class="row">
+
         <div class="col-xs-12">
+
           <div class="item-control">
             <label>Tên khoa phòng ban </label>
-            <input name="name" ngModel class="form-control" style="width: 100%!important;"/>
+            <input name="name" formControlName="name" class="form-control" #name required
+                   style="width: 100%!important;"/>
+            <div class="error" *ngIf="touched && name &&  name.value == '' || touched && name == null">
+              Chưa nhập tên
+            </div>
+
           </div>
           <div class="item-control">
             <label>Cấp </label>
-            <select name="level" ngModel #level="ngModel" class="form-control" (change)="changeLevel(level.value)">
+            <select name="level" formControlName="level" #level required class="form-control"
+                    (change)="changeLevel(level.value)">
               <option value="1">1</option>
               <option value="2">2</option>
             </select>
+            <div class="error" *ngIf="touched && level &&  level.value == '' || touched && level ==null">
+              Chưa chọn cấp
+            </div>
           </div>
 
-          <div class="error" *ngIf="level.touched && level.value == ''">
-            Chưa chọn cấp
+
+          <div class="item-control" *ngIf="level.value == 1">
+            <label>Kiểu </label>
+            <select name="type" formControlName="type" #type required class="form-control">
+              <option value="khoa">Khoa</option>
+              <option value="phongban">Phòng ban</option>
+            </select>
+            <div class="error" *ngIf="touched && type.value == '' ||  touched && type ==null">
+              Chưa chọn kiểu
+            </div>
+          </div>
+
+          <div class="item-control" *ngIf="level.value == 1">
+            <label>Địa chỉ website: </label>
+            <input name="url" formControlName="url" class="form-control" #name required
+                   style="width: 100% !important;"/>
           </div>
 
           <div class="item-control" *ngIf="showParent">
             <label>Đơn vị cấp cha </label>
-            <select name="parent" ngModel #parent="ngModel" class="form-control" style="width: 100%">
+            <select name="parent" formControlName="parent" #parentt required class="form-control" style="width: 100%">
               <option *ngFor="let item of list.toArray() | level:levelFilter;let i = index " [value]="item._id">
                 {{item.name}}
               </option>
             </select>
+            <div class="error" *ngIf="touched && !parentt">
+              Chưa chọn cấp cha
+            </div>
           </div>
-          <!--<div class="error" *ngIf="parent.touched && parent.value == '' && level.value !== '1'">-->
-          <!--Chưa chọn cấp-->
-          <!--</div>-->
+
         </div>
       </div>
     </form>
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="onSave(formData)">{{positionUpdate == -1?'Thêm':'Cập nhật'}}</button>
+    <button class="btn-action" (click)="onSave(formData)">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
   </modal-footer>
+
+</modal>
+
+<modal #modalDetail size='lg' backdrop="true">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalDetail)">Thoát</button>
+    </div>
+    <h4 class="text-center" style="text-transform: capitalize">{{titleDetail}}</h4>
+    <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th style="width:5%">STT</th>
+              <th>Tên phòng ban</th>
+              <th>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of details.toArray();let i = index ">
+              <td>{{i+1}}</td>
+              <td class="name">{{item.name}}</td>
+              <td style="width:10%">
+                <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </modal-body>
+
+  <!--<modal-footer>-->
+  <!--<button class="btn-action" (click)="onSave(formData)">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>-->
+  <!--</modal-footer>-->
 
 </modal>

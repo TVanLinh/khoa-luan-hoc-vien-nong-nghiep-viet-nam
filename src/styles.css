@@ -47,3 +47,6 @@ textarea {
   font-size: 18px;
   color: #fff !important;
 }
+tbody tr td{
+  word-break: break-all;
+}

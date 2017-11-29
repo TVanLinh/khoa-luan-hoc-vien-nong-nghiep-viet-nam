@@ -1,3 +1,11 @@
 select{
   float: none !important;
 }
+tbody tr:hover {
+  background-color: #eae7df;
+  cursor: pointer;
+}
+
+tbody tr td{
+  word-break: break-all;
+}
