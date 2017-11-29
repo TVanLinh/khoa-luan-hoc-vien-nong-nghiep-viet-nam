@@ -33,6 +33,7 @@ export class Config {
   public static BIND_JOB_URL = Config.HOST_SERVER + "/bindjob";
   public static LEAVE_ORGAN_URL = Config.HOST_SERVER + "/leaveorgan";
   public static RETIRE_URL = Config.HOST_SERVER + "/retire";
+  public static LEAVE_DEPART_URL = Config.HOST_SERVER + "/leave_depart";
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 

@@ -66,9 +66,15 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
           native: false
         };
         break;
-      case '/manager/search-statistic':
+      case '/manager/search':
         nextMenu = {
-          type: MenuUtil.SEARCH_STATISTIC,
+          type: MenuUtil.SEARCH,
+          native: false
+        };
+        break;
+      case '/manager/statistic':
+        nextMenu = {
+          type: MenuUtil.STATISTIC,
           native: false
         };
         break;

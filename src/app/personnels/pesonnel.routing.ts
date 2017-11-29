@@ -11,7 +11,6 @@ import {ProcedureBindJobComponent} from "app/personnels/manager-personnels/proce
 import {ManagerComponent} from "app/personnels/manger.component";
 import {InfoComponent} from "./info-person/info.component";
 import {ManagerCatalogComponent} from "./manager-catalog/manager-catalog.component";
-import {SearchStatisticComponent} from "./search-statistic/search-statistic.component";
 import {ManagerSystemComponent} from "./manager-system/manager-system.component";
 import {CatalogAcademicRankComponent} from "./manager-catalog/catalog-academic-rank/catalog-academic-rank.component";
 import {CatalogFacultyComponent} from "./manager-catalog/catalog-faculty/catalog-faculty.component";
@@ -19,7 +18,10 @@ import {CatalogPositionComponent} from "./manager-catalog/catalog-position/catal
 import {CatalogRankComponent} from "app/personnels/manager-catalog/catalog-rank/catalog-rank.component";
 import {SearchComponent} from "app/personnels/search-statistic/search/search.component";
 import {StatisticComponent} from "./search-statistic/statistic/statistic.component";
-
+import {StatisticLeaveJobComponent} from "./search-statistic/statistic/statistic-leave-job/statistic-leave-job.component";
+import {StatisticBindJobComponent} from "./search-statistic/statistic/statistic-bind-job/statistic-bind-job.component";
+import {StatisticRetiredComponent} from "./search-statistic/statistic/statistic-retired/statistic-retired.component";
+import {StatisticNewRetireComponent} from "./search-statistic/statistic/statistic-new-retire/statistic-new-retire.component";
 
 
 const routes: Routes = [
@@ -64,29 +66,38 @@ const routes: Routes = [
         },
         {
           path: 'position', component: CatalogPositionComponent
-
         }
       ]
     },
-
     {
-      path: 'search-statistic', component: SearchStatisticComponent, children: [
+      path: 'search', component: SearchComponent
+    },
+    {
+      path: 'statistic', component: StatisticComponent, children: [
       {
-        path: '', component: SearchComponent
-      }, {
-        path: 'search', component: SearchComponent
+        path: '', component: StatisticLeaveJobComponent
       },
       {
-        path: 'statistic', component: StatisticComponent
-      }]
+        path: 'leave-job', component: StatisticLeaveJobComponent
+      },
+      {
+        path: 'bind-job', component: StatisticBindJobComponent
+      },
+      {
+        path: 'retire', component: StatisticRetiredComponent
+      },
+      {
+        path: 'retire-new', component: StatisticNewRetireComponent
+      }
+    ]
     },
-    {path: 'manager-system', component: ManagerSystemComponent},
+    {path: 'manager-system', component: ManagerSystemComponent}
   ]
   }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   providers: []
 })

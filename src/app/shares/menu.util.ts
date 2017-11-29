@@ -1,11 +1,13 @@
 import {MenuModel} from "../personnels/model/menu.model";
 import {Subject} from "rxjs/Subject";
+
 export class MenuUtil {
   static MENU_INFO_CV = "MENU_INFO_CV";
   static MENU_MANGER_PERSONEL = "MENU_MANGER_PERSONEL";
   static MENU_MANGER_CATALOG = "MENU_MANGER_CATALOG";
   static MENU_MANGER_SYSTEM = "MENU_MANGER_SYSTEM";
-  static SEARCH_STATISTIC = "SEARCH_STATISTIC";
+  static SEARCH = "SEARCH";
+  static STATISTIC = "STATISTIC";
 
   private static menuChange = new Subject<{ type: String, native: boolean }>();
   static $menuChange = MenuUtil.menuChange.asObservable();
@@ -16,19 +18,21 @@ export class MenuUtil {
 
   static isLogin = false;
 
-  private static menuApp: MenuModel[]  = [
-  {
-    href: "/manager/info", title: 'My CV'
-  }, {
-    href: "/manager/manager-personnel", title: 'Quản lý nhân sự '
-  }, {
-    href: "/manager/search-statistic", title: 'Tìm kiếm thống kê '
-  }, {
-    href: "/manager/manager-system", title: 'Quản trị hệ thống '
-  }, {
-    href: "/manager/manager-catalog", title: 'Danh mục '
-  }
-];
+  private static menuApp: MenuModel[] = [
+    {
+      href: "/manager/info", title: 'My CV'
+    }, {
+      href: "/manager/manager-personnel", title: 'Quản lý nhân sự '
+    }, {
+      href: "/manager/search", title: 'Tìm kiếm'
+    }, {
+      href: "/manager/statistic", title: 'Thống kê '
+    }, {
+      href: "/manager/manager-system", title: 'Quản trị hệ thống '
+    }, {
+      href: "/manager/manager-catalog", title: 'Danh mục '
+    }
+  ];
 
   private static menuFeatureInfo: MenuModel[] = [
     {href: '#app-curriculum-vitae', title: 'Sơ yếu lí lịch '},
@@ -62,36 +66,47 @@ export class MenuUtil {
     {href: '/manager/manager-personnel/chuaco----', title: 'Xét lên lương '}
   ];
 
-  public static  getMenuApp(): MenuModel[] {
+  public static getMenuApp(): MenuModel[] {
     return this.menuApp;
   }
 
 
-  public static  getMenuManagerPerson() {
+  public static getMenuManagerPerson() {
     return this.menuManagerPerson;
   }
 
-  public static  getMenuFeatureInfo() {
+  public static getMenuFeatureInfo() {
     return this.menuFeatureInfo;
   }
 
-  private  static  menuCatalog:MenuModel[]= [
-    {title:"Danh mục khoa, phòng ban ",href :"/manager/manager-catalog/faculty"},
-    {title:"Danh mục  học hàm ",href :"/manager/manager-catalog/academic"},
-    {title:"Danh mục  ngạch công chức  ",href :"/manager/manager-catalog/rank-officer"},
-    {title:"Danh mục  chức vụ  ",href :"/manager/manager-catalog/position"},
+  private static menuCatalog: MenuModel[] = [
+    {title: "Danh mục khoa, phòng ban ", href: "/manager/manager-catalog/faculty"},
+    {title: "Danh mục  học hàm ", href: "/manager/manager-catalog/academic"},
+    {title: "Danh mục  ngạch công chức  ", href: "/manager/manager-catalog/rank-officer"},
+    {title: "Danh mục  chức vụ  ", href: "/manager/manager-catalog/position"},
   ];
 
-  public static  getMenuCatalog() {
+  public static getMenuCatalog() {
     return this.menuCatalog;
   }
 
-  private static searchStatistic: MenuModel[] = [
-    {title:"Tìm kiếm ",href :"/manager/search-statistic/search"},
-    {title:"Thống kê ",href :"/manager/search-statistic/statistic"},
+  private static search: MenuModel[] = [
+    {title: "Tìm kiếm ", href: "/manager/search"},
+    {title: "Thống kê ", href: "/manager/statistic"},
   ];
 
-  public static  getMenuSearchStatistic () {
-    return this.searchStatistic;
+  private static statistic: MenuModel[] = [
+    {title: "Danh cán bộ nghỉ việc ", href: "/manager/statistic/leave-job"},
+    {title: "Danh sách cán bộ buộc thôi việc ", href: "/manager/statistic/bind-job"},
+    {title: "Danh sách cán bộ nghỉ hưu ", href: "/manager/statistic/retire"},
+    {title: "Danh sách cán bộ sắp nghỉ hưu ", href: "/manager/statistic/retire-new"}
+  ];
+
+  public static getMenuSearch() {
+    return this.search;
+  }
+
+  public static getMenuStatistic() {
+    return this.statistic;
   }
 }

@@ -40,13 +40,15 @@ export class ManagerComponent implements OnInit, OnChanges {
           break;
         case MenuUtil.MENU_MANGER_PERSONEL:
           this.menu = MenuUtil.getMenuManagerPerson();
-          // console.log("MenuUtil.getMenuManagerPerson() ");
           break;
         case MenuUtil.MENU_MANGER_CATALOG:
           this.menu = MenuUtil.getMenuCatalog();
           break;
-        case MenuUtil.SEARCH_STATISTIC:
-          this.menu = MenuUtil.getMenuSearchStatistic();
+        case MenuUtil.SEARCH:
+          this.menu = MenuUtil.getMenuSearch();
+          break;
+        case MenuUtil.STATISTIC:
+          this.menu = MenuUtil.getMenuStatistic();
           break;
       }
 

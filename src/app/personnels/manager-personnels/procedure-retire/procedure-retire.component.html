@@ -6,6 +6,9 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
@@ -31,7 +34,7 @@
           </div>
           <div class="item-control">
             <label>Ngày quyết định : </label>
-            <input type="date"  class="form-control"  required #dateDecide formControlName="dateDecide">
+            <input type="date" class="form-control" required #dateDecide formControlName="dateDecide">
             <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
               Chưa nhập ngày quyết định
             </div>

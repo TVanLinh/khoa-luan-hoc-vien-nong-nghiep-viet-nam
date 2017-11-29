@@ -6,6 +6,9 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+    <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
   </modal-header>
 
   <modal-body>
@@ -20,33 +23,48 @@
 
           <div class="item-control">
             <label>Họ tên: </label>
-            <input type="text"  class="form-control" disabled required formControlName="fullName">
+            <input type="text" class="form-control" disabled required formControlName="fullName">
           </div>
-
 
           <div class="item-control">
             <label>Ngày chuyển : </label>
-            <input type="date" class="form-control" required formControlName="dateTransfer">
+            <input type="date" class="form-control" required #dateTransfer formControlName="dateTransfer">
+            <div class="error" *ngIf="dateTransfer.value.trim()  =='' && formTouch">
+              Chưa nhập ngày chuyển
+            </div>
           </div>
 
           <div class="item-control">
             <label>Số quyết định : </label>
-            <input type="text" class="form-control" required formControlName="numberDecide">
+            <input type="text" class="form-control" required #numberDecide formControlName="numberDecide">
+            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
+              Chưa nhập số quyết định
+            </div>
           </div>
           <div class="item-control">
             <label>Ngày quyết định : </label>
-            <input type="date" class="form-control" required formControlName="dateDecide">
+            <input type="date" class="form-control" required #dateDecide formControlName="dateDecide">
+            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+              Chưa nhập ngày quyết định
+            </div>
           </div>
           <div class="item-control">
-            <label>Khoa phòng ban chuyển tới: </label>
-            <select class="form-control mgb-20" style="width: 70%" formControlName="unitTransfer">
-              <option value="">---Chọn----</option>
+            <label>Khoa/phòng ban chuyển tới: </label>
+            <select class="form-control mgb-20" style="width: 70%" required #unitTransfer formControlName="unitTransfer">
+              <option *ngFor="let item of listFaculty" [value]="item.name">{{item.name}}</option>
             </select>
+            <div class="error" *ngIf="unitTransfer.value.trim()  =='' && formTouch">
+              Chưa chọn khoa/phòng ban chuyển tới
+            </div>
           </div>
           <div class="item-control ">
             <label>Tóm tắt nột dung quyết định : </label>
             <textarea class="form-control " style="max-width:100%;width: 100%;height: 150px"
+                      #contentDecide required
                       formControlName="contentDecide"> </textarea>
+            <div class="error" *ngIf="contentDecide.value.trim()  =='' && formTouch">
+              Chưa nhập nội dung quyết định
+            </div>
           </div>
         </div>
       </div>

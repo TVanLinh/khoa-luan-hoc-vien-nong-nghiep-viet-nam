@@ -42,3 +42,8 @@ label.img-ul-upload.img-ul-button {
 textarea {
   max-width: 100%;
 }
+
+.dx-group-panel-message{
+  font-size: 18px;
+  color: #fff !important;
+}

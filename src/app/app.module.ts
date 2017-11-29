@@ -86,6 +86,15 @@ import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/c
 import {CatalogSalaryService} from "./shares/catalog-salary.service";
 import {CatalogFacultyService} from "./shares/catalog-faculty.service";
 import { SearchFormComponent } from './personnels/search-form/search-form.component';
+import { StatisticLeaveJobComponent } from './personnels/search-statistic/statistic/statistic-leave-job/statistic-leave-job.component';
+import { StatisticBindJobComponent } from './personnels/search-statistic/statistic/statistic-bind-job/statistic-bind-job.component';
+import { StatisticRetiredComponent } from './personnels/search-statistic/statistic/statistic-retired/statistic-retired.component';
+import { StatisticNewRetireComponent } from './personnels/search-statistic/statistic/statistic-new-retire/statistic-new-retire.component';
+import { StatisticTableComponent } from './personnels/search-statistic/statistic/statistic-table/statistic-table.component';
+import {DataTableModule} from "angular2-datatable";
+import { ExcelService} from "./shares/excel.service";
+import {DxDataGridModule} from "devextreme-angular";
+// import {DxDataGridModule} from "devextreme-angular";
 
 @NgModule({
   declarations: [
@@ -159,7 +168,12 @@ import { SearchFormComponent } from './personnels/search-form/search-form.compon
     DataTextValid,
     ArraySortPipe,
     CatalogFacultyPipe,
-    SearchFormComponent
+    SearchFormComponent,
+    StatisticLeaveJobComponent,
+    StatisticBindJobComponent,
+    StatisticRetiredComponent,
+    StatisticNewRetireComponent,
+    StatisticTableComponent
   ],
   imports: [
     BrowserModule,
@@ -174,11 +188,14 @@ import { SearchFormComponent } from './personnels/search-form/search-form.compon
     HttpModule,
     Ng2PageScrollModule,
     OrderModule,
+    DataTableModule,
+    DxDataGridModule,
     ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
   providers: [NationalService,CatalogSalaryService,
     CatalogFacultyService,
+    ExcelService,
     TaskService,AddressService],
   bootstrap: [AppComponent]
 })
