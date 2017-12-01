@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit} from "@angular/core";
 import {BaseFormComponent} from "../../../personnels/base-form.component";
 import {FormGroup} from "@angular/forms";
-import {Response} from "@angular/http";
 import {Router} from "@angular/router";
 import {MenuUtil} from "../../../shares/menu.util";
 import {Config} from "../../../shares/config";
@@ -66,8 +65,10 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
         break;
     }
 
+    // MenuUtil.saveMenuLocal(nextMenu);
     MenuUtil.publishMenu(nextMenu);
     this.router.navigate([item.href]);
+
   }
 
   constructor(protected _eref: ElementRef, public taskService: TaskService,
@@ -123,8 +124,8 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
         type: MenuUtil.MENU_INFO_CV,
         native: true
       };
-      MystorageService.saveAcount(data);
       MenuUtil.publishMenu(a);
+      MystorageService.saveAcount(data);
       this.router.navigate(['manager/info']);
     });
   }

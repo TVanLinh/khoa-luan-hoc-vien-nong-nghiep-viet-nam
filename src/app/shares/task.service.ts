@@ -10,7 +10,7 @@ export class TaskService {
   }
 
   public get(url: string): Observable<any> {
-    let token = MystorageService.getAcount()['token'];
+    let token = MystorageService.getAcount()? MystorageService.getAcount()['token']:'';
     let headers = new Headers({
       'authorization': 'Basic ' + token
     });
@@ -32,7 +32,7 @@ export class TaskService {
   }
 
   public post(url, data: any): Observable<any> {
-    let token = MystorageService.getAcount()['token'];
+    let token = MystorageService.getAcount()? MystorageService.getAcount()['token']:'';
     let headers = new Headers({
       'authorization': 'Basic ' + token
     });
@@ -52,7 +52,7 @@ export class TaskService {
   }
 
   public put(url, data: any): Observable<any> {
-    let token = MystorageService.getAcount()['token'];
+    let token = MystorageService.getAcount()? MystorageService.getAcount()['token']:'';
     let headers = new Headers({
       'authorization': 'Basic ' + token
     });
@@ -72,7 +72,7 @@ export class TaskService {
   }
 
   public delete(url, name?: any[], data?: any[]): Observable<any> {
-    let token = MystorageService.getAcount()['token'];
+    let token = MystorageService.getAcount()? MystorageService.getAcount()['token']:'';
     let headers = new Headers({
       'authorization': 'Basic ' + token
     });
@@ -102,7 +102,7 @@ export class TaskService {
 
 
   public delete2(url, data): Observable<any> {
-    let token = MystorageService.getAcount()['token'];
+    let token = MystorageService.getAcount()? MystorageService.getAcount()['token']:'';
     let headers = new Headers({
       'authorization': 'Basic ' + token
     });

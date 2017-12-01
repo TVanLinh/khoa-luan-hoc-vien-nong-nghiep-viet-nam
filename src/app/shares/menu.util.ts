@@ -8,11 +8,13 @@ export class MenuUtil {
   static MENU_MANGER_SYSTEM = "MENU_MANGER_SYSTEM";
   static SEARCH = "SEARCH";
   static STATISTIC = "STATISTIC";
+  private static MENUSAVE_LOCAL = "MENUSAVE_LOCAL";
 
   private static menuChange = new Subject<{ type: String, native: boolean }>();
   static $menuChange = MenuUtil.menuChange.asObservable();
 
   static publishMenu(data: { type: String, native: boolean }) {
+    this.saveMenuLocal(data);
     this.menuChange.next(data);
   }
 
@@ -109,5 +111,14 @@ export class MenuUtil {
 
   public static getMenuStatistic() {
     return this.statistic;
+  }
+
+  static saveMenuLocal(item) {
+    localStorage.setItem(this.MENUSAVE_LOCAL, JSON.stringify(item));
+  }
+
+  static getMenuFromLocal() {
+    let temp = localStorage.getItem(this.MENUSAVE_LOCAL);
+    return temp ? JSON.parse(temp) : null;
   }
 }

@@ -4,15 +4,20 @@
       <div class="form-item-title">
         Thêm mới cán bộ
       </div>
+      <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
       <div class="item-control">
-        <label> Chọn khoa phòng ban cấp 1 </label>
-        <select class="form-control" required formControlName="level1" #level1 (click)="level1Change(level1.value)">
-          <option *ngFor="let item of listLevel1" [value]="item._id" >{{item.name}}</option>
+        <label> Chọn đợn vị cấp 1 </label>
+        <select class="form-control" required #level1 formControlName="level1" #level1
+                (click)="level1Change(level1.value)">
+          <option *ngFor="let item of listLevel1" [value]="item._id">{{item.name}}</option>
         </select>
+        <div class="error" *ngIf="level1.value.trim() == '' && formTouched">Chưa chọn đơn vị cấp 1</div>
       </div>
 
       <div class="item-control">
-        <label>Chọn phòng ban cấp 2</label>
+        <label>Chọn đơn vị cấp 2</label>
         <select class="form-control" required formControlName="level2">
           <option *ngFor="let item of listLevel2" [value]="item._id"> {{item.name}}</option>
         </select>
@@ -20,46 +25,61 @@
 
       <div class="item-control">
         <label>Mã cán bộ: </label>
-        <input type="text" class="form-control"  required formControlName="personnelCode" #personnelCode ngModel>
+        <input type="text" class="form-control" required formControlName="personnelCode" #personnelCode ngModel>
         <!--{{formData.forms.personnelCode.touched}}-->
-        <div class="error" *ngIf="personnelCode.touched">
-
+        <div class="error" *ngIf="personnelCode.value.trim() == '' && formTouched">Chưa nhập mã cán bộ</div>
+        <div class="error" *ngIf="personnelCode.value.trim().length <6
+         && formTouched && personnelCode.value.trim() != ''">Mã cán bộ tối thiểu 6 kí tự
         </div>
       </div>
       <div class="item-control">
         <label>Họ tên: </label>
-        <input type="text" required class="form-control"  formControlName="fullName">
+        <input type="text" required class="form-control" #fullName formControlName="fullName">
+        <div class="error" *ngIf="fullName.value.trim() == '' && formTouched">Chưa nhập họ tên</div>
       </div>
       <div class="item-control">
         <label>Ngày sinh: </label>
-        <input type="date" required  class="form-control"  formControlName="dateOfBirth">
+        <input type="date" required class="form-control" #birthDay formControlName="birthDay">
+        <div class="error" *ngIf="birthDay.value.trim() == '' && formTouched">Chưa nhập ngày sinh</div>
       </div>
       <div class="item-control">
         <label>Giới tính : </label>
-        <select name="sex" required class="form-control" formControlName="sex" >
+        <select name="sex" required class="form-control" #sex formControlName="sex">
           <option value="0">Nam</option>
           <option value="1">Nữ</option>
         </select>
+        <div class="error" *ngIf="sex.value.trim() == '' && formTouched">Chưa chọn giới tính</div>
       </div>
       <div class="item-control">
         <label>Email: </label>
-        <input type="email" required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"  formControlName="email">
+        <input type="email" required pattern="^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"
+               #email formControlName="email">
+        <div class="error" *ngIf="!validEmail(email.value) && formTouched">Email phải đúng định abc@xx...</div>
       </div>
+
       <div class="item-control">
         <label>Mật khẩu: </label>
-        <input [type]="showPass == true?'text':'password'" required formControlName="passWord">
+        <input [type]="showPass == true?'text':'password'" #passWord required formControlName="passWord">
+        <div class="error" *ngIf="passWord.value.trim() == '' && formTouched">Chưa nhập mật khẩu</div>
       </div>
+
       <div class="item-control">
         <label>Hiện rõ </label>
         <input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">
       </div>
+
       <div class="item-control">
         <label>Nhập lại mật khẩu: </label>
-        <input [type]="showPass == true?'text':'password'"  required class="form-control"  formControlName="rePassWord">
+        <input [type]="showPass == true?'text':'password'" (change)="rePassTouch = true" #rePassWord required
+               class="form-control" formControlName="rePassWord">
+        <div class="error"
+             *ngIf="rePassTouch && passWord.value.trim() != '' && rePassWord.value!= passWord.value && formTouched">
+          Mật khẩu không trùng nhau
+        </div>
       </div>
       <div class="action-form mgt-30 mgt-sm-50 text-center">
         <button (click)="onSubmit()" type="submit">Thêm mới</button>
-        <button (click)="resetForm(formData)">Hủy bỏ</button>
+        <button (click)="resetForm(formData)">Xóa</button>
       </div>
     </div>
   </div>

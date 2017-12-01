@@ -13,5 +13,7 @@ export class UserModel {
   email: String;
   roles: any[];
   activated: boolean;
-  createdOn: Date
+  createdOn: Date;
+  birthDay: Date;
+  sex: Number
 }

@@ -3,6 +3,7 @@ import {MenuUtil} from "../shares/menu.util";
 import {MenuModel} from "./model/menu.model";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
+import menu from "devextreme/ui/menu";
 
 declare const jQuery: any;
 
@@ -20,20 +21,24 @@ export class ManagerComponent implements OnInit, OnChanges {
 
   constructor(private eleRef: ElementRef) {
     this.listenerMenu();
-    // this.menuListener.subscribe(data => {
-    //   this.menu = data['menu'];
-    //   this.native = data['native'];
-    //   console.log(JSON.stringify(this.menu));
-    // });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    let data = MenuUtil.getMenuFromLocal();
+    this.getMenu(data);
     this.listenerMenu();
   }
 
   listenerMenu() {
     MenuUtil.$menuChange.subscribe(data => {
-      // console.log(" listenerMenu " + data.type);
+      console.log("kjfkfdk: " + JSON.stringify(data));
+      data = MenuUtil.getMenuFromLocal();
+      this.getMenu(data);
+    });
+  }
+
+  getMenu(data) {
+    if (data) {
       switch (data.type) {
         case MenuUtil.MENU_INFO_CV :
           this.menu = MenuUtil.getMenuFeatureInfo();
@@ -51,16 +56,13 @@ export class ManagerComponent implements OnInit, OnChanges {
           this.menu = MenuUtil.getMenuStatistic();
           break;
       }
-
       this.native = data.native;
-      // console.log(JSON.stringify(this.menu));
-      // this.menuListener.next({menu: this.menu, native: this.native});
-    });
+    }
   }
 
   ngOnInit() {
+    this.getMenu(MenuUtil.getMenuFromLocal());
     this.listenerMenu();
-    this.menu = MenuUtil.getMenuFeatureInfo();
   }
 
   toggleCatalog(target: string) {

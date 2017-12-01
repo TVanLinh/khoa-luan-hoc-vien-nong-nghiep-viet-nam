@@ -5,7 +5,7 @@ export class ValidService {
   }
 
   static validEmail(email: string) {
-    let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+    let pattern = /^\w+([\.-_]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
     return pattern.test(email);
   }
 

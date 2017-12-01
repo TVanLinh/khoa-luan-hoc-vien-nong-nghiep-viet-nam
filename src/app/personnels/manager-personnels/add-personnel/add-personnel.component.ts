@@ -7,6 +7,7 @@ import {CatalogFacultyService} from "app/shares/catalog-faculty.service";
 import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog-faculty.model";
 import {UserModel} from "./user.model";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
 
 @Component({
   selector: 'app-add-personnel',
@@ -19,6 +20,8 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   listFaculty: CatalogFacultyModel[] = [];
   listLevel1: CatalogFacultyModel[] = [];
   listLevel2: CatalogFacultyModel[] = [];
+  formTouched = false;
+  rePassTouch = false;
 
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
@@ -47,11 +50,11 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   private initForm() {
     this.formData = this.formBuilder.group({
       level1: ['', Validators.required],
-      level2: ['', Validators.required],
-      personnelCode: ['', Validators.required],
+      level2: [''],
+      personnelCode: ['', [Validators.required, Validators.min(6)]],
       fullName: ['', Validators.required],
       email: ['', [Validators.required]],
-      dateOfBirth: ['', Validators.required],
+      birthDay: ['', Validators.required],
       passWord: ['', Validators.required],
       sex: ['', Validators.required],
       rePassWord: ['', Validators.required]
@@ -59,8 +62,19 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formTouched = true;
     let valueForm = this.formData.value;
     let user = new UserModel();
+    let valid = [valueForm.level1, valueForm.personnelCode, valueForm.fullName,
+      valueForm.email, valueForm.birthDay,
+      valueForm.passWord, valueForm.sex];
+
+    if (!ValidService.isNotBlanks(valid) || !ValidService.validEmail(valueForm.email)
+      || !this.formData.valid || valueForm.passWord != valueForm.rePassWord) {
+     super.updateMessge("Vui lòng kiểm tra lại thông tin","warning");
+      return;
+    }
+
     let organ = {
       level1: this.catalogService.findById(this.listFaculty, valueForm.level1),
       level2: this.catalogService.findById(this.listFaculty, valueForm.level2)
@@ -70,13 +84,25 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
     user.fullname = valueForm.fullName;
     user.email = valueForm.email;
     user.hashedPass = valueForm.passWord;
+    user.sex = valueForm.sex;
+    user.birthDay = valueForm.birthDay;
 
-    this.updateView("form-add-user", this.formData.valid);
+    // this.updateView("form-add-user", this.formData.valid);
 
-    this.pushObjectServer(Config.USER_URL, 'data', user);
+    // this.pushObjectServer(Config.USER_URL, 'data', user);
 
     let infoPerson: AddPersonnelForm = this.formData.value;
 
+  }
+
+  resetForm() {
+    this.formData.reset();
+    this.formTouched = false;
+    this.rePassTouch = false;
+  }
+
+  validEmail(email) {
+    return ValidService.validEmail(email);
   }
 
 }
