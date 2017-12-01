@@ -22,6 +22,7 @@ import {StatisticLeaveJobComponent} from "./search-statistic/statistic/statistic
 import {StatisticBindJobComponent} from "./search-statistic/statistic/statistic-bind-job/statistic-bind-job.component";
 import {StatisticRetiredComponent} from "./search-statistic/statistic/statistic-retired/statistic-retired.component";
 import {StatisticNewRetireComponent} from "./search-statistic/statistic/statistic-new-retire/statistic-new-retire.component";
+import {StatisticPersonByFacultyComponent} from "./search-statistic/statistic/statistic-person-by-faculty/statistic-person-by-faculty.component";
 
 
 const routes: Routes = [
@@ -88,6 +89,10 @@ const routes: Routes = [
       },
       {
         path: 'retire-new', component: StatisticNewRetireComponent
+      },
+      {
+        path: 'faculty-personnel',
+        component:StatisticPersonByFacultyComponent
       }
     ]
     },

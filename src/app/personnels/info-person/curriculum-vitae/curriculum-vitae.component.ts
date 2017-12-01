@@ -7,7 +7,6 @@ import {Config} from "../../../shares/config";
 import {MystorageService} from "../../../shares/mystorage.service";
 import {CvModel} from "./cv.model";
 import {AddressModel} from "../../model/address.model";
-import {DistrictModel} from "../../model/district.model";
 import {GuildModel} from "../../model/guild.model";
 import {ValidService} from "../../../shares/valid.service";
 

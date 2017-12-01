@@ -20,7 +20,7 @@
 
       <div class="item-control">
         <label>Mã cán bộ: </label>
-        <input type="text" required formControlName="personnelCode" #personnelCode ngModel>
+        <input type="text" class="form-control"  required formControlName="personnelCode" #personnelCode ngModel>
         <!--{{formData.forms.personnelCode.touched}}-->
         <div class="error" *ngIf="personnelCode.touched">
 
@@ -28,15 +28,22 @@
       </div>
       <div class="item-control">
         <label>Họ tên: </label>
-        <input type="text" required formControlName="fullName">
+        <input type="text" required class="form-control"  formControlName="fullName">
       </div>
       <div class="item-control">
         <label>Ngày sinh: </label>
-        <input type="date" required  formControlName="dateOfBirth">
+        <input type="date" required  class="form-control"  formControlName="dateOfBirth">
+      </div>
+      <div class="item-control">
+        <label>Giới tính : </label>
+        <select name="sex" required class="form-control" formControlName="sex" >
+          <option value="0">Nam</option>
+          <option value="1">Nữ</option>
+        </select>
       </div>
       <div class="item-control">
         <label>Email: </label>
-        <input type="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" formControlName="email">
+        <input type="email" required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control"  formControlName="email">
       </div>
       <div class="item-control">
         <label>Mật khẩu: </label>
@@ -48,7 +55,7 @@
       </div>
       <div class="item-control">
         <label>Nhập lại mật khẩu: </label>
-        <input [type]="showPass == true?'text':'password'"  required formControlName="rePassWord">
+        <input [type]="showPass == true?'text':'password'"  required class="form-control"  formControlName="rePassWord">
       </div>
       <div class="action-form mgt-30 mgt-sm-50 text-center">
         <button (click)="onSubmit()" type="submit">Thêm mới</button>

@@ -53,6 +53,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
       email: ['', [Validators.required]],
       dateOfBirth: ['', Validators.required],
       passWord: ['', Validators.required],
+      sex: ['', Validators.required],
       rePassWord: ['', Validators.required]
     });
   }

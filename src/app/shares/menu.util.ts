@@ -99,7 +99,8 @@ export class MenuUtil {
     {title: "Danh cán bộ nghỉ việc ", href: "/manager/statistic/leave-job"},
     {title: "Danh sách cán bộ buộc thôi việc ", href: "/manager/statistic/bind-job"},
     {title: "Danh sách cán bộ nghỉ hưu ", href: "/manager/statistic/retire"},
-    {title: "Danh sách cán bộ sắp nghỉ hưu ", href: "/manager/statistic/retire-new"}
+    // {title: "Danh sách cán bộ sắp nghỉ hưu ", href: "/manager/statistic/retire-new"},
+    {title: "Thống kê cán bộ theo khoa phòng ban", href: "/manager/statistic/faculty-personnel"},
   ];
 
   public static getMenuSearch() {

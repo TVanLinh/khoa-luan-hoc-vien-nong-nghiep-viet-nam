@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="form-group">
+      <label for="sel1" class="mgb-15">Chọn khoa, phòng ban:</label>
+      <select class="form-control" #fac id="sel1" (change)="onStatistic(fac.value)">
+        <option value="-1">--------Chọn--------</option>
+        <option *ngFor="let item of listFaculty" [value]="item._id">{{item.name}}</option>
+      </select>
+    </div>
+    <p>Tổng số : {{dataUser.length}}</p>
+    <app-statistic-table [data]="dataUser" [title]="title"
+                         [fields]="fields"
+    ></app-statistic-table>
+  </div>
+
+</div>
