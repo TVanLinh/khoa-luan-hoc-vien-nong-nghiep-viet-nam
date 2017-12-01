@@ -43,4 +43,9 @@ export class CatalogFacultyService {
   findByNameParent(array: CatalogFacultyModel[], name) {
     return array.filter(item => item.parent && item.parent.name == name);
   }
+
+  findByType(array: CatalogFacultyModel[], type) {
+    return array.filter(item => item && item.type == type && item.level == 1
+    );
+  }
 }

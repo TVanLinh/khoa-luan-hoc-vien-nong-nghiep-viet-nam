@@ -86,6 +86,9 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     }
 
     if (this.positionUpdate == null) {
+      if (body.level != 1) {
+        body.type = null;
+      }
       let data = {
         data: body
       };
@@ -183,7 +186,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   viewDetail(item) {
     if (item.type == 'khoa') {
       this.titleDetail = "Danh sách phòng ban của  khoa " + item.name;
-    }else{
+    } else {
       this.titleDetail = "Danh sách phòng ban chi tiết của " + item.name;
     }
     this.details = super.asList(this.catalogFacService.findByIdParent(this.list.toArray(), item._id));

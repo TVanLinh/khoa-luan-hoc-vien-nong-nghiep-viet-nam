@@ -7,6 +7,7 @@ import {MenuUtil} from "../../../shares/menu.util";
 import {Config} from "../../../shares/config";
 import {TaskService} from "../../../shares/task.service";
 import {MystorageService} from "../../../shares/mystorage.service";
+import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 
 declare var jQuery: any;
 
@@ -17,35 +18,8 @@ declare var jQuery: any;
 })
 export class TabLeftComponent extends BaseFormComponent implements OnInit {
   formDataLogin: FormGroup;
-  faculty = [
-    {href: "", title: "Khoa Chăn nuôi"},
-    {href: "", title: "Khoa công nghệ thực phẩm",},
-    {href: "", title: "Khoa Cơ điện"},
-    {href: "", title: "Khoa Công nghệ sinh học"},
-    {href: "", title: "Khoa Giáo dục quốc phòng"},
-    {href: "", title: "Khoa Kinh tế và Phát triển nông thôn"},
-    {href: "", title: "Khoa Lý luận chính trị và Xã hội"},
-    {href: "", title: "Khoa Môi trường"},
-    {href: "", title: " Khoa Nông học"},
-    {href: "", title: " Khoa Quản lý đất đai"},
-    {href: "", title: " Khoa Thú y"},
-    {href: "", title: "   Khoa Thủy sản"},
-  ];
-
-  departments = [
-    {href: "", title: "Khoa Chăn nuôi"},
-    {href: "", title: "Khoa công nghệ thực phẩm",},
-    {href: "", title: "Khoa Cơ điện"},
-    {href: "", title: "Khoa Công nghệ sinh học"},
-    {href: "", title: "Khoa Giáo dục quốc phòng"},
-    {href: "", title: "Khoa Kinh tế và Phát triển nông thôn"},
-    {href: "", title: "Khoa Lý luận chính trị và Xã hội"},
-    {href: "", title: "Khoa Môi trường"},
-    {href: "", title: " Khoa Nông học"},
-    {href: "", title: " Khoa Quản lý đất đai"},
-    {href: "", title: " Khoa Thú y"},
-    {href: "", title: "   Khoa Thủy sản"},
-  ];
+  faculty: any[] = [];
+  departments: any[] = [];
   isLogin = false;
 
   menuApp = MenuUtil.getMenuApp();
@@ -96,7 +70,9 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     this.router.navigate([item.href]);
   }
 
-  constructor(protected _eref: ElementRef, public taskService: TaskService, private  router: Router) {
+  constructor(protected _eref: ElementRef, public taskService: TaskService,
+              public catalogFacultyService: CatalogFacultyService,
+              private  router: Router) {
     super(_eref, taskService);
   }
 
@@ -109,6 +85,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getCatalogFaculty();
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
     if (MystorageService.getAcount() != null) {
@@ -158,5 +135,13 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     MystorageService.removeAcount();
     this.router.navigate(['/']);
   }
+
+  getCatalogFaculty() {
+    this.catalogFacultyService.getList().subscribe(data => {
+      this.faculty = this.catalogFacultyService.findByType(data, 'khoa');
+      this.departments = this.catalogFacultyService.findByType(data, 'phongban');
+    });
+  }
+
 
 }

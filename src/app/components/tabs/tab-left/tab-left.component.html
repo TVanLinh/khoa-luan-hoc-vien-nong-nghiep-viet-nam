@@ -25,13 +25,13 @@
 
         <div id="home1" class="tab-pane fade in active">
           <ul class="content">
-            <li *ngFor="let item of faculty"><a [href]="item.href">{{item.title}}</a></li>
+            <li *ngFor="let item of faculty"><a [href]="item.url?item.url:''">{{item.name}}</a></li>
           </ul>
         </div>
 
         <div id="menu11" class="tab-pane fade">
           <ul class="content">
-            <li *ngFor="let item of departments"><a [href]="item.href">{{item.title}}</a></li>
+            <li *ngFor="let item of departments"><a [href]="item.url?item.url:''">{{item.name}}</a></li>
           </ul>
         </div>
       </div>
