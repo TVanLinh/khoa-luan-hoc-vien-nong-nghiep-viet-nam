@@ -15,13 +15,12 @@ import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog
 })
 export class ProcedureTransferDepartmentComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
-
-  formSearch: FormGroup;
   formDetail: FormGroup;
-  showFormDetail: boolean = false;
   formTouch = false;
   user: any;
   listFaculty: CatalogFacultyModel[] = [];
+  listLevel1: CatalogFacultyModel[] = [];
+  listLevel2: CatalogFacultyModel[] = [];
 
   constructor(protected eleRef: ElementRef, taskService: TaskService, public  catalogFacService: CatalogFacultyService) {
     super(eleRef, taskService);
@@ -42,10 +41,6 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
   }
 
   initForm() {
-    this.formSearch = this.formBuilder.group({
-      department: [''],
-      nameOrCodePersonnel: ['']
-    });
     this.formDetail = this.formBuilder.group({
       fullName: [''],
       personnelCode: [''],
@@ -53,7 +48,8 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
       numberDecide: ['', Validators.required],
       dateDecide: ['', Validators.required],
       contentDecide: ['', Validators.required],
-      unitTransfer: ['', Validators.required]
+      level1: ['', Validators.required],
+      level2: ['', Validators.required]
     });
   }
 
@@ -61,10 +57,13 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
     this.formTouch = true;
 
     let valueForm = this.formDetail.value;
+    console.log(JSON.stringify(valueForm));
+
     let valid = [valueForm.numberDecide,
       valueForm.dateDecide,
       valueForm.contentDecide,
-      valueForm.unitTransfer,
+      valueForm.level1,
+      valueForm.level2,
       valueForm.dateTransfer
     ];
     if (!ValidService.isNotBlanks(valid) || !this.formDetail.valid) {
@@ -76,9 +75,23 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
       dateDecide: valueForm.dateDecide,
       contentDecide: valueForm.contentDecide,
       dateTransfer: valueForm.dateTransfer,
-      unitTransfer: valueForm.unitTransfer,
-      user: this.user
+      user: this.user,
+      // unitTransfer:{}
+      unitTransfer: {
+        level1: this.catalogFacService.findById(this.listFaculty, valueForm.level1),
+        level2: this.catalogFacService.findById(this.listFaculty, valueForm.level2)
+      }
     };
+    //
+    // if (this.catalogFacService.findById(this.listFaculty, valueForm.level1)) {
+    //   body["unitTransfer"]['level1'] = this.catalogFacService.findById(this.listFaculty, valueForm.level1).name;
+    // }
+    //
+    // if (valueForm.level2 && this.catalogFacService.findById(this.listFaculty, valueForm.level2)) {
+    //   body["unitTransfer"]['level2'] = this.catalogFacService.findById(this.listFaculty, valueForm.level2).name;
+    // }
+
+
     this.taskService.post(Config.LEAVE_DEPART_URL, {data: body}).subscribe((data) => {
       this.updateMessge("Thành công ", "success");
       setTimeout(() => {
@@ -106,8 +119,18 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
 
   getCatalogFaculty() {
     this.catalogFacService.getList().subscribe((data: any[]) => {
-      this.listFaculty = this.catalogFacService.findByLevel(data, 1);
+      this.listFaculty = data;
+      this.listLevel1 = this.catalogFacService.findByLevel(this.listFaculty, 1);
+    }, err => {
+      this.listFaculty = [];
+      this.listLevel1 = [];
     });
+  }
+
+
+  level1Change(idParent) {
+    console.log(idParent);
+    this.listLevel2 = this.catalogFacService.findByIdParent(this.listFaculty, idParent);
   }
 
 

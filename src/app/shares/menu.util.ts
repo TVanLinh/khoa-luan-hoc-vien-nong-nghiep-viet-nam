@@ -25,9 +25,12 @@ export class MenuUtil {
       href: "/manager/info", title: 'My CV'
     }, {
       href: "/manager/manager-personnel", title: 'Quản lý nhân sự '
-    }, {
+    },
+    {
       href: "/manager/search", title: 'Tìm kiếm'
-    }, {
+    }
+    ,
+    {
       href: "/manager/statistic", title: 'Thống kê '
     }, {
       href: "/manager/manager-system", title: 'Quản trị hệ thống '
@@ -58,6 +61,7 @@ export class MenuUtil {
   ];
 
   private static menuManagerPerson: MenuModel[] = [
+    // {href: '/manager/manager-personnel/add-personnel', title: 'Thêm mới cán bộ'},
     {href: '/manager/manager-personnel/add-personnel', title: 'Thêm mới cán bộ'},
     {href: '/manager/manager-personnel/edit-personnel', title: 'Chỉnh sửa thông tin cán bộ '},
     {href: '/manager/manager-personnel/procedure-leave-job', title: 'Làm thủ tục nghỉ việc  '},
@@ -94,7 +98,7 @@ export class MenuUtil {
 
   private static search: MenuModel[] = [
     {title: "Tìm kiếm ", href: "/manager/search"},
-    {title: "Thống kê ", href: "/manager/statistic"},
+    {title: "Tìm kiếm,Thống kê ", href: "/manager/statistic"},
   ];
 
   private static statistic: MenuModel[] = [

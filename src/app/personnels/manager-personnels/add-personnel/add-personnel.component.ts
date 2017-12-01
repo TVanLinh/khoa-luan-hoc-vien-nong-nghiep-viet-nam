@@ -43,7 +43,6 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
     this.catalogService.getList().subscribe((data: any[]) => {
       this.listFaculty = data;
       this.listLevel1 = this.catalogService.findByLevel(this.listFaculty, 1);
-      console.log(this.listLevel1);
     });
   }
 

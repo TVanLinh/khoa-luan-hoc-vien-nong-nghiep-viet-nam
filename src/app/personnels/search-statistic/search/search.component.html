@@ -1,3 +1,30 @@
-<p>
-  search works!
-</p>
+<app-search-form title="Tìm kiếm cán bộ " (onChoise)="onChoiseHandler($event)"></app-search-form>
+
+
+<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modal)">Thoát</button>
+    </div>
+    <h3 class="text-center">Thông tin chi tiết </h3>
+  </modal-header>
+
+  <modal-body *ngIf="userDetail">
+
+    <div class="mgb-15 mgr-20"><span>Mã cán bộ:</span> {{userDetail.username}}</div>
+    <div class="mgb-15 mgr-20"><span>Họ tên:</span> {{userDetail.fullname}}</div>
+    <div class="mgb-15 mgr-20"><span>Giới tính : </span>{{userDetail.sex == 0?'Nam':'Nữ'}}</div>
+    <div class="mgb-15 mgr-20"><span>Ngày sinh:</span> {{userDetail.birthDay | date:'dd-MM-yyyy'}}</div>
+    <div class="mgb-15 mgr-20"><span>Email:</span> {{userDetail.email}}</div>
+    <div *ngIf="userDetail.organ.level2">
+      <div class="mgb-15"><span>Cán bộ thuộc: </span>  {{userDetail.organ.level2.name}} của {{getMsgFac(userDetail.organ.level1.type)}} {{userDetail.organ.level1.name}}</div>
+    </div>
+
+    <div *ngIf="!userDetail.organ.level2">
+      <div class="mgb-15"><span>Cán bộ thuộc</span> {{userDetail.organ.level1.name}}
+      </div>
+    </div>
+  </modal-body>
+
+</modal>

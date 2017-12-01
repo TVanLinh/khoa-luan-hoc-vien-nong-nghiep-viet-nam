@@ -31,8 +31,8 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
     this.openModal(this.modalEdit);
   }
 
-  constructor(protected eleRef: ElementRef,public taskService: TaskService) {
-    super(eleRef,taskService);
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+    super(eleRef, taskService);
 
   }
 
@@ -53,6 +53,11 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
       passWord: [''],
       rePassWord: ['']
     });
+  }
+
+  onChoiseHandler($event) {
+    window.alert($event['fullname']);
+    console.log($event);
   }
 
 }

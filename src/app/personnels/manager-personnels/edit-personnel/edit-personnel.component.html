@@ -1,68 +1,5 @@
+<app-search-form title="Chỉnh sửa thông tin tài khoản cán bộ " (onChoise)="onChoiseHandler($event)"></app-search-form>
 
-  <form style="border: none;padding: 0" [formGroup]="formSearch">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="form-item">
-          <div class="form-item-title">
-            Tìm kiếm
-          </div>
-          <div class="item-control">
-            <label>Phòng ban </label>
-            <select class="form-control" formControlName="department">
-              <option value="">---Quan tri mang va an ninh he thong</option>
-            </select>
-          </div>
-          <div class="item-control">
-            <label class=" " style="margin-right: 123px;">Nhập tên hoặc mã cán bộ để kiếm </label>
-            <input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">
-            <button class="btn-action" (click)="onSearch()">Tìm kiếm</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 ">
-        <div class="form-item">
-          <div class="form-item-title">
-            Danh sách cán bộ
-          </div>
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-              <tr>
-                <th>STT</th>
-                <th>Mã cán bộ</th>
-                <th>Họ tên</th>
-                <th>Ngày sinh</th>
-                <th>Tài khoản email</th>
-                <th>Username</th>
-                <th>Cập nhật</th>
-                <th>Xóa</th>
-              </tr>
-              </thead>
-              <tbody>
-              <!---->
-
-              <tr>
-                <td>{{1}}</td>
-                <td>{{item.personnelCode}}</td>
-                <td>{{item.fullName}}</td>
-                <td>{{item.dateOfBirth}}</td>
-                <td>{{item.email}}</td>
-                <td>{{item.acountSignIn}}</td>
-                <td>
-                  <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-                </td>
-                <td style="text-align: center">
-                  <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
-                </td>
-              </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
 
 <modal #modalEdit size='lg' cssClass="my-modal-lg" backdrop="false">
 
@@ -114,3 +51,69 @@
   </modal-footer>
 
 </modal>
+
+
+<!--<form style="border: none;padding: 0" [formGroup]="formSearch">-->
+  <!--<div class="row">-->
+    <!--<div class="col-xs-12">-->
+      <!--<div class="form-item">-->
+        <!--<div class="form-item-title">-->
+          <!--Tìm kiếm-->
+        <!--</div>-->
+        <!--<div class="item-control">-->
+          <!--<label>Phòng ban </label>-->
+          <!--<select class="form-control" formControlName="department">-->
+            <!--<option value="">-&#45;&#45;Quan tri mang va an ninh he thong</option>-->
+          <!--</select>-->
+        <!--</div>-->
+        <!--<div class="item-control">-->
+          <!--<label class=" " style="margin-right: 123px;">Nhập tên hoặc mã cán bộ để kiếm </label>-->
+          <!--<input type="text" class="mgb-15 mgr-20" style="float: none;width: 50%" formControlName="nameOrCodePersonnel">-->
+          <!--<button class="btn-action" (click)="onSearch()">Tìm kiếm</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-xs-12 ">-->
+      <!--<div class="form-item">-->
+        <!--<div class="form-item-title">-->
+          <!--Danh sách cán bộ-->
+        <!--</div>-->
+        <!--<div class="table-responsive">-->
+          <!--<table class="table table-bordered">-->
+            <!--<thead>-->
+            <!--<tr>-->
+              <!--<th>STT</th>-->
+              <!--<th>Mã cán bộ</th>-->
+              <!--<th>Họ tên</th>-->
+              <!--<th>Ngày sinh</th>-->
+              <!--<th>Tài khoản email</th>-->
+              <!--<th>Username</th>-->
+              <!--<th>Cập nhật</th>-->
+              <!--<th>Xóa</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+
+            <!--<tr>-->
+              <!--<td>{{1}}</td>-->
+              <!--<td>{{item.personnelCode}}</td>-->
+              <!--<td>{{item.fullName}}</td>-->
+              <!--<td>{{item.dateOfBirth}}</td>-->
+              <!--<td>{{item.email}}</td>-->
+              <!--<td>{{item.acountSignIn}}</td>-->
+              <!--<td>-->
+                <!--<span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>-->
+              <!--</td>-->
+              <!--<td style="text-align: center">-->
+                <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
+              <!--</td>-->
+            <!--</tr>-->
+
+            <!--</tbody>-->
+          <!--</table>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</form>-->
