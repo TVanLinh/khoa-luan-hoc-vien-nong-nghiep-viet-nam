@@ -95,6 +95,9 @@ import {DataTableModule} from "angular2-datatable";
 import { ExcelService} from "./shares/excel.service";
 import {DxDataGridModule} from "devextreme-angular";
 import { StatisticPersonByFacultyComponent } from './personnels/search-statistic/statistic/statistic-person-by-faculty/statistic-person-by-faculty.component';
+import { ArgSystemComponent } from './personnels/manager-system/arg-system/arg-system.component';
+import { ArgFontendComponent } from './personnels/manager-system/arg-system/arg-fontend/arg-fontend.component';
+import { ArgBackendComponent } from './personnels/manager-system/arg-system/arg-backend/arg-backend.component';
 // import {DxDataGridModule} from "devextreme-angular";
 
 @NgModule({
@@ -175,7 +178,10 @@ import { StatisticPersonByFacultyComponent } from './personnels/search-statistic
     StatisticRetiredComponent,
     StatisticNewRetireComponent,
     StatisticTableComponent,
-    StatisticPersonByFacultyComponent
+    StatisticPersonByFacultyComponent,
+    ArgSystemComponent,
+    ArgFontendComponent,
+    ArgBackendComponent
   ],
   imports: [
     BrowserModule,

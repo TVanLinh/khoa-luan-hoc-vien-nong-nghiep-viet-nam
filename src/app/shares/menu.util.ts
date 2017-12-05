@@ -72,6 +72,21 @@ export class MenuUtil {
     {href: '/manager/manager-personnel/chuaco----', title: 'Xét lên lương '}
   ];
 
+  public static menuMangerSystem: MenuModel[] = [
+    // {
+    //   href: '/manager/manager-system/arg', title: 'Quản lý tham số hệ thống '
+    // },
+    {
+      href: '/manager/manager-system/arg/fontend', title: 'Frontend'
+    }, {
+      href: '/manager/manager-system/arg/backend', title: 'Backend '
+    }
+  ];
+
+  public static getMenuManagerSystem() {
+    return this.menuMangerSystem;
+  }
+
   public static getMenuApp(): MenuModel[] {
     return this.menuApp;
   }

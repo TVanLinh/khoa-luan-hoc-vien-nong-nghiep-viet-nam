@@ -23,6 +23,9 @@ import {StatisticBindJobComponent} from "./search-statistic/statistic/statistic-
 import {StatisticRetiredComponent} from "./search-statistic/statistic/statistic-retired/statistic-retired.component";
 import {StatisticNewRetireComponent} from "./search-statistic/statistic/statistic-new-retire/statistic-new-retire.component";
 import {StatisticPersonByFacultyComponent} from "./search-statistic/statistic/statistic-person-by-faculty/statistic-person-by-faculty.component";
+import {ArgSystemComponent} from "./manager-system/arg-system/arg-system.component";
+import {ArgBackendComponent} from "./manager-system/arg-system/arg-backend/arg-backend.component";
+import {ArgFontendComponent} from "./manager-system/arg-system/arg-fontend/arg-fontend.component";
 
 
 const routes: Routes = [
@@ -92,11 +95,47 @@ const routes: Routes = [
       },
       {
         path: 'faculty-personnel',
-        component:StatisticPersonByFacultyComponent
+        component: StatisticPersonByFacultyComponent
       }
     ]
     },
-    {path: 'manager-system', component: ManagerSystemComponent}
+    {
+      path: 'manager-system', component: ManagerSystemComponent, children: [
+      {
+        path: '',
+        component: ArgSystemComponent, children: [
+        {
+          path: '',
+          component: ArgFontendComponent
+        },
+        {
+          path: 'fontend',
+          component: ArgFontendComponent
+        },
+        {
+          path: 'backend',
+          component: ArgBackendComponent
+        }]
+      },
+      {
+        path: 'arg',
+        component: ArgSystemComponent, children: [
+        {
+          path: '',
+          component: ArgFontendComponent
+        },
+        {
+          path: 'fontend',
+          component: ArgFontendComponent
+        },
+        {
+          path: 'backend',
+          component: ArgBackendComponent
+        }
+      ]
+      }
+    ]
+    }
   ]
   }
 ];

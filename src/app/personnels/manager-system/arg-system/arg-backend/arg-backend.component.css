@@ -1,0 +1,9 @@
+.form-control,input,select {
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+tbody tr:hover {
+  background-color: #eae7df;
+  cursor: pointer;
+}

@@ -1,0 +1,86 @@
+<div class="table-responsive">
+  <h3 class="text-center mgb-20">Frontend</h3>
+  <div *ngIf="message.condition"
+       [ngClass]="'alert alert-'+ message.type">
+    {{message.content}}
+  </div>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tiêu đề</th>
+      <th>Mô tả</th>
+      <th>Url</th>
+      <th>Activated </th>
+      <th>
+            <span class="action-icon" title="Thêm thông tin" (click)="openModal(modal)"><i
+              class="fa fa-plus"></i></span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of list.toArray();let i = index">
+      <td>{{i+1}}</td>
+      <td>{{(item.title)}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.url}}</td>
+      <td>{{item.activated}}</td>
+      <td>
+        <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+        <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+<modal #modal size='lg' backdrop="true">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modal)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="item-control mgt-i--10">
+            <label>Tiêu đề </label>
+            <input name="description" class="form-control" required #title formControlName="title"/>
+            <div class="error" *ngIf="title.value.trim() =='' && formTouch"> Chưa nhập tiêu đề</div>
+          </div>
+
+          <div class="item-control">
+            <label>Mô tả </label>
+            <input name="description" class="form-control" required #description formControlName="description"/>
+            <div class="error" *ngIf="description.value.trim() =='' && formTouch"> Chưa nhập mô tả</div>
+          </div>
+
+          <div class="item-control">
+            <label>Url</label>
+            <input name="url" class="form-control" required #url formControlName="url"/>
+            <div class="error" *ngIf="url.value.trim() =='' && formTouch"> Chưa nhập url</div>
+          </div>
+          <div class="item-control">
+            <label>Trạng thái </label>
+            <select name="" id="" class="form-control" required #activated formControlName="activated">
+              <option value="true">Activated</option>
+              <option value="false">Not activated</option>
+            </select>
+            <div class="error" *ngIf="activated.value == '' && formTouch"> Chưa chọn trạng thái</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="onSave()">{{update == null?'Thêm':'Cập nhật'}}
+    </button>
+  </modal-footer>
+
+</modal>

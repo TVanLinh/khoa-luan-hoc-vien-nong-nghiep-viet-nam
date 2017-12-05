@@ -31,7 +31,7 @@ export class ManagerComponent implements OnInit, OnChanges {
 
   listenerMenu() {
     MenuUtil.$menuChange.subscribe(data => {
-      console.log("kjfkfdk: " + JSON.stringify(data));
+      // console.log("kjfkfdk: " + JSON.stringify(data));
       data = MenuUtil.getMenuFromLocal();
       this.getMenu(data);
     });
@@ -51,6 +51,9 @@ export class ManagerComponent implements OnInit, OnChanges {
           break;
         case MenuUtil.SEARCH:
           this.menu = MenuUtil.getMenuSearch();
+          break;
+        case MenuUtil.MENU_MANGER_SYSTEM:
+          this.menu = MenuUtil.getMenuManagerSystem();
           break;
         case MenuUtil.STATISTIC:
           this.menu = MenuUtil.getMenuStatistic();
