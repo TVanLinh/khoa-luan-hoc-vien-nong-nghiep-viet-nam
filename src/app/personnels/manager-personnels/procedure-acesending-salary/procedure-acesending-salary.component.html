@@ -1,0 +1,117 @@
+<app-search-form title="Làm thủ tục tăng lương " (onChoise)="onChoiseHandler($event)"></app-search-form>
+
+
+<modal #modalSalary size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalSalary)">Thoát</button>
+    </div>
+    <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="salary-brief">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class="item-control">
+            <label>Họ tên: </label>
+            <input type="text" class="form-control" [value]="user ? user.fullname:''" disabled required>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+          <div class="item-control">
+            <label>Mã cán bộ: </label>
+            <input type="text" class="form-control" [value]="user ? user.username:''" disabled required>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+
+          <div class="item-control">
+            <label>Loại ngạch </label>
+            <select name="specie" class="form-control" [(ngModel)]="speice" formControlName="specie"
+                    (change)="spieceChange()" required>
+              <option *ngFor="let item of spieceRanks" [value]="item">{{item}}</option>
+            </select>
+            <div class="error" *ngIf="!speice && formTouch  || speice && speice.trim()  =='' && formTouch">
+              Chưa chọn loại ngạch
+            </div>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Nhóm ngạch </label>
+            <select class="form-control" formControlName="group" [(ngModel)]="group"
+                    (change)="groupChange()" required>
+              <option *ngFor="let item of listGroup" [value]="item.group.name">{{item.group.name}}</option>
+            </select>
+            <div class="error" *ngIf="!group && formTouch||group && group.trim()  =='' && formTouch">
+              Chưa chọn nhóm ngạch
+            </div>
+          </div>
+
+          <div class="item-control">
+            <label>Ngày quyết định </label>
+            <input type="date" class="form-control"  formControlName="dateDecide" #dateDecide required>
+            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+              Chưa nhập ngày quyết định
+            </div>
+          </div>
+          <!---->
+
+
+        </div>
+
+        <!---->
+        <div class="col-xs-12 col-sm-6">
+          <div class="item-control">
+            <label>Ngạch </label>
+            <select class="form-control" [(ngModel)]="rank" formControlName="rank"
+                    (change)="rankChange()" required>
+              <option *ngFor="let item of listRank" [value]="item">{{item}}</option>
+            </select>
+            <div class="error" *ngIf="!rank && formTouch|| rank && rank.trim()  =='' && formTouch">
+              Chưa chọn ngạch
+            </div>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Bậc </label>
+            <select class="form-control" [(ngModel)]="levelChoise" formControlName="level"
+                    (change)="levelChange()" required>
+              <option *ngFor="let item of level" [value]="item.name">{{item.name}}</option>
+            </select>
+            <div class="error" *ngIf="!levelChoise && formTouch||levelChoise && levelChoise.trim()  =='' && formTouch">
+              Chưa chọn bậc
+            </div>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label> Số quyết định </label>
+            <input type="text" class="form-control"  formControlName="numberDecide" required #numberDecide>
+            <div class="error"  *ngIf="numberDecide.value.trim()  =='' && formTouch">
+              Chưa nhập số quyết định
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="item-control" >
+            <label> Nội dung quyết định </label>
+            <textarea class="form-control" rows="5" #contentDecide formControlName="contentDecide" required></textarea>
+            <div class="error" *ngIf="contentDecide.value.trim()  == '' && formTouch">
+              Chưa nhập nội dung quyết định
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận ':'Cập nhật'}}</button>
+  </modal-footer>
+
+</modal>

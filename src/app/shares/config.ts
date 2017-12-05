@@ -36,6 +36,9 @@ export class Config {
   public static LEAVE_DEPART_URL = Config.HOST_SERVER + "/leave_depart";
   public static FONTEND_URL = Config.HOST_SERVER + "/frontend";
   public static BACKEND_URL = Config.HOST_SERVER + "/backend";
+  public static SALART_HISTORY_URL = Config.HOST_SERVER + "/salaryhistory";
+
+
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";
 }
 

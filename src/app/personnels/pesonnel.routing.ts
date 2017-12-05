@@ -26,6 +26,7 @@ import {StatisticPersonByFacultyComponent} from "./search-statistic/statistic/st
 import {ArgSystemComponent} from "./manager-system/arg-system/arg-system.component";
 import {ArgBackendComponent} from "./manager-system/arg-system/arg-backend/arg-backend.component";
 import {ArgFontendComponent} from "./manager-system/arg-system/arg-fontend/arg-fontend.component";
+import {ProcedureAcesendingSalaryComponent} from "./manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component";
 
 
 const routes: Routes = [
@@ -50,6 +51,8 @@ const routes: Routes = [
         path: 'procedure-transfer-unit-work', component: ProcedureTransferUnitWorkComponent
       }, {
         path: 'procedure-transfer-department', component: ProcedureTransferDepartmentComponent
+      }, {
+        path: 'procedure-increase-salary', component: ProcedureAcesendingSalaryComponent
       }, {
         path: 'procedure-retire', component: ProcedureRetireComponent
       }

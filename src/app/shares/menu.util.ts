@@ -69,7 +69,7 @@ export class MenuUtil {
     {href: '/manager/manager-personnel/procedure-transfer-unit-work', title: 'Chuyển đơn vị công tác  '},
     {href: '/manager/manager-personnel/procedure-transfer-department', title: 'Chuyển phòng ban  '},
     {href: '/manager/manager-personnel/procedure-retire', title: 'Làm thủ tục về hưu   '},
-    {href: '/manager/manager-personnel/chuaco----', title: 'Xét lên lương '}
+    {href: '/manager/manager-personnel/procedure-increase-salary', title: 'Thủ tục tăng lương '}
   ];
 
   public static menuMangerSystem: MenuModel[] = [

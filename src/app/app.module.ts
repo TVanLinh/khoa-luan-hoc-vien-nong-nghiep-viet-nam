@@ -98,6 +98,7 @@ import { StatisticPersonByFacultyComponent } from './personnels/search-statistic
 import { ArgSystemComponent } from './personnels/manager-system/arg-system/arg-system.component';
 import { ArgFontendComponent } from './personnels/manager-system/arg-system/arg-fontend/arg-fontend.component';
 import { ArgBackendComponent } from './personnels/manager-system/arg-system/arg-backend/arg-backend.component';
+import { ProcedureAcesendingSalaryComponent } from './personnels/manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component';
 // import {DxDataGridModule} from "devextreme-angular";
 
 @NgModule({
@@ -181,7 +182,8 @@ import { ArgBackendComponent } from './personnels/manager-system/arg-system/arg-
     StatisticPersonByFacultyComponent,
     ArgSystemComponent,
     ArgFontendComponent,
-    ArgBackendComponent
+    ArgBackendComponent,
+    ProcedureAcesendingSalaryComponent
   ],
   imports: [
     BrowserModule,
