@@ -21,6 +21,7 @@ form {
   background: #fff;
   border: 1px solid #ccc;
   padding: 5px 20px;
+  min-width: 150px;
 }
 
 button:hover, .btn-action:hover {

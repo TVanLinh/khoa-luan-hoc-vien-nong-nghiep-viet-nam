@@ -172,7 +172,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
 
   getDataFromServer() {
     this.taskService.get(Config.CONTRACT_FOREIGN + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data['foreign_language']) {
+      if (data && data['foreign_language']) {
         this.list = this.asList(data['foreign_language']);
       }
     });

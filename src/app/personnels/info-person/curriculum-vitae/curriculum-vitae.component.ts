@@ -9,6 +9,7 @@ import {CvModel} from "./cv.model";
 import {AddressModel} from "../../model/address.model";
 import {GuildModel} from "../../model/guild.model";
 import {ValidService} from "../../../shares/valid.service";
+import {UserModel} from "../../manager-personnels/add-personnel/user.model";
 
 declare const jQuery: any;
 
@@ -57,6 +58,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   };
 
   formCV: FormGroup;
+  user: any;
 
   listNation = [];
   listCity: AddressModel[] = [];
@@ -68,15 +70,18 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   homeTown: AddressModel = new AddressModel();
   placeNow: AddressModel = new AddressModel();
 
-  constructor(public taskService: TaskService, protected eleRef: ElementRef, public addressService: AddressService) {
+  constructor(public taskService: TaskService, protected eleRef: ElementRef,
+              public addressService: AddressService) {
     super(eleRef, taskService);
 
   }
 
   ngOnInit() {
     this.initListCity();
+    // console.log(JSON.stringify(this.user));
     this.initForm();
     this.getNation();
+
   }
 
   private getNation() {
@@ -160,12 +165,12 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   initForm() {
-
+    this.user = MystorageService.getAcount()['user'];
     this.formCV = this.formBuilder.group({
-      fullName: [this.infoBasic.fullName, Validators.required],
-      birthDay: [this.infoBasic.birthDay, Validators.required],
-      sex: [this.infoBasic.sex, Validators.required],
-      email: [this.infoBasic.email, Validators.required],
+      fullName: [this.user.fullname, Validators.required],
+      birthDay: [this.user.birthDay, Validators.required],
+      sex: [this.user.sex, Validators.required],
+      email: [this.user.email, Validators.required],
       nameOther: [this.infoBasic.nameOther],
       bloodGroup: [this.infoBasic.bloodGroup, Validators.required],
       policyObject: [this.infoBasic.policyObject],
@@ -193,8 +198,8 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
         city: [this.infoBasic.placeNow.city, Validators.required],
         district: [this.infoBasic.placeNow.district, Validators.required],
         guild: [this.infoBasic.placeNow.guild, Validators.required],
-        street: [this.infoBasic.placeNow.street, Validators.required],
-        numberHome: [this.infoBasic.placeNow.numberHome, Validators.required],
+        street: [this.infoBasic.placeNow.street],
+        numberHome: [this.infoBasic.placeNow.numberHome],
       })
     });
   }
@@ -227,12 +232,12 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
     console.log(valueForm);
 
-
+    // valueForm.placeNow.street, valueForm.placeNow.numberHome,
     let valid = [valueForm.fullName, valueForm.birthDay, valueForm.sex, valueForm.email, valueForm.phone,
       valueForm.placeBirth, valueForm.homeTown.city, valueForm.homeTown.district, valueForm.homeTown.guild,
       valueForm.placeBirth.city, valueForm.placeBirth.district, valueForm.placeBirth.guild,
       valueForm.placeNow.city, valueForm.placeNow.district, valueForm.placeNow.guild,
-      valueForm.placeNow.street, valueForm.placeNow.numberHome, valueForm.placeRegisterHouseHold,
+       valueForm.placeRegisterHouseHold,
       valueForm.identity.identityNumber, valueForm.identity.dateRange, valueForm.identity.placeRange, valueForm.nation
     ];
 
@@ -256,7 +261,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
   getCV() {
     this.taskService.get(Config.CV_URL + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data['cv']) {
+      if (data && data['cv']) {
         this.infoBasic = data.cv;
         // this.gui
         this.birthDays = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeBirth.city);

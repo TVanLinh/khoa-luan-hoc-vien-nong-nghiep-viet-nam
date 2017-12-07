@@ -105,7 +105,9 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     super.getDataServer(Config.SCIENCE_TOP_URL).subscribe(data => {
-      this.listScienceTopic = super.asList(data['sciene_topic']);
+      if (data && data['sciene_topic']) {
+        this.listScienceTopic = super.asList(data['sciene_topic']);
+      }
     }, (err) => {
 
     });

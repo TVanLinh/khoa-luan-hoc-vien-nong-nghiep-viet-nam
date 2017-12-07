@@ -19,6 +19,7 @@
           <ul class="content">
             <li>
               <a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>
+              <!--<a routerLinkActive="active"  *ngFor="let item of menuApp"  (click)="openMenu2(item)">{{item.title}}</a>-->
             </li>
           </ul>
         </div>
@@ -51,15 +52,18 @@
   </modal-header>
 
   <modal-body>
-    <form [formGroup]="formDataLogin" class="pdb-20">
+    <form [formGroup]="formDataLogin" (ngSubmit)="onLogin(loginModal)" class="pdb-20">
 
       <div class="mgb-10">
         <label for="emails">Tên tài khoản : </label>
-        <input id="emails" type="email" required class="form-control" formControlName="email">
+        <input id="emails" type="text" required class="form-control" formControlName="userName">
       </div>
       <div>
         <label for="passWords">Mật khẩu : </label>
         <input id="passWords" type="password" required class="form-control" formControlName="passWord">
+      </div>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
       </div>
     </form>
   </modal-body>

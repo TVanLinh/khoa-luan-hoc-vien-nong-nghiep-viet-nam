@@ -1,0 +1,83 @@
+#app-curriculum-vitae {
+
+}
+
+#app-curriculum-vitae img {
+  max-width: 100px;
+}
+
+#app-curriculum-vitae .image-info {
+  width: 200px;
+  height: 200px;
+  background-size: cover !important;
+  margin: 0 auto;
+  background-repeat: no-repeat !important;
+}
+
+#app-curriculum-vitae .image-info input[type='file'] {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  opacity: 0;
+}
+
+#app-curriculum-vitae .policy-object {
+  min-width: 160px;
+}
+
+/*s*/
+
+/*@media print {*/
+/*#app-curriculum-vitae .right , #app-curriculum-vitae .right .item-control{*/
+/*clear: both;*/
+/*}*/
+/*}*/
+
+#app-curriculum-vitae #form-cv .info-basic input {
+  float: none;
+  width: 82%;
+}
+
+/*#app-curriculum-vitae #form-cv input{*/
+/*float: none;*/
+/*}*/
+
+/*#app-curriculum-vitae #form-cv .form-control {*/
+/*display: inline-block;*/
+/*float: none;*/
+
+/*}*/
+
+#app-curriculum-vitae #form-cv label {
+  width: 115px;
+}
+
+@media (min-width: 768px) {
+  .mgl-sm-100 {
+    margin-left: 100px;
+  }
+}
+
+#app-curriculum-vitae .place .form-control, #app-curriculum-vitae .place input {
+  width: 245px !important;
+}
+
+@media (max-height: 1199px) {
+  #app-curriculum-vitae .place .form-control, #app-curriculum-vitae .place input {
+    width: 200px !important;
+  }
+}
+
+#app-curriculum-vitae #form-cv .address input, #app-curriculum-vitae #form-cv .address select {
+  float: none;
+}
+
+#app-curriculum-vitae .item-title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+#app-curriculum-vitae .star {
+  color: red;
+  display: none;
+}

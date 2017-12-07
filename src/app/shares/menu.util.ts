@@ -66,10 +66,12 @@ export class MenuUtil {
     {href: '/manager/manager-personnel/edit-personnel', title: 'Chỉnh sửa thông tin cán bộ '},
     {href: '/manager/manager-personnel/procedure-leave-job', title: 'Làm thủ tục nghỉ việc  '},
     {href: '/manager/manager-personnel/procedure-bind-job', title: 'Làm thủ tục buộc thôi việc  '},
-    {href: '/manager/manager-personnel/procedure-transfer-unit-work', title: 'Chuyển đơn vị công tác  '},
-    {href: '/manager/manager-personnel/procedure-transfer-department', title: 'Chuyển phòng ban  '},
+    {href: '/manager/manager-personnel/procedure-transfer-unit-work', title: 'Làm thủ tục chuyển đơn vị công tác  '},
+    {href: '/manager/manager-personnel/procedure-transfer-department', title: 'Làm thủ tục chuyển phòng ban  '},
     {href: '/manager/manager-personnel/procedure-retire', title: 'Làm thủ tục về hưu   '},
-    {href: '/manager/manager-personnel/procedure-increase-salary', title: 'Thủ tục tăng lương '}
+    {href: '/manager/manager-personnel/procedure-increase-salary', title: 'Làm thủ tục tăng lương '},
+    {href: '/manager/manager-personnel/procedure-bonus', title: 'Làm thủ tục khen thưởng'},
+    {href: '/manager/manager-personnel/procedure-discipline', title: 'Làm thủ tục kỷ luật '}
   ];
 
   public static menuMangerSystem: MenuModel[] = [
@@ -80,7 +82,9 @@ export class MenuUtil {
       href: '/manager/manager-system/arg/fontend', title: 'Frontend'
     }, {
       href: '/manager/manager-system/arg/backend', title: 'Backend '
-    }
+    },{
+      href: '/manager/manager-system/authen', title: 'Phân quyền  '
+    },
   ];
 
   public static getMenuManagerSystem() {
@@ -113,7 +117,7 @@ export class MenuUtil {
 
   private static search: MenuModel[] = [
     {title: "Tìm kiếm ", href: "/manager/search"},
-    {title: "Tìm kiếm,Thống kê ", href: "/manager/statistic"},
+    // {title: "Tìm kiếm,Thống kê ", href: "/manager/statistic"},
   ];
 
   private static statistic: MenuModel[] = [

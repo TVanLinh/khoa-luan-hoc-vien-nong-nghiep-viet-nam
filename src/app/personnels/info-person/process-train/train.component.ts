@@ -245,10 +245,14 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     this.getDataServer(Config.TRAIN_URL).subscribe((data) => {
-      let train = data['train'];
-      if (train != null) {
-        this.shortTimes = super.asList(train['shortTime']);
-        this.longTimes = super.asList(train['longTime']);
+      if (data && data['train']) {
+        let train = data['train'];
+        if (train['shortTime']) {
+          this.shortTimes = super.asList(train['shortTime']);
+        }
+        if (train['longTime']) {
+          this.longTimes = super.asList(train['longTime']);
+        }
         if (typeof train['general'] === "number") {
           this.formData.setValue({
             generalEdu: train['general']

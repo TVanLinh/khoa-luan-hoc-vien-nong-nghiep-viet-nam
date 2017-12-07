@@ -99,6 +99,12 @@ import { ArgSystemComponent } from './personnels/manager-system/arg-system/arg-s
 import { ArgFontendComponent } from './personnels/manager-system/arg-system/arg-fontend/arg-fontend.component';
 import { ArgBackendComponent } from './personnels/manager-system/arg-system/arg-backend/arg-backend.component';
 import { ProcedureAcesendingSalaryComponent } from './personnels/manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component';
+import {AuthenticationComponent} from "./personnels/manager-system/authentication/authentication.component";
+import { UserManagerComponent } from './personnels/manager-system/user-manager/user-manager.component';
+import { RoleManagerComponent } from './personnels/manager-system/role-manager/role-manager.component';
+import { ProcedureBonusComponent } from './personnels/manager-personnels/procedure-bonus/procedure-bonus.component';
+import { ProcedureDisciplineComponent } from './personnels/manager-personnels/procedure-discipline/procedure-discipline.component';
+
 // import {DxDataGridModule} from "devextreme-angular";
 
 @NgModule({
@@ -183,7 +189,12 @@ import { ProcedureAcesendingSalaryComponent } from './personnels/manager-personn
     ArgSystemComponent,
     ArgFontendComponent,
     ArgBackendComponent,
-    ProcedureAcesendingSalaryComponent
+    ProcedureAcesendingSalaryComponent,
+    AuthenticationComponent,
+    UserManagerComponent,
+    RoleManagerComponent,
+    ProcedureBonusComponent,
+    ProcedureDisciplineComponent
   ],
   imports: [
     BrowserModule,

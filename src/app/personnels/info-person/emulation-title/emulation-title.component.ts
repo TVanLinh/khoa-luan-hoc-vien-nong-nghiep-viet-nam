@@ -39,9 +39,9 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
 
   initForm() {
     this.formData = this.formBuilder.group({
-      title: [this.initData.title,Validators.required],
-      dateLicense: [this.initData.dateLicense,Validators.required],
-      numberDecide: [this.initData.numberDecide,Validators.required]
+      title: [this.initData.title, Validators.required],
+      dateLicense: [this.initData.dateLicense, Validators.required],
+      numberDecide: [this.initData.numberDecide, Validators.required]
     })
   }
 
@@ -98,7 +98,9 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
 
   getDataFromServer() {
     this.getDataServer(Config.EMULATION_TITLE_URL).subscribe((data: any[]) => {
-      this.listEmulation = super.asList(data['emulation_title']);
+      if (data && data['emulation_title']) {
+        this.listEmulation = super.asList(data['emulation_title']);
+      }
     });
   }
 }

@@ -57,7 +57,9 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     super.getDataServer(Config.PROCESS_WORK_URL).subscribe(data => {
-      this.processWorks = super.asList(data['process_work']);
+      if (data && data['process_work']) {
+        this.processWorks = super.asList(data['process_work']);
+      }
     }, err => {
 
     });

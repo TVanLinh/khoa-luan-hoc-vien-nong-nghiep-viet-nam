@@ -192,13 +192,17 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
   getDataFromServer() {
     super.getDataServer(Config.SEMINAR_TOP_URL).subscribe(data => {
-      this.listSenimar = super.asList(data['seminar']);
+      if (data && data['seminar']) {
+        this.listSenimar = super.asList(data['seminar']);
+      }
     }, (err) => {
 
     });
 
     super.getDataServer(Config.NEWSPAPER_TOP_URL).subscribe(data => {
-      this.listNewsPaper = super.asList(data['newspaper']);
+      if (data && data['newspaper']) {
+        this.listNewsPaper = super.asList(data['newspaper']);
+      }
     }, (err) => {
 
     });

@@ -141,7 +141,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     this.taskService.get(Config.CONTRACT_URL + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data['contract']) {
+      if (data && data['contract']) {
         // console.log("data['contract'] " + JSON.stringify(data['contract']));
         this.listContracts = this.asList(data['contract']);
       }

@@ -2,7 +2,7 @@
   <div class="form-item-title"> Danh hiệu thi đua</div>
   <form action="">
     <div class="action-form" style="margin-bottom: 10px;">
-      <button (click)="onSave()">Ghi</button>
+      <button (click)="onSave()">Ghi nhận</button>
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>

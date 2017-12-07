@@ -140,7 +140,7 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     this.taskService.get(Config.CONTRACT_POLITIC + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data['politic']) {
+      if (data && data['politic']) {
         this.listData = this.asList(data['politic']);
       }
     });

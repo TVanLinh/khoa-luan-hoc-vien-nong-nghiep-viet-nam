@@ -349,7 +349,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   getDataFromServer() {
     this.taskService.get(Config.ARMYPUG_URL + "?username=" + this.acount['username']).subscribe((data) => {
       // console.log("data:  " + JSON.stringify(data));
-      if (data['armyPUG']) {
+      if (data && data['armyPUG']) {
         this.updateForm(data['armyPUG']);
       }
 

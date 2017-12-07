@@ -105,7 +105,9 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     super.getDataServer(Config.THESIS_GUIDE_URL).subscribe((data: any[]) => {
-      this.listThesiss = super.asList(data['thesis_guide']);
+      if (data && data['thesis_guide']) {
+        this.listThesiss = super.asList(data['thesis_guide']);
+      }
     });
   }
 }

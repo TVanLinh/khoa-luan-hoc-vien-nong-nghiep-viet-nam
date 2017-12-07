@@ -132,7 +132,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
 
   getDataFromServer() {
     this.taskService.get(Config.FAMILY_URL + '?username=' + this.acount['username']).subscribe((data) => {
-      if (data['family']) {
+      if (data && data['family']) {
         this.listRelationFamily = this.asList(data['family']);
       }
     });

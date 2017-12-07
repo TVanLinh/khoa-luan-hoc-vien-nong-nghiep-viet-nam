@@ -91,7 +91,9 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     super.getDataServer(Config.PROCESS_PUBLISH_URL).subscribe((data) => {
-      this.listPublish = super.asList(data['process_publish']);
+      if (data && data['process_publish']) {
+        this.listPublish = super.asList(data['process_publish']);
+      }
     });
   }
 }

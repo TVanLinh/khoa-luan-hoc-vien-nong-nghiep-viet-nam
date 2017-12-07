@@ -48,5 +48,28 @@ textarea {
   color: #fff !important;
 }
 tbody tr td{
-  word-break: break-all;
+  word-break: normal;
+}
+
+.dx-group-panel-message{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0;
+  width: 1024px;
+  text-align: center;
+}
+
+
+@media (max-width: 992px) {
+  .dx-group-panel-message{
+    width: 992px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .dx-group-panel-message{
+    width: auto;
+  }
 }

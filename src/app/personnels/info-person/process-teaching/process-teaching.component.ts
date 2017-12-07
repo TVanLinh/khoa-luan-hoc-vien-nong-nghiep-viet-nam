@@ -139,7 +139,9 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
   getDataFromServer() {
     this.getDataServer(Config.PROCESS_TEACHING_URL).subscribe((data) => {
-      this.listTeaching = super.asList(data['process_teaching']);
+      if (data && data['process_teaching']) {
+        this.listTeaching = super.asList(data['process_teaching']);
+      }
     });
   }
 }

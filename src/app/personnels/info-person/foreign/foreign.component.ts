@@ -125,7 +125,9 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     super.getDataServer(Config.PROCESS_FOREIGN_URL).subscribe(data => {
-      this.listForeignForm = super.asList(data['process_foreign']);
+      if (data && data['process_foreign']) {
+        this.listForeignForm = super.asList(data['process_foreign']);
+      }
     });
   }
 

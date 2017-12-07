@@ -71,6 +71,21 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
 
   }
 
+  openMenu2(item) {
+    MenuUtil.publishMenu({
+      type: item.title,
+      native: false
+    });
+    let user = MystorageService.getAcount()['user'];
+    if (user && user['roles']) {
+      for (let ite of user['roles']) {
+        if (ite.title == item.title && ite['frontends'] && ite['frontends'].length != 0) {
+          this.router.navigate([ite['frontends'][0]['url']]);
+        }
+      }
+    }
+  }
+
   constructor(protected _eref: ElementRef, public taskService: TaskService,
               public catalogFacultyService: CatalogFacultyService,
               private  router: Router) {
@@ -89,34 +104,26 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     this.getCatalogFaculty();
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
+
     if (MystorageService.getAcount() != null) {
       console.log("MystorageService.getAcount() " + MystorageService.getAcount()['user']);
       this.isLogin = true;
+      // this.menuApp = MystorageService.getAcount()['user'].roles;
     }
   }
 
 
   initForm() {
     this.formDataLogin = this.formBuilder.group({
-      email: [''],
+      userName: [''],
       passWord: ['']
     });
   }
 
   onLogin(loginModal) {
-    // this.isLogin = true;
-    // this.router.navigate(['manager/info']);
-    // //
-    // MenuUtil.isLogin = true;
-    // this.closeModal(loginModal);
-    // let a = {
-    //   type: MenuUtil.MENU_INFO_CV,
-    //   native: true
-    // };
-    //
-    // MenuUtil.publishMenu(a);
-
-    let data = {username: "appAdmin", password: "admin123"};
+    // let data = {username: "appAdmin", password: "admin123"};
+    // let data = {username: "581597", password: "admin123"};
+    let data = {username: this.formDataLogin.value.userName, password: this.formDataLogin.value.passWord};
     this.taskService.postLogin(Config.HOST_SERVER + "/login", data).subscribe((data) => {
       this.isLogin = true;
       this.closeModal(loginModal);

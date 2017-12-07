@@ -1,0 +1,147 @@
+<app-search-form [title]="title" (onChoise)="onChoiseHandler($event)"></app-search-form>
+
+<modal #modalBonus size='lg' cssClass="my-modal-lg" backdrop="false">
+
+  <modal-header>
+
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-left">
+        <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận':'Cập nhật'}}</button>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-right">
+        <button (click)="modalBonus.close()">Thoát</button>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
+
+    <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData" id="form-bonus-discipline">
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control pdt-i-0">
+            <label>Mã cán bộ </label>
+            <input type="text" class="form-control" [value]="user?user.username:''" disabled/>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control pdt-i-0">
+            <label>Họ tên </label>
+            <input type="text" class="form-control" [value]="user?user.fullname:''" disabled/>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 ">
+
+          <div class="item-control ">
+            <label>Cấp quyết định</label>
+            <input type="text" class="form-control" formControlName="rankDecide" #rankDecide required>
+            <div class="error" *ngIf="rankDecide.value.trim()  =='' && formTouch">
+              Chưa nhập cấp quyết định
+            </div>
+          </div>
+          <!---->
+          <div class="item-control">
+            <label>Hình thức</label>
+            <input type="text" class="form-control" formControlName="form" #form required>
+            <div class="error" *ngIf="form.value.trim()  =='' && formTouch">
+              Chưa nhập hình thức
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 ">
+          <div class="item-control  ">
+            <label>Ngày quyết định</label>
+            <input type="date" class="form-control" formControlName="dateDecide"
+                   [value]="initFormData.dateDecide | date:'yyyy-MM-dd'" #dateDecide required>
+            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+              Chưa nhập ngày quyết định
+            </div>
+          </div>
+
+
+          <div class="item-control">
+            <label>Số quyết định </label>
+            <input type="text" class="form-control" formControlName="numberDecide" #numberDecide required>
+            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
+              Chưa nhập số quyết định
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="item-control">
+            <label>Lí do </label>
+            <textarea type="text" rows="5" class="form-control" formControlName="reason" #reason required></textarea>
+            <div class="error" *ngIf="reason.value.trim()  =='' && formTouch">
+              Chưa nhập lí do
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <div class="table-responsive">
+      <table class="table table-bordered" [mfData]="listBonus.toArray()" #mf="mfDataTable">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>
+            <mfDefaultSorter by="rankDecide">Cấp quyết định</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="numberDecide">Số quyết định</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="dateDecide">Ngày quyết định</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="form">Hình thức {{name == 'bonus'?'KT':'KL'}}</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="reason">Lí do</mfDefaultSorter>
+          </th>
+          <th>
+            <!--<span class="action-icon" (click)="openModal(1)"><i class="fa fa-plus"></i></span>-->
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+        <tr *ngFor="let item of mf.data;let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.rankDecide}}</td>
+          <td>{{item.form}}</td>
+          <td>{{item.numberDecide}}</td>
+          <td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>
+          <td>{{item.reason}}</td>
+          <td>
+            <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>
+            <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
+  </modal-footer>
+
+</modal>

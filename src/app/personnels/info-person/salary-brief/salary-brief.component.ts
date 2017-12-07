@@ -22,7 +22,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   listSalaryBrief = new Collections.LinkedList<SalaryModel>();
   catalogRanks: CatalogRankModel[] = [];
   spieceRanks: any[] = ["A0", "A1", "A2", "A3", "B", "C"];
-  speice = "";
+  specie = "";
   group = "";
   salary = 0;
   rank = "";
@@ -53,8 +53,8 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   spieceChange() {
-    console.log(this.speice);
-    this.listGroup = this.catalogRankService.getGroupBySpieceName(this.catalogRanks, this.speice);
+    console.log(this.specie);
+    this.listGroup = this.catalogRankService.getGroupBySpieceName(this.catalogRanks, this.specie);
     if (this.listGroup[0]) {
       this.group = this.listGroup[0].group.name.toString();
       this.groupChange();
@@ -67,7 +67,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   groupChange() {
-    let a = this.catalogRankService.getRankByGroupNameAndSpiece(this.catalogRanks, this.speice, this.group);
+    let a = this.catalogRankService.getRankByGroupNameAndSpiece(this.catalogRanks, this.specie, this.group);
     if (a != null) {
       this.listRank = a['group']['listRank'];
       this.level = a['group']['level'];
@@ -86,7 +86,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
 
 
   levelChange() {
-    this.salary = this.catalogRankService.getSalaryByRankAndGroupAndSpice(this.catalogRanks, this.speice, this.group, this.levelChoise);
+    this.salary = this.catalogRankService.getSalaryByRankAndGroupAndSpice(this.catalogRanks, this.specie, this.group, this.levelChoise);
   }
 
 
@@ -103,7 +103,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
 
     this.formData = this.formBuilder.group({
       dateFrom: ['', Validators.required],
-      dateEnd: ['', Validators.required],
+      dateEnd: [''],
       specie: ['', Validators.required],
       group: ['', Validators.required],
       rank: ['', Validators.required],
@@ -118,7 +118,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
     console.log(this.formData.value);
     let valueForm = this.formData.value;
 
-    let data: any = [valueForm.dateFrom, valueForm.dateEnd, valueForm.specie,
+    let data: any = [valueForm.dateFrom, valueForm.specie,
       valueForm.group, valueForm.rank, valueForm.level, valueForm.numberDecide
     ];
 
@@ -151,11 +151,13 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
 
     this.positionUpdate = item;
 
-    this.speice = item.speice;
+    this.specie = item.specie;
     this.group = item.group;
     this.salary = item.factorSalary;
     this.rank = item.rank;
     this.levelChoise = item.level;
+    this.formData.reset();
+    if(item.dated)
     this.formData.setValue({
       dateFrom: item.dateFrom,
       dateEnd: item.dateEnd,
@@ -185,7 +187,9 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     super.getDataServer(Config.PROCESS_SALARY_URL).subscribe(data => {
-      this.listSalaryBrief = super.asList(data['salary']);
+      if (data && data['salary']) {
+        this.listSalaryBrief = super.asList(data['salary']);
+      }
       // console.log(JSON.stringify(data['salary']));
     }, (err) => {
 

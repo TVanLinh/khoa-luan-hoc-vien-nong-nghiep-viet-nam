@@ -27,6 +27,10 @@ import {ArgSystemComponent} from "./manager-system/arg-system/arg-system.compone
 import {ArgBackendComponent} from "./manager-system/arg-system/arg-backend/arg-backend.component";
 import {ArgFontendComponent} from "./manager-system/arg-system/arg-fontend/arg-fontend.component";
 import {ProcedureAcesendingSalaryComponent} from "./manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component";
+import {RoleManagerComponent} from "./manager-system/role-manager/role-manager.component";
+import {UserManagerComponent} from "./manager-system/user-manager/user-manager.component";
+import {ProcedureBonusComponent} from "app/personnels/manager-personnels/procedure-bonus/procedure-bonus.component";
+import {ProcedureDisciplineComponent} from "./manager-personnels/procedure-discipline/procedure-discipline.component";
 
 
 const routes: Routes = [
@@ -55,6 +59,14 @@ const routes: Routes = [
         path: 'procedure-increase-salary', component: ProcedureAcesendingSalaryComponent
       }, {
         path: 'procedure-retire', component: ProcedureRetireComponent
+      },
+      {
+        path: 'procedure-bonus',
+        component: ProcedureBonusComponent
+      },
+      {
+        path: 'procedure-discipline',
+        component: ProcedureDisciplineComponent
       }
     ]
     }, {
@@ -136,6 +148,14 @@ const routes: Routes = [
           component: ArgBackendComponent
         }
       ]
+      },
+      {
+        path: 'role',
+        component: RoleManagerComponent
+      },
+      {
+        path: 'user',
+        component: UserManagerComponent
       }
     ]
     }

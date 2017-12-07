@@ -143,13 +143,17 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
   getDataFromServer() {
     super.getDataServer(Config.DISCIPLINE_URL).subscribe((data: any[]) => {
-      this.listDiscipline = super.asList(data['discipline']);
+      if (data && data['discipline']) {
+        this.listDiscipline = super.asList(data['discipline']);
+      }
       // console.log(JSON.stringify(data));
     }, () => {
 
     });
     super.getDataServer(Config.BONUS_URL).subscribe((data: any[]) => {
-      this.listBonus = super.asList(data['bonus']);
+      if (data && data['bonus']) {
+        this.listBonus = super.asList(data['bonus']);
+      }
     }, () => {
 
     });

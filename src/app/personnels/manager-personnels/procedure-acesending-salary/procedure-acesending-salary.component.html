@@ -4,15 +4,30 @@
 <modal #modalSalary size='lg' cssClass="my-modal-lg" backdrop="false">
 
   <modal-header>
-    <div class="action-form mgb-i-10">
-      <button (click)="closeModal(modalSalary)">Thoát</button>
+    <!--<div class="action-form mgb-i-10">-->
+      <!--<button (click)="closeModal(modalSalary)">Thoát</button>-->
+    <!--</div>-->
+
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-left" >
+        <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận ':'Cập nhật'}}</button>
+      </div>
     </div>
-    <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
-      {{message.content}}
+
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-right" >
+        <button (click)="closeModal(modalSalary)">Thoát</button>
+      </div>
     </div>
+
   </modal-header>
 
   <modal-body>
+    <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
     <form action="" class="mgb-i-10" [formGroup]="formData" id="salary-brief">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
@@ -33,11 +48,11 @@
 
           <div class="item-control">
             <label>Loại ngạch </label>
-            <select name="specie" class="form-control" [(ngModel)]="speice" formControlName="specie"
+            <select name="specie" class="form-control" [(ngModel)]="specie" formControlName="specie"
                     (change)="spieceChange()" required>
               <option *ngFor="let item of spieceRanks" [value]="item">{{item}}</option>
             </select>
-            <div class="error" *ngIf="!speice && formTouch  || speice && speice.trim()  =='' && formTouch">
+            <div class="error" *ngIf="!specie && formTouch  || specie && specie.trim()  =='' && formTouch">
               Chưa chọn loại ngạch
             </div>
           </div>
@@ -55,8 +70,8 @@
 
           <div class="item-control">
             <label>Ngày quyết định </label>
-            <input type="date" class="form-control"  formControlName="dateDecide" #dateDecide required>
-            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+            <input type="date" class="form-control" formControlName="dateFrom" #dateFrom required>
+            <div class="error" *ngIf="dateFrom.value.trim()  =='' && formTouch">
               Chưa nhập ngày quyết định
             </div>
           </div>
@@ -91,14 +106,14 @@
           <!---->
           <div class="item-control">
             <label> Số quyết định </label>
-            <input type="text" class="form-control"  formControlName="numberDecide" required #numberDecide>
-            <div class="error"  *ngIf="numberDecide.value.trim()  =='' && formTouch">
+            <input type="text" class="form-control" formControlName="numberDecide" required #numberDecide>
+            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
               Chưa nhập số quyết định
             </div>
           </div>
         </div>
         <div class="col-xs-12">
-          <div class="item-control" >
+          <div class="item-control">
             <label> Nội dung quyết định </label>
             <textarea class="form-control" rows="5" #contentDecide formControlName="contentDecide" required></textarea>
             <div class="error" *ngIf="contentDecide.value.trim()  == '' && formTouch">
@@ -111,7 +126,66 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận ':'Cập nhật'}}</button>
+
+    <div class="table-responsive">
+      <table class="table table-bordered" [mfData]="listSalaryBrief.toArray()" #mf="mfDataTable">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>
+            <mfDefaultSorter by="dateFrom">Từ ngày</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="dateEnd">Đến ngày</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="specie">Loại Ngạch</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="group">Nhóm Ngạch</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="rank">Ngạch</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="level">Bậc</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="factorSalary">HSL</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="numberDecide">Số QD</mfDefaultSorter>
+          </th>
+          <!-- <th>Hiên tại</th> -->
+          <th>
+            <!--<span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>-->
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!---->
+        <tr *ngFor="let item of mf.data;let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
+          <td>{{item.dateEnd | date:'dd/MM/yyyy'}}</td>
+          <td>{{item.specie}}</td>
+          <td>{{item.group}}</td>
+          <td>{{item.rank}}</td>
+          <td>{{item.level}}</td>
+          <td>{{item.factorSalary}}</td>
+          <td class="upper-case">{{item.numberDecide}}</td>
+          <!-- <td>
+            <input type="radio" style="width: auto" formControlName="now" [value]="i">
+          </td> -->
+          <td>
+            <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+          </td>
+        </tr>
+        <!---->
+        </tbody>
+      </table>
+    </div>
   </modal-footer>
 
 </modal>

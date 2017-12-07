@@ -77,11 +77,11 @@
 
           <div class="item-control">
             <label>Loại ngạch </label>
-            <select name="specie" class="form-control" [(ngModel)]="speice" formControlName="specie"
+            <select name="specie" class="form-control" [(ngModel)]="specie" formControlName="specie"
                     (change)="spieceChange()" required>
               <option *ngFor="let item of spieceRanks" [value]="item">{{item}}</option>
             </select>
-            <div class="error" *ngIf="!speice && formTouch  || speice && speice.trim()  =='' && formTouch">
+            <div class="error" *ngIf="!specie && formTouch  || specie && specie.trim()  =='' && formTouch">
               Chưa chọn loại ngạch
             </div>
           </div>
@@ -107,10 +107,10 @@
           <!---->
           <div class="item-control">
             <label>Đến ngày </label>
-            <input type="date" formControlName="dateEnd" required #dateEnd>
-            <div class="error" *ngIf="dateEnd.value.trim()  =='' && formTouch">
-              Chưa nhập đến ngày
-            </div>
+            <input type="date" formControlName="dateEnd"  #dateEnd>
+            <!--<div class="error" *ngIf="dateEnd.value.trim()  =='' && formTouch">-->
+              <!--Chưa nhập đến ngày-->
+            <!--</div>-->
           </div>
           <!---->
 

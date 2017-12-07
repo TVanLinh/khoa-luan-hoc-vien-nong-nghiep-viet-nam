@@ -4,9 +4,9 @@
       <div class="form-item-title">
         Thêm mới cán bộ
       </div>
-      <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
-        {{message.content}}
-      </div>
+      <!--<div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">-->
+        <!--{{message.content}}-->
+      <!--</div>-->
       <div class="item-control">
         <label> Chọn đợn vị cấp 1 </label>
         <select class="form-control" required #level1 formControlName="level1" #level1
@@ -115,6 +115,9 @@
       </div>
 
       <div class="action-form mgt-30 mgt-sm-50 text-center">
+        <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
+          {{message.content}}
+        </div>
         <button (click)="onSubmit()" type="submit">Thêm mới</button>
         <button (click)="resetForm(formData)">Xóa</button>
       </div>

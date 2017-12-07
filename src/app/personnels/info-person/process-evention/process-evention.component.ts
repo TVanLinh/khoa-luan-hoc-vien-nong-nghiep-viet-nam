@@ -97,7 +97,9 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
 
   getDataFromServer() {
     super.getDataServer(Config.PROCESS_EVENT_URL).subscribe(data => {
-      this.listEvention = super.asList(data['process_event']);
+      if (data && data['process_event']) {
+        this.listEvention = super.asList(data['process_event']);
+      }
     });
   }
 }

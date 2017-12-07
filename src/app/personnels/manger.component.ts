@@ -4,6 +4,7 @@ import {MenuModel} from "./model/menu.model";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 import menu from "devextreme/ui/menu";
+import {MystorageService} from "../shares/mystorage.service";
 
 declare const jQuery: any;
 
@@ -31,7 +32,6 @@ export class ManagerComponent implements OnInit, OnChanges {
 
   listenerMenu() {
     MenuUtil.$menuChange.subscribe(data => {
-      // console.log("kjfkfdk: " + JSON.stringify(data));
       data = MenuUtil.getMenuFromLocal();
       this.getMenu(data);
     });
@@ -61,6 +61,26 @@ export class ManagerComponent implements OnInit, OnChanges {
       }
       this.native = data.native;
     }
+
+
+    //------------------phan quyen--------------------------
+    // let temp: any = [];
+    // let roleTitle = MenuUtil.getMenuFromLocal()['type'];
+    // this.native = MenuUtil.getMenuFromLocal()['native'];
+    // let userInfo = MystorageService.getAcount()['user'];
+    // for (let item of userInfo['roles']) {
+    //   if (item['title'] == roleTitle) {
+    //     temp = item;
+    //     console.log("item['title'] == roleTitle " + item['title'] + roleTitle + (item['title'] == roleTitle));
+    //     break;
+    //   }
+    // }
+    // this.menu = [];
+    // for (let item of temp['frontends']) {
+    //   console.log(item['url']+"\n");
+    //   this.menu.push({title: item['title'], href: item['url']});
+    // }
+    //-----------------------------------------------
   }
 
   ngOnInit() {

@@ -171,12 +171,16 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   getDataFromServer() {
     this.getDataServer(Config.ACADEMIC_RANK_URL).subscribe((data: any[]) => {
-      this.listRankAd = super.asList(data['academic_rank']);
+      if (data && data['academic_rank']) {
+        this.listRankAd = super.asList(data['academic_rank']);
+      }
     }, (err) => {
 
     });
     this.getDataServer(Config.TEACHER_TITLE_URL).subscribe((data: any[]) => {
-      this.listTitleTeachers = super.asList(data['teacher_title']);
+      if (data && data['teacher_title']) {
+        this.listTitleTeachers = super.asList(data['teacher_title']);
+      }
     }, (err) => {
 
     });

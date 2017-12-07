@@ -1,0 +1,180 @@
+
+
+form {
+  /*margin-top: 50px;*/
+  /*border: 1px solid #ccc;*/
+  padding: 10px;
+  /*margin-bottom: 50px;*/
+}
+
+.action-form {
+  margin-bottom: 20px;
+}
+
+.action-icon {
+  cursor: pointer;
+  /*display: block;*/
+  display: inline-block;
+  padding: 6px;
+  /*margin-bottom:5px;*/
+}
+
+.action-form button {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px 20px;
+}
+
+button:hover, .btn-action:hover {
+  transition: 0.5s ease-in-out;
+  background: #c799b7 !important;
+  border-color: #c799b7 !important;
+  color: #fff;
+  font-size: 14px;
+}
+
+button:focus, button:hover, button:active {
+  outline: none;
+}
+
+.btn-action {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px 20px;
+}
+
+.form-item {
+  border: 1px solid #cccccc;
+  position: relative;
+  padding: 15px 10px 15px 10px;
+  /*margin-bottom: 30px;*/
+  /*clear: both;*/
+}
+
+.form-item label {
+  font-weight: 400;
+}
+
+.form-item table {
+  margin-top: 15px;
+}
+
+.item-control {
+  padding-top: 10px;
+  font-size: 13px;
+  clear: both;
+}
+
+input {
+  padding: 5px;
+}
+
+.item-control input[type='text'], .item-control input[type='email'], .item-control input[type='password'], .item-control input[type='date'], select {
+  float: right ;
+  padding: 5px;
+  width: 200px;
+}
+
+.item-control input[type='number'] {
+  padding: 5px;
+  /*width: 80px;*/
+}
+
+.item-control input[type='radio'], .item-control input[type='checkbox'] {
+  /*float: right;*/
+  /*width: 60%;*/
+}
+
+.form-item-title {
+  position: absolute;
+  top: -12px;
+  padding-left: 10px;
+  left: 17px;
+  padding-right: 10px;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+
+.form-control {
+  width: auto;
+  border-color: #cccccc;
+  border-radius: 0;
+}
+
+tr {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: middle !important;
+  border: none !important;
+  max-width: 200px;
+}
+
+td {
+  border: none !important;
+  padding: 0 5px !important;
+}
+
+thead > tr > th:last-child {
+  text-align: center;
+  width: 90px;
+}
+
+/*@media (max-width: 1199px) {*/
+
+  /*.form-item {*/
+    /*margin-bottom: 30px;*/
+  /*}*/
+
+  /*.item-control input[type='text'], .item-control input[type='password'], .item-control input[type='email'], .item-control input[type='date'], select {*/
+    /*min-width: 100%;*/
+    /*display: block;*/
+    /*float: none;*/
+  /*}*/
+/*}*/
+
+/*@media (max-width: 767px) {*/
+  /*.item-control input[type='date'], .item-control input[type='password'], .item-control input[type='email'], .item-control input[type='text'], select {*/
+    /*float: none;*/
+    /*display: block;*/
+    /*width: 100%;*/
+  /*}*/
+
+  /*.item-control input[type='radio'], .item-control input[type='checkbox'] {*/
+    /*float: none !important;*/
+    /*width: auto !important;*/
+  /*}*/
+
+  /*.action-icon {*/
+    /*display: inline-block;*/
+  /*}*/
+/*}*/
+
+.icon-remove-update {
+  border: 1px solid;
+  padding: 0 3px;
+}
+
+label {
+  font-weight: 400;
+}
+
+input:focus, select:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
+input.ng-dirty.ng-invalid.ng-touched {
+  border: 1px solid #ff3620;
+}
+
+
+input.ng-valid {
+  border: 1px solid rgb(204, 204, 204) ;
+}
+h3{
+  font-size: 20px;
+}
+

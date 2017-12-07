@@ -102,7 +102,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
 
   getDataFromServer() {
     this.taskService.get(Config.INFO_TECH + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data['info_technology']) {
+      if (data && data['info_technology']) {
         this.listData = this.asList(data['info_technology']);
       }
     });

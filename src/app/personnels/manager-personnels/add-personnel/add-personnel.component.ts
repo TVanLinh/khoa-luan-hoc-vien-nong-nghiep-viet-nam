@@ -70,7 +70,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
 
     if (!ValidService.isNotBlanks(valid) || !ValidService.validEmail(valueForm.email)
       || !this.formData.valid || valueForm.passWord != valueForm.rePassWord) {
-     super.updateMessge("Vui lòng kiểm tra lại thông tin","warning");
+      // super.updateMessge("Vui lòng kiểm tra lại thông tin","warning");
       return;
     }
 
@@ -89,8 +89,18 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
     // this.updateView("form-add-user", this.formData.valid);
 
     // this.pushObjectServer(Config.USER_URL, 'data', user);
-
-    let infoPerson: AddPersonnelForm = this.formData.value;
+    this.taskService.post(Config.USER_URL, {data: user}).subscribe(resp => {
+      // console.log(resp);
+      // let body = JSON.parse(resp["_body"]);
+      // if (body && body['message']) {
+      //   this.updateMessge(body['message'], 'warning');
+      // } else {
+      this.updateMessge("Thành công", 'success');
+      // }
+    }, err => {
+      this.updateMessge("Không thành công", 'success');
+    });
+    //let infoPerson: AddPersonnelForm = this.formData.value;
 
   }
 

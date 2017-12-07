@@ -1,5 +1,10 @@
-input,select,.form-control{
+input, select, .form-control {
   width: 100% !important;
   max-width: 100% !important;;
   float: none !important;
+}
+
+tbody tr:hover, tbody tr:focus {
+  background-color: #eae7df;
+  cursor: pointer;
 }

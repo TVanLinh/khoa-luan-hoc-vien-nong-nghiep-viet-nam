@@ -123,6 +123,10 @@ export class BaseFormComponent {
     return this.taskService.get(url + "?username=" + this.acount['username']);
   }
 
+  getDataServer2(url, username) {
+    return this.taskService.get(url + "?username=" + username);
+  }
+
   pushDataServer(url, dataName, data: Collections.LinkedList<any>) {
     let body = {
       "staffCode": this.acount['username']
@@ -146,4 +150,6 @@ export class BaseFormComponent {
       this.updateMessge(this.messageError.errorSave, "warning");
     });
   }
+
+
 }
