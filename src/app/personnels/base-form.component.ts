@@ -112,6 +112,17 @@ export class BaseFormComponent {
     return list;
   }
 
+  asSet(arry: any[]) {
+    let list = new Collections.Set<any>();
+    if (arry == null) {
+      return list;
+    }
+    for (let item of arry) {
+      list.add(item);
+    }
+    return list;
+  }
+
   updateList(array: Collections.LinkedList<any>, item: any, itemNew: any) {
     let index = array.indexOf(item);
     array.remove(item);
@@ -149,6 +160,39 @@ export class BaseFormComponent {
     }, (err) => {
       this.updateMessge(this.messageError.errorSave, "warning");
     });
+  }
+
+
+  convertDataSelect(arss: any[]): { id: string, text: string }[] {
+    let array: { id: string, text: string }[] = [];
+    for (let item of arss) {
+      let temp = {id: item._id, text: item.title};
+      array.push(temp);
+    }
+    return array;
+  }
+
+
+  contains(arr: any[], nameAgr: string, value: string) {
+    if (!Array.isArray(arr)) {
+      return false;
+    }
+    for (let i of arr) {
+      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLocaleLowerCase()) == ((value + "").trim().toLocaleLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  clone(arry: any[]) {
+    let temp = arry.map(item => item);
+    let list = new Collections.LinkedList();
+    for (let item of temp) {
+      list.add(item);
+    }
+    return list;
   }
 
 

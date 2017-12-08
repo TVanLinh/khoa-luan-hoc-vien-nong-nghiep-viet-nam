@@ -1,3 +1,79 @@
-<p>
-  user-manager works!
-</p>
+<app-search-form title="Phân quyền " (onChoise)="onChoiseHandler($event)"></app-search-form>
+
+<modal #modal size='lg' backdrop="true">
+
+  <modal-header>
+
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-left">
+        <button class="btn-action" (click)="onSave()">{{update == null?'Thêm':'Cập nhật'}}
+        </button>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-right">
+        <button (click)="closeModal(modal)">Thoát</button>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </div>
+
+
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10">
+      <div class="row">
+        <div class="col-xs-12">
+          <div style=" margin-bottom: 20px;">
+            <h5 class="mgb-10">Chọn quyền </h5>
+            <ng-select #select [multiple]="false"
+                       [items]="rolesSelect"
+                       (selected)="selected($event)"
+                       (removed)="removed($event)"
+                       placeholder="Chọn quyền  .. "></ng-select>
+          <div class="error" *ngIf="rolesValue == null && formTouch"> Chưa chọn quyền </div>
+          </div>
+
+          <h5 class="mgb-10">Lý do </h5>
+          <input type="text" name="reason" class="form-control" [(ngModel)]="reason" required/>
+          <div class="error" *ngIf="reason.trim() =='' && formTouch"> Chưa nhập lí do</div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-bordered" *ngIf="user">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên quyền</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of user.roles;let i  = index">
+            <td>{{i+1}}</td>
+            <td>{{(item.title)}}</td>
+            <td>
+              <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </modal-footer>
+
+</modal>

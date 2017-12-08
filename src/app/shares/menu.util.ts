@@ -83,7 +83,9 @@ export class MenuUtil {
     }, {
       href: '/manager/manager-system/arg/backend', title: 'Backend '
     },{
-      href: '/manager/manager-system/authen', title: 'Phân quyền  '
+      href: '/manager/manager-system/role', title: 'Quản lý role '
+    },{
+      href: '/manager/manager-system/user', title: 'Quản lý user '
     },
   ];
 

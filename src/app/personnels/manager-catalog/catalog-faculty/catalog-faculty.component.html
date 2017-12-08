@@ -4,6 +4,7 @@
     <thead>
     <tr>
       <th style="width:5%">STT</th>
+      <th>Mã (khoa/phòng ban)</th>
       <th>Tên (khoa/phòng ban)</th>
       <th>Địa chỉ website</th>
       <th>
@@ -14,6 +15,7 @@
     <tbody>
     <tr *ngFor="let item of listParent.toArray();let i = index ">
       <td>{{i+1}}</td>
+      <td class="name" >{{item.code}}</td>
       <td class="name">{{item.name}}</td>
       <td class="name"><a [href]="item.url" target="_blank">{{item.url}}</a></td>
       <td style="width:10%">
@@ -46,14 +48,25 @@
         <div class="col-xs-12">
 
           <div class="item-control">
-            <label>Tên khoa phòng ban </label>
+            <label>Tên khoa/phòng ban </label>
             <input name="name" formControlName="name" class="form-control" #name required
                    style="width: 100%!important;"/>
             <div class="error" *ngIf="touched && name &&  name.value == '' || touched && name == null">
               Chưa nhập tên
             </div>
+          </div>
+
+          <!--*ngIf="positionUpdate == null"-->
+          <div class="item-control" >
+            <label>Mã khoa/phòng ban </label>
+            <input name="code" formControlName="code" class="form-control" #code required
+                   style="width: 100%!important;"/>
+            <div class="error" *ngIf="touched && code &&  code.value == '' || touched && code == null">
+              Chưa nhập mã
+            </div>
 
           </div>
+
           <div class="item-control">
             <label>Cấp </label>
             <select name="level" formControlName="level" #level required class="form-control"
@@ -127,6 +140,7 @@
             <thead>
             <tr>
               <th style="width:5%">STT</th>
+              <th>Mã phòng ban</th>
               <th>Tên phòng ban</th>
               <th>
               </th>
@@ -135,6 +149,7 @@
             <tbody>
             <tr *ngFor="let item of details.toArray();let i = index ">
               <td>{{i+1}}</td>
+              <td class="name">{{item.code}}</td>
               <td class="name">{{item.name}}</td>
               <td style="width:10%">
                 <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>

@@ -151,5 +151,10 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     });
   }
 
+  hideTabLeft() {
+    // jQuery('#tab-left').css({
+    //   transform: 'translateX(-340px)'
+    // });
+  }
 
 }

@@ -1,4 +1,4 @@
-<form style="padding-top: 25px" action="" >
+<form style="padding-top: 25px" action="">
   <div class="row">
     <div class="col-xs-12">
       <div class="form-item">
@@ -6,10 +6,10 @@
           {{title}}
         </div>
         <div class="item-control">
-          <label class="mgr-20 " style="margin-right: 116px;">Nhập mã cán bộ để tìm kiếm </label>
+          <label class="mgr-20 " style="margin-right: 116px;">Nhập tên hoặc mã cán bộ để tìm kiếm </label>
           <input type="text" name="staffCode" class="mgb-15 form-control mgr-20" style="float: none;width: 50%"
-                 [(ngModel)]="staffCode">
-          <button class="btn-action" (click)="onSearchShare()">Tìm kiếm</button>
+                 [(ngModel)]="staffCode" (change)="onSearchShare()">
+          <!--<button class="btn-action" (click)="onSearchShare()">Tìm kiếm</button>-->
           <div *ngIf="message.condition"
                [ngClass]="'alert alert-'+ message.type">
             {{message.content}}
@@ -27,7 +27,7 @@
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
-        <tr >
+        <tr>
           <th>Mã cán bộ</th>
           <th>Họ tên</th>
           <th>Khoa / Phòng ban</th>
@@ -35,18 +35,17 @@
           <th *ngIf="showAction"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="data">
         <!---->
-
-        <tr *ngIf="data" (click)="onChoiseShare()">
-          <td>{{data.username}}</td>
-          <td>{{data.fullname}}</td>
-          <td>{{data.organ?data.organ.level1.name:''}}</td>
-          <td style="word-break: break-word;width: 300px;max-width: 300px">{{data.email}}</td>
-          <!--<td style="word-break: break-word;width: 300px;max-width: 300px">{{data.email}}</td>-->
+        <tr *ngFor="let item of data " (click)="onChoiseShare(item)">
+          <td>{{item.username}}</td>
+          <td>{{item.fullname}}</td>
+          <td>{{item.organ?item.organ.level1.name:''}}</td>
+          <td style="word-break: break-word;width: 300px;max-width: 300px">{{item.email}}</td>
+          <!--<td style="word-break: break-word;width: 300px;max-width: 300px">{{item.email}}</td>-->
           <td *ngIf="showAction">
-            <span class="action-icon" (click)="onEditShare()"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="onRemoveShare()"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" (click)="onEditShare(item)"><i class="fa fa-edit"></i></span>
+            <span class="action-icon" (click)="onRemoveShare(item)"><i class="fa fa-remove "></i></span>
           </td>
         </tr>
 

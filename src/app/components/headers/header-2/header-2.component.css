@@ -1,25 +1,52 @@
-.app-head{
+.app-head {
   display: table;
-  background-color: rgb(17,46,76);
+  background-color: rgb(17, 46, 76);
   width: 100%;
   position: fixed;
   z-index: 8888;
   padding: 10px;
 }
 
-.app-logo{
-  width:40%;
+.app-logo {
+  width: 30%;
   display: table-cell;
   vertical-align: middle;
-  text-align: center;;
+  text-align: center;
 }
-.app-logo img{
+
+.app-logo img {
   width: 45px;
 }
+
 .app-name {
   display: table-cell;
   vertical-align: middle;
   font-size: 30px;
   color: #ffffff;
+  width: 40%;
+  text-align: center;
 
+}
+
+.right {
+  display: table-cell;
+  vertical-align: middle;
+  width: 18%;
+  text-align: right;
+}
+
+.navbar-toggle {
+  cursor: pointer;
+  display: inline-block !important;
+}
+
+.navbar-toggle .icon-bar {
+  border-top: 2px solid #fff !important;
+  /*margin-bottom: 5px;*/
+}
+
+.dropdown-menu {
+  right: 0px;
+  text-align: left;
+  left: auto;
 }

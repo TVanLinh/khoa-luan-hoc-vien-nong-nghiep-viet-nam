@@ -3,6 +3,7 @@ export class CatalogFacultyModel {
   id: string;
   name: string;
   type: string;
+  code: string;
   parent: CatalogFacultyModel;
   level: number;
   url: string;

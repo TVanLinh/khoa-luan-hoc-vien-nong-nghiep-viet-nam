@@ -85,25 +85,26 @@ import {OrderModule} from "ngx-order-pipe";
 import {CatalogFacultyPipe} from "./personnels/manager-catalog/catalog-faculty/catalog-faculty.pipe";
 import {CatalogSalaryService} from "./shares/catalog-salary.service";
 import {CatalogFacultyService} from "./shares/catalog-faculty.service";
-import { SearchFormComponent } from './personnels/search-form/search-form.component';
-import { StatisticLeaveJobComponent } from './personnels/search-statistic/statistic/statistic-leave-job/statistic-leave-job.component';
-import { StatisticBindJobComponent } from './personnels/search-statistic/statistic/statistic-bind-job/statistic-bind-job.component';
-import { StatisticRetiredComponent } from './personnels/search-statistic/statistic/statistic-retired/statistic-retired.component';
-import { StatisticNewRetireComponent } from './personnels/search-statistic/statistic/statistic-new-retire/statistic-new-retire.component';
-import { StatisticTableComponent } from './personnels/search-statistic/statistic/statistic-table/statistic-table.component';
+import {SearchFormComponent} from './personnels/search-form/search-form.component';
+import {StatisticLeaveJobComponent} from './personnels/search-statistic/statistic/statistic-leave-job/statistic-leave-job.component';
+import {StatisticBindJobComponent} from './personnels/search-statistic/statistic/statistic-bind-job/statistic-bind-job.component';
+import {StatisticRetiredComponent} from './personnels/search-statistic/statistic/statistic-retired/statistic-retired.component';
+import {StatisticNewRetireComponent} from './personnels/search-statistic/statistic/statistic-new-retire/statistic-new-retire.component';
+import {StatisticTableComponent} from './personnels/search-statistic/statistic/statistic-table/statistic-table.component';
 import {DataTableModule} from "angular2-datatable";
-import { ExcelService} from "./shares/excel.service";
+import {ExcelService} from "./shares/excel.service";
 import {DxDataGridModule} from "devextreme-angular";
-import { StatisticPersonByFacultyComponent } from './personnels/search-statistic/statistic/statistic-person-by-faculty/statistic-person-by-faculty.component';
-import { ArgSystemComponent } from './personnels/manager-system/arg-system/arg-system.component';
-import { ArgFontendComponent } from './personnels/manager-system/arg-system/arg-fontend/arg-fontend.component';
-import { ArgBackendComponent } from './personnels/manager-system/arg-system/arg-backend/arg-backend.component';
-import { ProcedureAcesendingSalaryComponent } from './personnels/manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component';
+import {StatisticPersonByFacultyComponent} from './personnels/search-statistic/statistic/statistic-person-by-faculty/statistic-person-by-faculty.component';
+import {ArgSystemComponent} from './personnels/manager-system/arg-system/arg-system.component';
+import {ArgFontendComponent} from './personnels/manager-system/arg-system/arg-fontend/arg-fontend.component';
+import {ArgBackendComponent} from './personnels/manager-system/arg-system/arg-backend/arg-backend.component';
+import {ProcedureAcesendingSalaryComponent} from './personnels/manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component';
 import {AuthenticationComponent} from "./personnels/manager-system/authentication/authentication.component";
-import { UserManagerComponent } from './personnels/manager-system/user-manager/user-manager.component';
-import { RoleManagerComponent } from './personnels/manager-system/role-manager/role-manager.component';
-import { ProcedureBonusComponent } from './personnels/manager-personnels/procedure-bonus/procedure-bonus.component';
-import { ProcedureDisciplineComponent } from './personnels/manager-personnels/procedure-discipline/procedure-discipline.component';
+import {UserManagerComponent} from './personnels/manager-system/user-manager/user-manager.component';
+import {RoleManagerComponent} from './personnels/manager-system/role-manager/role-manager.component';
+import {ProcedureBonusComponent} from './personnels/manager-personnels/procedure-bonus/procedure-bonus.component';
+import {ProcedureDisciplineComponent} from './personnels/manager-personnels/procedure-discipline/procedure-discipline.component';
+import {SelectModule} from "ng2-select";
 
 // import {DxDataGridModule} from "devextreme-angular";
 
@@ -211,13 +212,14 @@ import { ProcedureDisciplineComponent } from './personnels/manager-personnels/pr
     OrderModule,
     DataTableModule,
     DxDataGridModule,
+    SelectModule,
     ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
-  providers: [NationalService,CatalogSalaryService,
+  providers: [NationalService, CatalogSalaryService,
     CatalogFacultyService,
     ExcelService,
-    TaskService,AddressService],
+    TaskService, AddressService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

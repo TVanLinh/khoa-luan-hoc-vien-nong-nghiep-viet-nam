@@ -1,3 +1,135 @@
-<p>
-  role-manager works!
-</p>
+<h4 class="text-center mgb-15" style="font-size: 20px"> Danh sách quyền </h4>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th style="width:5%">STT</th>
+      <th>Tên quyền</th>
+      <th>Mô tả</th>
+      <th>Activated</th>
+      <th>Thời gian tạo</th>
+      <th>
+        <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of roles.toArray();let i = index ">
+      <td>{{i+1}}</td>
+      <td class="name">{{item.title}}</td>
+      <td class="name">{{item.description}}</td>
+      <td class="name">{{item.activated}}</td>
+      <td class="name">{{item.createdOn | date:'hh:MM:ss dd/MM/yyyy'}}</td>
+      <td style="width:10%">
+        <span class="action-icon" title="Chi tiết " (click)="viewDetail(item)"><i class="fa fa-eye"
+                                                                                  aria-hidden="true"></i></span>
+        <span class="action-icon" title="Chỉnh sửa " (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+        <span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<modal #modalDetail size='lg' backdrop="true">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalDetail)">Thoát</button>
+    </div>
+    <h3 class="text-center">Chi tiết quyền {{roleDetail?roleDetail.title:''}}</h3>
+  </modal-header>
+
+  <modal-body>
+    <h4 class="mgb-10 text-center">Frontend</h4>
+    <table class="table table-bordered" *ngIf="roleDetail">
+      <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tiêu đề</th>
+        <th style="text-align: left">Url</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of roleDetail['frontends'];let i = index">
+        <td class="w-100-px">{{i+1}}</td>
+        <td class="name w-300-px">{{(item.title)}}</td>
+        <td>{{item.url}}</td>
+      </tr>
+
+    </table>
+
+    <h4 class="mgb-10 text-center">Backend</h4>
+    <table class="table table-bordered" *ngIf="roleDetail">
+      <thead>
+      <tr>
+        <th class="w-100-px">STT</th>
+        <th class="w-300-px">Tiêu đề</th>
+        <th style="text-align: left">Url</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of roleDetail['backends'];let i = index">
+        <td class="w-100-px">{{i+1}}</td>
+        <td class="name w-300-px">{{(item.title)}}</td>
+        <td>{{item.url}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+  </modal-body>
+
+</modal>
+
+
+<modal #modalCreate size='lg' backdrop="true">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalCreate)">Thoát</button>
+    </div>
+    <h3 class="text-center">{{update?'Cập nhật quyền':'Tạo mới quyền'}}</h3>
+
+  </modal-header>
+
+
+  <modal-body>
+    <div class="row">
+      <div class="col-xs-12 mgb-20">
+        <h5 class="mgb-10">Tên quyền </h5>
+        <input type="text" name="title" class="form-control" [(ngModel)]="title" placeholder="Tên quyền ">
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div style=" margin-bottom: 20px;">
+          <h5 class="mgb-10">Chọn frontends </h5>
+          <ng-select #selectFront [multiple]="true"
+                     [items]="frontendsSelect"
+                     (selected)="selected($event,0)"
+                     (removed)="removed($event,0)"
+                     placeholder="Chọn frontend .. "></ng-select>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div style=" margin-bottom: 20px;">
+          <h5 class="mgb-10">Chọn backeds </h5>
+          <ng-select #selectBack [multiple]="true"
+                     [items]="backendsSelect"
+                     (selected)="selected($event,1)"
+                     (removed)="removed($event,1)"
+                     placeholder="Chọn backends .. "></ng-select>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <label>Activated: </label>
+        <input type="checkbox" name="acivated" [(ngModel)]="acivated" value="true">
+      </div>
+    </div>
+
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="onSave()">{{update == null?'Thêm':'Cập nhật'}}
+    </button>
+  </modal-footer>
+</modal>

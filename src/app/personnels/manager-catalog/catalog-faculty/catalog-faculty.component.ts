@@ -49,6 +49,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       name: ['', Validators.required],
       level: ['', Validators.required],
       type: ['', Validators.required],
+      code: ['', Validators.required],
       parent: ['', Validators.required],
       url: ['']
     });
@@ -58,6 +59,9 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     this.touched = true;
     let formValue = this.formData.value;
     let valid = [formValue.name, formValue.level, formValue.type, formValue.parent];
+    if (!this.positionUpdate) {
+      valid.push(formValue.code);
+    }
 
     if (formValue.level == '2') {
       valid = [formValue.name, formValue.parent];
@@ -79,11 +83,13 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     body.level = formValue.level;
     body.type = formValue.type;
     body.url = formValue.url;
+    body.code = formValue.code.toString().toLocaleUpperCase();
     let parent = new CatalogFacultyModel();
     if (formValue.parent && formValue.parent.id != '') {
       body.parent = parent;
       body.parent.id = formValue.parent;
     }
+
 
     if (this.positionUpdate == null) {
       if (body.level != 1) {
@@ -92,7 +98,10 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       let data = {
         data: body
       };
-
+      if (super.contains(this.list.toArray(), 'code', body.code)) {
+        this.updateMessge("Mã " + body.code + " đã tồn tại ", "warning");
+        return;
+      }
       this.taskService.post(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
         this.getCatalog();
         this.closeModals();
@@ -100,7 +109,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       }, error => {
         console.log(error);
         this.closeModals();
-        this.updateMessge("Lưu không thành công ", "waring");
+        this.updateMessge("Lưu không thành công ", "warning");
       });
 
     } else {
@@ -112,6 +121,14 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
         data: body
       };
 
+      let temp: Collections.LinkedList<any> = super.clone(this.list.toArray());
+
+      temp.remove(this.positionUpdate);
+      if (super.contains(temp.toArray(), 'code', body.code)) {
+        this.updateMessge("Mã " + body.code + " đã tồn tại ", "warning");
+        return;
+      }
+
       this.taskService.put(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
         this.getCatalog();
         this.closeModals();
@@ -119,7 +136,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       }, error => {
         console.log(error);
         this.closeModals();
-        this.updateMessge("Cập nhật không thành công ", "waring");
+        this.updateMessge("Cập nhật không thành công ", "warning");
       });
     }
 
@@ -164,7 +181,8 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       name: item.name,
       level: item.level,
       type: item.type,
-      url: item.uri,
+      url: item.url,
+      code: item.code
     });
     this.showParent = false;
     if (item.parent) {
@@ -192,4 +210,6 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     this.details = super.asList(this.catalogFacService.findByIdParent(this.list.toArray(), item._id));
     super.openModal(this.modalDetail);
   }
+
+
 }

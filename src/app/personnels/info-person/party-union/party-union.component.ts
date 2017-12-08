@@ -114,7 +114,6 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     });
 
 
-
     this.formDetailParty = this.formBuilder.group({
       dateFrom: ['', Validators.required],
       place: ['', Validators.required],
@@ -296,6 +295,9 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     console.log(this.formData.value);
     let data = {};
     let formArm = this.formData.value.actionArmy;
+
+    ///check valid cong doan
+
     let army: ArmyModel = {
       dateIn: formArm.dateIn,
       dateOut: formArm.dateOut,
@@ -305,6 +307,10 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       formInjured: formArm.formInjured,
     };
 
+    if ((army.dateIn && !army.dateOut) || (!army.dateIn && army.dateOut)) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Quân ngũ ", "warning");
+      return;
+    }
 
     let formParty = this.formData.value.actionParty;
     let party: PartyModel = {
@@ -315,6 +321,28 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     };
 
 
+    //check  valid dang
+    let partyValid = [party.dateIn, party.dateInOfical, party.placeIn];
+
+    if (this.listActionParty.size() > 0 && !ValidService.isNotBlanks(partyValid)) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đảng", "warning");
+      return;
+    }
+
+    if ((party.dateIn || party.dateInOfical || ValidService.isNotBlank(party.placeIn)) && this.listActionParty.size() == 0) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đảng", "warning");
+      return;
+    }
+
+    if (ValidService.isNotBlanks(partyValid) && this.listActionParty.size() == 0) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đảng", "warning");
+      return;
+    }
+
+    //---------------------------------------------
+
+    //check valid doan
+
     let formUnion = this.formData.value.actionUnion;
     let union: UnionModel = {
       dateIn: formUnion.dateIn,
@@ -322,11 +350,51 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       process: this.listActionUnion.toArray()
     };
 
+
+    let unionValid = [union.dateIn, union.placeIn];
+
+    if (this.listActionUnion.size() > 0 && !ValidService.isNotBlanks(unionValid)) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn ", "warning");
+      return;
+    }
+
+    if ((union.dateIn  || ValidService.isNotBlank(union.placeIn)) && this.listActionUnion.size() == 0) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn", "warning");
+      return;
+    }
+
+    if (ValidService.isNotBlanks(unionValid) && this.listActionUnion.size() == 0) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn", "warning");
+      return;
+    }
+
+    //check valid cong doan
+
     let formGroup = this.formData.value.actionGroup;
     let group: GroupModel = {
       dateIn: formGroup.dateIn,
       process: this.listActionGroup.toArray()
     };
+
+
+    let groupValid = [group.dateIn];
+
+    if (this.listActionGroup.size() > 0 && !ValidService.isNotBlanks(groupValid)) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Công Đoàn ", "warning");
+      return;
+    }
+
+    if (group.dateIn != null && this.listActionGroup.size() == 0) {
+      console.log("th2");
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Công Đoàn", "warning");
+      return;
+    }
+
+    if (ValidService.isNotBlanks(groupValid) && this.listActionGroup.size() == 0) {
+      this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Công Đoàn", "warning");
+      return;
+    }
+
 
     data['army'] = army;
     data['party'] = party;
