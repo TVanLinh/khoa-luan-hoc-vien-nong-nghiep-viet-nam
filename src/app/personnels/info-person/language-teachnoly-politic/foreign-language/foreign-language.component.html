@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" id="foreign-language-print">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -18,7 +18,7 @@
           <th>Tên ngoại ngữ</th>
           <th>Kỹ năng</th>
           <th>Chuyên nghành/chủ đề có thể giảng dạy</th>
-          <th><span class="action-icon" (click)="openModalNew(languageModal)"><i class="fa fa-plus"></i></span></th>
+          <th class="hide-print"><span class="action-icon" (click)="openModalNew(languageModal)"><i class="fa fa-plus"></i></span></th>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
             <span class="">Giao tiếp: {{foreignService.getLevelTitle(item.communicate)}}</span>
           </td>
           <td>{{item.branch}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
@@ -42,7 +42,7 @@
         </tr>
         </tbody>
       </table>
-    </div>
+    </div >
   </form>
 </div>
 
@@ -136,9 +136,9 @@
           </div>
 
           <div class="item-control">
-          <label>Chuyên nghành/chủ đề <br>có thể giảng dạy </label>
-          <input type="text" class="form-control" formControlName="branch">
-        </div>
+            <label>Chuyên nghành/chủ đề <br>có thể giảng dạy </label>
+            <input type="text" class="form-control" formControlName="branch">
+          </div>
 
         </div>
       </div>
@@ -150,3 +150,4 @@
   </modal-footer>
 
 </modal>
+

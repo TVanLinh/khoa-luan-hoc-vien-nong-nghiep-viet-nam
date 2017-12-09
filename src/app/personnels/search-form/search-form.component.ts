@@ -18,6 +18,7 @@ export class SearchFormComponent extends BaseFormComponent implements OnInit {
   @Output() onEdit = new EventEmitter<any>();
   @Output() onRemove = new EventEmitter<any>();
   @Input() showAction: boolean = false;
+  @Input() showRole: boolean = false;
   data: any[] = [];
 
   constructor(protected eleRef: ElementRef, public  taskSevice: TaskService) {

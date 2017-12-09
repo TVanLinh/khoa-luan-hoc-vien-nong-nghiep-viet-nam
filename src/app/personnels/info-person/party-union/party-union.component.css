@@ -1,16 +1,17 @@
 
-.form-control{
+.form-control {
   border-radius: 0;
 }
 
-:host-context /deep/ .my-modal-lg{
+:host-context /deep/ .my-modal-lg {
   width: 1170px !important;
 }
 
-.my-modal-lg{
+.my-modal-lg {
   width: 1170px !important;
 }
 
 table td .form-control {
   width: 100%;
 }
+

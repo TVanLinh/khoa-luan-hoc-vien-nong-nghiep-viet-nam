@@ -32,6 +32,7 @@
           <th>Họ tên</th>
           <th>Khoa / Phòng ban</th>
           <th style="text-align: left !important;">Thư điện tử</th>
+          <!--<th *ngIf="showRole">Danh sách quyền </th>-->
           <th *ngIf="showAction"></th>
         </tr>
         </thead>
@@ -41,8 +42,10 @@
           <td>{{item.username}}</td>
           <td>{{item.fullname}}</td>
           <td>{{item.organ?item.organ.level1.name:''}}</td>
-          <td style="word-break: break-word;width: 300px;max-width: 300px">{{item.email}}</td>
-          <!--<td style="word-break: break-word;width: 300px;max-width: 300px">{{item.email}}</td>-->
+          <td style="width: 300px;max-width: 300px">{{item.email}}</td>
+          <!--<td *ngIf="showRole">-->
+            <!--<p *ngFor="let role of item.roles">{{role.title}}</p>-->
+          <!--</td>-->
           <td *ngIf="showAction">
             <span class="action-icon" (click)="onEditShare(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="onRemoveShare(item)"><i class="fa fa-remove "></i></span>

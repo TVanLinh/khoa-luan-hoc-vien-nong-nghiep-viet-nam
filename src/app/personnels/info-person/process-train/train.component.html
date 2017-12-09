@@ -1,9 +1,9 @@
-<div class="form-item">
-  <div class="form-item-title">
+<div class="form-item" id="train-print">
+  <div class="form-item-title hide-print">
     Quá trình đào tạo
   </div>
   <form action="" [formGroup]="formData" style="border: none" id="train-main-form">
-    <div class="action-form">
+    <div class="action-form hide-print">
       <button (click)="onSave()">Ghi nhận</button>
       <div *ngIf="message.condition && formValid == true" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -12,9 +12,11 @@
     <!---->
 
     <div class="mgb-20">
-      <label>Trình độ giáo dục phổ thông </label>
-      <select name="" id="" class="form-control" style="float: none;width: 150px !important;min-width: 0"
-              formControlName="generalEdu">
+      <label class="mgl-print--20 show-print" style="display: none">Trình độ giáo dục phổ thông : {{generalEdu.value +
+        "/12"}}</label>
+      <label class="hide-print">Trình độ giáo dục phổ thông </label>
+      <select name="" id="" class="form-control hide-print" style="float: none;width: 150px !important;min-width: 0"
+              formControlName="generalEdu" #generalEdu>
         <option *ngFor="let item of commons" [value]="item">{{item}}/12</option>
       </select>
     </div>
@@ -36,7 +38,7 @@
             <th>Xếp loại</th>
             <th>Trường đào tạo</th>
             <th>Nước đào tạo</th>
-            <th>
+            <th class="hide-print">
               <span class="action-icon" (click)="openModals(0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -53,7 +55,7 @@
             <td>{{item.spice}}</td>
             <td>{{item.school}}</td>
             <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
-            <td>
+            <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,0)"><i
                 class="fa fa-remove "></i></span>
@@ -80,7 +82,7 @@
             <th>Nơi đào tạo</th>
             <th>Nước đào tạo</th>
             <th>Mô tả</th>
-            <th>
+            <th class="hide-print">
               <span class="action-icon" (click)="openModals(1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -96,7 +98,7 @@
             <td>{{item.placeTrain}}</td>
             <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
             <td>{{item.description}}</td>
-            <td>
+            <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,1)"><i
                 class="fa fa-remove"></i></span>
@@ -136,7 +138,7 @@
             <input type="number" class="date" formControlName="yearFrom" required #yearFromLong/>
           </div>
 
-          <div class="item-control"  *ngIf="yearFromLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="yearFromLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa nhập từ năm
             </div>
@@ -147,7 +149,7 @@
             <input type="number" class="date" formControlName="yearEnd" required #yearEndLong/>
           </div>
 
-          <div class="item-control"  *ngIf="yearEndLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="yearEndLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa nhập đến năm
             </div>
@@ -158,7 +160,7 @@
             <input type="text" formControlName="specialized" required #specializedLong/>
           </div>
 
-          <div class="item-control"  *ngIf="specializedLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="specializedLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa nhập chuyên ngành
             </div>
@@ -173,7 +175,7 @@
           </div>
 
 
-          <div class="item-control"  *ngIf="levelLearnLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="levelLearnLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa chọn bậc học
             </div>
@@ -190,7 +192,7 @@
           </div>
 
 
-          <div class="item-control"  *ngIf="academicRanLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="academicRanLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa chọn học vị đạt được
             </div>
@@ -203,7 +205,7 @@
             </select>
           </div>
 
-          <div class="item-control"  *ngIf="spiceLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="spiceLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa chọn xếp loại
             </div>
@@ -214,7 +216,7 @@
             <label>Trường đào tạo</label>
             <input type="text" formControlName="school" required #schoolLong/>
           </div>
-          <div class="item-control"  *ngIf="schoolLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="schoolLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa nhập trường đào tạo
             </div>
@@ -229,7 +231,7 @@
             </select>
           </div>
 
-          <div class="item-control"  *ngIf="nationalLong.value.trim()  =='' && formLongTouch">
+          <div class="item-control" *ngIf="nationalLong.value.trim()  =='' && formLongTouch">
             <div class="error">
               Chưa chọn nước đào tạo
             </div>
@@ -269,7 +271,7 @@
 
           </div>
 
-          <div class="item-control"  *ngIf="dateFromShort.value.trim()  =='' && formShortTouch">
+          <div class="item-control" *ngIf="dateFromShort.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa nhập từ ngày
             </div>
@@ -280,7 +282,7 @@
             <input type="number" class="date" min="1" formControlName="numberMonth" required #numberMonthShort/>
           </div>
 
-          <div class="item-control"  *ngIf="numberMonthShort.value.trim()  =='' && formShortTouch">
+          <div class="item-control" *ngIf="numberMonthShort.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa nhập số tháng
             </div>
@@ -292,7 +294,7 @@
             <input type="text" formControlName="certificate" required #certificate>
           </div>
 
-          <div class="item-control"  *ngIf="certificate.value.trim()  =='' && formShortTouch">
+          <div class="item-control" *ngIf="certificate.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa nhập chứng chỉ
             </div>
@@ -306,7 +308,7 @@
             <input type="text" formControlName="placeTrain" required #placeTrain/>
           </div>
 
-          <div class="item-control"  *ngIf="placeTrain.value.trim()  =='' && formShortTouch">
+          <div class="item-control" *ngIf="placeTrain.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa nhập nơi đào tạo
             </div>
@@ -314,7 +316,8 @@
           <!---->
           <div class="item-control">
             <label>Nước đào tạo</label>
-            <select name="" class="form-control" formControlName="national" style="width: 200px" required #nationalShort>
+            <select name="" class="form-control" formControlName="national" style="width: 200px" required
+                    #nationalShort>
               <option *ngFor="let item of nationals " [value]="item.code">
                 {{item.name}}
               </option>
@@ -322,7 +325,7 @@
 
           </div>
 
-          <div class="item-control"  *ngIf="nationalShort.value.trim()  =='' && formShortTouch">
+          <div class="item-control" *ngIf="nationalShort.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa chọn nước đào tạo
             </div>
@@ -331,10 +334,10 @@
           <!---->
           <div class="item-control">
             <label>Mô tả</label>
-            <textarea rows="10"  formControlName="description" required #descriptionShort></textarea>
+            <textarea rows="10" formControlName="description" required #descriptionShort></textarea>
           </div>
 
-          <div class="item-control"  *ngIf="descriptionShort.value.trim()  =='' && formShortTouch">
+          <div class="item-control" *ngIf="descriptionShort.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa nhập mô tả, tối thiếu 50 kí tự
             </div>

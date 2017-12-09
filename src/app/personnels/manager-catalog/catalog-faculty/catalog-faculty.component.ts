@@ -55,6 +55,12 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     });
   }
 
+  validCode(code) {
+    let pattern = /^[A-Za-z]{3}$/g;
+    return pattern.test(code);
+  }
+
+
   onSave() {
     this.touched = true;
     let formValue = this.formData.value;
@@ -62,6 +68,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     if (!this.positionUpdate) {
       valid.push(formValue.code);
     }
+
 
     if (formValue.level == '2') {
       valid = [formValue.name, formValue.parent];
@@ -76,6 +83,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       return;
     }
 
+
     // this.showParent = false;
 
     let body = new CatalogFacultyModel();
@@ -83,7 +91,17 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     body.level = formValue.level;
     body.type = formValue.type;
     body.url = formValue.url;
-    body.code = formValue.code.toString().toLocaleUpperCase();
+    body.code = formValue.code.toString().toLocaleUpperCase().trim();
+
+
+    if (!this.validCode(body.code)) {
+      return;
+    }
+
+    if (body.level == 1) {
+      body.code = body.type == 'khoa' ? 'F' + body.code : 'D' + body.code;
+    }
+
     let parent = new CatalogFacultyModel();
     if (formValue.parent && formValue.parent.id != '') {
       body.parent = parent;

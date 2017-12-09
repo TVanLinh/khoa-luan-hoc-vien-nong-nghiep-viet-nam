@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" id="thesis-guide-print">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -22,7 +22,7 @@
           <th>Tên luận văn/luận án</th>
           <th>Vai trò</th>
           <th>Đạt loại</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -36,7 +36,7 @@
           <td>{{item.thesisName}}</td>
           <td>{{item.role}}</td>
           <td>{{item.speciesObtain}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->

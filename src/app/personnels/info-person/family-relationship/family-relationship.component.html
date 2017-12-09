@@ -9,7 +9,7 @@
       </div>
     </div>
     <!---->
-    <div class="table-responsive">
+    <div class="table-responsive" id="family-print">
       <table class="table table-bordered ">
         <thead>
         <tr>
@@ -18,7 +18,7 @@
           <th>Họ tên</th>
           <th>Năm sinh</th>
           <th>Nghề nghiệp</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -32,7 +32,7 @@
           <td>{{item.name}}</td>
           <td>{{item.yearBirth}}</td>
           <td>{{item.job}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
           </td>
@@ -79,7 +79,7 @@
               </option>
             </select>
             <div class="error" *ngIf="relation.value.trim()  =='' && formTouch">
-               Chưa chọn quan hệ
+              Chưa chọn quan hệ
             </div>
           </div>
 
@@ -101,7 +101,7 @@
             <label>Nghề nghiệp </label>
             <input type="text" class="form-control" formControlName="job" #job/>
             <div class="error" *ngIf="job.value.trim()  =='' && formTouch">
-             Chưa nhập nghề nghiệp
+              Chưa nhập nghề nghiệp
             </div>
           </div>
         </div>
@@ -114,3 +114,5 @@
   </modal-footer>
 
 </modal>
+
+

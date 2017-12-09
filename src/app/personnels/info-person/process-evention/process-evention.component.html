@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" id="process-event-print">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -20,7 +20,7 @@
           <th>Ngày cấp</th>
           <th>Số tác giả</th>
           <th>Diễn giải</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -34,7 +34,7 @@
           <td>{{item.dateOfIssue | date:'dd/MM/yyyy'}}</td>
           <td>{{item.numberAuthor}}</td>
           <td>{{item.description}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
           </td>

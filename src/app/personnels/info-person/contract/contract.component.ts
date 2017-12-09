@@ -8,7 +8,7 @@ import {ContactService} from "./contact.service";
 import {Config} from "../../../shares/config";
 import {TaskService} from "../../../shares/task.service";
 import {ValidService} from "../../../shares/valid.service";
-import {DataValid} from "../../../shares/date.valid";
+
 
 @Component({
   selector: 'app-contract',

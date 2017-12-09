@@ -11,7 +11,7 @@
       </div>
 
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" id="contact-print">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -22,7 +22,7 @@
           <th>Ngày hết hiệu lực</th>
           <th>Đơn vị tuyển dụng</th>
           <th>Công việc đảm nhận</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" title="Thêm thông tin" (click)="openModal(modalContract)"><i
               class="fa fa-plus"></i></span>
           </th>
@@ -37,7 +37,7 @@
           <td>{{item.dateEndEffect | date: 'dd/MM/yyyy'}}</td>
           <td>{{item.unitOrgan}}</td>
           <td>{{item.job}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
@@ -112,7 +112,7 @@
 
           <div class="item-control">
             <label>Ngày hết hiệu lực </label>
-            <input type="date" class="form-control"  #dateEndEffect formControlName="dateEndEffect"
+            <input type="date" class="form-control" #dateEndEffect formControlName="dateEndEffect"
                    [value]="initData.dateEndEffect | date:'yyyy-MM-dd'">
             <div class="error" *ngIf="dateEndEffect.value.trim()  =='' && formTouch">
               Chưa nhập ngày hết hiệu lực
@@ -136,3 +136,7 @@
   </modal-footer>
 
 </modal>
+
+
+
+<!--print-->

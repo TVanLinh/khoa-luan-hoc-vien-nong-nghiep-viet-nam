@@ -1,4 +1,6 @@
-input[type='text'] {
+input[type='text'],textarea {
   width: 100% !important;
   max-width: 100% !important;
+  height: 150px;
+  overflow: hidden;
 }

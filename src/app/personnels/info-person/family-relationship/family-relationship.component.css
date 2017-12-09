@@ -8,3 +8,6 @@ input,select{
 .action-icon{
   display: inline-block;
 }
+#family-print{
+  display: none;
+}

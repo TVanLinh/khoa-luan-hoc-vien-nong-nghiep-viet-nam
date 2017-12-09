@@ -4,6 +4,9 @@ import {SelectComponent} from "ng2-select";
 import {TaskService} from "../../../shares/task.service";
 import {BaseFormComponent} from "../../base-form.component";
 import {Config} from "../../../shares/config";
+import {ValidService} from "../../../shares/valid.service";
+import {MystorageService} from "../../../shares/mystorage.service";
+import index from "@angular/cli/lib/cli";
 
 @Component({
   selector: 'app-user-manager',
@@ -13,6 +16,7 @@ import {Config} from "../../../shares/config";
 export class UserManagerComponent extends BaseFormComponent implements OnInit {
 
   @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('modalDelete') modalDelete: ModalComponent;
   @ViewChild("select") select: SelectComponent;
 
   user = null;
@@ -20,13 +24,20 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
   rolesSelect: any[] = [];
   rolesValue = null;
   reason: string = '';
+  reasonDelelte: string = '';
   update = null;
   formTouch = false;
+  formDeleteTouch = false;
 
   roleByUserName = [];
 
+  positionDelete = -1;
+  username = '';
+
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
+    this.username = MystorageService.getAcount() ? MystorageService.getAcount()['user']['username'] : '';
+
   }
 
   ngOnInit() {
@@ -50,9 +61,7 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
   }
 
   removed(value) {
-    // this.rolesValue.remove(value);
     this.rolesValue = null;
-    console.log("remove " + this.rolesValue);
   }
 
   getRolesCatalog() {
@@ -65,7 +74,90 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
 
   onSave() {
     this.formTouch = true;
+    if (!ValidService.isNotBlank(this.reason) || !this.rolesValue) {
+      return;
+    }
+
+    if (super.contains(this.user.roles, '_id', this.rolesValue['id'])) {
+      this.updateMessge(this.user['fullname'] + " đã có quyền này ", "warning");
+      return;
+    }
+
+
+    let roleTemp = null;
+
+    if ((roleTemp = this.getRoleById(this.rolesValue['id']))) {
+      this.user.roles.push(roleTemp);
+      this.taskService.post(Config.USER_URL + "/assignRole", {
+        user: this.user,
+        reason: this.reason,
+        username: this.username
+      }).subscribe(data => {
+        this.updateMessge("Thành công", "success");
+      }, err => {
+        this.updateMessge("Không thành công", "warning");
+      });
+    }
+
+
+    // assignRole
+  }
+
+  selectDeleteRole(item) {
+    this.positionDelete = -1;
+
+    let idex = -1;
+    let roles = this.user.roles;
+
+    for (let i = 0; i < roles.length; i++) {
+      if (item.title == roles[i].title) {
+        idex = i;
+        break;
+      }
+    }
+
+    if (idex > -1) {
+      this.positionDelete = idex;
+      this.formDeleteTouch = false;
+      super.openModal(this.modalDelete);
+    }
+  }
+
+  onDelete() {
+    this.formDeleteTouch = true;
+    if (!ValidService.isNotBlank(this.reasonDelelte)) {
+      return;
+    }
+
+    delete  this.user.roles[this.positionDelete];
+
+    this.taskService.post(Config.USER_URL + "/assignRole", {
+      user: this.user,
+      reason: this.reasonDelelte,
+      username: this.username
+    }).subscribe(data => {
+      this.reasonDelelte = '';
+      this.closeModal(this.modalDelete);
+      this.updateMessge("Xóa thành công", "success");
+    }, err => {
+      this.updateMessge("Xóa không thành công", "warning");
+    });
+  }
+
+  getOranTitle() {
+    if (!this.user || !this.user.organ) {
+      return '';
+    }
+    return "Đơn vị: " + this.user.organ.level1.name;
   }
 
 
+  getRoleById(id) {
+    for (let item of this.rolesCatalog) {
+      if (item['_id'] == id) {
+        return item;
+      }
+    }
+    return null;
+  }
 }

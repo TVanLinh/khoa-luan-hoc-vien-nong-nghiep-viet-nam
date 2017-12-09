@@ -1,35 +1,30 @@
-<app-search-form title="Phân quyền " (onChoise)="onChoiseHandler($event)"></app-search-form>
+<app-search-form title="Phân quyền " [showRole]="true" (onChoise)="onChoiseHandler($event)"></app-search-form>
 
 <modal #modal size='lg' backdrop="true">
 
   <modal-header>
 
 
-    <div class="col-xs-12 col-sm-6 ">
-      <div class="action-form mgb-i-10 text-left">
-        <button class="btn-action" (click)="onSave()">{{update == null?'Thêm':'Cập nhật'}}
-        </button>
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-6 ">
-      <div class="action-form mgb-i-10 text-right">
+    <div class="col-xs-12 text-left">
+      <div class="action-form mgb-i-10  ">
         <button (click)="closeModal(modal)">Thoát</button>
       </div>
     </div>
-
-    <div class="col-xs-12">
-      <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
-        {{message.content}}
-      </div>
-    </div>
-
 
   </modal-header>
 
   <modal-body>
     <form action="" class="mgb-i-10">
+
       <div class="row">
+        <div class="col-xs-12 col-sm-6 mgb-20">
+          Họ tên: {{user?user['fullname']:''}}
+        </div>
+
+        <div class="col-xs-12 col-sm-6 mgb-20">
+          {{getOranTitle()}}
+        </div>
+
         <div class="col-xs-12">
           <div style=" margin-bottom: 20px;">
             <h5 class="mgb-10">Chọn quyền </h5>
@@ -38,12 +33,18 @@
                        (selected)="selected($event)"
                        (removed)="removed($event)"
                        placeholder="Chọn quyền  .. "></ng-select>
-          <div class="error" *ngIf="rolesValue == null && formTouch"> Chưa chọn quyền </div>
+            <div class="error" *ngIf="rolesValue == null && formTouch"> Chưa chọn quyền</div>
           </div>
 
           <h5 class="mgb-10">Lý do </h5>
-          <input type="text" name="reason" class="form-control" [(ngModel)]="reason" required/>
+          <textarea type="text" name="reason" rows="5" class="form-control" [(ngModel)]="reason" required></textarea>
           <div class="error" *ngIf="reason.trim() =='' && formTouch"> Chưa nhập lí do</div>
+        </div>
+        <div class="col-xs-12 text-right  mgt-20">
+          <div *ngIf="message.condition " [ngClass]="'text-center alert alert-'+ message.type">
+            {{message.content}}
+          </div>
+          <button class="btn-action" (click)="onSave()">{{update == null?'Thêm':'Cập nhật'}}</button>
         </div>
       </div>
     </form>
@@ -62,15 +63,41 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of user.roles;let i  = index">
-            <td>{{i+1}}</td>
-            <td>{{(item.title)}}</td>
-            <td>
-              <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>
+            <td *ngIf="item">{{i+1}}</td>
+            <td *ngIf="item">{{(item.title)}}</td>
+            <td *ngIf="item">
+              <span class="action-icon" (click)="selectDeleteRole(item)"><i class="fa fa-remove "></i></span>
             </td>
           </tr>
 
           </tbody>
         </table>
+      </div>
+    </div>
+
+  </modal-footer>
+
+</modal>
+
+
+<modal #modalDelete size='lg' cssClass="my-modal-login" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button class="btn btn-default " style="min-width: 40px" (click)="closeModal(modalDelete)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <h5 class="mgb-10">Lí do</h5>
+    <textarea type="text"  class="form-control" rows="5" [(ngModel)]="reasonDelelte"></textarea>
+    <div class="error fs-i-13" *ngIf="reasonDelelte.trim() == '' && formDeleteTouch"> Chưa nhập lí do</div>
+  </modal-body>
+
+  <modal-footer>
+    <div class=" text-right">
+      <div class="action-form">
+        <button class="btn btn-default "   style="min-width: 40px" (click)="onDelete()">Xóa</button>
       </div>
     </div>
 

@@ -9,7 +9,7 @@
         {{message.content}}
       </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" id="foreign-print">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -19,7 +19,7 @@
           <th>Đi nước</th>
           <th>Mục đích</th>
           <th>Sản phẩm</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -34,7 +34,7 @@
           <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
           <td>{{item.purpose}}</td>
           <td>{{item.product}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->

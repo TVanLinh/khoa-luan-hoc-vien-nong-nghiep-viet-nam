@@ -15,7 +15,7 @@
           <div class="form-item-title">
             Danh sách
           </div>
-          <div class="table-responsive">
+          <div class="table-responsive" id="salary-print">
             <table class="table table-bordered">
               <thead>
               <tr>
@@ -27,7 +27,7 @@
                 <th>HSL</th>
                 <th>Số QD</th>
                 <!-- <th>Hiên tại</th> -->
-                <th><span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span></th>
+                <th class="hide-print"><span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span></th>
               </tr>
               </thead>
               <tbody>
@@ -43,7 +43,7 @@
                 <!-- <td>
                   <input type="radio" style="width: auto" formControlName="now" [value]="i">
                 </td> -->
-                <td>
+                <td class="hide-print">
                   <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
                   <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove"></i></span>
                   <!--   <span class="action-icon" (click)="blockItem(i)"><i class="fa fa-lock"></i></span> -->

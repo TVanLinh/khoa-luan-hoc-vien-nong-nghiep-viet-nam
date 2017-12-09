@@ -14,7 +14,7 @@
           {{message.content}}
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" id="bonus-print">
         <table class="table table-bordered">
           <thead>
           <tr>
@@ -24,7 +24,7 @@
             <th>Số quyết định</th>
             <th>Ngày quyết định</th>
             <th>Lí do</th>
-            <th>
+            <th class="hide-print">
               <span class="action-icon" (click)="openModal(1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -38,7 +38,7 @@
             <td>{{item.numberDecide}}</td>
             <td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>
             <td>{{item.reason}}</td>
-            <td>
+            <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
@@ -60,7 +60,7 @@
           {{message.content}}
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" id="discipline-print">
         <table class="table table-bordered">
           <thead>
           <tr>
@@ -70,7 +70,7 @@
             <th>Số quyết định</th>
             <th>Ngày quyết định</th>
             <th>Lí do</th>
-            <th>
+            <th class="hide-print">
               <span class="action-icon" (click)="openModal(0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -84,7 +84,7 @@
             <td>{{item.numberDecide}}</td>
             <td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>
             <td>{{item.reason}}</td>
-            <td>
+            <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
@@ -174,3 +174,72 @@
   </modal-footer>
 
 </modal>
+
+
+<!--&lt;!&ndash;print&ndash;&gt;-->
+<!--<div class="col-xs-12" style="display: none" id="bonus-print">-->
+  <!--<div class="table-responsive">-->
+    <!--<table class="table table-bordered">-->
+      <!--<thead>-->
+      <!--<tr>-->
+        <!--<th>STT</th>-->
+        <!--<th>Cấp quyết định</th>-->
+        <!--<th>Hình thức KT</th>-->
+        <!--<th>Số quyết định</th>-->
+        <!--<th>Ngày quyết định</th>-->
+        <!--<th>Lí do</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--&lt;!&ndash;&ndash;&gt;-->
+      <!--<tr *ngFor="let item of listBonus.toArray();let i = index ">-->
+        <!--<td>{{i+1}}</td>-->
+        <!--<td>{{item.rankDecide}}</td>-->
+        <!--<td>{{item.form}}</td>-->
+        <!--<td>{{item.numberDecide}}</td>-->
+        <!--<td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>-->
+        <!--<td>{{item.reason}}</td>-->
+      <!--</tr>-->
+      <!--&lt;!&ndash;&ndash;&gt;-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+<!--<div class="col-xs-12">-->
+  <!--<div class="table-responsive">-->
+    <!--<table class="table table-bordered">-->
+      <!--<thead>-->
+      <!--<tr>-->
+        <!--<th>STT</th>-->
+        <!--<th>Cấp quyết định</th>-->
+        <!--<th>Hình thức KL</th>-->
+        <!--<th>Số quyết định</th>-->
+        <!--<th>Ngày quyết định</th>-->
+        <!--<th>Lí do</th>-->
+        <!--<th>-->
+          <!--<span class="action-icon" (click)="openModal(0)"><i class="fa fa-plus"></i></span>-->
+        <!--</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--&lt;!&ndash;&ndash;&gt;-->
+      <!--<tr *ngFor="let item of listDiscipline.toArray();let i = index ">-->
+        <!--<td>{{i+1}}</td>-->
+        <!--<td>{{item.rankDecide}}</td>-->
+        <!--<td>{{item.form}}</td>-->
+        <!--<td>{{item.numberDecide}}</td>-->
+        <!--<td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>-->
+        <!--<td>{{item.reason}}</td>-->
+        <!--<td>-->
+          <!--<span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>-->
+          <!--<span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>-->
+          <!--&lt;!&ndash;<span class="action-icon"><i class="fa fa-lock"></i></span>&ndash;&gt;-->
+        <!--</td>-->
+      <!--</tr>-->
+      <!--&lt;!&ndash;&ndash;&gt;-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>-->
+<!--</div>-->

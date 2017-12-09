@@ -8,6 +8,7 @@ import {ValidService} from "../../../shares/valid.service";
 import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 import {UserModel} from "../add-personnel/user.model";
 import {Config} from "../../../shares/config";
+import {MystorageService} from "../../../shares/mystorage.service";
 
 @Component({
   selector: 'app-edit-personnel',
@@ -51,13 +52,11 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
 
   private initForm() {
     this.formData = this.formBuilder.group({
-      level1: ['', Validators.required],
-      level2: [''],
-      personnelCode: [''],
       fullName: ['', Validators.required],
       email: ['', [Validators.required]],
       birthDay: [new Date(), Validators.required],
       passWord: ['', Validators.required],
+      reason: ['', Validators.required],
       sex: ['', Validators.required],
       rePassWord: ['', Validators.required]
     });
@@ -66,31 +65,32 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
   onSubmit() {
     this.formTouched = true;
     let valueForm = this.formData.value;
-    let user = new UserModel();
-    let valid = [valueForm.level1, valueForm.fullName,
+
+    let valid = [valueForm.fullName, valueForm.reason,
       valueForm.email, valueForm.birthDay,
       valueForm.passWord, valueForm.sex];
 
     if (!ValidService.isNotBlanks(valid) || !ValidService.validEmail(valueForm.email)
       || !this.formData.valid || valueForm.passWord != valueForm.rePassWord) {
-      // super.updateMessge("Vui lòng kiểm tra lại thông tin","warning");
       return;
     }
 
-    let organ = {
-      level1: this.catalogService.findById(this.listFaculty, valueForm.level1),
-      level2: this.catalogService.findById(this.listFaculty, valueForm.level2)
-    };
-    user.organ = organ;
-    user.username = valueForm.personnelCode;
-    user.fullname = valueForm.fullName;
-    user.email = valueForm.email;
-    user.hashedPass = valueForm.passWord;
-    user.sex = valueForm.sex;
-    user.birthDay = valueForm.birthDay;
 
+    this.user.fullname = valueForm.fullName;
+    this.user.email = valueForm.email;
+    this.user.hashedPass = valueForm.passWord;
+    this.user.sex = valueForm.sex;
+    this.user.birthDay = valueForm.birthDay;
 
-    //this.pushObjectServer(Config.USER_URL, 'data', user);
+    this.taskService.put(Config.USER_URL, {
+      user: this.user,
+      reason: valueForm.reason,
+      username: MystorageService.getAcount()['user']['username']
+    }).subscribe(data => {
+      this.updateMessge(" Cập nhật thành công", "success");
+    }, err => {
+      this.updateMessge(" Cập nhật không thành công", "warning");
+    });
 
   }
 
@@ -110,11 +110,7 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
   onChoiseHandler($event) {
     this.formTouched = false;
     this.user = $event;
-    this.listLevel2 = this.catalogService.findByIdParent(this.listFaculty, this.user.organ.level1._id);
     this.formData.patchValue({
-      level1: this.user.organ.level1._id,
-      level2: this.user.organ.level2._id,
-      personnelCode: this.user.username,
       fullName: this.user.fullname,
       email: this.user.email,
       birthDay: this.user.birthDay,

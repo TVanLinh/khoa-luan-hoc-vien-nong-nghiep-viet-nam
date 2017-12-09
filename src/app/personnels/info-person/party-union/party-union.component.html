@@ -17,17 +17,18 @@
           </div>
           <div class="item-control">
             <label>Ngày vào Đảng </label>
-            <input type="date" formControlName="dateIn" [value]="party.dateIn | date:'yyyy-MM-dd'">
+            <input type="date" formControlName="dateIn" #partyDateIn [value]="party.dateIn | date:'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
             <label>Ngày vào chính thức vào Đảng </label>
-            <input type="date" formControlName="dateInOfical" [value]="party.dateInOfical | date:'yyyy-MM-dd'">
+            <input type="date" formControlName="dateInOfical" #partyDateInOfical
+                   [value]="party.dateInOfical | date:'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
             <label>Nơi kết nạp </label>
-            <input type="text" formControlName="placeIn">
+            <input type="text" formControlName="placeIn" #partyPlaceIn>
           </div>
           <!---->
           <div class="item-control">
@@ -45,12 +46,12 @@
           <!---->
           <div class="item-control">
             <label>Ngày vào Đoàn </label>
-            <input type="date" formControlName="dateIn" [value]="union.dateIn | date:'yyyy-MM-dd'">
+            <input type="date" formControlName="dateIn" #unionDateIn [value]="union.dateIn | date:'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
             <label>Nơi kết nạp </label>
-            <input type="text" formControlName="placeIn">
+            <input type="text" formControlName="placeIn" #unionPlaceIn>
           </div>
           <!---->
           <div class="item-control">
@@ -76,23 +77,23 @@
             <label>Ngày nhập ngũ/Xuất ngũ </label>
             <div class="text-right">
               <input type="date" placeholder="Ngày nhập ngũ "
-                     class="mgb-10" style="float: none" formControlName="dateIn"
+                     class="mgb-10" style="float: none" formControlName="dateIn" #armyDateIn
                      [value]="army.dateIn | date:'yyyy-MM-dd'">
-              <input type="date" placeholder="Ngày xuất ngũ "
+              <input type="date" placeholder="Ngày xuất ngũ " #armyDateOut
                      style="float: none" formControlName="dateOut" [value]="army.dateOut | date:'yyyy-MM-dd'">
             </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Quân hàm cao nhất </label>
-            <select formControlName="rankTallest" class="form-control">
+            <select formControlName="rankTallest" #armyRankTallest class="form-control">
               <option value="">--------- Lựa chọn --------</option>
               <option *ngFor="let item of rankArmy" [value]="item">{{item}}</option>
             </select>
           </div>
           <div class="item-control">
             <label>Hạng thương binh </label>
-            <select formControlName="rankVeterans" class="form-control">
+            <select formControlName="rankVeterans" #armyRankVeterans class="form-control">
               <option value="">--------- Lựa chọn --------</option>
               <option *ngFor="let item of rankVeterans" [value]="item">Hạng {{item + "/4"}}</option>
             </select>
@@ -100,12 +101,12 @@
           <!---->
           <div class="item-control">
             <label class="mgr-15"> Sổ thương tật </label>
-            <input type="text" formControlName="bookInjured">
+            <input type="text" formControlName="bookInjured" #armyBook>
           </div>
           <!---->
           <div class="item-control">
             <label class="mgr-15"> Hình thức thương tật </label>
-            <input type="text" formControlName="formInjured">
+            <input type="text" formControlName="formInjured" #armyForm>
           </div>
           <!---->
         </div>
@@ -118,7 +119,7 @@
           <!---->
           <div class="item-control">
             <label>Ngày vào Công Đoàn </label>
-            <input type="date" formControlName="dateIn" [value]="group.dateIn | date: 'yyyy-MM-dd'">
+            <input type="date" formControlName="dateIn"  #groupDateIn [value]="group.dateIn | date: 'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
@@ -334,4 +335,107 @@
     </form>
   </modal-body>
 </modal>
+
+
+<!--================================print==========================================-->
+<div class="" style="display:none;" id="party-union-info-print">
+  <h5>Quá trình hoạt động Đảng</h5>
+  <p class="mgl-print-20"> Ngày vào Đảng: <span class="content-detail">{{partyDateIn.value?( partyDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20">Ngày chính thức vào Đảng: <span class="content-detail">{{partyDateInOfical.value?( partyDateInOfical.value | date:'dd-MM-yyyy'):''}}</span>
+  </p>
+  <p class="mgl-print-20">Nơi kết nạp : <span class="content-detail">{{partyPlaceIn.value}}</span></p>
+  <p class="mgl-print-20">Thông tin chi tiết </p>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Từ ngày</th>
+      <th>Nơi sinh hoạt</th>
+      <th>Chức vụ Đảng</th>
+      <th>Hiện tại</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let item of listActionParty.toArray();let inx = index">
+      <td>{{inx+1}}</td>
+      <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
+      <td>{{item.place}}</td>
+      <td>{{item.position}}</td>
+      <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+      <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+<!------------------------->
+  <h5>Quá trình hoạt động Đoàn </h5>
+  <p class="mgl-print-20"> Ngày vào Đoàn: <span class="content-detail">{{unionDateIn.value?( unionDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20">Nơi kết nạp : <span class="content-detail">{{unionPlaceIn.value}}</span></p>
+  <p class="mgl-print-20">Thông tin chi tiết </p>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Từ ngày</th>
+      <th>Nơi sinh hoạt</th>
+      <th>Chức vụ Đoàn</th>
+      <th>Chức vụ cao nhất</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let item of listActionUnion.toArray();let inx = index">
+      <td>{{inx+1}}</td>
+      <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
+      <td>{{item.place}}</td>
+      <td>{{item.position}}</td>
+      <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+      <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <!------------------------------------->
+
+  <h5>Thông tin quân ngũ </h5>
+  <p class="mgl-print-20"> Ngày nhập ngũ : <span class="content-detail">{{armyDateIn.value?( armyDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20"> Ngày xuất ngũ : <span class="content-detail">{{armyDateOut.value?( armyDateOut.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20" *ngIf="armyRankTallest.value.trim() != ''"> Quân hàm cao nhất : <span class="content-detail">{{armyRankTallest.value}}</span></p>
+  <p class="mgl-print-20" *ngIf="armyRankVeterans.value.trim() != ''"> Hạng thương binh : <span class="content-detail">{{armyRankVeterans.value}}</span></p>
+  <p class="mgl-print-20" *ngIf="armyBook.value.trim() != ''"> Sổ thương tật : <span class="content-detail">{{armyBook.value}}</span></p>
+  <p class="mgl-print-20" *ngIf="armyForm.value.trim() != ''"> Hình thức thương tật : <span class="content-detail">{{armyForm.value}}</span></p>
+
+<!------------------->
+  <h5>Quá trình hoạt động Công Đoàn </h5>
+  <p class="mgl-print-20"> Ngày vào Công Đoàn: <span class="content-detail">{{groupDateIn.value?( groupDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20">Thông tin chi tiết </p>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Từ ngày</th>
+      <th>Nơi sinh hoạt</th>
+      <th>Chức vụ Công Đoàn</th>
+      <th>Chức vụ cao nhất</th>
+      <th>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of listActionGroup.toArray();let inx = index">
+      <td>{{inx+1}}</td>
+      <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
+      <td>{{item.place}}</td>
+      <td>{{item.position}}</td>
+      <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+      <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
 

@@ -307,4 +307,54 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       }
     });
   }
+
+  print() {
+    let mywindow = window.open('', 'Print', 'height=100%,width=auto');
+
+    mywindow.document.write('<html><head><title>' + 'Sơ yếu lí lịch ' + '</title>');
+
+    mywindow.document.write(" <link href='/assets/vendors/bootstrap/css/bootstrap.min.css' type='text/css' rel='stylesheet'/>");
+    mywindow.document.write("<link href= '/assets/css/print/cv-print.css' media='all' rel='stylesheet' type='text/css'/>");
+    mywindow.document.write('</head><body > <div class="container" style="width: 1200px">');
+
+    // mywindow.document.write()
+    mywindow.document.write(jQuery("#cv-print").html());
+    mywindow.document.write('</div></body></html>');
+
+    mywindow.focus(); // necessary for IE >= 10*/
+    setTimeout(() => {
+      mywindow.print();
+      // mywindow.close();
+    }, 1000);
+
+  }
+
+  getCityName(id) {
+    if (!id) {
+      return '';
+    }
+    let temp = this.addressService.findAddressByCityId(this.listCity, id);
+    return temp ? temp.city.name : ''
+  }
+
+  getDistrictName(city, id) {
+    if (!city || !id) {
+      return '';
+    }
+    let address = this.addressService.findAddressByCityId(this.listCity, city);
+    // console.log("address " + JSON.stringify(address));
+    let temp = this.addressService.findDistrict(address, id);
+    // console.log("temp " + JSON.stringify(temp));
+    return temp ? temp.name : ''
+  }
+
+
+  getGuildName(city, district, guild) {
+    if(!city ||!district || !guild) {
+      return '';
+    }
+    let temp = this.addressService.findGuild(this.listCity, city, district, guild);
+    return temp ? temp.name : ''
+  }
+
 }

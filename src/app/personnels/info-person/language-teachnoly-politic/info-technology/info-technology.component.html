@@ -11,14 +11,14 @@
       </div>
     </div>
 
-    <div class="table-reponsive">
+    <div class="table-reponsive" id="info-tech-print">
       <table class="table table-bordered">
         <thead>
         <tr>
           <th>STT</th>
           <th>Trình độ tin học</th>
           <th>Năm cấp</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" (click)="openModal(technologyModal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -29,7 +29,7 @@
           <td>{{i+1}}</td>
           <td>{{item.level}}</td>
           <td>{{item.yearLicense}}</td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon" ><i class="fa fa-lock"></i></span>-->
@@ -87,3 +87,5 @@
   </modal-footer>
 
 </modal>
+
+

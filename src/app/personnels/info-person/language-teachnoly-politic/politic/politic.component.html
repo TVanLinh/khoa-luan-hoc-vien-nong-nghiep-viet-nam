@@ -10,7 +10,7 @@
         {{message.content}}
       </div>
     </div>
-    <div class="table-reponsive">
+    <div class="table-reponsive" id="politic-rank-print">
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -18,7 +18,7 @@
           <th>Trình độ chính trị</th>
           <th>Năm công nhận</th>
           <th>Hiện tại</th>
-          <th>
+          <th class="hide-print">
             <span class="action-icon" (click)="openModal(politicModal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -30,9 +30,10 @@
           <td>{{item.level}}</td>
           <td>{{item.yearLicense}}</td>
           <td>
-            <input type="radio" name="now" formControlName="now" (click)="change(i)" [value]="i" [checked]="item.now">
+            <span class="show-print" style="display: none" *ngIf="item.now"><i class="fa fa-check"></i></span>
+            <input class="hide-print" type="radio" name="now" formControlName="now" (click)="change(i)" [value]="i" [checked]="item.now">
           </td>
-          <td>
+          <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
@@ -78,7 +79,7 @@
 
           <div class="item-control">
             <label class="mgr-20">Năm công nhận</label>
-            <input type="number"  formControlName="yearLicense" required #yearLicense>
+            <input type="number" formControlName="yearLicense" required #yearLicense>
             <div class="error" *ngIf="yearLicense.value.trim()  =='' && formTouch">
               Chưa nhập năm công nhận
             </div>
@@ -94,3 +95,33 @@
   </modal-footer>
 
 </modal>
+
+
+<!--print-->
+
+<div class="col-xs-12" style="display: none">
+  <div class="table-reponsive">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>STT</th>
+        <th>Trình độ chính trị</th>
+        <th>Năm công nhận</th>
+        <th>Hiện tại</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!--Content-->
+      <tr *ngFor="let item of listData.toArray();let i = index">
+        <td>{{i+1}}</td>
+        <td>{{item.level}}</td>
+        <td>{{item.yearLicense}}</td>
+        <td>
+          <span *ngIf="item.now"><i class="fa fa-check"></i></span>
+        </td>
+      </tr>
+      <!--Content-->
+      </tbody>
+    </table>
+  </div>
+</div>

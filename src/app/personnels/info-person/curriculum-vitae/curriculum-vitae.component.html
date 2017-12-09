@@ -3,6 +3,7 @@
   <form action="" [formGroup]="formCV" id="form-cv">
     <div class="action-form">
       <button (click)="onSave()">Ghi nhận</button>
+      <!--<button (click)="print()">Print</button>-->
       <!--<button>Khóa dữ liệu</button>-->
       <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -38,7 +39,7 @@
 
             <div class="item-control">
               <label class="item-title">3, Tên khác</label>
-              <input formControlName="nameOther" type="text"/>
+              <input formControlName="nameOther" type="text" #nameOther/>
             </div>
           </div>
 
@@ -263,7 +264,7 @@
         <div class="item-control">
           <label class="item-title" style="width: auto; margin-right: 10px;">14, Đối tượng chính sách <span
             class="star"></span> </label>
-          <select class="policy-object form-control" style="width: 200px" formControlName="policyObject">
+          <select class="policy-object form-control" style="width: 200px" formControlName="policyObject" #policyObject>
             <option value="0">----Chọn-----</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -310,7 +311,7 @@
       </div>
       <div class="col-xs-12 col-sm-2">
         <div class="item-control">
-          <label>Quận/Huyện </label>
+          <label>Quận/Huyện: </label>
           <select formControlName="district" class="form-control"
                   required type="select" #placeNowD (change)="districtChange(placeNowD.value,'NOIOHIENTAI')">
             <option *ngFor="let item of placeNow.districts" [value]="item['code']">{{item['name']}}</option>
@@ -356,3 +357,112 @@
     </div>
   </form>
 </div>
+
+
+<!--print-->
+<div id="cv-print" style="display: none">
+  <div class="container" style="margin-bottom:15px">
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="cv1">
+          <div class="left">
+            <!--<img src="http://via.placeholder.com/250x250" alt="">-->
+            <img [src]="infoBasic.avatarUrl">
+          </div>
+          <div class="right">
+            <ul>
+              <li><span><b>1, Mã nhân sự: </b></span>{{acount['username']}}</li>
+              <li><span><b>2, Họ và tên:</b> </span> {{acount['fullname']}}</li>
+              <li><span><b>3, Tên khác: </b></span>{{nameOther.value}}</li>
+              <li><span><b>4, Ngày sinh:</b> </span> {{acount['birthDay'] | date:'dd-MM-yyyy'}}</li>
+              <li><span><b>4, Giới tính:</b> </span> {{acount['sex'] == 0?'Nam':'Nữ'}}</li>
+              <li><span><b>6, Email: </b></span> {{acount['email'] }}</li>
+              <li><span><b>7, Số điện thoại: </b></span> {{phone.value}}</li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h5><b>8, Nơi sinh</b></h5>
+        <ul class="address place-birth">
+          <li><span><b>Tỉnh/Thành phố: </b></span> <span class="capitalize">{{getCityName(cityBirthDay.value)}}</span>
+          </li>
+          <li><span><b>Huyện:</b></span> <span class="capitalize">{{getDistrictName(cityBirthDay.value, districtBirthDay.value)}}</span>
+          </li>
+          <li><span><b>Xã phường:</b> </span> <span class="capitalize">{{getGuildName(cityBirthDay.value,districtBirthDay.value,guidBithDay.value)}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12">
+        <h5><b>9, Quê quán</b></h5>
+        <ul class="address place-birth">
+          <li><span><b>Tỉnh/Thành phố: </b></span> <span class="capitalize">{{getCityName(homeTownCity.value)}}</span>
+          </li>
+          <li><span><b>Huyện:</b></span> <span class="capitalize">{{getDistrictName(homeTownCity.value, homeTownDistrict.value)}}</span>
+          </li>
+          <li><span><b>Xã phường:</b> </span> <span class="capitalize">{{getGuildName(homeTownCity.value,homeTownDistrict.value,homeTownGuid.value)}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12">
+
+        <ul class="address place-birth" style="padding-left:0">
+          <li style="width:390px"><span><b>10, Dân tộc: </b></span> <span>{{infoBasic.nation}}</span></li>
+          <li><span><b>11, Tôn giáo</b></span> <span>{{hashNation.value?'Có':'Không'}}</span></li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12">
+        <h5><b>12, Số chứng minh thư </b></h5>
+        <ul class="address place-birth">
+          <li><span><b> Số CMT: </b></span> <span class="capitalize">{{identityNumber.value}}</span>
+          </li>
+          <li><span><b>Ngày cấp: </b></span> <span class="capitalize">{{dateRange.value | date:'dd-MM-yyyy'}}</span>
+          </li>
+          <li><span><b>Nơi cấp:</b> </span> <span class="capitalize">{{placeRange.value}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12">
+        <p><b style="margin-left:0" class="mgb-20"> 13, Nơi đăng kí hộ khẩu thường chú:</b> Đông lai tân lac hoa binh
+        </p>
+      </div>
+
+      <div class="col-xs-12">
+
+        <ul class="address place-birth" style="padding-left:0">
+          <li style="width:390px"><span><b>14, Đối tượng chính sách: </b></span> <span>{{policyObject.value}}</span>
+          </li>
+          <li><span><b>15, Nhóm máu:</b></span> <span>{{bloodGroup.value}}</span></li>
+        </ul>
+      </div>
+
+
+      <div class="col-xs-12">
+        <h5><b>16, Nơi ở hiện nay</b></h5>
+        <ul class="address place-birth">
+          <li><span><b>Tỉnh/Thành phố: </b></span> <span class="capitalize">{{getCityName(placeNowC.value)}}</span>
+          </li>
+          <li><span><b>Huyện:</b></span> <span class="capitalize">{{getDistrictName(placeNowC.value, placeNowD.value)}}</span>
+          </li>
+          <li><span><b>Xã phường:</b> </span> <span class="capitalize">{{getGuildName(homeTownCity.value,placeNowD.value,placeNowG.value)}}</span>
+          </li>
+          <li><span><b>Số nhà / Đội:</b> </span> <span>{{numberHome.value}} </span></li>
+          <li><span><b>Đường/Thôn:</b> </span> <span>{{street.value}}</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

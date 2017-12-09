@@ -12,7 +12,7 @@
           {{message.content}}
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" id="academic-rank-print">
         <table class="table table-bordered">
           <thead>
           <tr>
@@ -20,7 +20,7 @@
             <th>Học hàm</th>
             <th>Nơi công nhận</th>
             <th>Năm phong</th>
-            <th>
+            <th class="hide-print">
               <span class="action-icon" (click)="openModalByType(academicRank,0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -32,7 +32,7 @@
             <td>{{item.rank}}</td>
             <td>{{item.placeReceive}}</td>
             <td>{{item.yearReceive}}</td>
-            <td>
+            <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
@@ -56,14 +56,14 @@
         </div>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-bordered">
+      <div class="table-responsive" id="title-teacher-print">
+        <table class="table table-bordered" >
           <thead>
           <tr>
             <th>STT</th>
             <th>Danh hiệu nhà giáo</th>
             <th>Năm phong</th>
-            <th>
+            <th class="hide-print">
               <span class="action-icon" (click)="openModalByType(titleTeachers,1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -74,7 +74,7 @@
             <td>{{i+1}}</td>
             <td>{{item.title}}</td>
             <td>{{item.yearReceive}}</td>
-            <td>
+            <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->

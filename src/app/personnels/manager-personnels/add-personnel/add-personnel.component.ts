@@ -22,6 +22,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   listLevel2: CatalogFacultyModel[] = [];
   formTouched = false;
   rePassTouch = false;
+  username = null;
 
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
@@ -37,6 +38,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
 
   level1Change(idParent) {
     this.listLevel2 = this.catalogService.findByIdParent(this.listFaculty, idParent);
+    this.formData.patchValue({level2: ''});
   }
 
   getCatalogFaculty() {
@@ -50,7 +52,6 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
     this.formData = this.formBuilder.group({
       level1: ['', Validators.required],
       level2: [''],
-      personnelCode: ['', [Validators.required, Validators.min(6)]],
       fullName: ['', Validators.required],
       email: ['', [Validators.required]],
       birthDay: ['', Validators.required],
@@ -64,44 +65,39 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
     this.formTouched = true;
     let valueForm = this.formData.value;
     let user = new UserModel();
-    let valid = [valueForm.level1, valueForm.personnelCode, valueForm.fullName,
+    let valid = [valueForm.level1, valueForm.fullName,
       valueForm.email, valueForm.birthDay,
       valueForm.passWord, valueForm.sex];
 
-    if (!ValidService.isNotBlanks(valid) || !ValidService.validEmail(valueForm.email)
-      || !this.formData.valid || valueForm.passWord != valueForm.rePassWord) {
+    // valueForm.personnelCode,
+
+    if (!ValidService.isNotBlanks(valid)
+      || !ValidService.validEmail(valueForm.email)
+      || valueForm.passWord != valueForm.rePassWord) {
       // super.updateMessge("Vui lòng kiểm tra lại thông tin","warning");
+      console.log("not pass");
       return;
     }
+
+    console.log("pass");
 
     let organ = {
       level1: this.catalogService.findById(this.listFaculty, valueForm.level1),
       level2: this.catalogService.findById(this.listFaculty, valueForm.level2)
     };
     user.organ = organ;
-    user.username = valueForm.personnelCode;
     user.fullname = valueForm.fullName;
     user.email = valueForm.email;
     user.hashedPass = valueForm.passWord;
     user.sex = valueForm.sex;
     user.birthDay = valueForm.birthDay;
 
-    // this.updateView("form-add-user", this.formData.valid);
-
-    // this.pushObjectServer(Config.USER_URL, 'data', user);
     this.taskService.post(Config.USER_URL, {data: user}).subscribe(resp => {
-      // console.log(resp);
-      // let body = JSON.parse(resp["_body"]);
-      // if (body && body['message']) {
-      //   this.updateMessge(body['message'], 'warning');
-      // } else {
-      this.updateMessge("Thành công", 'success');
-      // }
+      console.log(resp);
+      this.username = JSON.parse(resp['_body'])['username'];
     }, err => {
       this.updateMessge("Không thành công", 'success');
     });
-    //let infoPerson: AddPersonnelForm = this.formData.value;
-
   }
 
   resetForm() {

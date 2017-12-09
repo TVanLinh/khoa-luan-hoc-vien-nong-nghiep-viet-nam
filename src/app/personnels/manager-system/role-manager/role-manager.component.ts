@@ -5,6 +5,8 @@ import {TaskService} from "../../../shares/task.service";
 import {Config} from "../../../shares/config";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {SelectComponent} from "ng2-select";
+import {ValidService} from "../../../shares/valid.service";
+import {MystorageService} from "../../../shares/mystorage.service";
 
 
 @Component({
@@ -34,7 +36,11 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
 
   acivated = false;
 
-  title = [''];
+  title = '';
+  description = '';
+  reason = '';
+
+  formTouch = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -71,6 +77,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
   }
 
   editItem(item) {
+    this.formTouch = false;
     this.update = item;
     this.fontendValues = super.asList(this.convertDataSelect(item['frontends']));
     this.selectFront.active = [];
@@ -79,6 +86,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     }
 
     this.title = item['title'];
+    this.description = item['description'];
 
     this.backendValues = super.asList(this.convertDataSelect(item['backends']));
     this.selectBack.active = [];
@@ -93,15 +101,23 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
 
   openModals() {
     this.update = null;
-    super.openModal(this.modalCreate);
     this.selectBack.active = [];
     this.selectFront.active = [];
-    this.title = [];
+    this.title = '';
+    this.description = '';
+    this.reason = '';
     this.acivated = false;
+    this.formTouch = false;
+    super.openModal(this.modalCreate);
   }
 
   removeItem(item) {
-
+    this.taskService.post(Config.ROLE_URL + "/delete", {role: item}).subscribe(data => {
+      this.roles.remove(item);
+      super.updateMessge("Xóa thành công", "success");
+    }, err => {
+      super.updateMessge("Xóa không thành công", "success");
+    });
   }
 
   public selected(value: any, mode): void {
@@ -135,12 +151,75 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     }
   }
 
+  onSave() {
+    this.formTouch = true;
+    let body = {};
+    body['activated'] = this.acivated;
+    body['frontends'] = this.getIdDataArg(this.fontendValues.toArray());
+    body['backends'] = this.getIdDataArg(this.backendValues.toArray());
+    body['title'] = this.title;
+    body['description'] = this.description;
 
-  public itemsToString(value: Array<any> = []): string {
-    return value
-      .map((item: any) => {
-        return item.text;
-      }).join(',');
+    let username = MystorageService.getAcount()['user']['username'];
+    let reason = this.reason;
+
+    if (!ValidService.isNotBlanks([this.title, this.description, this.reason])) {
+      return false;
+    }
+
+    if (!this.update) {
+      if (super.contains(this.roles.toArray(), 'title', this.title)) {
+        super.updateMessge("Tên quyền " + this.title.trim() + " đã tồn tại", "warning");
+        return;
+      }
+      this.taskService.put(Config.ROLE_URL + "/", {
+        role: body,
+        reason: this.reason,
+        username: username
+      }).subscribe(data => {
+        // this.roles.add(JSON.parse(data['_body']), 0);
+        this.getDataCatalog();
+        super.updateMessge("Thêm thành công", "success");
+        setTimeout(() => {
+          super.closeModal(this.modalCreate);
+        }, 1000);
+      }, err => {
+        super.updateMessge("Thêm không thành công", "warning");
+      });
+
+    } else {
+      let temp = super.clone(this.roles.toArray());
+      temp.remove(this.update);
+      body['_id'] = this.update._id;
+      body['createdOn'] = this.update.createdOn;
+      if (super.contains(temp.toArray(), 'title', this.title)) {
+        super.updateMessge("Tên quyền " + this.title.trim() + " đã tồn tại", "warning");
+        return;
+      }
+      this.taskService.post(Config.ROLE_URL + "/", {
+        role: body,
+        reason: this.reason,
+        username: username
+      }).subscribe(data => {
+        super.updateMessge("Cập nhật thành công", "success");
+        this.getDataCatalog();
+        // super.updateList(this.roles, this.update, body);
+        setTimeout(() => {
+          super.closeModal(this.modalCreate);
+        }, 1000);
+      }, err => {
+        super.updateMessge("Cập nhật không thành công", "warning");
+      });
+    }
   }
+
+  getIdDataArg(array: any[]) {
+    let temp = [];
+    for (let item of array) {
+      temp.push(item['id']);
+    }
+    return temp;
+  }
+
 
 }

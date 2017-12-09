@@ -1,83 +1,88 @@
-#app-curriculum-vitae {
-
+.mgb-20 {
+  margin-left: 20px;
 }
 
-#app-curriculum-vitae img {
-  max-width: 100px;
+ul li {
+  list-style-type: none;
+  margin-bottom: 15px;
 }
 
-#app-curriculum-vitae .image-info {
-  width: 200px;
-  height: 200px;
-  background-size: cover !important;
-  margin: 0 auto;
-  background-repeat: no-repeat !important;
+.left {
+  float: left;
+  margin-right: 50px;
+  height: 230px;
 }
 
-#app-curriculum-vitae .image-info input[type='file'] {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  opacity: 0;
+.right ul li > span:first-child {
+  margin-right: 20px;
+  min-width: 150px;
+  display: inline-block;
 }
 
-#app-curriculum-vitae .policy-object {
-  min-width: 160px;
+.address {
+  display: table;
 }
 
-/*s*/
-
-/*@media print {*/
-/*#app-curriculum-vitae .right , #app-curriculum-vitae .right .item-control{*/
-/*clear: both;*/
-/*}*/
-/*}*/
-
-#app-curriculum-vitae #form-cv .info-basic input {
-  float: none;
-  width: 82%;
+.address li {
+  display: table-cell;
+  width: 350px;
 }
 
-/*#app-curriculum-vitae #form-cv input{*/
-/*float: none;*/
-/*}*/
-
-/*#app-curriculum-vitae #form-cv .form-control {*/
-/*display: inline-block;*/
-/*float: none;*/
-
-/*}*/
-
-#app-curriculum-vitae #form-cv label {
-  width: 115px;
+.address li span:first-child {
+  margin-right: 30px;
 }
 
-@media (min-width: 768px) {
-  .mgl-sm-100 {
-    margin-left: 100px;
-  }
+img {
+  width: 230px;
+  height: 230px;
 }
 
-#app-curriculum-vitae .place .form-control, #app-curriculum-vitae .place input {
-  width: 245px !important;
+.col-xs-12 {
+  margin-bottom: 15px;
 }
 
-@media (max-height: 1199px) {
-  #app-curriculum-vitae .place .form-control, #app-curriculum-vitae .place input {
-    width: 200px !important;
-  }
+td {
+  border: none !important;
+  /*padding: 0px 5px !important;*/
 }
 
-#app-curriculum-vitae #form-cv .address input, #app-curriculum-vitae #form-cv .address select {
-  float: none;
-}
-
-#app-curriculum-vitae .item-title {
-  font-size: 15px !important;
-  font-weight: 600 !important;
-}
-
-#app-curriculum-vitae .star {
-  color: red;
+.hide-print {
   display: none;
+}
+
+.show-print {
+  display: inline-block !important;
+}
+
+.mgl-print-0 {
+  margin-left: 0px;
+}
+
+.mgl-print--20 {
+  margin-left: -20px;
+}
+
+.mgl-print-20 {
+  margin-left: 20px;
+}
+
+.form-item-title {
+  font-weight: bold;
+}
+
+.item-title {
+  display: block;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+h5 {
+  font-weight: 600;
+}
+
+.content-detail {
+  display: inline-block;
+  margin-left: 20px;
 }

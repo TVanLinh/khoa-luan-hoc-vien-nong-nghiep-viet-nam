@@ -15,7 +15,7 @@
     <tbody>
     <tr *ngFor="let item of listParent.toArray();let i = index ">
       <td>{{i+1}}</td>
-      <td class="name" >{{item.code}}</td>
+      <td class="name">{{item.code}}</td>
       <td class="name">{{item.name}}</td>
       <td class="name"><a [href]="item.url" target="_blank">{{item.url}}</a></td>
       <td style="width:10%">
@@ -57,12 +57,17 @@
           </div>
 
           <!--*ngIf="positionUpdate == null"-->
-          <div class="item-control" >
+          <div class="item-control">
             <label>Mã khoa/phòng ban </label>
             <input name="code" formControlName="code" class="form-control" #code required
                    style="width: 100%!important;"/>
-            <div class="error" *ngIf="touched && code &&  code.value == '' || touched && code == null">
+            <div class="error" *ngIf="touched && code &&  code.value.trim() == '' || touched && code == null">
               Chưa nhập mã
+            </div>
+
+            <div class="error"
+                 *ngIf="touched && code.value != '' && !validCode(code.value)">
+              Mã không chính sác, mã phải gồm 3 kí tự alphabet
             </div>
 
           </div>
