@@ -122,6 +122,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(trainLongTimeModal)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin quá trình đào tạo dài hạn </h3>
     <div *ngIf="message.condition && longTimeNotValid == true" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
@@ -255,6 +256,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(trainShortTimeModal)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin quá trình đào tạo ngắn hạn</h3>
     <div *ngIf="message.condition && shortTimeNotValid " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
@@ -332,17 +334,19 @@
           </div>
 
           <!---->
+
+        </div>
+        <div class="col-xs-12 col-sm-11 col-sm-offset-1">
           <div class="item-control">
             <label>Mô tả</label>
-            <textarea rows="10" formControlName="description" required #descriptionShort></textarea>
+            <textarea rows="5" class="form-control" formControlName="description" required #descriptionShort></textarea>
           </div>
-
+          <!---->
           <div class="item-control" *ngIf="descriptionShort.value.trim()  =='' && formShortTouch">
             <div class="error">
               Chưa nhập mô tả, tối thiếu 50 kí tự
             </div>
           </div>
-          <!---->
         </div>
       </div>
     </form>

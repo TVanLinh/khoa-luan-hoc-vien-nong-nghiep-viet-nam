@@ -38,6 +38,7 @@ export class Config {
   public static BACKEND_URL = Config.HOST_SERVER + "/backend";
   public static SALART_HISTORY_URL = Config.HOST_SERVER + "/salaryhistory";
   public static ROLE_URL = Config.HOST_SERVER + "/role";
+  public static MYCV = "mycv";
 
 
   public static PATERN_DATE = "^(0?[1-9]|[1-2][0-9]|3[0-1])/(0?[1-9]|1[012])/d{4}$";

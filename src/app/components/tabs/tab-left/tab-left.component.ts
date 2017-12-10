@@ -21,7 +21,10 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   departments: any[] = [];
   isLogin = false;
 
-  menuApp = MenuUtil.getMenuApp();
+  // menuApp = MenuUtil.getMenuApp();
+  menuApp: any[] = [];
+
+  user = null;
 
   openMenu(item) {
     let nextMenu;
@@ -71,15 +74,27 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
 
   }
 
-  openMenu2(item) {
-    MenuUtil.publishMenu({
-      type: item.title,
-      native: false
-    });
-    let user = MystorageService.getAcount()['user'];
-    if (user && user['roles']) {
-      for (let ite of user['roles']) {
-        if (ite.title == item.title && ite['frontends'] && ite['frontends'].length != 0) {
+  openMenu2(item, active) {
+    this.active(active);
+
+    if (this.user && this.user['roles']) {
+      for (let ite of this.user['roles']) {
+        if (ite.title.trim().toLowerCase() == item.title.trim().toLowerCase() && ite['frontends'] && ite['frontends'].length != 0) {
+          // console.log('ok');
+          if (item.title.trim().toLowerCase() == Config.MYCV.trim().toLowerCase()) {
+            let share = {
+              type: item.title,
+              native: true
+            };
+            MenuUtil.publishMenu(share);
+            this.router.navigate(['/manager/info']);
+            return;
+          }
+          let share = {
+            type: item.title,
+            native: false
+          };
+          MenuUtil.publishMenu(share);
           this.router.navigate([ite['frontends'][0]['url']]);
         }
       }
@@ -90,6 +105,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
               public catalogFacultyService: CatalogFacultyService,
               private  router: Router) {
     super(_eref, taskService);
+    this.user = MystorageService.getAcount() ? MystorageService.getAcount()['user'] : null;
   }
 
   toggleTab(): void {
@@ -105,11 +121,16 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
 
-    if (MystorageService.getAcount() != null) {
-      console.log("MystorageService.getAcount() " + MystorageService.getAcount()['user']);
+    if (this.user != null) {
       this.isLogin = true;
-      // this.menuApp = MystorageService.getAcount()['user'].roles;
+
+      this.menuApp = [];
+      for (let item of this.user['roles']) {
+        this.menuApp.push({href: '', title: item['title']});
+      }
     }
+
+
   }
 
 
@@ -121,19 +142,41 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   }
 
   onLogin(loginModal) {
-    // let data = {username: "appAdmin", password: "admin123"};
-    // let data = {username: "581597", password: "admin123"};
-    let data = {username: this.formDataLogin.value.userName, password: this.formDataLogin.value.passWord};
+
+    let data = {
+      username: this.formDataLogin.value.userName.toUpperCase(),
+      password: this.formDataLogin.value.passWord
+    };
     this.taskService.postLogin(Config.HOST_SERVER + "/login", data).subscribe((data) => {
       this.isLogin = true;
       this.closeModal(loginModal);
-      let a = {
-        type: MenuUtil.MENU_INFO_CV,
-        native: true
-      };
-      MenuUtil.publishMenu(a);
       MystorageService.saveAcount(data);
-      this.router.navigate(['manager/info']);
+
+      let roles = data['user']['roles'];
+      let share;
+
+      if (super.contains(roles, 'title', Config.MYCV)) {
+        share = {
+          type: Config.MYCV,
+          native: true
+        };
+        MenuUtil.publishMenu(share);
+        this.router.navigate(['/manager/info']);
+        return;
+      }
+
+      if (roles && roles[0] && roles[0]['frontends'] && roles[0]['frontends'][0]) {
+        share = {
+          type: roles[0].title,
+          native: false
+        };
+        MenuUtil.publishMenu(share);
+        this.router.navigate([roles[0]['frontends'][0].url]);
+      }
+
+    }, err => {
+      this.isLogin = false;
+      super.updateMessge("Thông tin không chính sác.!", "warning");
     });
   }
 
@@ -155,6 +198,16 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     // jQuery('#tab-left').css({
     //   transform: 'translateX(-340px)'
     // });
+  }
+
+
+  active(target: any) {
+    // console.log(target);
+    for (let i = 0; i < this.menuApp.length; i++) {
+      console.log(jQuery('#menu-app-item-role-' + i));
+      jQuery(this._eref.nativeElement).find('#menu-app-item-role-' + i).css({'color': '#0f0f0f'});
+    }
+    jQuery(this._eref.nativeElement).find(target).css({'color': '#8d9c00'});
   }
 
 }

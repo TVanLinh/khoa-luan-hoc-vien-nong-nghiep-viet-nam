@@ -109,7 +109,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="modalBonus.close()">Thoát</button>
     </div>
-
+    <h3 class="text-center">{{title}}</h3>
     <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
@@ -138,13 +138,6 @@
             </div>
           </div>
 
-          <div class="item-control">
-            <label>Số quyết định </label>
-            <input type="text" formControlName="numberDecide" #numberDecide required>
-            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
-              Chưa nhập số quyết định
-            </div>
-          </div>
         </div>
 
         <div class="col-xs-12 col-sm-6 ">
@@ -157,9 +150,19 @@
             </div>
           </div>
 
+
+          <div class="item-control">
+            <label>Số quyết định </label>
+            <input type="text" formControlName="numberDecide" #numberDecide required>
+            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
+              Chưa nhập số quyết định
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
           <div class="item-control">
             <label>Lí do </label>
-            <input type="text" formControlName="reason" #reason required>
+            <textarea class="form-control" rows="5" formControlName="reason" #reason required></textarea>
             <div class="error" *ngIf="reason.value.trim()  =='' && formTouch">
               Chưa nhập lí do
             </div>
@@ -178,68 +181,68 @@
 
 <!--&lt;!&ndash;print&ndash;&gt;-->
 <!--<div class="col-xs-12" style="display: none" id="bonus-print">-->
-  <!--<div class="table-responsive">-->
-    <!--<table class="table table-bordered">-->
-      <!--<thead>-->
-      <!--<tr>-->
-        <!--<th>STT</th>-->
-        <!--<th>Cấp quyết định</th>-->
-        <!--<th>Hình thức KT</th>-->
-        <!--<th>Số quyết định</th>-->
-        <!--<th>Ngày quyết định</th>-->
-        <!--<th>Lí do</th>-->
-      <!--</tr>-->
-      <!--</thead>-->
-      <!--<tbody>-->
-      <!--&lt;!&ndash;&ndash;&gt;-->
-      <!--<tr *ngFor="let item of listBonus.toArray();let i = index ">-->
-        <!--<td>{{i+1}}</td>-->
-        <!--<td>{{item.rankDecide}}</td>-->
-        <!--<td>{{item.form}}</td>-->
-        <!--<td>{{item.numberDecide}}</td>-->
-        <!--<td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>-->
-        <!--<td>{{item.reason}}</td>-->
-      <!--</tr>-->
-      <!--&lt;!&ndash;&ndash;&gt;-->
-      <!--</tbody>-->
-    <!--</table>-->
-  <!--</div>-->
+<!--<div class="table-responsive">-->
+<!--<table class="table table-bordered">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>STT</th>-->
+<!--<th>Cấp quyết định</th>-->
+<!--<th>Hình thức KT</th>-->
+<!--<th>Số quyết định</th>-->
+<!--<th>Ngày quyết định</th>-->
+<!--<th>Lí do</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+<!--<tr *ngFor="let item of listBonus.toArray();let i = index ">-->
+<!--<td>{{i+1}}</td>-->
+<!--<td>{{item.rankDecide}}</td>-->
+<!--<td>{{item.form}}</td>-->
+<!--<td>{{item.numberDecide}}</td>-->
+<!--<td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>-->
+<!--<td>{{item.reason}}</td>-->
+<!--</tr>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
 <!--</div>-->
 
 
 <!--<div class="col-xs-12">-->
-  <!--<div class="table-responsive">-->
-    <!--<table class="table table-bordered">-->
-      <!--<thead>-->
-      <!--<tr>-->
-        <!--<th>STT</th>-->
-        <!--<th>Cấp quyết định</th>-->
-        <!--<th>Hình thức KL</th>-->
-        <!--<th>Số quyết định</th>-->
-        <!--<th>Ngày quyết định</th>-->
-        <!--<th>Lí do</th>-->
-        <!--<th>-->
-          <!--<span class="action-icon" (click)="openModal(0)"><i class="fa fa-plus"></i></span>-->
-        <!--</th>-->
-      <!--</tr>-->
-      <!--</thead>-->
-      <!--<tbody>-->
-      <!--&lt;!&ndash;&ndash;&gt;-->
-      <!--<tr *ngFor="let item of listDiscipline.toArray();let i = index ">-->
-        <!--<td>{{i+1}}</td>-->
-        <!--<td>{{item.rankDecide}}</td>-->
-        <!--<td>{{item.form}}</td>-->
-        <!--<td>{{item.numberDecide}}</td>-->
-        <!--<td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>-->
-        <!--<td>{{item.reason}}</td>-->
-        <!--<td>-->
-          <!--<span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>-->
-          <!--<span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>-->
-          <!--&lt;!&ndash;<span class="action-icon"><i class="fa fa-lock"></i></span>&ndash;&gt;-->
-        <!--</td>-->
-      <!--</tr>-->
-      <!--&lt;!&ndash;&ndash;&gt;-->
-      <!--</tbody>-->
-    <!--</table>-->
-  <!--</div>-->
+<!--<div class="table-responsive">-->
+<!--<table class="table table-bordered">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>STT</th>-->
+<!--<th>Cấp quyết định</th>-->
+<!--<th>Hình thức KL</th>-->
+<!--<th>Số quyết định</th>-->
+<!--<th>Ngày quyết định</th>-->
+<!--<th>Lí do</th>-->
+<!--<th>-->
+<!--<span class="action-icon" (click)="openModal(0)"><i class="fa fa-plus"></i></span>-->
+<!--</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+<!--<tr *ngFor="let item of listDiscipline.toArray();let i = index ">-->
+<!--<td>{{i+1}}</td>-->
+<!--<td>{{item.rankDecide}}</td>-->
+<!--<td>{{item.form}}</td>-->
+<!--<td>{{item.numberDecide}}</td>-->
+<!--<td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>-->
+<!--<td>{{item.reason}}</td>-->
+<!--<td>-->
+<!--<span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>-->
+<!--<span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>-->
+<!--&lt;!&ndash;<span class="action-icon"><i class="fa fa-lock"></i></span>&ndash;&gt;-->
+<!--</td>-->
+<!--</tr>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
 <!--</div>-->

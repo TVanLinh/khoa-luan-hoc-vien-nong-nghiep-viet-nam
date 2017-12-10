@@ -55,6 +55,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(thesisGuide)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin hướng dẫn luận văn, luận án </h3>
     <div *ngIf="message.condition && formNotValid " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>

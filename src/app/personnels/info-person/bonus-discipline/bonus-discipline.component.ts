@@ -38,6 +38,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
   formNotValid = false;
   formTouch = false;
+  title = '';
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -60,6 +61,11 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
   openModal(mode) {
     this.mode = mode;
+    if (this.mode == MODE_DISCIPLINE) {
+      this.title = "Thông tin kỷ luật";
+    } else {
+      this.title = "Thông tin khen thưởng ";
+    }
     this.positionUpdate = null;
     super.openModal(this.modalBonus);
     this.formTouch = false;
@@ -119,6 +125,11 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   editItem(item, mode) {
     this.updateValid("form-bonus-discipline");
     this.mode = mode;
+    if (this.mode == MODE_DISCIPLINE) {
+      this.title = "Thông tin kỷ luật";
+    } else {
+      this.title = "Thông tin khen thưởng ";
+    }
     this.positionUpdate = item;
     this.initFormData = item;
     this.formData.setValue({

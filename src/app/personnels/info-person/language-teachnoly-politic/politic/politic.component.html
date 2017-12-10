@@ -52,6 +52,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(politicModal)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin trình độ chính trị </h3>
     <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>

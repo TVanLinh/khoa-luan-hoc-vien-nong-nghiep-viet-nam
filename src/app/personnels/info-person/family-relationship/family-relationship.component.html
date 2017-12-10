@@ -51,6 +51,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modalFamily)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin quan hệ gia đình </h3>
     <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>

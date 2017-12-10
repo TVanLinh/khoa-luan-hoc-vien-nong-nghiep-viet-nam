@@ -119,7 +119,7 @@
           <!---->
           <div class="item-control">
             <label>Ngày vào Công Đoàn </label>
-            <input type="date" formControlName="dateIn"  #groupDateIn [value]="group.dateIn | date: 'yyyy-MM-dd'">
+            <input type="date" formControlName="dateIn" #groupDateIn [value]="group.dateIn | date: 'yyyy-MM-dd'">
           </div>
           <!---->
           <div class="item-control">
@@ -138,15 +138,17 @@
 
 <!--modal qua trinh hoat dong dang-->
 <modal #modalActionParty size="lg" [cssClass]="cssClassModal" backdrop="false">
-
-  <modal-body>
+  <div class="modal-header">
     <div class="action-form">
       <button (click)="closeModal(modalActionParty)" class="mgb-20">Thoát</button>
     </div>
-
+    <h3 class="text-center"> Quá trình hoạt động Đảng</h3>
     <div *ngIf="message.condition && partyNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
+
+  </div>
+  <modal-body>
 
     <form [formGroup]="formDetailParty" id="formDetailParty">
       <table class="table table-bordered">
@@ -206,14 +208,17 @@
 
 <!--modal qua trinh hoat dong Doan-->
 <modal #modalUnion size='lg' cssClass="my-modal-lg" backdrop="false">
-  <modal-body>
+  <div class="modal-header">
     <div class="action-form">
       <button (click)="closeModal(modalUnion)" class="mgb-20">Thoát</button>
     </div>
-
+    <h3 class="text-center">Quá trình hoạt động Đoàn</h3>
     <div *ngIf="message.condition && unionNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
+  </div>
+  <modal-body>
+
 
     <form action="" [formGroup]="formDetailUnion" id="formDetailUnion">
       <table class="table table-bordered">
@@ -273,14 +278,17 @@
 
 <!--modal qua trinh hoat dong Doan-->
 <modal #modalGroup size='lg' cssClass="my-modal-lg" backdrop="false">
-  <modal-body>
+  <div class="modal-header">
     <div class="action-form">
       <button (click)="closeModal(modalGroup)" class="mgb-20">Thoát</button>
     </div>
-
+    <h3 class="text-center">Quá trình hoạt động Công Đoàn  </h3>
     <div *ngIf="message.condition && groupNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
+
+  </div>
+  <modal-body>
 
     <form action="" [formGroup]="formDetailGroup" id="formDetailGroup">
       <table class="table table-bordered">
@@ -340,7 +348,8 @@
 <!--================================print==========================================-->
 <div class="" style="display:none;" id="party-union-info-print">
   <h5>Quá trình hoạt động Đảng</h5>
-  <p class="mgl-print-20"> Ngày vào Đảng: <span class="content-detail">{{partyDateIn.value?( partyDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20"> Ngày vào Đảng: <span class="content-detail">{{partyDateIn.value?( partyDateIn.value | date:'dd-MM-yyyy'):''}}</span>
+  </p>
   <p class="mgl-print-20">Ngày chính thức vào Đảng: <span class="content-detail">{{partyDateInOfical.value?( partyDateInOfical.value | date:'dd-MM-yyyy'):''}}</span>
   </p>
   <p class="mgl-print-20">Nơi kết nạp : <span class="content-detail">{{partyPlaceIn.value}}</span></p>
@@ -369,9 +378,10 @@
     </tbody>
   </table>
 
-<!------------------------->
+  <!------------------------->
   <h5>Quá trình hoạt động Đoàn </h5>
-  <p class="mgl-print-20"> Ngày vào Đoàn: <span class="content-detail">{{unionDateIn.value?( unionDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20"> Ngày vào Đoàn: <span class="content-detail">{{unionDateIn.value?( unionDateIn.value | date:'dd-MM-yyyy'):''}}</span>
+  </p>
   <p class="mgl-print-20">Nơi kết nạp : <span class="content-detail">{{unionPlaceIn.value}}</span></p>
   <p class="mgl-print-20">Thông tin chi tiết </p>
   <table class="table table-bordered">
@@ -401,16 +411,23 @@
   <!------------------------------------->
 
   <h5>Thông tin quân ngũ </h5>
-  <p class="mgl-print-20"> Ngày nhập ngũ : <span class="content-detail">{{armyDateIn.value?( armyDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
-  <p class="mgl-print-20"> Ngày xuất ngũ : <span class="content-detail">{{armyDateOut.value?( armyDateOut.value | date:'dd-MM-yyyy'):''}}</span></p>
-  <p class="mgl-print-20" *ngIf="armyRankTallest.value.trim() != ''"> Quân hàm cao nhất : <span class="content-detail">{{armyRankTallest.value}}</span></p>
-  <p class="mgl-print-20" *ngIf="armyRankVeterans.value.trim() != ''"> Hạng thương binh : <span class="content-detail">{{armyRankVeterans.value}}</span></p>
-  <p class="mgl-print-20" *ngIf="armyBook.value.trim() != ''"> Sổ thương tật : <span class="content-detail">{{armyBook.value}}</span></p>
-  <p class="mgl-print-20" *ngIf="armyForm.value.trim() != ''"> Hình thức thương tật : <span class="content-detail">{{armyForm.value}}</span></p>
+  <p class="mgl-print-20"> Ngày nhập ngũ : <span class="content-detail">{{armyDateIn.value?( armyDateIn.value | date:'dd-MM-yyyy'):''}}</span>
+  </p>
+  <p class="mgl-print-20"> Ngày xuất ngũ : <span class="content-detail">{{armyDateOut.value?( armyDateOut.value | date:'dd-MM-yyyy'):''}}</span>
+  </p>
+  <p class="mgl-print-20" *ngIf="armyRankTallest.value.trim() != ''"> Quân hàm cao nhất : <span class="content-detail">{{armyRankTallest.value}}</span>
+  </p>
+  <p class="mgl-print-20" *ngIf="armyRankVeterans.value.trim() != ''"> Hạng thương binh : <span class="content-detail">{{armyRankVeterans.value}}</span>
+  </p>
+  <p class="mgl-print-20" *ngIf="armyBook.value.trim() != ''"> Sổ thương tật : <span class="content-detail">{{armyBook.value}}</span>
+  </p>
+  <p class="mgl-print-20" *ngIf="armyForm.value.trim() != ''"> Hình thức thương tật : <span class="content-detail">{{armyForm.value}}</span>
+  </p>
 
-<!------------------->
+  <!------------------->
   <h5>Quá trình hoạt động Công Đoàn </h5>
-  <p class="mgl-print-20"> Ngày vào Công Đoàn: <span class="content-detail">{{groupDateIn.value?( groupDateIn.value | date:'dd-MM-yyyy'):''}}</span></p>
+  <p class="mgl-print-20"> Ngày vào Công Đoàn: <span class="content-detail">{{groupDateIn.value?( groupDateIn.value | date:'dd-MM-yyyy'):''}}</span>
+  </p>
   <p class="mgl-print-20">Thông tin chi tiết </p>
   <table class="table table-bordered">
     <thead>

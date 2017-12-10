@@ -95,6 +95,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(academicRank)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin học hàm </h3>
     <div *ngIf="message.condition &&  formAcadNotValid"
          [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
@@ -152,6 +153,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(titleTeachers)">Thoát</button>
     </div>
+    <h3 class="text-center">Thông tin danh hiệu nhà giáo </h3>
     <div *ngIf="message.condition &&  formTitleNotValid"
          [ngClass]="'alert alert-'+ message.type">
       {{message.content}}

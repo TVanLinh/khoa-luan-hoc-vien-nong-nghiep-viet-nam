@@ -1,10 +1,11 @@
 textarea {
   max-width: 100%;
   width: 100%;
+  display: inline-block;
   height: 100px;
 }
 
-input {
+input, .form-control {
   width: 100% !important;
   max-width: 100%;
 }

@@ -31,6 +31,8 @@ import {RoleManagerComponent} from "./manager-system/role-manager/role-manager.c
 import {UserManagerComponent} from "./manager-system/user-manager/user-manager.component";
 import {ProcedureBonusComponent} from "app/personnels/manager-personnels/procedure-bonus/procedure-bonus.component";
 import {ProcedureDisciplineComponent} from "./manager-personnels/procedure-discipline/procedure-discipline.component";
+import {ManagerCanactive} from "../shares/canactive/manager.canactive";
+import {ManagerCanactiveChild} from "../shares/canactive/manager.canactive.child";
 
 
 const routes: Routes = [
@@ -159,7 +161,9 @@ const routes: Routes = [
       }
     ]
     }
-  ]
+  ],
+    canActivate: [ManagerCanactive],
+    canActivateChild: [ManagerCanactiveChild]
   }
 ];
 

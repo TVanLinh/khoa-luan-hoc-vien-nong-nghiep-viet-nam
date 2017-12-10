@@ -105,6 +105,8 @@ import {RoleManagerComponent} from './personnels/manager-system/role-manager/rol
 import {ProcedureBonusComponent} from './personnels/manager-personnels/procedure-bonus/procedure-bonus.component';
 import {ProcedureDisciplineComponent} from './personnels/manager-personnels/procedure-discipline/procedure-discipline.component';
 import {SelectModule} from "ng2-select";
+import {ManagerCanactive} from "./shares/canactive/manager.canactive";
+import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child";
 
 // import {DxDataGridModule} from "devextreme-angular";
 
@@ -219,6 +221,8 @@ import {SelectModule} from "ng2-select";
   providers: [NationalService, CatalogSalaryService,
     CatalogFacultyService,
     ExcelService,
+    ManagerCanactive,
+    ManagerCanactiveChild,
     TaskService, AddressService],
   bootstrap: [AppComponent]
 })

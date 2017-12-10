@@ -178,7 +178,7 @@ export class BaseFormComponent {
       return false;
     }
     for (let i of arr) {
-      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLocaleLowerCase()) == ((value + "").trim().toLocaleLowerCase())) {
+      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())) {
         return true;
       }
     }

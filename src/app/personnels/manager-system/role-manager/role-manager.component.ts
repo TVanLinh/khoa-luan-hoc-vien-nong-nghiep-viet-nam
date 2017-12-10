@@ -86,7 +86,8 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     }
 
     this.title = item['title'];
-    this.description = item['description'];
+    this.description = '';
+    this.reason = '';
 
     this.backendValues = super.asList(this.convertDataSelect(item['backends']));
     this.selectBack.active = [];

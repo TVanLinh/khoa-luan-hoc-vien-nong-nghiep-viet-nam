@@ -18,8 +18,13 @@
         <div id="app" class="tab-pane fade in active" *ngIf="isLogin">
           <ul class="content">
             <li>
-              <a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>
-              <!--<a routerLinkActive="active"  *ngFor="let item of menuApp"  (click)="openMenu2(item)">{{item.title}}</a>-->
+
+              <!--<a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>-->
+
+              <a style="cursor: pointer" *ngFor="let item of menuApp;let i = index"
+                 (click)="openMenu2(item,'#menu-app-item-role-' + i)"
+                 [id]="'menu-app-item-role-' + i">{{item.title}}</a>
+
             </li>
           </ul>
         </div>
@@ -40,7 +45,6 @@
     </div>
   </div>
 </div>
-
 
 
 <modal #loginModal size='sm' cssClass="my-modal-login" backdrop="false">

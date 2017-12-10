@@ -50,10 +50,11 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(technologyModal)">Thoát</button>
     </div>
-  </modal-header>
+    <h3 class="text-center">Thông tin trình độ tin học  </h3>
   <div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">
     {{message.content}}
   </div>
+  </modal-header>
   <modal-body>
     <form action="" class="mgb-i-10" [formGroup]="formData" id="technology-info">
       <div class="row">
