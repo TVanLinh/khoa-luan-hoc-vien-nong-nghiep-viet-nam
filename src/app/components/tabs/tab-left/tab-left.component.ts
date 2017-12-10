@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from "@angular/core";
+﻿import {Component, ElementRef, OnInit} from "@angular/core";
 import {BaseFormComponent} from "../../../personnels/base-form.component";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -144,7 +144,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   onLogin(loginModal) {
 
     let data = {
-      username: this.formDataLogin.value.userName.toUpperCase(),
+      username: this.formDataLogin.value.userName,//.toUpperCase()
       password: this.formDataLogin.value.passWord
     };
     this.taskService.postLogin(Config.HOST_SERVER + "/login", data).subscribe((data) => {

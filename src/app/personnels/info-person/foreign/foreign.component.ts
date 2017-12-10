@@ -46,7 +46,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       dateFrom: ['', Validators.required],
       dateEnd: ['', Validators.required],
       national: ['', Validators.required],
-      product: ['', Validators.required],
+      product: [''],
       purpose: ['', Validators.required],
     });
   }

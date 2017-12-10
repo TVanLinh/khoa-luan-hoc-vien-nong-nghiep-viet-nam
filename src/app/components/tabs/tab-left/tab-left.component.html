@@ -21,7 +21,7 @@
 
               <!--<a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>-->
 
-              <a style="cursor: pointer" *ngFor="let item of menuApp;let i = index"
+              <a style="cursor: pointer" *ngFor="let item of menuApp | orderBy:'title';let i = index"
                  (click)="openMenu2(item,'#menu-app-item-role-' + i)"
                  [id]="'menu-app-item-role-' + i">{{item.title}}</a>
 
@@ -31,13 +31,13 @@
 
         <div id="home1" class="tab-pane fade in active">
           <ul class="content">
-            <li *ngFor="let item of faculty"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a></li>
+            <li *ngFor="let item of faculty | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a></li>
           </ul>
         </div>
 
         <div id="menu11" class="tab-pane fade">
           <ul class="content">
-            <li *ngFor="let item of departments"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a></li>
+            <li *ngFor="let item of departments | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a></li>
           </ul>
         </div>
       </div>

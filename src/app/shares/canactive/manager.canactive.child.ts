@@ -1,13 +1,13 @@
 import {
-  ActivatedRoute, ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router,
+  ActivatedRouteSnapshot, CanActivateChild, Router,
   RouterStateSnapshot
 } from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {MystorageService} from "../mystorage.service";
-import {Config} from "../config";
 import {TaskService} from "../task.service";
 import {Injectable} from "@angular/core";
-import {Subscription} from "rxjs/Subscription";
+import {Config} from "../config";
+import {noUndefined} from "@angular/compiler/src/util";
 
 @Injectable()
 export class ManagerCanactiveChild implements CanActivateChild {
@@ -30,10 +30,11 @@ export class ManagerCanactiveChild implements CanActivateChild {
       authen = data;
       if (authen) {
         this.router.navigate([url]);
+        return true;
       } else {
         this.router.navigate(['/']);
+        return false;
       }
-      console.log(" authen " + authen);
     }, error2 => {
       this.router.navigate(['/']);
     }, () => {

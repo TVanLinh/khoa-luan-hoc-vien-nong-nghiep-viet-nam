@@ -84,9 +84,6 @@ export class AddressService {
   }
 
   findDistrict(object: AddressModel, district) {
-    if (!Array.isArray(object.districts)) {
-      return new DistrictModel();
-    }
     for (let item of object.districts) {
       if (item.code == district) {
         return item;
@@ -98,14 +95,17 @@ export class AddressService {
   findGuild(array: AddressModel[], city: string, district: string, guild: any) {
     let address = this.findAddressByCityId(array, city);
     let districtTemp = this.findDistrict(address, district);
-    if (!Array.isArray(districtTemp.guids)) {
+    if (!districtTemp && districtTemp && !Array.isArray(districtTemp.guids)) {
       return new GuildModel();
     }
-    for (let item of districtTemp.guids) {
-      if (item.code == guild) {
-        return item;
+    if(districtTemp && districtTemp.guids) {
+      for (let item of districtTemp.guids) {
+        if (item.code == guild) {
+          return item;
+        }
       }
     }
+
     return new GuildModel();
   }
 

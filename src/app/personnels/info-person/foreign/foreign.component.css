@@ -7,6 +7,9 @@
     text-align: left;
   }
 }
+input,select{
+  width: 100% !important;
+}
 form{
   border: none;
   padding: 0;

@@ -5,6 +5,7 @@ import {MessageAlert} from "../shares/message.alert";
 import {ElementRef} from "@angular/core";
 import * as Collections from "typescript-collections";
 import {TaskService} from "../shares/task.service";
+import {Util} from "../shares/util";
 
 declare const jQuery: any;
 
@@ -174,25 +175,27 @@ export class BaseFormComponent {
 
 
   contains(arr: any[], nameAgr: string, value: string) {
-    if (!Array.isArray(arr)) {
-      return false;
-    }
-    for (let i of arr) {
-      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())) {
-        return true;
-      }
-    }
-    return false;
+    // if (!Array.isArray(arr)) {
+    //   return false;
+    // }
+    // for (let i of arr) {
+    //   if (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())) {
+    //     return true;
+    //   }
+    // }
+    // return false;
+    return Util.contains(arr, nameAgr, value);
   }
 
 
   clone(arry: any[]) {
-    let temp = arry.map(item => item);
-    let list = new Collections.LinkedList();
-    for (let item of temp) {
-      list.add(item);
-    }
-    return list;
+    // let temp = arry.map(item => item);
+    // let list = new Collections.LinkedList();
+    // for (let item of temp) {
+    //   list.add(item);
+    // }
+    // return list;
+    return Util.clone(arry);
   }
 
 

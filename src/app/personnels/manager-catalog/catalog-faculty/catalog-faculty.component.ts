@@ -56,7 +56,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   }
 
   validCode(code) {
-    let pattern = /^[A-Za-z]{3}$/g;
+    let pattern = /^[A-Za-z]{3}/g;
     return pattern.test(code);
   }
 
@@ -200,7 +200,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       level: item.level,
       type: item.type,
       url: item.url,
-      code: item.code
+      code: item.code.substring(1)
     });
     this.showParent = false;
     if (item.parent) {

@@ -1,7 +1,7 @@
 <ul [ngClass]="cssClass +' menu-app '" *ngIf="native != true">
   <li *ngFor="let item of menus;let i = index ">
     <a routerLinkActive="active" [id]="'menu-app-item-'+i" (click)="active('menu-app-item-'+i)"
-       [routerLink]="item?item.href:''" >{{item?item.title:''}}</a>
+       [routerLink]="item?item.href:''">{{item?item.title:''}}</a>
   </li>
 </ul>
 

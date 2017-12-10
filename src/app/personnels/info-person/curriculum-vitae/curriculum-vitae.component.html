@@ -331,6 +331,7 @@
           <div class="error" *ngIf="placeNowG.value.trim()  =='' && formTouch">
             Chưa chọn phường xã
           </div>
+
         </div>
       </div>
       <div class="col-xs-12 col-sm-3">
@@ -454,7 +455,7 @@
           </li>
           <li><span><b>Huyện:</b></span> <span class="capitalize">{{getDistrictName(placeNowC.value, placeNowD.value)}}</span>
           </li>
-          <li><span><b>Xã phường:</b> </span> <span class="capitalize">{{getGuildName(homeTownCity.value,placeNowD.value,placeNowG.value)}}</span>
+          <li><span><b>Xã phường:</b> </span> <span class="capitalize">{{getGuildName(placeNowC.value,placeNowD.value,placeNowG.value)}}</span>
           </li>
           <li><span><b>Số nhà / Đội:</b> </span> <span>{{numberHome.value}} </span></li>
           <li><span><b>Đường/Thôn:</b> </span> <span>{{street.value}}</span></li>
