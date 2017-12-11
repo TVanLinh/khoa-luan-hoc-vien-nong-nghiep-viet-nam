@@ -107,6 +107,7 @@ import {ProcedureDisciplineComponent} from './personnels/manager-personnels/proc
 import {SelectModule} from "ng2-select";
 import {ManagerCanactive} from "./shares/canactive/manager.canactive";
 import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child";
+import {AcountShareService} from "./shares/acount-share.service";
 
 // import {DxDataGridModule} from "devextreme-angular";
 
@@ -223,6 +224,8 @@ import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child"
     ExcelService,
     ManagerCanactive,
     ManagerCanactiveChild,
+    AcountShareService,
+    // ImageBitmap,
     TaskService, AddressService],
   bootstrap: [AppComponent]
 })

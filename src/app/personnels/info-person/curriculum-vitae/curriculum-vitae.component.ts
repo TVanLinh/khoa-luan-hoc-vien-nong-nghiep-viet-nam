@@ -9,8 +9,10 @@ import {CvModel} from "./cv.model";
 import {AddressModel} from "../../model/address.model";
 import {GuildModel} from "../../model/guild.model";
 import {ValidService} from "../../../shares/valid.service";
+import {AcountShareService} from "../../../shares/acount-share.service";
 
 declare const jQuery: any;
+
 
 @Component({
   selector: 'app-curriculum-vitae',
@@ -70,7 +72,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   placeNow: AddressModel = new AddressModel();
 
   constructor(public taskService: TaskService, protected eleRef: ElementRef,
-              public addressService: AddressService) {
+              public addressService: AddressService, private  acountService: AcountShareService) {
     super(eleRef, taskService);
 
   }
@@ -202,10 +204,14 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   avatarChange($even) {
     var files = $even.target.files;
     var file = files[0];
-    console.log(file.name);
+    // Im.resize({
+    //
+    // })
+    // console.log(file.name);
     if (files && file) {
       var reader = new FileReader();
       // console.log(file.getSize());
+
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
     }
@@ -216,6 +222,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     let base64textString = btoa(binaryString);
+
     this.infoBasic.avatarUrl = "data:image/png;base64," + base64textString;
     this.avatar = "data:image/png;base64," + base64textString;
   }
@@ -246,10 +253,13 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     let formValue = this.formCV.value;
     let cv = formValue;
     cv['avatarUrl'] = this.infoBasic.avatarUrl;
+    this.acountService.shareAvatarEvent(cv['avatarUrl']);
     let data = {data: {staffCode: userName, cv: cv}};
     this.taskService.post(Config.CV_URL, data).subscribe(data => {
-      console.log(data);
       this.updateMessge(this.messageError.success, "success");
+    }, err => {
+      console.log("cv save err " + err)
+    }, () => {
     });
 
   }
@@ -350,7 +360,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
 
   getGuildName(city, district, guild) {
-    if(!city ||!district || !guild) {
+    if (!city || !district || !guild) {
       return '';
     }
     let temp = this.addressService.findGuild(this.listCity, city, district, guild);

@@ -86,7 +86,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     }
 
     this.title = item['title'];
-    this.description = '';
+    this.description = item['description'];
     this.reason = '';
 
     this.backendValues = super.asList(this.convertDataSelect(item['backends']));
@@ -158,6 +158,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     body['activated'] = this.acivated;
     body['frontends'] = this.getIdDataArg(this.fontendValues.toArray());
     body['backends'] = this.getIdDataArg(this.backendValues.toArray());
+
     body['title'] = this.title;
     body['description'] = this.description;
 
@@ -193,10 +194,17 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
       temp.remove(this.update);
       body['_id'] = this.update._id;
       body['createdOn'] = this.update.createdOn;
+
+
       if (super.contains(temp.toArray(), 'title', this.title)) {
         super.updateMessge("Tên quyền " + this.title.trim() + " đã tồn tại", "warning");
         return;
       }
+
+      if (this.update.title.toUpperCase().trim() == Config.MYCV.toUpperCase().trim()) {
+        body['title'] = this.update.title;
+      }
+
       this.taskService.post(Config.ROLE_URL + "/", {
         role: body,
         reason: this.reason,

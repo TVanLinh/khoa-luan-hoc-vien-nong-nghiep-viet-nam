@@ -105,12 +105,15 @@
     <div class="row">
       <div class="col-xs-12 mgb-20">
         <h5 class="mgb-10">Tên quyền </h5>
-        <input type="text" name="title" class="form-control" [(ngModel)]="title" placeholder="Tên quyền ">
+        <input type="text" name="title"
+               class="form-control"
+               [(ngModel)]="title" placeholder="Tên quyền ">
         <div class="error fs-i-14" *ngIf="formTouch && title.toString().trim() == ''">Chưa nhập tên quyền</div>
       </div>
       <div class="col-xs-12 mgb-20">
         <h5 class="mgb-10">Mô tả </h5>
-        <textarea rows="5" name="description" class="form-control" [(ngModel)]="description" placeholder="Mô tả "></textarea>
+        <textarea rows="5" name="description" class="form-control" [(ngModel)]="description"
+                  placeholder="Mô tả "></textarea>
         <div class="error fs-i-14" *ngIf="formTouch && description.toString().trim() == ''">Chưa nhập mô tả</div>
       </div>
 
