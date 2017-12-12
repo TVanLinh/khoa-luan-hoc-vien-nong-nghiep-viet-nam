@@ -16,7 +16,8 @@
         <button (click)="modalBonus.close()">Thoát</button>
       </div>
     </div>
-
+    <div class="col-xs-12"><h3 class="text-center">{{name == 'bonus'?'Làm thủ tục khen thưởng':'Làm thủ tục kỷ luật
+      '}} </h3></div>
     <div class="col-xs-12">
       <div *ngIf="message.condition " [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -24,7 +25,7 @@
     </div>
 
     <!--<div *ngIf="message.condition && formNotValid" [ngClass]="'alert alert-'+ message.type">-->
-      <!--{{message.content}}-->
+    <!--{{message.content}}-->
     <!--</div>-->
 
   </modal-header>

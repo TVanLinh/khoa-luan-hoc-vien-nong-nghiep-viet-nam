@@ -7,6 +7,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+    <h3 class="text-center">Làm thủ tục chuyển đơn vị công tác </h3>
     <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>

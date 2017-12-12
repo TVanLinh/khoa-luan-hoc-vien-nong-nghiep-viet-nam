@@ -6,6 +6,7 @@
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modalBindJob)">Thoát</button>
+      <h3 class="text-center">Làm thủ tục buộc thôi việc </h3>
       <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>

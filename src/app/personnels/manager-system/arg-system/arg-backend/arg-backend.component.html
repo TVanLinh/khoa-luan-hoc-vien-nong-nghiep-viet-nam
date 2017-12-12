@@ -6,8 +6,8 @@
       <th>STT</th>
       <th>Tiêu đề</th>
       <th>Mô tả</th>
-      <th>Http verb</th>
-      <th>Http method</th>
+      <th>Url</th>
+      <th>Phương thức http</th>
       <th>Controller</th>
       <th>Activated</th>
       <th>
@@ -61,9 +61,9 @@
           </div>
 
           <div class="item-control">
-            <label>Http Verb</label>
+            <label>Url</label>
             <input name="httpVerb" class="form-control" required #httpVerb formControlName="httpVerb"/>
-            <div class="error" *ngIf="httpVerb.value.trim() =='' && formTouch"> Chưa nhập httpVerb</div>
+            <div class="error" *ngIf="httpVerb.value.trim() =='' && formTouch"> Chưa nhập url</div>
           </div>
 
           <div class="item-control">
@@ -83,7 +83,7 @@
 
 
           <div class="item-control">
-            <label>Http method </label>
+            <label>Phương thức http </label>
             <select name="" class="form-control upper-case" required #method formControlName="method">
               <option *ngFor="let item of methods" [value]="item">{{item}}</option>
             </select>

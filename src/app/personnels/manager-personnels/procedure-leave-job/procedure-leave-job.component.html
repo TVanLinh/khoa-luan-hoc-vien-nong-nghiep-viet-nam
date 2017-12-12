@@ -5,6 +5,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modalLeaveJob)">Thoát</button>
     </div>
+    <h3 class="text-center">Làm thủ tục nghỉ việc  </h3>
     <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>

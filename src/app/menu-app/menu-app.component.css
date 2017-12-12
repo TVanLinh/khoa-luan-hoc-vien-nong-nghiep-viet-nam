@@ -31,6 +31,10 @@
   color: #8d9c00;
 }
 
+.menu-app  li a:first-letter{
+  text-transform: uppercase;
+}
+
 
 .menu-app::-webkit-scrollbar-track
 {
@@ -53,3 +57,5 @@
 .active{
   color: #8d9c00 !important;
 }
+
+
