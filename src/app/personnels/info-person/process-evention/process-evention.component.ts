@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup, Validators} from "@angular/forms";
 import * as Collections from "typescript-collections";
@@ -14,6 +14,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './process-evention.component.css']
 })
 export class ProcessEventionComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('evention') evention: ModalComponent;
 
   formData: FormGroup;
@@ -86,7 +87,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_EVENT_URL, "process_event", this.listEvention);
+    super.pushDataServer(Config.PROCESS_EVENT_URL, "process_event", this.listEvention,this.user);
   }
 
   openModals() {
@@ -96,7 +97,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_EVENT_URL).subscribe(data => {
+    super.getDataServer(Config.PROCESS_EVENT_URL,this.user).subscribe(data => {
       if (data && data['process_event']) {
         this.listEvention = super.asList(data['process_event']);
       }

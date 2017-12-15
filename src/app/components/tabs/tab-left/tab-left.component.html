@@ -31,13 +31,15 @@
 
         <div id="home1" class="tab-pane fade in active">
           <ul class="content">
-            <li *ngFor="let item of faculty | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a></li>
+            <li *ngFor="let item of faculty | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a>
+            </li>
           </ul>
         </div>
 
         <div id="menu11" class="tab-pane fade">
           <ul class="content">
-            <li *ngFor="let item of departments | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a></li>
+            <li *ngFor="let item of departments | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -74,12 +76,47 @@
 
   <modal-footer>
     <div class="text-left">
-      <a (click)="forgetPass.show();loginModal.hide()">Quên mật khẩu ? </a>
+      <a (click)="openModalForgetPass(forgetPass,loginModal)">Quên mật khẩu ? </a>
     </div>
     <div class=" text-right">
       <button class="btn btn-success" (click)="onLogin(loginModal)">Đăng nhập</button>
     </div>
 
+  </modal-footer>
+
+</modal>
+
+
+<modal #forgetPass size='sm' cssClass="my-modal-login" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button class="btn btn-default" (click)="closeModal(forgetPass)">Thoát</button>
+    </div>
+    <h3 class="text-center">Quên mật khẩu</h3>
+  </modal-header>
+
+  <modal-body>
+    <form class="pdb-20">
+
+      <div class="mgb-10">
+        <label class="fs-13">Mã cán bộ : </label>
+        <input type="text" required class="form-control">
+      </div>
+      <div>
+        <label class="fs-13">Email : </label>
+        <input type="password" class="form-control">
+      </div>
+      <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <div class=" text-right">
+      <button class="btn btn-success" (click)="onForgetPass(forgetPass)">Gửi</button>
+    </div>
   </modal-footer>
 
 </modal>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -14,6 +14,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './science-topic.component.css']
 })
 export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('topicModal') topicModal: ModalComponent;
   formData: FormGroup;
   listScienceTopic = new Collections.LinkedList<ScienceTopicModel>();
@@ -90,7 +91,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.SCIENCE_TOP_URL, "sciene_topic", this.listScienceTopic);
+    super.pushDataServer(Config.SCIENCE_TOP_URL, "sciene_topic", this.listScienceTopic, this.user);
   }
 
   openModals() {
@@ -104,7 +105,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.SCIENCE_TOP_URL).subscribe(data => {
+    super.getDataServer(Config.SCIENCE_TOP_URL, this.user).subscribe(data => {
       if (data && data['sciene_topic']) {
         this.listScienceTopic = super.asList(data['sciene_topic']);
       }

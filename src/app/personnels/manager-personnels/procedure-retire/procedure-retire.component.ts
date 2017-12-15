@@ -4,7 +4,6 @@ import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
-import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog-faculty.model";
 import {ValidService} from "../../../shares/valid.service";
 import {Config} from "../../../shares/config";
 

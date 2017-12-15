@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -20,6 +20,7 @@ const NEWSPAPER: string = "NEWSPAPER";
 })
 
 export class SenimarNewpaperComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('seminaModal') seminaModal: ModalComponent;
   @ViewChild('newspaperModal') newspaperModal: ModalComponent;
 
@@ -184,14 +185,14 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     this.mode = mode;
     this.formValid = true;
     if (mode == 0) {
-      super.pushDataServer(Config.SEMINAR_TOP_URL, 'seminar', this.listSenimar);
+      super.pushDataServer(Config.SEMINAR_TOP_URL, 'seminar', this.listSenimar,this.user);
     } else {
-      super.pushDataServer(Config.NEWSPAPER_TOP_URL, 'newspaper', this.listNewsPaper);
+      super.pushDataServer(Config.NEWSPAPER_TOP_URL, 'newspaper', this.listNewsPaper,this.user);
     }
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.SEMINAR_TOP_URL).subscribe(data => {
+    super.getDataServer(Config.SEMINAR_TOP_URL,this.user).subscribe(data => {
       if (data && data['seminar']) {
         this.listSenimar = super.asList(data['seminar']);
       }
@@ -199,7 +200,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
     });
 
-    super.getDataServer(Config.NEWSPAPER_TOP_URL).subscribe(data => {
+    super.getDataServer(Config.NEWSPAPER_TOP_URL,this.user).subscribe(data => {
       if (data && data['newspaper']) {
         this.listNewsPaper = super.asList(data['newspaper']);
       }

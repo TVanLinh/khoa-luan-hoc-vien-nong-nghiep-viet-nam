@@ -79,17 +79,18 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
 
     if (this.user && this.user['roles']) {
       for (let ite of this.user['roles']) {
+        if (item.title.trim().toLowerCase() == Config.MYCV.trim().toLowerCase()) {
+          let share = {
+            type: item.title,
+            native: true
+          };
+          MenuUtil.publishMenu(share);
+          this.router.navigate(['/manager/info']);
+          return;
+        }
+
         if (ite.title.trim().toLowerCase() == item.title.trim().toLowerCase() && ite['frontends'] && ite['frontends'].length != 0) {
-          // console.log('ok');
-          if (item.title.trim().toLowerCase() == Config.MYCV.trim().toLowerCase()) {
-            let share = {
-              type: item.title,
-              native: true
-            };
-            MenuUtil.publishMenu(share);
-            this.router.navigate(['/manager/info']);
-            return;
-          }
+          // console.log(JSON.stringify(ite));
           let share = {
             type: item.title,
             native: false
@@ -208,6 +209,17 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       jQuery(this._eref.nativeElement).find('#menu-app-item-role-' + i).css({'color': '#0f0f0f'});
     }
     jQuery(this._eref.nativeElement).find(target).css({'color': '#8d9c00'});
+  }
+
+  onForgetPass(forgetPass) {
+    this.closeModal(forgetPass);
+  }
+
+  openModalForgetPass(forgetPass, loginModal) {
+    super.closeModal(loginModal);
+    setTimeout(() => {
+      super.openModal(forgetPass);
+    }, 300);
   }
 
 }

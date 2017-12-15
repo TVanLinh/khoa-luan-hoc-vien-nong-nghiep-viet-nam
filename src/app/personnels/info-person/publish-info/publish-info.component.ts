@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -6,7 +6,6 @@ import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {PublishInfoModel} from "app/personnels/info-person/publish-info/publish-info.model";
 import {Config} from "../../../shares/config";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
 import {ValidService} from "../../../shares/valid.service";
 
 @Component({
@@ -15,6 +14,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ["../../form.css", './publish-info.component.css']
 })
 export class PublishInfoComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('publish') publish: ModalComponent;
   formData: FormGroup;
   listPublish = new Collections.LinkedList<PublishInfoModel>();
@@ -41,7 +41,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_PUBLISH_URL, "process_publish", this.listPublish);
+    super.pushDataServer(Config.PROCESS_PUBLISH_URL, "process_publish", this.listPublish,this.user);
   }
 
   addItem() {
@@ -90,7 +90,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_PUBLISH_URL).subscribe((data) => {
+    super.getDataServer(Config.PROCESS_PUBLISH_URL,this.user).subscribe((data) => {
       if (data && data['process_publish']) {
         this.listPublish = super.asList(data['process_publish']);
       }

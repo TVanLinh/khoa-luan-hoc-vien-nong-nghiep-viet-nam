@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -14,6 +14,7 @@ import {ValidService} from "../../../../shares/valid.service";
   styleUrls: ['../../../form.css', './info-technology.component.css']
 })
 export class InfoTechnologyComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('technologyModal') technologyModal: ModalComponent;
   formData: FormGroup;
   positionUpdate: InfoTeachnologyModel = null;
@@ -90,7 +91,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   onSave() {
     let body = {
       "info_technology": this.listData.toArray(),
-      "staffCode": this.acount['username']
+      "staffCode": this.user['username']
     };
     console.log(Config.INFO_TECH);
     this.taskService.post(Config.INFO_TECH, {data: body}).subscribe((data) => {
@@ -101,10 +102,13 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   }
 
   getDataFromServer() {
-    this.taskService.get(Config.INFO_TECH + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data && data['info_technology']) {
-        this.listData = this.asList(data['info_technology']);
-      }
-    });
+    if(this.user){
+      this.taskService.get(Config.INFO_TECH + "?username=" + this.user['username']).subscribe((data) => {
+        if (data && data['info_technology']) {
+          this.listData = this.asList(data['info_technology']);
+        }
+      });
+
+    }
   }
 }

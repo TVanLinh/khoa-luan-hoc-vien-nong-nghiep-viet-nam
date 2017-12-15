@@ -54,15 +54,19 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
   onSave() {
     this.formTouch = true;
     let valueForm = this.formData.value;
-    let valid = [valueForm.description,
-      valueForm.httpVerb,
-      valueForm.controller,
-      valueForm.method,
+    let valid = [valueForm.description.trim(),
+      valueForm.httpVerb.trim(),
+      valueForm.controller.trim(),
+      valueForm.method.trim(),
       valueForm.activated];
     console.log(valueForm);
     if (!ValidService.isNotBlanks(valid) || !this.formData.valid) {
       return;
     }
+
+    valueForm.httpVerb = valueForm.httpVerb.trim();
+    valueForm.controller = valueForm.controller.trim();
+    valueForm.method = valueForm.method.trim();
 
     if (this.update == null) {
       this.taskService.post(Config.BACKEND_URL, {'backend': valueForm}).subscribe(data => {

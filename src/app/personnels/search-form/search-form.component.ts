@@ -3,6 +3,9 @@ import {EventListener} from "@angular/core/src/debug/debug_node";
 import {TaskService} from "../../shares/task.service";
 import {Config} from "../../shares/config";
 import {BaseFormComponent} from "../base-form.component";
+import {CatalogFacultyModel} from "../manager-catalog/catalog-faculty/catalog-faculty.model";
+import {CatalogFacultyService} from "../../shares/catalog-faculty.service";
+import {ValidService} from "../../shares/valid.service";
 
 @Component({
   selector: 'app-search-form',
@@ -11,7 +14,7 @@ import {BaseFormComponent} from "../base-form.component";
 })
 export class SearchFormComponent extends BaseFormComponent implements OnInit {
 
-  staffCode: string = '';
+
   @Output() onSearch = new EventEmitter<any>();
   @Input() title: string = '';
   @Output() onChoise = new EventEmitter<any>();
@@ -20,22 +23,115 @@ export class SearchFormComponent extends BaseFormComponent implements OnInit {
   @Input() showAction: boolean = false;
   @Input() showRole: boolean = false;
   data: any[] = [];
+  staffCode: string = '';
+  level1: string = '-1';
+  level2: string = '-1';
+  listFaculty: CatalogFacultyModel[] = [];
+  listFaculty1: CatalogFacultyModel[] = [];
+  listFaculty2: CatalogFacultyModel[] = [];
+  //
+  //
+  // detail: any;
+  fields: { caption: string, type?: string, field: string, width?: number }[];
 
-  constructor(protected eleRef: ElementRef, public  taskSevice: TaskService) {
+  titleTable: string = "Danh sách cán bộ";
+
+  constructor(protected eleRef: ElementRef, public  taskSevice: TaskService, public catalogService: CatalogFacultyService) {
     super(eleRef, taskSevice);
   }
 
+  level1Change() {
+    // console.log(idParent);
+    // this.level2 = '-1';
+    // console.log()
+    this.listFaculty2 = this.catalogService.findByIdParent(this.listFaculty, this.level1);
+    console.log(JSON.stringify(this.listFaculty2));
+  }
+
+
   ngOnInit() {
+    this.getCatalogFaculty();
+    this.fields = [{
+      caption: "Mã cán bộ",
+      field: 'username',
+      width: 100
+    },
+      {
+        caption: "Họ tên",
+        field: 'fullname'
+      },
+      {
+        caption: "Khoa phòng ban ",
+        field: 'organ.level1.name',
+        type: 'date'
+      }
+    ];
 
   }
+
+  getCatalogFaculty() {
+    this.catalogService.getList().subscribe((data: any[]) => {
+      // this.listFaculty = data;
+      this.listFaculty = data;
+      this.listFaculty1 = this.catalogService.findByLevel(data, 1);
+    });
+  }
+
+  // title ="";
 
   onSearchShare() {
     if (this.staffCode.trim() == '') {
       // console.log("ok");
       // super.updateMessge("Chưa nhập cán bộ ", "warning");
+      // return;
+    }
+    // this.taskSevice.get(Config.USER_URL + "/find?query=" + this.staffCode).subscribe((data => {
+    //   this.onSearch.next(data);
+    //   this.data = data;
+    //   if (data) {
+    //     // this.updateMessge("Tìm thấy cán bộ với mã cán bộ là " + this.staffCode, "success");
+    //   } else {
+    //     //this.updateMessge("Không tìm thấy cán bộ với mã cán bộ là " + this.staffCode, "warning");
+    //   }
+    // }), err => {
+    //   this.onSearch.next(null);
+    //   //this.updateMessge("Không tìm thấy cán bộ với mã cán bộ là " + this.staffCode, "warning");
+    // });
+
+    this.staffCode = this.staffCode.trim();
+
+    if (!ValidService.isNotBlank(this.staffCode) && this.level1 == '-1') {
+      this.updateMessge("Vui lòng nhập vào họ tên, mã cán bộ hoặc chọn đơn vị cấp 1", "warning");
       return;
     }
-    this.taskSevice.get(Config.USER_URL + "/find?query=" + this.staffCode).subscribe((data => {
+
+    let query = "";
+    if (this.staffCode != '' && this.level1 != '-1' && this.level2 != '-1') {
+      query = "/findByUserNameAndOrgan?username=" + this.staffCode + "&level1=" + this.level1 + "&level2=" + this.level2;
+
+      console.log("1");
+
+    } else if (this.staffCode != '' && this.level1 != '-1' && this.level2 == '-1') {
+      query = "/findByUserNameAndOrgan?username=" + this.staffCode + "&level1=" + this.level1;
+      console.log("2");
+
+    } else if (this.staffCode != '' && this.level1 == '-1') {
+      query = "/findByUserNameOrFullName?username=" + this.staffCode;
+
+      console.log("3");
+
+    } else if (this.staffCode == '' && this.level1 != '-1' && this.level2 != '-1') {
+      query = "/findByOrgan?level1=" + this.level1 + "&level2=" + this.level2;
+
+      console.log("4");
+
+    } else if (this.staffCode == '' && this.level1 != '-1' && this.level2 == '-1') {
+      query = "/findByOrgan?level1=" + this.level1;
+
+      console.log("5");
+    }
+
+    this.taskSevice.get(Config.USER_URL + query).subscribe((data => {
       this.onSearch.next(data);
       this.data = data;
       if (data) {
@@ -47,6 +143,16 @@ export class SearchFormComponent extends BaseFormComponent implements OnInit {
       this.onSearch.next(null);
       //this.updateMessge("Không tìm thấy cán bộ với mã cán bộ là " + this.staffCode, "warning");
     });
+
+
+  }
+
+
+  onClear() {
+    this.staffCode = '';
+    this.level1 = '-1';
+    this.level2 = '-1';
+    this.listFaculty2 = [];
   }
 
   onChoiseShare(item) {

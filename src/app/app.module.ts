@@ -108,6 +108,7 @@ import {SelectModule} from "ng2-select";
 import {ManagerCanactive} from "./shares/canactive/manager.canactive";
 import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child";
 import {AcountShareService} from "./shares/acount-share.service";
+import { CheckProfileComponent } from './personnels/manager-personnels/check-profile/check-profile.component';
 
 // import {DxDataGridModule} from "devextreme-angular";
 
@@ -198,7 +199,8 @@ import {AcountShareService} from "./shares/acount-share.service";
     UserManagerComponent,
     RoleManagerComponent,
     ProcedureBonusComponent,
-    ProcedureDisciplineComponent
+    ProcedureDisciplineComponent,
+    CheckProfileComponent
   ],
   imports: [
     BrowserModule,

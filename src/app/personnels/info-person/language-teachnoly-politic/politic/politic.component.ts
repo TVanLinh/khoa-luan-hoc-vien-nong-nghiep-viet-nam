@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../../base-form.component";
 import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -14,6 +14,7 @@ import {ValidService} from "../../../../shares/valid.service";
   styleUrls: ['../../../form.css', './politic.component.css']
 })
 export class PoliticComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('politicModal') politicModal: ModalComponent;
   formDataPoliticAdd: FormGroup;
   formDataMain: FormGroup;
@@ -115,7 +116,7 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
     let body = {
       "politic": this.listData.toArray(),
-      "staffCode": this.acount['username']
+      "staffCode": this.user['username']
     };
 
     this.taskService.post(Config.CONTRACT_POLITIC, {data: body}).subscribe((data) => {
@@ -139,11 +140,14 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
 
   getDataFromServer() {
-    this.taskService.get(Config.CONTRACT_POLITIC + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data && data['politic']) {
-        this.listData = this.asList(data['politic']);
-      }
-    });
+    if(this.user) {
+      this.taskService.get(Config.CONTRACT_POLITIC + "?username=" + this.user['username']).subscribe((data) => {
+        if (data && data['politic']) {
+          this.listData = this.asList(data['politic']);
+        }
+      });
+
+    }
   }
 
 }

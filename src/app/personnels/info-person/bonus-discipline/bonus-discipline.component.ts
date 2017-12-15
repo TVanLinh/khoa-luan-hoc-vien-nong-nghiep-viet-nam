@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -7,6 +7,7 @@ import {BonusDisciplineModel} from "./bonus-discipline.model";
 import {TaskService} from "app/shares/task.service";
 import {Config} from "../../../shares/config";
 import {ValidService} from "../../../shares/valid.service";
+import {until} from "selenium-webdriver";
 
 const MODE_BONUS = 1;
 const MODE_DISCIPLINE = 0;
@@ -20,9 +21,11 @@ const MODE_DISCIPLINE = 0;
 
 
 export class BonusDisciplineComponent extends BaseFormComponent implements OnInit {
-  @ViewChild('modalBonus') modalBonus: ModalComponent;
 
+  @Input() user: any;
+  @ViewChild('modalBonus') modalBonus: ModalComponent;
   formData: FormGroup;
+
   positionUpdate: BonusDisciplineModel = null;
 
   listBonus = new Collections.LinkedList<BonusDisciplineModel>();
@@ -74,9 +77,9 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   onSave(mode) {
     this.mode = mode;
     if (mode == MODE_DISCIPLINE) {
-      super.pushDataServer(Config.DISCIPLINE_URL, "discipline", this.listDiscipline);
+      super.pushDataServer(Config.DISCIPLINE_URL, "discipline", this.listDiscipline, this.user);
     } else {
-      super.pushDataServer(Config.BONUS_URL, "bonus", this.listBonus);
+      super.pushDataServer(Config.BONUS_URL, "bonus", this.listBonus, this.user);
     }
   }
 
@@ -153,7 +156,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
 
   getDataFromServer() {
-    super.getDataServer(Config.DISCIPLINE_URL).subscribe((data: any[]) => {
+    super.getDataServer(Config.DISCIPLINE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['discipline']) {
         this.listDiscipline = super.asList(data['discipline']);
       }
@@ -161,7 +164,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     }, () => {
 
     });
-    super.getDataServer(Config.BONUS_URL).subscribe((data: any[]) => {
+    super.getDataServer(Config.BONUS_URL, this.user).subscribe((data: any[]) => {
       if (data && data['bonus']) {
         this.listBonus = super.asList(data['bonus']);
       }

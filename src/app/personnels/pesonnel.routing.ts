@@ -33,6 +33,7 @@ import {ProcedureBonusComponent} from "app/personnels/manager-personnels/procedu
 import {ProcedureDisciplineComponent} from "./manager-personnels/procedure-discipline/procedure-discipline.component";
 import {ManagerCanactive} from "../shares/canactive/manager.canactive";
 import {ManagerCanactiveChild} from "../shares/canactive/manager.canactive.child";
+import {CheckProfileComponent} from "./manager-personnels/check-profile/check-profile.component";
 
 
 const routes: Routes = [
@@ -67,8 +68,20 @@ const routes: Routes = [
         component: ProcedureBonusComponent
       },
       {
+        path: 'check-profile',
+        component: CheckProfileComponent
+      },
+      {
         path: 'procedure-discipline',
         component: ProcedureDisciplineComponent
+      },
+      {
+        path: 'role',
+        component: RoleManagerComponent
+      },
+      {
+        path: 'user',
+        component: UserManagerComponent
       }
     ]
     }, {
@@ -150,14 +163,6 @@ const routes: Routes = [
           component: ArgBackendComponent
         }
       ]
-      },
-      {
-        path: 'role',
-        component: RoleManagerComponent
-      },
-      {
-        path: 'user',
-        component: UserManagerComponent
       }
     ]
     }

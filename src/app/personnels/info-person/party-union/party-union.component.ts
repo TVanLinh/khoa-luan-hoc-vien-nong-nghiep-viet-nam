@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from "@angular/core";
+import {Component, ElementRef, Input, OnInit} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import * as Collections from "typescript-collections";
 import LinkedList from "typescript-collections/dist/lib/LinkedList";
@@ -22,7 +22,7 @@ declare const jQuery: any;
   styleUrls: ['../../form.css', './party-union.component.css']
 })
 export class PartyUnionComponent extends BaseFormComponent implements OnInit {
-
+  @Input() user: any;
   formData: FormGroup;
   formDetailParty: FormGroup;
   formDetailUnion: FormGroup;
@@ -358,7 +358,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       return;
     }
 
-    if ((union.dateIn  || ValidService.isNotBlank(union.placeIn)) && this.listActionUnion.size() == 0) {
+    if ((union.dateIn || ValidService.isNotBlank(union.placeIn)) && this.listActionUnion.size() == 0) {
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn", "warning");
       return;
     }
@@ -403,7 +403,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
     let body = {};
     body['armyPUG'] = data;
-    body['staffCode'] = this.acount['username'];
+    body['staffCode'] = this.user['username'];
     this.taskService.post(Config.ARMYPUG_URL, {data: body}).subscribe((data) => {
       // console.log(data);
       this.updateMessge(this.messageError.success, "success");
@@ -415,13 +415,15 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    this.taskService.get(Config.ARMYPUG_URL + "?username=" + this.acount['username']).subscribe((data) => {
-      // console.log("data:  " + JSON.stringify(data));
-      if (data && data['armyPUG']) {
-        this.updateForm(data['armyPUG']);
-      }
+    if (this.user) {
+      this.taskService.get(Config.ARMYPUG_URL + "?username=" + this.user['username']).subscribe((data) => {
+        // console.log("data:  " + JSON.stringify(data));
+        if (data && data['armyPUG']) {
+          this.updateForm(data['armyPUG']);
+        }
 
-    });
+      });
+    }
   }
 
 

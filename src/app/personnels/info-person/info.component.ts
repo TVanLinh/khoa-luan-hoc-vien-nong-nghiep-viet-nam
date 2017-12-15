@@ -1,4 +1,10 @@
-import {Component, ElementRef} from "@angular/core";
+import {Component, ElementRef, Input, OnInit} from "@angular/core";
+import {MystorageService} from "../../shares/mystorage.service";
+import {MenuUtil} from "../../shares/menu.util";
+import {ActivatedRoute} from "@angular/router";
+import {TaskService} from "../../shares/task.service";
+import {Config} from "../../shares/config";
+import {BaseFormComponent} from "../base-form.component";
 
 declare const jQuery: any;
 
@@ -7,11 +13,30 @@ declare const jQuery: any;
   templateUrl: 'info.component.html',
   styleUrls: ['../form.css', './info.component.css',]
 })
-export class InfoComponent {
+export class InfoComponent extends BaseFormComponent implements OnInit {
+
+
   titleFeature = "Thông tin nhân sự ";
+  showAcitve = false;
+  menu = [];
+  @Input() user: any = MystorageService.getAcount()['user'];
+  @Input() menuShow = false;
 
-  constructor(protected eleRef: ElementRef) {
+  constructor(public taskService: TaskService, protected eleRef: ElementRef, public activateRouter: ActivatedRoute) {
+    super(eleRef, taskService);
+    this.user = MystorageService.getAcount()['user'];
+  }
 
+  ngOnInit(): void {
+    this.menu = MenuUtil.getMenuFeatureInfo();
+    console.log(this.activateRouter.queryParams.subscribe(data => {
+      if (data['user']) {
+        let usertemp = localStorage.getItem("USER_TEMP");
+        this.user = usertemp ? JSON.parse(usertemp) : null;
+        this.showAcitve = true;
+      }
+    }));
+    // this.user = MystorageService.getAcount()['user'];
   }
 
   toggleCatalog(target: string) {
@@ -29,9 +54,20 @@ export class InfoComponent {
     }
   }
 
+  onAccept() {
+    console.log(JSON.stringify(this.user));
+    if (this.user) {
+      this.taskService.put(Config.CV_URL_ACCEPT, {username: this.user.username}).subscribe((data) => {
+        console.log("ok");
+        this.updateMessge("Duyệt thành công", 'success');
+      }, err => {
+        this.updateMessge("Duyệt không thành công", 'warning');
+      });
+    }
+  }
 
   print() {
-    let mywindow = window.open('', 'print', 'height=100%,width=auto',true);
+    let mywindow = window.open('', "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight, true);
 
     mywindow.document.write('<html><head><title>' + 'Thông tin cán bộ ' + '</title>');
 

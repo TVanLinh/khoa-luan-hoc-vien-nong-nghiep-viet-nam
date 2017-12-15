@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -14,6 +14,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './thesis-guide.component.css']
 })
 export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('thesisGuide') thesisGuide: ModalComponent;
   formData: FormGroup;
   listThesiss = new Collections.LinkedList<ThesissGuideModel>();
@@ -100,11 +101,11 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    this.pushDataServer(Config.THESIS_GUIDE_URL, 'thesis_guide', this.listThesiss);
+    this.pushDataServer(Config.THESIS_GUIDE_URL, 'thesis_guide', this.listThesiss, this.user);
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.THESIS_GUIDE_URL).subscribe((data: any[]) => {
+    super.getDataServer(Config.THESIS_GUIDE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['thesis_guide']) {
         this.listThesiss = super.asList(data['thesis_guide']);
       }

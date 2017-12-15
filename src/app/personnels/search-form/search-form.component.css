@@ -1,25 +1,25 @@
 .form-control {
-  width: 100%;
+  width: 100% !important;
 }
 
-select, input {
-  float: none;
-  min-width: 0;
-  display: inline-block;
-}
+/*select, input {*/
+  /*float: none;*/
+  /*min-width: 0;*/
+  /*display: inline-block;*/
+/*}*/
 
-@media (min-width: 768px) {
-  .form-control {
-    width: 70%;
-    float: right;
-  }
+/*@media (min-width: 768px) {*/
+  /*.form-control {*/
+    /*width: 70%;*/
+    /*float: right;*/
+  /*}*/
 
-  @media (min-width: 768px) {
-    input {
-      width: 80%;
-    }
-  }
-}
+  /*@media (min-width: 768px) {*/
+    /*input {*/
+      /*width: 80%;*/
+    /*}*/
+  /*}*/
+/*}*/
 
 form {
   padding: 0 !important;

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -20,6 +20,7 @@ export const SHORT_TIME = 1;
   styleUrls: ['../../form.css', './train.component.css']
 })
 export class TrainComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('trainShortTimeModal') trainShortTimeModal: ModalComponent;
   @ViewChild('trainLongTimeModal') trainLongTimeModal: ModalComponent;
   formData: FormGroup;
@@ -106,7 +107,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     train['general'] = valueForm.generalEdu;
     train['shortTime'] = this.shortTimes.toArray();
     train['longTime'] = this.longTimes.toArray();
-    super.pushObjectServer(Config.TRAIN_URL, 'train', train);
+    super.pushObjectServer(Config.TRAIN_URL, 'train', train, this.user);
 
   }
 
@@ -244,7 +245,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    this.getDataServer(Config.TRAIN_URL).subscribe((data) => {
+    this.getDataServer(Config.TRAIN_URL, this.user).subscribe((data) => {
       if (data && data['train']) {
         let train = data['train'];
         if (train['shortTime']) {

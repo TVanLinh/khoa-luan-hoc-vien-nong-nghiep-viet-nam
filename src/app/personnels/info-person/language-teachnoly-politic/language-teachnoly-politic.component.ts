@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-language-teachnoly-politic',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./language-teachnoly-politic.component.css']
 })
 export class LanguageTeachnolyPoliticComponent implements OnInit {
-
+  @Input() user: any;
   constructor() { }
 
   ngOnInit() {

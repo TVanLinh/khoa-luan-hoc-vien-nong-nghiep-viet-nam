@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup, Validators} from "@angular/forms";
 import * as Collections from "typescript-collections";
@@ -16,6 +16,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './process-teaching.component.css']
 })
 export class ProcessTeachingComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('modal') modal: ModalComponent;
   formData: FormGroup;
   listTeaching = new Collections.LinkedList<ProcessTeachingModel>();
@@ -133,12 +134,12 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
   onSave() {
     //if (this.listTeaching.size() > 0) {
-    super.pushDataServer(Config.PROCESS_TEACHING_URL, "process_teaching", this.listTeaching);
+    super.pushDataServer(Config.PROCESS_TEACHING_URL, "process_teaching", this.listTeaching, this.user);
     // }
   }
 
   getDataFromServer() {
-    this.getDataServer(Config.PROCESS_TEACHING_URL).subscribe((data) => {
+    this.getDataServer(Config.PROCESS_TEACHING_URL, this.user).subscribe((data) => {
       if (data && data['process_teaching']) {
         this.listTeaching = super.asList(data['process_teaching']);
       }

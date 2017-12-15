@@ -5,14 +5,49 @@
         <div class="form-item-title">
           {{title}}
         </div>
-        <div class="item-control">
-          <label class="mgr-20 " style="margin-right: 116px;">Nhập tên hoặc mã cán bộ để tìm kiếm </label>
-          <input type="text" name="staffCode" class="mgb-15 form-control mgr-20" style="float: none;width: 50%"
-                 [(ngModel)]="staffCode" (change)="onSearchShare()">
-          <!--<button class="btn-action" (click)="onSearchShare()">Tìm kiếm</button>-->
-          <div *ngIf="message.condition"
-               [ngClass]="'alert alert-'+ message.type">
-            {{message.content}}
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="row">
+              <div class="col-xs-12 col-sm-3">
+                <label class="mgb-15 fs-13">Nhập tên hoặc mã cán bộ</label>
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <input type="text" name="staffCode" class="mgb-15 form-control mgr-20"
+                       [(ngModel)]="staffCode">
+                <!--(change)="onSearchShare()"-->
+              </div>
+            </div>
+            <div class="row mgb-10">
+              <div class="col-xs-12 col-sm-3">
+                <label class="mgb-15 fs-13">Chọn đơn vị cấp 1: </label>
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <select class="form-control" name="level1" #level1Target [(ngModel)]="level1" (change)="level1Change()">
+                  <option *ngFor="let item of listFaculty1" [value]="item._id">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-3">
+                <label class="mgb-15 fs-13">Chọn đơn vị cấp 2: </label>
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <select class="form-control" name="level2" [(ngModel)]="level2">
+                  <option *ngFor="let item of listFaculty2" [value]="item._id">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 text-center">
+                <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
+                  {{message.content}}
+                </div>
+                <div class="action-form " style="margin-bottom: 0;margin-top: 10px;">
+                  <button (click)="onSearchShare()">Tìm kiếm</button>
+                  <button (click)="onClear()">Xóa</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -23,38 +58,17 @@
 </form>
 
 <div class="row">
-  <div class="col-xs-12">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Mã cán bộ</th>
-          <th>Họ tên</th>
-          <th>Khoa / Phòng ban</th>
-          <th style="text-align: left !important;">Thư điện tử</th>
-          <!--<th *ngIf="showRole">Danh sách quyền </th>-->
-          <th *ngIf="showAction"></th>
-        </tr>
-        </thead>
-        <tbody *ngIf="data">
-        <!---->
-        <tr *ngFor="let item of data " (click)="onChoiseShare(item)">
-          <td>{{item.username}}</td>
-          <td>{{item.fullname}}</td>
-          <td>{{item.organ?item.organ.level1.name:''}}</td>
-          <td style="width: 300px;max-width: 300px">{{item.email}}</td>
-          <!--<td *ngIf="showRole">-->
-            <!--<p *ngFor="let role of item.roles">{{role.title}}</p>-->
-          <!--</td>-->
-          <td *ngIf="showAction">
-            <span class="action-icon" (click)="onEditShare(item)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="onRemoveShare(item)"><i class="fa fa-remove "></i></span>
-          </td>
-        </tr>
+  <dx-data-grid (onRowClick)="onChoiseShare($event.data)" id="gridContainer" [dataSource]="data">
 
-        </tbody>
-      </table>
+    <dxo-export [enabled]="true" fileName="{{title}}" [allowExportSelectedData]="true"></dxo-export>
+    <dxo-selection mode="multiple"></dxo-selection>
+    <dxo-group-panel emptyPanelText="{{titleTable}}" [visible]="true"></dxo-group-panel>
+    <div>
+
+      <dxi-column *ngFor="let item of fields" [caption]="item.caption" [dataField]="item.field" [dataType]="item.type"
+                  [width]="item.width"></dxi-column>
     </div>
-  </div>
+  </dx-data-grid>
+
 
 </div>

@@ -51,14 +51,17 @@ export class ArgFontendComponent extends BaseFormComponent implements OnInit {
   onSave() {
     this.formTouch = true;
     let valueForm = this.formData.value;
-    let valid = [valueForm.description,
-      valueForm.url,
-      valueForm.title,
+    let valid = [valueForm.description.trim(),
+      valueForm.url.trim(),
+      valueForm.title.trim(),
       valueForm.activated];
 
     if (!ValidService.isNotBlanks(valid) || !this.formData.valid) {
       return;
     }
+
+    valueForm.url = valueForm.url.trim();
+    valueForm.title = valueForm.title.trim();
 
     if (this.update == null) {
       this.taskService.post(Config.FONTEND_URL, {'frontend': valueForm}).subscribe(data => {

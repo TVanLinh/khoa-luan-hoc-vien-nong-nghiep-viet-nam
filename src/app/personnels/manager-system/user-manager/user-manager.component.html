@@ -1,4 +1,4 @@
-<app-search-form title="Phân quyền " [showRole]="true" (onChoise)="onChoiseHandler($event)"></app-search-form>
+<app-search-form title="Giao nhiệm vụ" [showRole]="true" (onChoise)="onChoiseHandler($event)"></app-search-form>
 
 <modal #modal size='lg' backdrop="true">
 
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="col-xs-12">
-      <h3 class="text-center">Phân quyền cho cán bộ </h3>
+      <h3 class="text-center">Giao nhiệm vụ cho cán bộ </h3>
     </div>
 
 
@@ -32,13 +32,13 @@
 
         <div class="col-xs-12">
           <div style=" margin-bottom: 20px;">
-            <h5 class="mgb-10">Chọn quyền </h5>
+            <h5 class="mgb-10">Chọn chức vụ </h5>
             <ng-select #select [multiple]="false"
                        [items]="rolesSelect"
                        (selected)="selected($event)"
                        (removed)="removed($event)"
                        placeholder="Chọn quyền  .. "></ng-select>
-            <div class="error" *ngIf="rolesValue == null && formTouch"> Chưa chọn quyền</div>
+            <div class="error" *ngIf="rolesValue == null && formTouch"> Chưa chọn chức vụ</div>
           </div>
 
           <h5 class="mgb-10">Lý do </h5>
@@ -62,7 +62,7 @@
           <thead>
           <tr>
             <th>STT</th>
-            <th>Tên quyền</th>
+            <th>Tên chức vụ</th>
             <th></th>
           </tr>
           </thead>

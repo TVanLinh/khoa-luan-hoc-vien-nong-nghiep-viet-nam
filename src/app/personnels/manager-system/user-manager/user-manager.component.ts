@@ -6,7 +6,6 @@ import {BaseFormComponent} from "../../base-form.component";
 import {Config} from "../../../shares/config";
 import {ValidService} from "../../../shares/valid.service";
 import {MystorageService} from "../../../shares/mystorage.service";
-import index from "@angular/cli/lib/cli";
 
 @Component({
   selector: 'app-user-manager',

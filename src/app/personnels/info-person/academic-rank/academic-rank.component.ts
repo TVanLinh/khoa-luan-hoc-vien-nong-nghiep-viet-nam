@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -15,6 +15,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './academic-rank.component.css']
 })
 export class AcademicRankComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('academicRank') academicRank: ModalComponent;
   @ViewChild('titleTeachers') titleTeachers: ModalComponent;
 
@@ -69,9 +70,9 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   onSave(type) {
     this.mode = type;
     if (type == 0) {
-      super.pushDataServer(Config.ACADEMIC_RANK_URL, "academic_rank", this.listRankAd);
+      super.pushDataServer(Config.ACADEMIC_RANK_URL, "academic_rank", this.listRankAd, this.user);
     } else {
-      super.pushDataServer(Config.TEACHER_TITLE_URL, "teacher_title", this.listTitleTeachers);
+      super.pushDataServer(Config.TEACHER_TITLE_URL, "teacher_title", this.listTitleTeachers, this.user);
     }
   }
 
@@ -170,14 +171,14 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    this.getDataServer(Config.ACADEMIC_RANK_URL).subscribe((data: any[]) => {
+    this.getDataServer(Config.ACADEMIC_RANK_URL, this.user).subscribe((data: any[]) => {
       if (data && data['academic_rank']) {
         this.listRankAd = super.asList(data['academic_rank']);
       }
     }, (err) => {
 
     });
-    this.getDataServer(Config.TEACHER_TITLE_URL).subscribe((data: any[]) => {
+    this.getDataServer(Config.TEACHER_TITLE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['teacher_title']) {
         this.listTitleTeachers = super.asList(data['teacher_title']);
       }

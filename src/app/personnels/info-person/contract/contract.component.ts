@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -17,6 +17,7 @@ import {ValidService} from "../../../shares/valid.service";
   providers: [ContactService]
 })
 export class ContractComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('modalContract') modal: ModalComponent;
 
   formData: FormGroup;
@@ -117,7 +118,7 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
     let body = {
       "contract": this.listContracts.toArray(),
-      "staffCode": this.acount['username']
+      "staffCode": this.user['username']
     };
     this.taskService.post(Config.CONTRACT_URL, {data: body}).subscribe((data) => {
       this.updateMessge(this.messageError.success, "success");
@@ -140,12 +141,14 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
 
   getDataFromServer() {
-    this.taskService.get(Config.CONTRACT_URL + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data && data['contract']) {
-        // console.log("data['contract'] " + JSON.stringify(data['contract']));
-        this.listContracts = this.asList(data['contract']);
-      }
-    });
+   if(this.user) {
+     this.taskService.get(Config.CONTRACT_URL + "?username=" + this.user['username']).subscribe((data) => {
+       if (data && data['contract']) {
+         // console.log("data['contract'] " + JSON.stringify(data['contract']));
+         this.listContracts = this.asList(data['contract']);
+       }
+     });
+   }
   }
 
   getContact(type: number) {

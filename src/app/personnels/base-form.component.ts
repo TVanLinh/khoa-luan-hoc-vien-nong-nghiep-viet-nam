@@ -131,7 +131,7 @@ export class BaseFormComponent {
     return array;
   }
 
-  getDataServer(url) {
+  getDataServer(url, user?: any) {
     return this.taskService.get(url + "?username=" + this.acount['username']);
   }
 
@@ -139,9 +139,12 @@ export class BaseFormComponent {
     return this.taskService.get(url + "?username=" + username);
   }
 
-  pushDataServer(url, dataName, data: Collections.LinkedList<any>) {
+  pushDataServer(url, dataName, data: Collections.LinkedList<any>, user?: any) {
+    if (!user) {
+      return;
+    }
     let body = {
-      "staffCode": this.acount['username']
+      "staffCode": user['username']
     };
     body[dataName] = data.toArray();
     this.taskService.post(url, {data: body}).subscribe((resp) => {
@@ -151,9 +154,12 @@ export class BaseFormComponent {
     });
   }
 
-  pushObjectServer(url, dataName, data: any) {
+  pushObjectServer(url, dataName, data: any, user?: any) {
+    if (!user) {
+      return;
+    }
     let body = {
-      "staffCode": this.acount['username']
+      "staffCode": user['username']
     };
     body[dataName] = data;
     this.taskService.post(url, {data: body}).subscribe((resp) => {

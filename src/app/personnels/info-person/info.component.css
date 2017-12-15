@@ -1,3 +1,32 @@
 .placholder{
   height: 40px;
 }
+
+#app-menu-right-info{
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  width: 300px;
+  /*height: 100%;*/
+  /*overflow-y: hidden;*/
+}
+
+
+#app-menu-right-info{
+  width: 350px;
+  right: -300px;
+}
+
+#app-menu-right-info .menu-app {
+  transform: translateX(300px);
+  transition: 0.5s ease-in-out;
+
+}
+
+#app-menu-right-info:hover{
+  right: -50px;
+}
+
+#app-menu-right-info:hover .menu-app{
+  transform: translateX(0px);
+}

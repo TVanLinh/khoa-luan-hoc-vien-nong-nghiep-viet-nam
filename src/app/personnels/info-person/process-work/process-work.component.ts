@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -16,6 +16,7 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
+  @Input() user: any;
   formData: FormGroup;
   formInfoProcess: FormGroup;
   positionUpdate: ProcessWorkModel = null;
@@ -52,11 +53,11 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_WORK_URL, 'process_work', this.processWorks);
+    super.pushDataServer(Config.PROCESS_WORK_URL, 'process_work', this.processWorks,this.user);
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_WORK_URL).subscribe(data => {
+    super.getDataServer(Config.PROCESS_WORK_URL,this.user).subscribe(data => {
       if (data && data['process_work']) {
         this.processWorks = super.asList(data['process_work']);
       }

@@ -26,14 +26,14 @@
 
             <div class="item-control " style="clear: none">
               <label class="item-title">1, Mã nhân sự</label>
-              <input type="text" [value]="acount['username']" disabled/>
+              <input type="text" [value]="user['username']" disabled/>
               <!--formControlName="staffCode"-->
             </div>
 
 
             <div class="item-control" style="clear: none">
               <label class="item-title">2, Họ và tên <span class="star">*</span></label>
-              <input name="fullName" type="text" #fullName [value]="acount['fullname']" disabled required/>
+              <input name="fullName" type="text" #fullName [value]="user['fullname']" disabled required/>
 
             </div>
 
@@ -46,17 +46,17 @@
           <div class="item-control">
             <label class="item-title">4, Ngày sinh <span class="star">*</span></label>
             <input type="text" style="width: 30%;margin-right: 20px"
-                   [value]="acount['birthDay'] | date:'dd/MM/yyyy'" disabled required/>
+                   [value]="user['birthDay'] | date:'dd/MM/yyyy'" disabled required/>
 
             <label class="item-title">5, Giới tính <span class="star">*</span></label>
             <input type="text" style="width: 30%;margin-right: 20px"
-                   [value]="acount['sex']  == 0 ? 'Nam': 'Nữ'" disabled required/>
+                   [value]="user['sex']  == 0 ? 'Nam': 'Nữ'" disabled required/>
 
           </div>
 
           <div class="item-control">
             <label class="item-title">6,Email <span class="star">*</span></label>
-            <input type="email" style="width: 30%;margin-right: 20px" [value]="acount['email']" disabled required/>
+            <input type="email" style="width: 30%;margin-right: 20px" [value]="user['email']" disabled required/>
             <label class="item-title">7,Điện thoại <span class="star">*</span></label>
             <input type="text" style="width: 200px" formControlName="phone" pattern="[0-9]*" required #phone>
 
@@ -372,12 +372,12 @@
           </div>
           <div class="right">
             <ul>
-              <li><span><b>1, Mã nhân sự: </b></span>{{acount['username']}}</li>
-              <li><span><b>2, Họ và tên:</b> </span> {{acount['fullname']}}</li>
+              <li><span><b>1, Mã nhân sự: </b></span>{{user['username']}}</li>
+              <li><span><b>2, Họ và tên:</b> </span> {{user['fullname']}}</li>
               <li><span><b>3, Tên khác: </b></span>{{nameOther.value}}</li>
-              <li><span><b>4, Ngày sinh:</b> </span> {{acount['birthDay'] | date:'dd-MM-yyyy'}}</li>
-              <li><span><b>4, Giới tính:</b> </span> {{acount['sex'] == 0?'Nam':'Nữ'}}</li>
-              <li><span><b>6, Email: </b></span> {{acount['email'] }}</li>
+              <li><span><b>4, Ngày sinh:</b> </span> {{user['birthDay'] | date:'dd-MM-yyyy'}}</li>
+              <li><span><b>4, Giới tính:</b> </span> {{user['sex'] == 0?'Nam':'Nữ'}}</li>
+              <li><span><b>6, Email: </b></span> {{user['email'] }}</li>
               <li><span><b>7, Số điện thoại: </b></span> {{phone.value}}</li>
             </ul>
           </div>

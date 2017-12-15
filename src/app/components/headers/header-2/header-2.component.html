@@ -29,7 +29,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li><a style="cursor: pointer" (click)="logout()">Đăng xuất</a></li>
-              <!--<li><a href="#">Đăng xuất</a></li>-->
+              <li><a style="cursor: pointer" (click)="changePassModal.open()">Thay đổi mật khẩu</a></li>
             </ul>
           </div>
         </div>
@@ -42,3 +42,57 @@
   </div>
 </div>
 <div class="placeholder" style="height: 45px"></div>
+
+
+<modal #changePassModal size='sm' cssClass="my-modal-login" backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button class="btn btn-default" (click)="closeModal(changePassModal)">Thoát</button>
+    </div>
+    <h3 class="text-center">Thay đổi mật khẩu</h3>
+  </modal-header>
+
+  <modal-body>
+    <form (ngSubmit)="onChagePass(changePassModal)" class="pdb-20">
+
+      <div class="mgb-10">
+        <label class="fs-13">Mật khẩu cũ: </label>
+        <input type="text" class="form-control" name="passWord" [(ngModel)]="data.passWord">
+        <div class="error fs-13" *ngIf="formTouch && data.passWord.trim() == '' ">
+          Chưa nhập mật khẩu cũ
+        </div>
+      </div>
+      <div>
+        <label class="fs-13">Mật khẩu mới : </label>
+        <input type="password" class="form-control" name="newPass" [(ngModel)]="data.newPass">
+
+        <!--<ng-template>-->
+        <div class="error fs-13" *ngIf="formTouch && data.newPass.trim() == '' ">
+          Chưa nhập mật khẩu mới
+        </div>
+        <!--</ng-template>-->
+
+      </div>
+      <div>
+        <label class="fs-13">Nhập lại mật khẩu mới : </label>
+        <input type="password" class="form-control" name="rePass" [(ngModel)]="data.rePass">
+
+        <!--<ng-template >-->
+        <div class="error fs-13"
+             *ngIf="formTouch &&data.newPass.trim()!='' &&  data.rePass.trim()!= data.newPass.trim()">
+          Hai mật khẩu không trùng nhau
+        </div>
+        <!--</ng-template>-->
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <div class=" text-right">
+      <button class="btn btn-success" (click)="onChagePass(changePassModal)">Lưu</button>
+    </div>
+
+  </modal-footer>
+
+</modal>

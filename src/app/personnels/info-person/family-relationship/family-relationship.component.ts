@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
 import {BaseFormComponent} from '../../base-form.component';
 import {FormGroup, Validators} from '@angular/forms';
 import * as Collections from 'typescript-collections';
@@ -17,6 +17,7 @@ declare const jQuery: any;
   styleUrls: ['../../form.css', './family-relationship.component.css'],
 })
 export class FamilyRelationshipComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('modalFamily') modal: ModalComponent;
   formData: FormGroup;
   updateTemp: FamilyModel = null;
@@ -30,8 +31,8 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   listYear: number[] = [];
-  listRealtion: string[] = ['bố', 'mẹ', 'anh ', 'chị ', 'em ', 'ông ', 'bà','vợ',
-    'chồng','con','chú','thím','bác','cậu','mợ','con dâu','con rể','chắt','khác'];
+  listRealtion: string[] = ['bố', 'mẹ', 'anh ', 'chị ', 'em ', 'ông ', 'bà', 'vợ',
+    'chồng', 'con', 'chú', 'thím', 'bác', 'cậu', 'mợ', 'con dâu', 'con rể', 'chắt', 'khác'];
 
   initYear() {
     const date = new Date();
@@ -68,7 +69,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   onSave() {
     const body = {
       'family': this.listRelationFamily.toArray(),
-      'staffCode': this.acount['username']
+      'staffCode': this.user['username']
     };
     this.taskService.post(Config.FAMILY_URL, {data: body}).subscribe((data) => {
       this.updateMessge(this.messageError.success, 'success');
@@ -131,11 +132,13 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   getDataFromServer() {
-    this.taskService.get(Config.FAMILY_URL + '?username=' + this.acount['username']).subscribe((data) => {
-      if (data && data['family']) {
-        this.listRelationFamily = this.asList(data['family']);
-      }
-    });
+    if (this.user) {
+      this.taskService.get(Config.FAMILY_URL + '?username=' + this.user['username']).subscribe((data) => {
+        if (data && data['family']) {
+          this.listRelationFamily = this.asList(data['family']);
+        }
+      });
+    }
   }
 
   openModals() {

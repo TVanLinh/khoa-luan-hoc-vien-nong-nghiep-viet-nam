@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from "@angular/core";
+import {Component, ElementRef, Input, OnInit} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {TaskService} from "../../../shares/task.service";
@@ -20,6 +20,8 @@ declare const jQuery: any;
   styleUrls: ['../../form.css', './curriculum-vitae.component.css']
 })
 export class CurriculumVitaeComponent extends BaseFormComponent implements OnInit {
+
+  @Input() user: any = null;
 
   avatar: string = "";
 
@@ -59,7 +61,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   };
 
   formCV: FormGroup;
-  user: any;
+  // user: any;
 
   listNation = [];
   listCity: AddressModel[] = [];
@@ -166,7 +168,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   initForm() {
-    this.user = MystorageService.getAcount()['user'];
+    // this.user = MystorageService.getAcount()['user'];
     this.formCV = this.formBuilder.group({
       nameOther: [this.infoBasic.nameOther],
       bloodGroup: [this.infoBasic.bloodGroup, Validators.required],
@@ -249,12 +251,16 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       return;
     }
 
-    let userName = MystorageService.getAcount()['user']["username"];
+    let userName = this.user.username;
     let formValue = this.formCV.value;
     let cv = formValue;
     cv['avatarUrl'] = this.infoBasic.avatarUrl;
-    this.acountService.shareAvatarEvent(cv['avatarUrl']);
+
+    if (MystorageService.getAcount()['user']['username'] == this.user.username) {
+      this.acountService.shareAvatarEvent(cv['avatarUrl']);
+    }
     let data = {data: {staffCode: userName, cv: cv}};
+
     this.taskService.post(Config.CV_URL, data).subscribe(data => {
       this.updateMessge(this.messageError.success, "success");
     }, err => {
@@ -265,22 +271,25 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   getCV() {
-    this.taskService.get(Config.CV_URL + "?username=" + this.acount['username']).subscribe((data) => {
-      if (data && data['cv']) {
-        this.infoBasic = data.cv;
-        // this.gui
-        this.birthDays = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeBirth.city);
-        this.guidsBithday = this.addressService.findGuildByDistrictId(this.birthDays, this.infoBasic.placeBirth.district);
-        // console.log(JSON.stringify(this.birthDays));
-        this.homeTown = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.homeTown.city);
-        this.guilsHomeTown = this.addressService.findGuildByDistrictId(this.homeTown, this.infoBasic.homeTown.district);
+    if (this.user) {
+      this.taskService.get(Config.CV_URL + "?username=" + this.user.username).subscribe((data) => {
+        if (data && data['cv']) {
+          this.infoBasic = data.cv;
+          // this.gui
+          this.birthDays = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeBirth.city);
+          this.guidsBithday = this.addressService.findGuildByDistrictId(this.birthDays, this.infoBasic.placeBirth.district);
+          // console.log(JSON.stringify(this.birthDays));
+          this.homeTown = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.homeTown.city);
+          this.guilsHomeTown = this.addressService.findGuildByDistrictId(this.homeTown, this.infoBasic.homeTown.district);
 
-        this.placeNow = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeNow.city);
-        this.guilsPlaceNow = this.addressService.findGuildByDistrictId(this.placeNow, this.infoBasic.placeNow.district);
+          this.placeNow = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeNow.city);
+          this.guilsPlaceNow = this.addressService.findGuildByDistrictId(this.placeNow, this.infoBasic.placeNow.district);
 
-        this.updateForm(this.infoBasic);
-      }
-    });
+          this.updateForm(this.infoBasic);
+        }
+      });
+    }
+
   }
 
 

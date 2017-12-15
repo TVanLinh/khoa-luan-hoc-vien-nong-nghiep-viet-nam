@@ -159,8 +159,8 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     body['frontends'] = this.getIdDataArg(this.fontendValues.toArray());
     body['backends'] = this.getIdDataArg(this.backendValues.toArray());
 
-    body['title'] = this.title;
-    body['description'] = this.description;
+    body['title'] = this.title.trim();
+    body['description'] = this.description.trim();
 
     let username = MystorageService.getAcount()['user']['username'];
     let reason = this.reason;
@@ -171,7 +171,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
 
     if (!this.update) {
       if (super.contains(this.roles.toArray(), 'title', this.title)) {
-        super.updateMessge("Tên quyền " + this.title.trim() + " đã tồn tại", "warning");
+        super.updateMessge("Tên chức vụ " + this.title.trim() + " đã tồn tại", "warning");
         return;
       }
       this.taskService.put(Config.ROLE_URL + "/", {
@@ -197,7 +197,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
 
 
       if (super.contains(temp.toArray(), 'title', this.title)) {
-        super.updateMessge("Tên quyền " + this.title.trim() + " đã tồn tại", "warning");
+        super.updateMessge("Tên chức vụ " + this.title.trim() + " đã tồn tại", "warning");
         return;
       }
 

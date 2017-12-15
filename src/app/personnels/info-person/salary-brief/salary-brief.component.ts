@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -16,6 +16,7 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './salary-brief.component.css']
 })
 export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('modalSalary') modalSalary: ModalComponent;
   formData: FormGroup;
   formMain: FormGroup;
@@ -171,7 +172,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_SALARY_URL, "salary", this.listSalaryBrief);
+    super.pushDataServer(Config.PROCESS_SALARY_URL, "salary", this.listSalaryBrief,this.user);
   }
 
   removeItem(index: number) {
@@ -186,7 +187,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_SALARY_URL).subscribe(data => {
+    super.getDataServer(Config.PROCESS_SALARY_URL,this.user).subscribe(data => {
       if (data && data['salary']) {
         this.listSalaryBrief = super.asList(data['salary']);
       }

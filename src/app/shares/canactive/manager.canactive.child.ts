@@ -26,20 +26,17 @@ export class ManagerCanactiveChild implements CanActivateChild {
 
     let url = state.url;
 
-    this.taskService.get(Config.USER_URL + "/hashfrontend?username=" + username + "&url=" + url).subscribe(data => {
-      authen = data;
-      if (authen) {
-        this.router.navigate([url]);
-        return true;
-      } else {
-        this.router.navigate(['/']);
-        return false;
-      }
-    }, error2 => {
-      this.router.navigate(['/']);
-    }, () => {
-
-    });
+    //
+    // return this.taskService.get(Config.USER_URL + "/hashfrontend?username=" + username + "&url=" + url).map((data)=>{
+    //   authen = data;
+    //   if (authen) {
+    //     this.router.navigate([url]);
+    //     return true;
+    //   } else {
+    //     this.router.navigate(['/']);
+    //     return false;
+    //   }
+    // });
     return true;
   }
 

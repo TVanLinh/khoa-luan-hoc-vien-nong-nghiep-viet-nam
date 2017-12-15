@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
+import {Component, OnInit, ViewChild, ElementRef, Input} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
 import {FormGroup, Validators} from "@angular/forms";
 import * as Collections from "typescript-collections";
@@ -18,6 +18,7 @@ import {ValidService} from "../../../shares/valid.service";
 
 
 export class ForeignComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('modal') modal: ModalComponent;
 
   formData: FormGroup;
@@ -52,7 +53,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_FOREIGN_URL, "process_foreign", this.listForeignForm);
+    super.pushDataServer(Config.PROCESS_FOREIGN_URL, "process_foreign", this.listForeignForm,this.user);
   }
 
 
@@ -124,11 +125,15 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_FOREIGN_URL).subscribe(data => {
-      if (data && data['process_foreign']) {
-        this.listForeignForm = super.asList(data['process_foreign']);
-      }
-    });
+    if(this.user)
+    {
+      super.getDataServer(Config.PROCESS_FOREIGN_URL, this.user).subscribe(data => {
+        if (data && data['process_foreign']) {
+          this.listForeignForm = super.asList(data['process_foreign']);
+        }
+      });
+
+    }
   }
 
 }

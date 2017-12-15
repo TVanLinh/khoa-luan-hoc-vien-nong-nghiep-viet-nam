@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
 import *as Collections from "typescript-collections";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
@@ -14,8 +14,8 @@ import {ValidService} from "../../../shares/valid.service";
   styleUrls: ['../../form.css', './emulation-title.component.css']
 })
 export class EmulationTitleComponent extends BaseFormComponent implements OnInit {
+  @Input() user: any;
   @ViewChild('emulationTitle') emulationTitle: ModalComponent;
-
   formData: FormGroup;
   listEmulation = new Collections.LinkedList<EmulationTitleModel>();
   positionUpdate: EmulationTitleModel = null;
@@ -51,7 +51,7 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
 
   onSave() {
     //if (this.listEmulation.size() > 0) {
-    this.pushDataServer(Config.EMULATION_TITLE_URL, "emulation_title", this.listEmulation);
+    this.pushDataServer(Config.EMULATION_TITLE_URL, "emulation_title", this.listEmulation, this.user);
     // }
 
   }
@@ -97,7 +97,7 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
   }
 
   getDataFromServer() {
-    this.getDataServer(Config.EMULATION_TITLE_URL).subscribe((data: any[]) => {
+    this.getDataServer(Config.EMULATION_TITLE_URL,this.user).subscribe((data: any[]) => {
       if (data && data['emulation_title']) {
         this.listEmulation = super.asList(data['emulation_title']);
       }
