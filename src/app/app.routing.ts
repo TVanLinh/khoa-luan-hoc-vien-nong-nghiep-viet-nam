@@ -2,7 +2,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "./auth/login/login.component";
 import {NgModule} from "@angular/core";
 import {HomeComponent} from "./home/home.component";
-import {PersonnelRouting} from "./personnels/pesonnel.routing";
+import {PesonnelModule} from "./personnels/pesonnel.module";
 
 const routes: Routes = [
   // {
@@ -19,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),PersonnelRouting],
+  imports: [RouterModule.forRoot(routes), PesonnelModule],
   exports: [RouterModule]
 })
 export class AppRouting {

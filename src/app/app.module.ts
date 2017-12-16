@@ -58,7 +58,7 @@ import {PersonnelManagerComponent} from "./personnels/manager-personnels/personn
 import {LoginComponent} from "./auth/login/login.component";
 import {AppRouting} from "./app.routing";
 import {HomeComponent} from "./home/home.component";
-import {PersonnelRouting} from "./personnels/pesonnel.routing";
+import {PersonnelRouting} from "./personnels/pesonnel.module";
 import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
 import {HttpModule} from "@angular/http";
 import {NationalService} from "./shares/national.service";
