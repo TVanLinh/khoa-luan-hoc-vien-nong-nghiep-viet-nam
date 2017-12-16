@@ -65,37 +65,44 @@
           <div class="error" *ngIf="!validEmail(email.value) && formTouched">Email phải đúng định abc@xx...</div>
         </div>
 
-        <div class="item-control">
-          <label>Mật khẩu: </label>
-          <input class="form-control " style="width: 70%" [type]="showPass == true?'text':'password'" #passWord
-                 required formControlName="passWord">
+        <!--<div class="item-control">-->
+          <!--<label>Mật khẩu: </label>-->
+          <!--<input class="form-control " style="width: 70%" [type]="showPass == true?'text':'password'" #passWord-->
+                 <!--required formControlName="passWord">-->
 
+        <!--</div>-->
+
+        <!--<div class="item-control">-->
+          <!--<div class="error" *ngIf="passWord.value.trim() == '' && formTouched">Chưa nhập mật khẩu</div>-->
+        <!--</div>-->
+
+        <!--<div class="item-control">-->
+          <!--<label>Hiện rõ </label>-->
+          <!--<input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">-->
+        <!--</div>-->
+
+        <!--<div class="item-control">-->
+          <!--<label>Nhập lại mật khẩu: </label>-->
+          <!--<input [type]="showPass == true?'text':'password'" (change)="rePassTouch = true" #rePassWord-->
+                 <!--class="form-control" formControlName="rePassWord">-->
+        <!--</div>-->
+
+        <!--<div class="item-control">-->
+          <!--<div class="error" *ngIf="!rePassTouch && passWord.value.trim() != ''">-->
+            <!--Nhập lại mật khẩu-->
+          <!--</div>-->
+          <!--<div class="error"-->
+               <!--*ngIf="rePassTouch && passWord.value.trim() != '' && rePassWord.value!= passWord.value && formTouched">-->
+            <!--Mật khẩu không trùng nhau-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+        <div class="item-control">
+          <label>Activated </label>
+          <input type="checkbox" style="width: 42%" formControlName="active">
         </div>
 
-        <div class="item-control">
-          <div class="error" *ngIf="passWord.value.trim() == '' && formTouched">Chưa nhập mật khẩu</div>
-        </div>
-
-        <div class="item-control">
-          <label>Hiện rõ </label>
-          <input type="checkbox" style="width: 42%" (change)="showPass = !showPass ">
-        </div>
-
-        <div class="item-control">
-          <label>Nhập lại mật khẩu: </label>
-          <input [type]="showPass == true?'text':'password'" (change)="rePassTouch = true" #rePassWord
-                 class="form-control" formControlName="rePassWord">
-        </div>
-
-        <div class="item-control">
-          <div class="error" *ngIf="!rePassTouch && passWord.value.trim() != ''">
-            Nhập lại mật khẩu
-          </div>
-          <div class="error"
-               *ngIf="rePassTouch && passWord.value.trim() != '' && rePassWord.value!= passWord.value && formTouched">
-            Mật khẩu không trùng nhau
-          </div>
-        </div>
 
         <div class="item-control">
           <label>Lí do: </label>

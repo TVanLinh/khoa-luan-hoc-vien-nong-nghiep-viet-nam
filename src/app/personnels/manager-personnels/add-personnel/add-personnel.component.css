@@ -17,3 +17,10 @@ input{
     float: right;
   }
 }
+label{
+  font-size: 14px;
+}
+
+input[type='checkbox'] {
+  margin-left:20px;
+}

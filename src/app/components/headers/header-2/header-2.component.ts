@@ -7,6 +7,7 @@ import {TaskService} from "../../../shares/task.service";
 import {Config} from "../../../shares/config";
 import {AcountShareService} from "../../../shares/acount-share.service";
 import {BaseFormComponent} from "../../../personnels/base-form.component";
+import {ValidService} from "../../../shares/valid.service";
 
 declare const jQuery: any;
 
@@ -41,8 +42,10 @@ export class Header2Component extends BaseFormComponent implements OnInit {
     this.avatar = MystorageService.getAvatar();
     if (this.user && !this.avatar) {
       this.taskService.get(Config.CV_URL + "?username=" + this.user['username']).subscribe(data => {
-        this.avatar = data['cv']['avatarUrl'];
-        MystorageService.saveAvatar(this.avatar);
+        if (data && data['cv']['avatarUrl']) {
+          this.avatar = data['cv']['avatarUrl'];
+          MystorageService.saveAvatar(this.avatar);
+        }
       }, err => {
         this.avatar = null;
       });
@@ -62,10 +65,30 @@ export class Header2Component extends BaseFormComponent implements OnInit {
   }
 
 
-
   onChagePass(changePassModal) {
     this.formTouch = true;
-    // changePassModal.close();
+    if (!ValidService.isNotBlanks([this.data.passWord, this.data.rePass, this.data.newPass])) {
+      return;
+    }
+    if (this.data.rePass != this.data.newPass) {
+      return;
+    }
+    let body = {
+      username: this.user.username,
+      password: this.data.passWord,
+      newPass: this.data.newPass
+    };
+
+    this.taskService.put(Config.USER_URL + "/changePass", {data: body}).subscribe(data => {
+      let info = data.json();
+      if (info['msg']) {
+        this.updateMessge(info['msg'], "warning");
+      } else {
+        this.updateMessge("Thay đổi mật khẩu thành công", "success");
+      }
+    }, err => {
+      this.updateMessge("Thay đổi mật khẩu không thành công", "warning");
+    });
   }
 
 

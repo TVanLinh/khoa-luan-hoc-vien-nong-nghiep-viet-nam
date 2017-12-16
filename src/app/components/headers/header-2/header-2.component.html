@@ -58,7 +58,7 @@
 
       <div class="mgb-10">
         <label class="fs-13">Mật khẩu cũ: </label>
-        <input type="text" class="form-control" name="passWord" [(ngModel)]="data.passWord">
+        <input type="password" class="form-control" name="passWord" [(ngModel)]="data.passWord">
         <div class="error fs-13" *ngIf="formTouch && data.passWord.trim() == '' ">
           Chưa nhập mật khẩu cũ
         </div>
@@ -83,12 +83,14 @@
              *ngIf="formTouch &&data.newPass.trim()!='' &&  data.rePass.trim()!= data.newPass.trim()">
           Hai mật khẩu không trùng nhau
         </div>
-        <!--</ng-template>-->
       </div>
     </form>
   </modal-body>
 
   <modal-footer>
+    <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type" class="text-center">
+      {{message.content}}
+    </div>
     <div class=" text-right">
       <button class="btn btn-success" (click)="onChagePass(changePassModal)">Lưu</button>
     </div>

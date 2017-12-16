@@ -8,21 +8,23 @@ import {Config} from "../../../../shares/config";
 @Component({
   selector: 'app-statistic-person-by-faculty',
   templateUrl: './statistic-person-by-faculty.component.html',
-  styleUrls: ['./statistic-person-by-faculty.component.css']
+  styleUrls: ['../../../form.css', './statistic-person-by-faculty.component.css']
 })
 export class StatisticPersonByFacultyComponent extends BaseFormComponent implements OnInit {
 
   listFaculty: CatalogFacultyModel[] = [];
+  listFaculty1: CatalogFacultyModel[] = [];
+  listFaculty2: CatalogFacultyModel[] = [];
   chooseFaculty: string = '';
   fields: any[] = [];
   dataUser: any[] = [];
   title = "Danh sách cán bộ ";
-
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public  catalogService: CatalogFacultyService) {
     super(eleRef, taskService);
   }
+
 
   ngOnInit() {
     this.getCatalogFaculty();
@@ -40,30 +42,34 @@ export class StatisticPersonByFacultyComponent extends BaseFormComponent impleme
 
   getCatalogFaculty() {
     this.catalogService.getList().subscribe((data: any[]) => {
-      // this.listFaculty = data;
-      this.listFaculty = this.catalogService.findByLevel(data, 1);
+      this.listFaculty = data;
+      this.listFaculty1 = this.catalogService.findByLevel(data, 1);
     });
   }
 
-  onStatistic(id) {
+  level1Change(id) {
     if (!id || id == -1) {
       return;
     }
-    console.log(id);
+
     let temp = this.catalogService.findById(this.listFaculty, id);
+    this.listFaculty2 = this.catalogService.findByIdParent(this.listFaculty, id);
     this.title = "Danh sách cán bộ  ";
-
-    if (temp.type == 'khoa') {
-      this.title += "khoa " + temp.name;
-    } else {
-      this.title += temp.name;
-    }
-
     this.taskService.get(Config.USER_URL + "/faculty?id=" + id).subscribe((data) => {
       this.dataUser = data;
     }, error2 => {
       this.dataUser = [];
     });
+  }
+
+  level2Change(fac,fac2) {
+    if(fac!='-1' && fac2!="-1") {
+      this.taskService.get(Config.USER_URL + "/findByOrgan?level1=" + fac + "&level2=" + fac2).subscribe((data) => {
+        this.dataUser = data;
+      }, error2 => {
+        this.dataUser = [];
+      });
+    }
   }
 
 }

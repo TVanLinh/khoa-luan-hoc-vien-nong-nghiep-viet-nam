@@ -57,7 +57,8 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
       birthDay: ['', Validators.required],
       passWord: ['', Validators.required],
       sex: ['', Validators.required],
-      rePassWord: ['', Validators.required]
+      rePassWord: ['', Validators.required],
+      active: [true]
     });
   }
 
@@ -86,11 +87,12 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
       level2: this.catalogService.findById(this.listFaculty, valueForm.level2)
     };
     user.organ = organ;
-    user.fullname = valueForm.fullName;
-    user.email = valueForm.email;
-    user.hashedPass = valueForm.passWord;
+    user.fullname = valueForm.fullName.trim();
+    user.email = valueForm.email.trim();
+    user.hashedPass = valueForm.passWord.trim();
     user.sex = valueForm.sex;
     user.birthDay = valueForm.birthDay;
+    user.activated = valueForm.active;
 
     this.taskService.post(Config.USER_URL, {data: user}).subscribe(resp => {
       console.log(resp);
@@ -110,17 +112,4 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
     return ValidService.validEmail(email);
   }
 
-}
-
-
-interface AddPersonnelForm {
-  organ: string,
-  listLevel1: string,
-  listLevel2: string,
-  personnelCode: string,
-  fullName: string,
-  dateOfBirth: string;
-  email: string,
-  passWord: string,
-  rePassWord: string
 }

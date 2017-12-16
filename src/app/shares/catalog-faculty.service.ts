@@ -33,18 +33,30 @@ export class CatalogFacultyService {
 
 
   findByIdParent(array: CatalogFacultyModel[], idParent) {
+    if (!Array.isArray(array)) {
+      return [];
+    }
     return array.filter(item => item.parent && item.parent.id == idParent);
   }
 
   findByLevel(array: CatalogFacultyModel[], level) {
+    if (!Array.isArray(array)) {
+      return [];
+    }
     return array.filter(item => item.level == level);
   }
 
   findByNameParent(array: CatalogFacultyModel[], name) {
+    if (!Array.isArray(array)) {
+      return [];
+    }
     return array.filter(item => item.parent && item.parent.name == name);
   }
 
   findByType(array: CatalogFacultyModel[], type) {
+    if (!Array.isArray(array)) {
+      return [];
+    }
     return array.filter(item => item && item.type == type && item.level == 1
     );
   }

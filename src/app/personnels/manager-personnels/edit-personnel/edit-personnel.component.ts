@@ -55,10 +55,11 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
       fullName: ['', Validators.required],
       email: ['', [Validators.required]],
       birthDay: [new Date(), Validators.required],
-      passWord: ['', Validators.required],
+      // passWord: ['', Validators.required],
       reason: ['', Validators.required],
       sex: ['', Validators.required],
-      rePassWord: ['', Validators.required]
+      // rePassWord: ['', Validators.required],
+      active: [true]
     });
   }
 
@@ -68,19 +69,20 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
 
     let valid = [valueForm.fullName, valueForm.reason,
       valueForm.email, valueForm.birthDay,
-      valueForm.passWord, valueForm.sex];
+      valueForm.sex];
 
     if (!ValidService.isNotBlanks(valid) || !ValidService.validEmail(valueForm.email)
-      || !this.formData.valid || valueForm.passWord != valueForm.rePassWord) {
+      || !this.formData.valid) {
       return;
     }
 
 
-    this.user.fullname = valueForm.fullName;
-    this.user.email = valueForm.email;
-    this.user.hashedPass = valueForm.passWord;
+    this.user.fullname = valueForm.fullName.trim();
+    this.user.email = valueForm.email.trim();
+    // this.user.hashedPass = valueForm.passWord;
     this.user.sex = valueForm.sex;
     this.user.birthDay = valueForm.birthDay;
+    this.user.activated = valueForm.active;
 
     this.taskService.put(Config.USER_URL, {
       user: this.user,
@@ -114,7 +116,8 @@ export class EditPersonnelComponent extends BaseFormComponent implements OnInit 
       fullName: this.user.fullname,
       email: this.user.email,
       birthDay: this.user.birthDay,
-      sex: this.user.sex
+      sex: this.user.sex,
+      active: this.user.activated
     });
     super.openModal(this.modalEdit);
   }
