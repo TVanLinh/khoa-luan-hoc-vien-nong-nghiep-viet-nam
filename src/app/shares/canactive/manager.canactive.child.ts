@@ -8,6 +8,7 @@ import {TaskService} from "../task.service";
 import {Injectable} from "@angular/core";
 import {Config} from "../config";
 import {noUndefined} from "@angular/compiler/src/util";
+import {Util} from "../util";
 
 @Injectable()
 export class ManagerCanactiveChild implements CanActivateChild {
@@ -18,26 +19,25 @@ export class ManagerCanactiveChild implements CanActivateChild {
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     let acount = MystorageService.getAcount();
     let authen = false;
+    let url = state.url;
 
 
     let username = acount['user']['username'];
-
-    console.log("ManagerCanactiveChild " + state.url + "  " + username);
-
-    let url = state.url;
-
-    //
-    // return this.taskService.get(Config.USER_URL + "/hashfrontend?username=" + username + "&url=" + url).map((data)=>{
-    //   authen = data;
-    //   if (authen) {
-    //     this.router.navigate([url]);
-    //     return true;
-    //   } else {
-    //     this.router.navigate(['/']);
-    //     return false;
-    //   }
-    // });
-    return true;
+    let frontends = [];
+    for (let item of acount['user']['roles']) {
+      for (let it of item['frontends']) {
+        frontends.push(it);
+      }
+    }
+    console.log(url);
+    for (let item of frontends) {
+      // console.log(JSON.stringify(item));
+      if (item['url'] == url) {
+        return true;
+      }
+    }
+    this.router.navigate(["/"]);
+    return false;
   }
 
 

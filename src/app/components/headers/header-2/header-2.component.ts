@@ -61,6 +61,7 @@ export class Header2Component extends BaseFormComponent implements OnInit {
   logout() {
     MenuUtil.isLogin = false;
     MystorageService.removeAcount();
+    this.acountService.logoutEvent();
     this.router.navigate(['/']);
   }
 

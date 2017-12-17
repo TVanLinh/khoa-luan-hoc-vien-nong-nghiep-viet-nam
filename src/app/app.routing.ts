@@ -1,15 +1,16 @@
 import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "./auth/login/login.component";
-import {NgModule} from "@angular/core";
 import {HomeComponent} from "./home/home.component";
-import {PesonnelModule} from "./personnels/pesonnel.module";
+import {ManagerComponent} from "./personnels/manger.component";
 
 const routes: Routes = [
-  // {
-  //   path: '', redirectTo: '', pathMatch: 'full'
-  // },
   {
     path: '', component: HomeComponent
+  },
+  {
+    path: 'manager',
+    // component: ManagerComponent
+    loadChildren: 'app/personnels/pesonnel.module#PesonnelModule'
   },
   {
     path: 'login', component: LoginComponent
@@ -18,10 +19,5 @@ const routes: Routes = [
 
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes), PesonnelModule],
-  exports: [RouterModule]
-})
-export class AppRouting {
 
-}
+export const AppRouting = RouterModule.forRoot(routes);

@@ -12,6 +12,7 @@ export class MystorageService {
 
   public static removeAcount() {
     localStorage.clear();
+
     // localStorage.removeItem(MystorageService.ACOUNT);
   }
 
