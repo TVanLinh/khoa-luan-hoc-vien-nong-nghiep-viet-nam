@@ -16,12 +16,14 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
   inputData = "";
   mode = 0;
   update = null;
+  numberShow = 10;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
   }
 
   list = new Collections.LinkedList<any>();
+  lisTemp = new Collections.LinkedList<any>();
 
   ngOnInit() {
     this.getCatalog();
@@ -30,12 +32,14 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
   getCatalog() {
     this.taskService.get(Config.CATALOG_ACADEMIC_RANK_URL).subscribe((data: any[]) => {
       this.list = super.asList(data);
+      this.lisTemp = super.asList(data);
     });
   }
 
   onSave() {
+    this.inputData = this.inputData.trim();
 
-    if (this.inputData.trim() == "") {
+    if (this.inputData == "") {
       return "";
     }
 
@@ -44,6 +48,7 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
       this.taskService.post(Config.CATALOG_ACADEMIC_RANK_URL, {data: body}).subscribe(data => {
         body['_id'] = data["_id"];
         this.list.add(body);
+        this.lisTemp.add(body);
         this.updateMessge("Thêm thành công", "success");
       }, err => {
         this.updateMessge("Thêm không thành công", "warning");
@@ -56,6 +61,7 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
       this.taskService.put(Config.CATALOG_ACADEMIC_RANK_URL, {data: this.update}).subscribe(data => {
         body['name'] = data["name"];
         super.updateList(this.list, this.update, body);
+        super.updateList(this.lisTemp, this.update, body);
         this.updateMessge("Cập nhật thành công", "success");
       }, err => {
         this.updateMessge("Cập nhật  không thành công", "warning");
@@ -88,5 +94,20 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
     }, () => {
 
     });
+  }
+
+  onSearch(query) {
+    let str = query.value.trim();
+    if (str == '') {
+      this.list = super.clone(this.lisTemp.toArray());
+    } else {
+      this.list.clear();
+      for (let item of this.lisTemp.toArray()) {
+        if (item.name.trim().toLowerCase().indexOf(str) != -1) {
+          this.list.add(item);
+        }
+      }
+    }
+
   }
 }

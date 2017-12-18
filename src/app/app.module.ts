@@ -67,7 +67,6 @@ import {AddressService} from "./shares/address.service";
 import {ManagerComponent} from "./personnels/manger.component";
 import {InfoComponent} from "./personnels/info-person/info.component";
 import {Ng2PageScrollModule} from "ng2-page-scroll";
-import {ImageUploadModule} from "angular2-image-upload";
 import {ManagerCatalogComponent} from './personnels/manager-catalog/manager-catalog.component';
 import {SearchStatisticComponent} from './personnels/search-statistic/search-statistic.component';
 import {ManagerSystemComponent} from './personnels/manager-system/manager-system.component';
@@ -218,7 +217,6 @@ import { CheckProfileComponent } from './personnels/manager-personnels/check-pro
     DataTableModule,
     DxDataGridModule,
     SelectModule,
-    ImageUploadModule.forRoot(),
   ],
   entryComponents: [],
   providers: [NationalService, CatalogSalaryService,

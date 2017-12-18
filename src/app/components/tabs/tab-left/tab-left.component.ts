@@ -245,4 +245,8 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     return ValidService.validEmail(email);
   }
 
+  getMyCvTitle() {
+    return Config.MYCV;
+  }
+
 }

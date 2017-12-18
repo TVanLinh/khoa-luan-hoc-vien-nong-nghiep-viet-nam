@@ -81,3 +81,11 @@ input[type='checkbox'] {
 .alert{
   text-align: center;
 }
+
+.first-upper-case::first-letter {
+  text-transform: uppercase;
+}
+
+#catalog-faculty pagination.pull-right.float-sm-right {
+  display: none !important;
+}

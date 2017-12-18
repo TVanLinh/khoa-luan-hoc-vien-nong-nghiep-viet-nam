@@ -1,22 +1,55 @@
 <h4 class="text-center mgb-15" style="font-size: 20px"> Danh mục khoa, phòng ban </h4>
-<div class="table-responsive">
-  <table class="table table-bordered">
+
+<div class="row">
+  <div class="col-xs-12 text-right">
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 text-left">
+          Số lượng xem:
+        </div>
+        <div class="col-xs-12 col-sm-8 text-left">
+          <select name="" id="" class="form-control" [(ngModel)]="numberShow">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="30">50</option>
+            <option value="30">100</option>
+            <option value="30">150</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <input type="text" placeholder="Nhập để tìm kiếm " class="form-control search" name="search" #query ngModel (keyup)="onSearch(query)"
+             (change)="onSearch(query)">
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive" id="catalog-faculty">
+  <table class="table table-bordered" [mfData]="listParent.toArray()" #mf="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
     <tr>
       <th style="width:5%">STT</th>
-      <th>Mã (khoa/phòng ban)</th>
-      <th>Tên (khoa/phòng ban)</th>
-      <th>Địa chỉ website</th>
+      <th>
+        <mfDefaultSorter by="code">Mã (khoa/phòng ban)</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="name">Tên (khoa/phòng ban)</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="url">Địa chỉ website</mfDefaultSorter>
+      </th>
       <th>
         <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
       </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of listParent.toArray();let i = index ">
+    <tr *ngFor="let item of mf.data;let i = index ">
       <td>{{i+1}}</td>
-      <td class="name">{{item.code}}</td>
-      <td class="name">{{item.name}}</td>
+      <td class="name upper-case">{{item.code}}</td>
+      <td class="name first-upper-case">{{item.name.toLowerCase()}}</td>
       <td class="name"><a [href]="item.url" target="_blank">{{item.url}}</a></td>
       <td style="width:10%">
         <span class="action-icon" title="Chi tiết " (click)="viewDetail(item)"><i class="fa fa-eye"
@@ -25,17 +58,21 @@
         <span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
       </td>
     </tr>
+    <td colspan="5">
+      <mfBootstrapPaginator ></mfBootstrapPaginator>
+    </td>
     </tbody>
   </table>
 </div>
 
 
-<modal #modal size='lg' backdrop="true">
+<modal #modal size='lg' backdrop="false">
 
   <modal-header>
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(modal)">Thoát</button>
     </div>
+    <h3 class="text-center"> Thêm khoa/phòng ban </h3>
     <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
@@ -125,7 +162,7 @@
 
 </modal>
 
-<modal #modalDetail size='lg' backdrop="true">
+<modal #modalDetail size='lg' backdrop="false">
 
   <modal-header>
     <div class="action-form mgb-i-10">
@@ -141,26 +178,36 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-bordered"  [mfData]="details.toArray()" #mfDetail="mfDataTable" [mfRowsOnPage]="numberShow">
             <thead>
             <tr>
               <th style="width:5%">STT</th>
-              <th>Mã phòng ban</th>
-              <th>Tên phòng ban</th>
               <th>
+                <mfDefaultSorter by="code">Mã phòng ban)</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="name">Tên phòng ban</mfDefaultSorter>
+              </th>
+              <th>
+                <!--<th>-->
+                <span class="action-icon" (click)="openModals(1)"><i class="fa fa-plus"></i></span>
+                <!--</th>-->
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of details.toArray();let i = index ">
+            <tr *ngFor="let item of mfDetail.data;let i = index ">
               <td>{{i+1}}</td>
-              <td class="name">{{item.code}}</td>
-              <td class="name">{{item.name}}</td>
+              <td class="name upper-case">{{item.code}}</td>
+              <td class="name first-upper-case">{{item.name.toLowerCase()}}</td>
               <td style="width:10%">
                 <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
                 <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
               </td>
             </tr>
+            <td colspan="4" *ngIf="numberShow >= mfDetail.data.length && (details.size() - mfDetail.data.length) >=numberShow">
+              <mfBootstrapPaginator></mfBootstrapPaginator>
+            </td>
             </tbody>
           </table>
         </div>
@@ -171,5 +218,53 @@
   <!--<modal-footer>-->
   <!--<button class="btn-action" (click)="onSave(formData)">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>-->
   <!--</modal-footer>-->
+
+</modal>
+
+
+<modal #modalNewDepart size='lg' backdrop="false">
+
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="closeModal(modalNewDepart)">Thoát</button>
+    </div>
+  </modal-header>
+
+  <modal-body>
+    <form class="mgb-i-10">
+      <div class="row">
+
+        <div class="col-xs-12">
+
+          <div class="item-control">
+            <label>Tên phòng ban </label>
+            <input name="name" class="form-control" [(ngModel)]="newDepart.name" #nameDep required
+                   style="width: 100%!important;"/>
+            <div class="error" *ngIf="touched && nameDep &&  nameDep.value == '' || touched && nameDep == null">
+              Chưa nhập tên
+            </div>
+          </div>
+
+          <div class="item-control">
+            <label>Mã khoa/phòng ban </label>
+            <input name="code" class="form-control" [(ngModel)]="newDepart.code" #codeDep required
+                   style="width: 100%!important;"/>
+            <div class="error" *ngIf="touched && codeDep &&  codeDep.value.trim() == '' || touched && codeDep == null">
+              Chưa nhập mã
+            </div>
+            <div class="error"
+                 *ngIf="touched && codeDep.value != '' && !validCode(codeDep.value)">
+              Mã không chính sác, mã phải gồm 3 kí tự alphabet
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Thêm':'Cập nhật'}}</button>
+  </modal-footer>
 
 </modal>

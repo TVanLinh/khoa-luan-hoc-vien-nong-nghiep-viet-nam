@@ -19,6 +19,7 @@ export class StatisticPersonByFacultyComponent extends BaseFormComponent impleme
   fields: any[] = [];
   dataUser: any[] = [];
   title = "Danh sách cán bộ ";
+
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public  catalogService: CatalogFacultyService) {
@@ -62,9 +63,10 @@ export class StatisticPersonByFacultyComponent extends BaseFormComponent impleme
     });
   }
 
-  level2Change(fac,fac2) {
-    if(fac!='-1' && fac2!="-1") {
+  level2Change(fac, fac2) {
+    if (fac != '-1' && fac2 != "-1") {
       this.taskService.get(Config.USER_URL + "/findByOrgan?level1=" + fac + "&level2=" + fac2).subscribe((data) => {
+        console.log(fac, fac2);
         this.dataUser = data;
       }, error2 => {
         this.dataUser = [];

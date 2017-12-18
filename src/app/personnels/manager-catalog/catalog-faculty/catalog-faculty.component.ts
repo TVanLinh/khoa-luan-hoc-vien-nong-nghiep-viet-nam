@@ -17,8 +17,11 @@ import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 export class CatalogFacultyComponent extends BaseFormComponent implements OnInit {
   @ViewChild("modal") modal: ModalComponent;
   @ViewChild("modalDetail") modalDetail: ModalComponent;
+  @ViewChild("modalNewDepart") modalNewDepart: ModalComponent;
 
   formData: FormGroup;
+  // formNewDepart: FormGroup;
+
   positionUpdate = null;
   list = new Collections.LinkedList<CatalogFacultyModel>();
   listParent = new Collections.LinkedList<CatalogFacultyModel>();
@@ -26,12 +29,23 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   touched = false;
   details = new Collections.LinkedList<CatalogFacultyModel>();
   titleDetail: string = '';
+  listTemp = new Collections.LinkedList<any>();
+  numberShow = 10;
 
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public  catalogFacService: CatalogFacultyService) {
     super(eleRef, taskService);
   }
+
+  parent = null;
+  newDepart = {
+    name: '',
+    code: '',
+    parent: {
+      code: ''
+    }
+  };
 
   levelFilter = 1;
 
@@ -64,6 +78,16 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   onSave() {
     this.touched = true;
     let formValue = this.formData.value;
+
+    //th tao mot phong ban cho mot khoa hoac cho don vi cap 1
+    if ((this.details && this.details.size() > 0 && this.parent)) {
+      // this.positionUpdate = null;
+      formValue.name = this.newDepart.name;
+      formValue.code = this.newDepart.code;
+      formValue.parent = this.parent._id;
+      formValue.level = '2';
+    }
+
     let valid = [formValue.name, formValue.level, formValue.type, formValue.parent];
     if (!this.positionUpdate) {
       valid.push(formValue.code);
@@ -121,7 +145,21 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
         return;
       }
       this.taskService.post(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
-        this.getCatalog();
+        let response = JSON.parse(data['_body']);
+        body['_id'] = response['_id'];
+        // this.getCatalog();
+        console.log(data);
+
+        this.list.add(body);
+
+        if (body.level == 1) {
+          this.listParent.add(body, 0);
+        }
+
+        if (this.details) {
+          this.details.add(body, 0);
+        }
+
         this.closeModals();
         this.updateMessge("Lưu thành công ", "success");
       }, error => {
@@ -148,7 +186,11 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       }
 
       this.taskService.put(Config.CATATLOG_FACUTY_URL, data).subscribe((data) => {
-        this.getCatalog();
+        // this.getCatalog();
+        super.updateList(this.list, this.positionUpdate, body);
+        super.updateList(this.listParent, this.positionUpdate, body);
+        super.updateList(this.details, this.positionUpdate, body);
+
         this.closeModals();
         this.updateMessge("Cập nhật thành công ", "success");
       }, error => {
@@ -162,11 +204,11 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   }
 
   closeModals() {
+    super.closeModal(this.modalNewDepart);
     setTimeout(() => {
       this.closeModal(this.modal);
       this.touched = false;
       this.showParent = false;
-      // this.formData.reset();
     }, 2000)
   }
 
@@ -175,6 +217,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       this.list = super.asList(data);
       this.listParent = super.asList(this.catalogFacService.findByLevel(this.list.toArray(), 1));
     });
+
   }
 
   removeItem(item) {
@@ -183,51 +226,89 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       this.listParent.remove(item);
       this.list.remove(item);
       this.details.remove(item);
-      setTimeout(() => {
-        super.closeModal(this.modalDetail);
-      }, 2000);
+      if (item.level == 1) {
+        setTimeout(() => {
+          super.closeModal(this.modalDetail);
+        }, 2000);
+      }
     }, err => {
       this.updateMessge("Xóa không thành công ", "success");
     });
   }
 
   editItem(item) {
-    super.closeModal(this.modalDetail);
-    this.touched = false;
     this.positionUpdate = item;
-    this.formData.patchValue({
-      name: item.name,
-      level: item.level,
-      type: item.type,
-      url: item.url,
-      code: item.code.substring(1)
-    });
     this.showParent = false;
-    if (item.parent) {
-      this.showParent = true;
+    if (item.level == 1) {
+      super.closeModal(this.modalDetail);
+      this.touched = false;
       this.formData.patchValue({
-        parent: item.parent.id
+        name: item.name,
+        level: item.level,
+        type: item.type,
+        url: item.url,
+        code: item.code.substring(1)
       });
+      super.openModal(this.modal);
+    } else if (item.level == 2) {
+      this.newDepart.parent.code = '';
+      this.newDepart.code = item.code;
+      this.newDepart.name = item.name;
+      super.openModal(this.modalNewDepart);
     }
-    super.openModal(this.modal);
   }
 
-  openModals() {
+  openModals(number?: number) {
+
     this.positionUpdate = null;
-    this.formData.reset();
-    super.openModal(this.modal);
     this.touched = false;
+    if (!number) {
+      super.openModal(this.modal);
+      this.formData.reset();
+      this.parent = null;
+      this.details.clear();
+    } else {
+      this.newDepart = {
+        name: '',
+        code: '',
+        parent: {
+          code: ''
+        }
+      };
+      super.openModal(this.modalNewDepart);
+
+    }
   }
 
   viewDetail(item) {
+    this.parent = item;
     if (item.type == 'khoa') {
       this.titleDetail = "Danh sách phòng ban của  khoa " + item.name;
     } else {
       this.titleDetail = "Danh sách phòng ban chi tiết của " + item.name;
     }
+    this.newDepart.parent.code = item._id;
     this.details = super.asList(this.catalogFacService.findByIdParent(this.list.toArray(), item._id));
     super.openModal(this.modalDetail);
   }
 
-
+  onSearch(event) {
+    let str = event.value.trim();
+    if (str == '') {
+      this.listParent = super.asList(this.catalogFacService.findByLevel(this.list.toArray(), 1));
+    } else {
+      str = str.toLowerCase();
+      let temp = [];
+      this.listParent = super.asList(this.catalogFacService.findByLevel(this.list.toArray(), 1));
+      for (let item of this.listParent.toArray()) {
+        if (item.name.toLowerCase().indexOf(str) != -1 ||
+          item.code.toLowerCase().indexOf(str) != -1 ||
+          item.url.toLowerCase().indexOf(str) != -1) {
+          temp.push(item);
+        }
+      }
+      this.listParent.clear();
+      this.listParent = super.asList(temp);
+    }
+  }
 }

@@ -21,9 +21,11 @@
 
               <!--<a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>-->
 
-              <a style="cursor: pointer" *ngFor="let item of menuApp | orderBy:'title';let i = index"
+              <a style="cursor: pointer"
+                 [ngClass]="item.title.toLowerCase()!=getMyCvTitle().toLowerCase()?'first-upper-case':''"
+                 *ngFor="let item of menuApp | orderBy:'title';let i = index"
                  (click)="openMenu2(item,'#menu-app-item-role-' + i)"
-                 [id]="'menu-app-item-role-' + i">{{item.title}}</a>
+                 [id]="'menu-app-item-role-' + i">{{item.title.toLowerCase()!=getMyCvTitle().toLowerCase()?item.title.toLowerCase():item.title}}</a>
 
             </li>
           </ul>
@@ -31,14 +33,16 @@
 
         <div id="home1" class="tab-pane fade in active">
           <ul class="content">
-            <li *ngFor="let item of faculty | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a>
+            <li *ngFor="let item of faculty | orderBy:'title'"><a class="first-upper-case" [href]="item.url?item.url:''"
+                                                                  target="_blank">{{item.name.toLowerCase()}}</a>
             </li>
           </ul>
         </div>
 
         <div id="menu11" class="tab-pane fade">
           <ul class="content">
-            <li *ngFor="let item of departments | orderBy:'title'"><a [href]="item.url?item.url:''" target="_blank">{{item.name}}</a>
+            <li *ngFor="let item of departments | orderBy:'title'"><a class="first-upper-case"
+                                                                      [href]="item.url?item.url:''" target="_blank">{{item.name.toLowerCase()}}</a>
             </li>
           </ul>
         </div>
