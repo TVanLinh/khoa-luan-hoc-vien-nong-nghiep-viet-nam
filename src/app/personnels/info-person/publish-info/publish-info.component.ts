@@ -41,7 +41,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_PUBLISH_URL, "process_publish", this.listPublish,this.user);
+    super.pushDataServer(Config.PROCESS_PUBLISH_URL, "process_publish", this.listPublish, this.user);
   }
 
   addItem() {
@@ -56,15 +56,19 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
       return;
     }
 
-    this.formNotValid = false;
     //--------------------------------------
     if (this.positionUpdate == null) {
       this.listPublish.add(valueForm);
     } else {
       super.updateList(this.listPublish, this.positionUpdate, valueForm);
     }
-    this.positionUpdate = null;
+
     this.closeModal(this.publish);
+    setTimeout(() => {
+      this.positionUpdate = null;
+      this.formNotValid = false;
+    }, 500);
+
   }
 
   removeItem(index: number) {
@@ -90,10 +94,18 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_PUBLISH_URL,this.user).subscribe((data) => {
+    super.getDataServer(Config.PROCESS_PUBLISH_URL, this.user).subscribe((data) => {
       if (data && data['process_publish']) {
         this.listPublish = super.asList(data['process_publish']);
       }
     });
+  }
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
   }
 }

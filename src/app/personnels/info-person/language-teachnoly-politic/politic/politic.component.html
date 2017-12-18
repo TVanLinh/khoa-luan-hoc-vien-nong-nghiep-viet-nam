@@ -35,7 +35,8 @@
           </td>
           <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>
+            <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
           </td>
         </tr>
@@ -126,3 +127,5 @@
     </table>
   </div>
 </div>
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

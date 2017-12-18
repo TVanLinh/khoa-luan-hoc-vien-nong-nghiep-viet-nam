@@ -1,23 +1,42 @@
+<h3 class="text-center mgb-20">Backend</h3>
+
+<app-catalog-search (textChange)="textChangeListener($event)"
+                    (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
+
+
 <div class="table-responsive">
-  <h3 class="text-center mgb-20">Backend</h3>
-  <table class="table table-bordered">
+  <table class="table table-bordered" [mfData]="list.toArray()" #mfDetail="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
     <tr>
       <th>STT</th>
-      <th>Tiêu đề</th>
-      <th>Mô tả</th>
-      <th>Url</th>
-      <th>Phương thức http</th>
-      <th>Controller</th>
-      <th>Activated</th>
+      <th>
+        <mfDefaultSorter by="title">Tiêu đề</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="description">Mô tả</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="url">Url</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="method">Phương thức http</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="controller">Controller</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="activated">Activated</mfDefaultSorter>
+      </th>
       <th>
             <span class="action-icon" title="Thêm thông tin" (click)="openModal(modal)"><i
               class="fa fa-plus"></i></span>
       </th>
+
     </tr>
+
     </thead>
     <tbody>
-    <tr *ngFor="let item of list.toArray();let i = index">
+    <tr *ngFor="let item of mfDetail.data;let i = index">
       <td>{{i+1}}</td>
       <td>{{(item.title)}}</td>
       <td>{{item.description}}</td>
@@ -27,7 +46,14 @@
       <td>{{item.activated}}</td>
       <td>
         <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-        <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>
+        <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>-->
+        <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="8">
+        <mfBootstrapPaginator></mfBootstrapPaginator>
       </td>
     </tr>
 
@@ -101,3 +127,6 @@
   </modal-footer>
 
 </modal>
+
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

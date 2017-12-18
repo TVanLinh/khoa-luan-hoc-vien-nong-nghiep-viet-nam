@@ -163,7 +163,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       this.closeModal(loginModal);
       MystorageService.saveAcount(data);
       this.menuApp = data['user']['roles'];
-      console.log(JSON.stringify(this.menuApp));
+      console.log("menu:" + JSON.stringify(data['user']['roles']));
       let share;
 
       if (super.contains(this.menuApp, 'title', Config.MYCV)) {

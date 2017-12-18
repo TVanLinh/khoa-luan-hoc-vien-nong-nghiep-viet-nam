@@ -34,7 +34,10 @@
             <td>{{item.yearReceive}}</td>
             <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>
+              <!--<span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>-->
+              <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item;mode = 0"><i
+                class="fa fa-remove "></i></span>
+
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
             </td>
           </tr>
@@ -57,7 +60,7 @@
       </div>
 
       <div class="table-responsive" id="title-teacher-print">
-        <table class="table table-bordered" >
+        <table class="table table-bordered">
           <thead>
           <tr>
             <th>STT</th>
@@ -76,7 +79,10 @@
             <td>{{item.yearReceive}}</td>
             <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>
+              <!--<span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>-->
+              <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i;mode=1"><i
+                class="fa fa-remove "></i></span>
+
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
             </td>
           </tr>
@@ -194,3 +200,4 @@
   </modal-footer>
 
 </modal>
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

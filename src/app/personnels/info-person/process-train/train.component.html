@@ -57,7 +57,9 @@
             <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
             <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i,0)"><i
+              <!--<span class="action-icon" (click)="removeItem(i,0)"><i-->
+              <!--class="fa fa-remove "></i></span>-->
+              <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i; mode = 0"><i
                 class="fa fa-remove "></i></span>
             </td>
           </tr>
@@ -100,8 +102,10 @@
             <td>{{item.description}}</td>
             <td class="hide-print">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
-              <span class="action-icon" (click)="removeItem(i,1)"><i
-                class="fa fa-remove"></i></span>
+              <!--<span class="action-icon" (click)="removeItem(i,1)"><i-->
+              <!--class="fa fa-remove"></i></span>-->
+              <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i; mode = 1"><i
+                class="fa fa-remove "></i></span>
             </td>
           </tr>
           <!---->
@@ -358,3 +362,5 @@
 
 </modal>
 
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

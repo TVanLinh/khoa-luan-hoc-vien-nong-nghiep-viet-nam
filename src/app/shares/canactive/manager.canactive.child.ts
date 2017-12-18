@@ -6,9 +6,6 @@ import {Observable} from "rxjs/Observable";
 import {MystorageService} from "../mystorage.service";
 import {TaskService} from "../task.service";
 import {Injectable} from "@angular/core";
-import {Config} from "../config";
-import {noUndefined} from "@angular/compiler/src/util";
-import {Util} from "../util";
 
 @Injectable()
 export class ManagerCanactiveChild implements CanActivateChild {
@@ -29,14 +26,19 @@ export class ManagerCanactiveChild implements CanActivateChild {
         frontends.push(it);
       }
     }
+    // console.log(url)
     console.log(url);
     for (let item of frontends) {
       // console.log(JSON.stringify(item));
-      if (item['url'] == url) {
+      if (item['url'] == url || '/manager/info?user'.indexOf(item['url']) != -1) {
         return true;
       }
     }
+
+    // if(url)
+
     this.router.navigate(["/"]);
+    console.log(false);
     return false;
   }
 

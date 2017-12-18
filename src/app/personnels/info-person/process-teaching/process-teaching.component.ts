@@ -145,5 +145,15 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
       }
     });
   }
+
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
+
 }
 

@@ -1,32 +1,7 @@
 <h4 class="text-center mgb-15" style="font-size: 20px"> Danh mục học hàm </h4>
 
-<div class="row">
-  <div class="col-xs-12 text-right">
-    <div class="col-xs-6">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 text-left">
-          Số lượng xem:
-        </div>
-        <div class="col-xs-12 col-sm-8 text-left">
-          <select name="" id="" class="form-control" [(ngModel)]="numberShow">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="30">50</option>
-            <option value="30">100</option>
-            <option value="30">150</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-6">
-      <input type="text" placeholder="Nhập để tìm kiếm " class="form-control search" name="search" #query ngModel
-             (keyup)="onSearch(query)"
-             (change)="onSearch(query)">
-    </div>
-  </div>
-</div>
-
+<app-catalog-search (textChange)="textChangeListener($event)"
+                    (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
 
 <div *ngIf="message.condition"
      [ngClass]="'alert alert-'+ message.type">
@@ -51,7 +26,8 @@
       <td class="name">{{item.name}}</td>
       <td style="width:10%">
         <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-        <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+        <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+        <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
       </td>
     </tr>
     <tr *ngIf="numberShow >= mfDetail.data.length && (list.size() - mfDetail.data.length) >=numberShow">
@@ -92,3 +68,6 @@
   </modal-footer>
 
 </modal>
+
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

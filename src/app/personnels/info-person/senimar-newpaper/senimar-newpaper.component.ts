@@ -185,14 +185,14 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     this.mode = mode;
     this.formValid = true;
     if (mode == 0) {
-      super.pushDataServer(Config.SEMINAR_TOP_URL, 'seminar', this.listSenimar,this.user);
+      super.pushDataServer(Config.SEMINAR_TOP_URL, 'seminar', this.listSenimar, this.user);
     } else {
-      super.pushDataServer(Config.NEWSPAPER_TOP_URL, 'newspaper', this.listNewsPaper,this.user);
+      super.pushDataServer(Config.NEWSPAPER_TOP_URL, 'newspaper', this.listNewsPaper, this.user);
     }
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.SEMINAR_TOP_URL,this.user).subscribe(data => {
+    super.getDataServer(Config.SEMINAR_TOP_URL, this.user).subscribe(data => {
       if (data && data['seminar']) {
         this.listSenimar = super.asList(data['seminar']);
       }
@@ -200,13 +200,22 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
 
     });
 
-    super.getDataServer(Config.NEWSPAPER_TOP_URL,this.user).subscribe(data => {
+    super.getDataServer(Config.NEWSPAPER_TOP_URL, this.user).subscribe(data => {
       if (data && data['newspaper']) {
         this.listNewsPaper = super.asList(data['newspaper']);
       }
     }, (err) => {
 
     });
+  }
+
+  itemDelete = null;
+  deleteMode = '';
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.deleteMode, this.itemDelete);
+    }
   }
 }
 

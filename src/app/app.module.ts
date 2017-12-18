@@ -99,8 +99,8 @@ import {ArgFontendComponent} from './personnels/manager-system/arg-system/arg-fo
 import {ArgBackendComponent} from './personnels/manager-system/arg-system/arg-backend/arg-backend.component';
 import {ProcedureAcesendingSalaryComponent} from './personnels/manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component';
 import {AuthenticationComponent} from "./personnels/manager-system/authentication/authentication.component";
-import {UserManagerComponent} from './personnels/manager-system/user-manager/user-manager.component';
-import {RoleManagerComponent} from './personnels/manager-system/role-manager/role-manager.component';
+import {UserManagerComponent} from './personnels/manager-personnels/user-manager/user-manager.component';
+import {RoleManagerComponent} from './personnels/manager-personnels/role-manager/role-manager.component';
 import {ProcedureBonusComponent} from './personnels/manager-personnels/procedure-bonus/procedure-bonus.component';
 import {ProcedureDisciplineComponent} from './personnels/manager-personnels/procedure-discipline/procedure-discipline.component';
 import {SelectModule} from "ng2-select";
@@ -111,12 +111,13 @@ import {CheckProfileComponent} from './personnels/manager-personnels/check-profi
 import ComonModule = require("./comon-module");
 import {PesonnelModule} from "./personnels/pesonnel.module";
 import {AppComonModule} from "./comon-module";
+import { AlertConfirmComponent } from './components/alert-confirm/alert-confirm.component';
 
 // import {DxDataGridModule} from "devextreme-angular";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     AppRouting,

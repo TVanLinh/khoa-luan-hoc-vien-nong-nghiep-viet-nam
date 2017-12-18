@@ -120,8 +120,10 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     }
 
     super.closeModal(this.modalBonus);
-    this.positionUpdate = null;
-    this.formData.reset();
+    setTimeout(() => {
+      this.positionUpdate = null;
+      this.formData.reset();
+    }, 500);
   }
 
 
@@ -173,6 +175,14 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     });
   }
 
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete, this.mode);
+    }
+    this.mode = -1;
+  }
 
 }
 

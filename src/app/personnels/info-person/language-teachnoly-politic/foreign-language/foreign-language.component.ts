@@ -172,7 +172,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
 
 
   getDataFromServer() {
-    if(this.user){
+    if (this.user) {
       this.taskService.get(Config.CONTRACT_FOREIGN + "?username=" + this.user['username']).subscribe((data) => {
         if (data && data['foreign_language']) {
           this.list = this.asList(data['foreign_language']);
@@ -182,5 +182,12 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
     }
   }
 
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
 
 }

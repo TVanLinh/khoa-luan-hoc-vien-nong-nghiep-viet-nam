@@ -159,4 +159,12 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
     }
     return null;
   }
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
 }

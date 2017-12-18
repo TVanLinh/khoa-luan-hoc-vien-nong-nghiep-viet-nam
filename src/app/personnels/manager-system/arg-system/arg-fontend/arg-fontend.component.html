@@ -1,17 +1,32 @@
+<h3 class="text-center mgb-20">Frontend</h3>
+
+<app-catalog-search (textChange)="textChangeListener($event)"
+                    (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
+
+
 <div class="table-responsive">
-  <h3 class="text-center mgb-20">Frontend</h3>
   <div *ngIf="message.condition"
        [ngClass]="'alert alert-'+ message.type">
     {{message.content}}
   </div>
-  <table class="table table-bordered">
+
+
+  <table class="table table-bordered" [mfData]="list.toArray()" #mfDetail="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
     <tr>
       <th>STT</th>
-      <th>Tiêu đề</th>
-      <th>Mô tả</th>
-      <th>Url</th>
-      <th>Activated </th>
+      <th>
+        <mfDefaultSorter by="title">Tiêu đề</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="description">Mô tả</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="url">Url</mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="activated">Activated</mfDefaultSorter>
+      </th>
       <th>
             <span class="action-icon" title="Thêm thông tin" (click)="openModal(modal)"><i
               class="fa fa-plus"></i></span>
@@ -19,7 +34,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of list.toArray();let i = index">
+    <tr *ngFor="let item of mfDetail.data;let i = index">
       <td>{{i+1}}</td>
       <td>{{(item.title)}}</td>
       <td>{{item.description}}</td>
@@ -28,15 +43,21 @@
       <td>
         <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
         <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>-->
+        <span class="action-icon" (click)="alertMessage.open();itemDelete = item"><i class="fa fa-remove "></i></span>
       </td>
     </tr>
 
+    <tr>
+      <td colspan="6">
+        <mfBootstrapPaginator></mfBootstrapPaginator>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
 
 
-<modal #modal size='lg' backdrop="true">
+<modal #modal size='lg' backdrop="false">
 
   <modal-header>
     <div class="action-form mgb-i-10">
@@ -84,3 +105,8 @@
   </modal-footer>
 
 </modal>
+
+
+<!--<button class="btn btn-defautl" (click)="(alertMessage.open())">test</button>-->
+
+<app-alert-confirm #alertMessage (onAction)="confirm($event)"></app-alert-confirm>

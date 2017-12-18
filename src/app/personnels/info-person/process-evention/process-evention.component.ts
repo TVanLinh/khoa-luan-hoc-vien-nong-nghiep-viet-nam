@@ -58,16 +58,19 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
       return;
     }
 
-    this.formNotValid = false;
-
 
     if (this.positionUpdate == null) {
       this.listEvention.add(valueForm);
     } else {
       super.updateList(this.listEvention, this.positionUpdate, valueForm);
     }
-    this.positionUpdate = null;
+
     this.closeModal(this.evention);
+
+    setTimeout(() => {
+      this.formNotValid = false;
+      this.positionUpdate = null;
+    }, 500);
   }
 
   removeItem(index: number) {
@@ -87,7 +90,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_EVENT_URL, "process_event", this.listEvention,this.user);
+    super.pushDataServer(Config.PROCESS_EVENT_URL, "process_event", this.listEvention, this.user);
   }
 
   openModals() {
@@ -97,11 +100,19 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_EVENT_URL,this.user).subscribe(data => {
+    super.getDataServer(Config.PROCESS_EVENT_URL, this.user).subscribe(data => {
       if (data && data['process_event']) {
         this.listEvention = super.asList(data['process_event']);
       }
     });
+  }
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
   }
 }
 

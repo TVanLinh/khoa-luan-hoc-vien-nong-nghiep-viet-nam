@@ -53,7 +53,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_FOREIGN_URL, "process_foreign", this.listForeignForm,this.user);
+    super.pushDataServer(Config.PROCESS_FOREIGN_URL, "process_foreign", this.listForeignForm, this.user);
   }
 
 
@@ -86,9 +86,12 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
     } else {
       super.updateList(this.listForeignForm, this.positionUpdate, valueForm);
     }
-    this.positionUpdate = null;
+
     this.closeModal(this.modal);
-    this.resetForm();
+    setTimeout(() => {
+      this.positionUpdate = null;
+      this.resetForm();
+    }, 500);
   }
 
   resetForm() {
@@ -125,8 +128,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    if(this.user)
-    {
+    if (this.user) {
       super.getDataServer(Config.PROCESS_FOREIGN_URL, this.user).subscribe(data => {
         if (data && data['process_foreign']) {
           this.listForeignForm = super.asList(data['process_foreign']);
@@ -136,4 +138,11 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
     }
   }
 
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
 }

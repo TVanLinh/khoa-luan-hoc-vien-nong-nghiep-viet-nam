@@ -27,8 +27,8 @@ import {ArgSystemComponent} from "./manager-system/arg-system/arg-system.compone
 import {ArgBackendComponent} from "./manager-system/arg-system/arg-backend/arg-backend.component";
 import {ArgFontendComponent} from "./manager-system/arg-system/arg-fontend/arg-fontend.component";
 import {ProcedureAcesendingSalaryComponent} from "./manager-personnels/procedure-acesending-salary/procedure-acesending-salary.component";
-import {RoleManagerComponent} from "./manager-system/role-manager/role-manager.component";
-import {UserManagerComponent} from "./manager-system/user-manager/user-manager.component";
+import {RoleManagerComponent} from "./manager-personnels/role-manager/role-manager.component";
+import {UserManagerComponent} from "./manager-personnels/user-manager/user-manager.component";
 import {ProcedureBonusComponent} from "app/personnels/manager-personnels/procedure-bonus/procedure-bonus.component";
 import {ProcedureDisciplineComponent} from "./manager-personnels/procedure-discipline/procedure-discipline.component";
 import {ManagerCanactive} from "../shares/canactive/manager.canactive";
@@ -73,6 +73,7 @@ import {CatalogFacultyService} from "../shares/catalog-faculty.service";
 import {CatalogSalaryService} from "../shares/catalog-salary.service";
 import {NationalService} from "../shares/national.service";
 import {TaskService} from "../shares/task.service";
+import { CatalogSearchComponent } from './manager-catalog/catalog-search/catalog-search.component';
 
 const routes: Routes = [
   {
@@ -274,7 +275,8 @@ const routes: Routes = [
     RoleManagerComponent,
     ProcedureBonusComponent,
     ProcedureDisciplineComponent,
-    CheckProfileComponent
+    CheckProfileComponent,
+    CatalogSearchComponent
   ],
   imports: [
     AppComonModule.forRoot(), RouterModule.forChild(routes),

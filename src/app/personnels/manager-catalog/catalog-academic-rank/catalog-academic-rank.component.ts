@@ -96,8 +96,8 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
     });
   }
 
-  onSearch(query) {
-    let str = query.value.trim();
+  textChangeListener(query) {
+    let str = query.trim();
     if (str == '') {
       this.list = super.clone(this.lisTemp.toArray());
     } else {
@@ -109,5 +109,17 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
       }
     }
 
+  }
+
+  numberViewChangeListener(query) {
+    this.numberShow = query;
+  }
+
+
+  itemDelete = null;
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
   }
 }

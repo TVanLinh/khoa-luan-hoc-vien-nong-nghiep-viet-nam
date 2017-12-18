@@ -111,4 +111,12 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
       }
     });
   }
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
 }

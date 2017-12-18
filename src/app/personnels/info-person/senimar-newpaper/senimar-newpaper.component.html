@@ -44,7 +44,10 @@
                 <td>{{item.location}}</td>
                 <td class="hide-print">
                   <span class="action-icon" (click)="editItem('SENIMAR',item)"><i class="fa fa-edit"></i></span>
-                  <span class="action-icon" (click)="removeItem('SENIMAR',i)"><i class="fa fa-remove "></i></span>
+                  <!--<span class="action-icon" (click)="removeItem('SENIMAR',i)"><i class="fa fa-remove "></i></span>-->
+
+                  <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i;deleteMode = 'SENIMAR'"><i
+                    class="fa fa-remove "></i></span>
                   <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
                 </td>
               </tr>
@@ -103,7 +106,9 @@
                 <td>{{item.location}}</td>
                 <td class="hide-print">
                   <span class="action-icon" (click)="editItem('NEWSPAPER',item)"><i class="fa fa-edit"></i></span>
-                  <span class="action-icon" (click)="removeItem('NEWSPAPER',i)"><i class="fa fa-remove "></i></span>
+                  <!--<span class="action-icon" (click)="removeItem('NEWSPAPER',i)"><i class="fa fa-remove "></i></span>-->
+                  <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i;deleteMode = 'NEWSPAPER'"><i
+                    class="fa fa-remove "></i></span>
                   <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
                 </td>
               </tr>
@@ -122,7 +127,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(seminaModal)">Thoát</button>
     </div>
-    <h3 class="text-center">Thông tin báo cáo khoa học   </h3>
+    <h3 class="text-center">Thông tin báo cáo khoa học </h3>
     <div *ngIf="message.condition && mode == 0 && formSeminarNotValid " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
@@ -204,7 +209,7 @@
     <div class="action-form mgb-i-10">
       <button (click)="closeModal(newspaperModal)">Thoát</button>
     </div>
-    <h3 class="text-center">Thông tin bài báo khoa học  </h3>
+    <h3 class="text-center">Thông tin bài báo khoa học </h3>
     <div *ngIf="message.condition && formNewspaperNotValid " [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>
@@ -289,4 +294,4 @@
 </modal>
 
 
-
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

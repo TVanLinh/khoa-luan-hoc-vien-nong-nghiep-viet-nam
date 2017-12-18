@@ -20,7 +20,11 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
   update = null;
   formTouch = false;
   list = new Collections.LinkedList<any>();
+  listTemp = new Collections.LinkedList<any>();
+
   methods = ['post', 'put', 'get', 'delete'];
+
+  numberShow = 10;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -75,6 +79,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
           super.updateMessge("Lưu thành công", "success");
         }, 500);
         this.list.add(JSON.parse(data['_body']), 0);
+        this.listTemp.add(JSON.parse(data['_body']), 0);
       }, err => {
         setTimeout(() => {
           super.updateMessge("Lưu không thành công", "warning");
@@ -90,6 +95,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
           super.updateMessge("Cập nhật thành công", "success");
         }, 500);
         super.updateList(this.list, this.update, valueForm);
+        super.updateList(this.listTemp, this.update, valueForm);
       }, err => {
         setTimeout(() => {
           super.updateMessge("Cập nhật không thành công", "warning");
@@ -104,6 +110,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
   getDataFromServer() {
     this.taskService.get(Config.BACKEND_URL).subscribe(data => {
       this.list = super.asList(data);
+      this.listTemp = super.asList(data);
     }, err => {
     });
 
@@ -112,6 +119,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
   removeItem(item) {
     this.taskService.delete2(Config.BACKEND_URL, {id: item._id}).subscribe(data => {
       this.list.remove(item);
+      this.listTemp.remove(item);
       super.updateMessge("Xóa thành công", "success");
     }, err => {
       super.updateMessge("Xóa không thành công", "warning");
@@ -131,4 +139,39 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
     });
     this.openModal(this.modal, true);
   }
+
+
+  textChangeListener($event) {
+    let query = $event.toLowerCase().trim();
+    if (query == '') {
+      this.list = super.clone(this.listTemp.toArray());
+    } else {
+      this.list.clear();
+      for (let item of this.listTemp.toArray()) {
+        if ((item.description && item.description.toLowerCase().indexOf(query) != -1) ||
+          (item.httpVerb && item.httpVerb.toLowerCase().indexOf(query) != -1) ||
+          (item.title && item.title.toLowerCase().indexOf(query) != -1) ||
+          (item.url && item.url.toLowerCase().indexOf(query) != -1) ||
+          (item.method && item.method.toLowerCase().indexOf(query) != -1) ||
+          (item.controller && item.controller.toLowerCase().indexOf(query) != -1 ) ||
+          ((item.activated + "").toLowerCase().indexOf(query) != -1)) {
+          this.list.add(item);
+        }
+
+      }
+    }
+  }
+
+  numberViewChangeListener(value) {
+    this.numberShow = value;
+  }
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
 }
+

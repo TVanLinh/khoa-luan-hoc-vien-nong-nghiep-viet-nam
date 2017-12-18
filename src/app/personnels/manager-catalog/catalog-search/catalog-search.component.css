@@ -1,0 +1,23 @@
+/*input.ng-valid {*/
+  /*border: 1px solid #444444 ;*/
+/*}*/
+
+select {
+  float: none !important;
+}
+
+tbody tr:hover {
+  background-color: #eae7df;
+  cursor: pointer;
+}
+
+tbody tr td {
+  word-break: break-all;
+}
+
+.search {
+  display: inline-block;
+  margin-left: auto;
+  width: 300px !important;
+  margin-bottom: 20px;
+}

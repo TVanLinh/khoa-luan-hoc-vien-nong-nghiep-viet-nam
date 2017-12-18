@@ -292,8 +292,8 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
     super.openModal(this.modalDetail);
   }
 
-  onSearch(event) {
-    let str = event.value.trim();
+  textChangeListener(event) {
+    let str = event.trim();
     if (str == '') {
       this.listParent = super.asList(this.catalogFacService.findByLevel(this.list.toArray(), 1));
     } else {
@@ -309,6 +309,19 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
       }
       this.listParent.clear();
       this.listParent = super.asList(temp);
+    }
+  }
+
+  numberViewChangeListener(query) {
+    this.numberShow = query;
+  }
+
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
     }
   }
 }

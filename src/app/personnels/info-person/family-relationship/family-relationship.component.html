@@ -34,7 +34,8 @@
           <td>{{item.job}}</td>
           <td class="hide-print">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+            <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
           </td>
         </tr>
         <!---->
@@ -43,6 +44,7 @@
     </div>
   </form>
 </div>
+
 
 
 <!--modal qua trinh hoat dong Doan-->
@@ -117,3 +119,4 @@
 </modal>
 
 
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

@@ -1,0 +1,19 @@
+button:hover, .btn-action:hover {
+  transition: 0.5s ease-in-out;
+  background: #c799b7 !important;
+  border-color: #c799b7 !important;
+  color: #fff;
+  font-size: 14px;
+}
+
+button:focus, button:hover, button:active {
+  outline: none;
+}
+
+.btn-action {
+  background: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 5px 20px;
+  width: 80px !important;
+}

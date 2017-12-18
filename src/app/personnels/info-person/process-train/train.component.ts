@@ -44,6 +44,8 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   formLongTouch = false;
   formShortTouch = false;
 
+  mode = -1;
+
   constructor(protected eleRef: ElementRef,
               public taskService: TaskService,
               public nationalService: NationalService,) {
@@ -265,5 +267,14 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     this.getDataServer(Config.CATALOG_ACADEMIC_RANK_URL).subscribe((data: any[]) => {
       this.catalogRankAcademic = data;
     })
+  }
+
+  itemDelete = -1;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete, this.mode);
+    }
+    this.mode = -1;
   }
 }

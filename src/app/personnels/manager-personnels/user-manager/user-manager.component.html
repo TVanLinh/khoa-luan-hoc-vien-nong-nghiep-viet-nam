@@ -71,6 +71,7 @@
             <td *ngIf="item">{{i+1}}</td>
             <td *ngIf="item">{{(item.title)}}</td>
             <td *ngIf="item">
+              <!--<span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>-->
               <span class="action-icon" (click)="selectDeleteRole(item)"><i class="fa fa-remove "></i></span>
             </td>
           </tr>
@@ -109,3 +110,6 @@
   </modal-footer>
 
 </modal>
+
+
+<!--<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>-->

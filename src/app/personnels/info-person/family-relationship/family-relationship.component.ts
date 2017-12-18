@@ -146,6 +146,14 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
     this.formTouch = false;
   }
 
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
+  }
+
 }
 
 
