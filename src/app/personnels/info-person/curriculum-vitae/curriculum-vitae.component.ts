@@ -10,6 +10,7 @@ import {AddressModel} from "../../model/address.model";
 import {GuildModel} from "../../model/guild.model";
 import {ValidService} from "../../../shares/valid.service";
 import {AcountShareService} from "../../../shares/acount-share.service";
+import {CityModel} from "../../model/city.model";
 
 declare const jQuery: any;
 
@@ -36,17 +37,17 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
     email: "",
     phone: "",
     placeBirth: {
-      city: "1",
+      city: "",
       district: "",
       guild: ""
     },
     homeTown: {
-      city: "1",
+      city: "",
       district: "",
       guild: ""
     },
     placeNow: {
-      city: "1",
+      city: "",
       district: "",
       guild: "",
       street: "",
@@ -76,6 +77,9 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   constructor(public taskService: TaskService, protected eleRef: ElementRef,
               public addressService: AddressService, private  acountService: AcountShareService) {
     super(eleRef, taskService);
+    this.birthDays.city =  new CityModel();
+    this.homeTown.city =  new CityModel();
+    this.placeNow.city =  new CityModel();
 
   }
 
@@ -99,6 +103,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
     if (target == "NS") {
       this.birthDays = this.addressService.findAddressByCityId(this.listCity, id);
+
       this.formCV.patchValue({
         placeBirth: {
           district: '',
@@ -155,8 +160,10 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
         if (typeof data[i].city != 'undefined') {
           let a = new AddressModel();
+          // a.city.districts = [];
           a.city = data[i]['city'];
-          a.districts = data[i]['districts'];
+          // a.city.districts = data[i]['city']['districts'];
+          // a.city.districts = data[i]['districts'];
           this.listCity.push(a);
         } else {
         }
@@ -206,13 +213,9 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   avatarChange($even) {
     var files = $even.target.files;
     var file = files[0];
-    // Im.resize({
-    //
-    // })
-    // console.log(file.name);
+
     if (files && file) {
       var reader = new FileReader();
-      // console.log(file.getSize());
 
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsBinaryString(file);
@@ -234,9 +237,6 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
 
     let valueForm = this.formCV.value;
 
-    console.log(valueForm);
-
-    // valueForm.placeNow.street, valueForm.placeNow.numberHome,
     let valid = [valueForm.phone,
       valueForm.homeTown.city, valueForm.homeTown.district, valueForm.homeTown.guild,
       valueForm.placeBirth.city, valueForm.placeBirth.district, valueForm.placeBirth.guild,
@@ -275,10 +275,9 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
       this.taskService.get(Config.CV_URL + "?username=" + this.user.username).subscribe((data) => {
         if (data && data['cv']) {
           this.infoBasic = data.cv;
-          // this.gui
           this.birthDays = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.placeBirth.city);
           this.guidsBithday = this.addressService.findGuildByDistrictId(this.birthDays, this.infoBasic.placeBirth.district);
-          // console.log(JSON.stringify(this.birthDays));
+
           this.homeTown = this.addressService.findAddressByCityId(this.listCity, this.infoBasic.homeTown.city);
           this.guilsHomeTown = this.addressService.findGuildByDistrictId(this.homeTown, this.infoBasic.homeTown.district);
 

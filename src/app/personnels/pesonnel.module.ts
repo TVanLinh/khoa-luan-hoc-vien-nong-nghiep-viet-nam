@@ -1,5 +1,5 @@
 import {RouterModule, Routes} from "@angular/router";
-import {NgModule} from "@angular/core";
+import {ModuleWithProviders, NgModule} from "@angular/core";
 import {PersonnelManagerComponent} from "./manager-personnels/personnels.component";
 import {AddPersonnelComponent} from "app/personnels/manager-personnels/add-personnel/add-personnel.component";
 import {EditPersonnelComponent} from "app/personnels/manager-personnels/edit-personnel/edit-personnel.component";
@@ -34,7 +34,45 @@ import {ProcedureDisciplineComponent} from "./manager-personnels/procedure-disci
 import {ManagerCanactive} from "../shares/canactive/manager.canactive";
 import {ManagerCanactiveChild} from "../shares/canactive/manager.canactive.child";
 import {CheckProfileComponent} from "./manager-personnels/check-profile/check-profile.component";
-
+import {AuthenticationComponent} from "./manager-system/authentication/authentication.component";
+import {StatisticTableComponent} from "./search-statistic/statistic/statistic-table/statistic-table.component";
+import {SearchFormComponent} from "./search-form/search-form.component";
+import {CatalogFacultyPipe} from "./manager-catalog/catalog-faculty/catalog-faculty.pipe";
+import {MessageComponent} from "../components/message/message.component";
+import {SearchStatisticComponent} from "./search-statistic/search-statistic.component";
+import {LanguageTeachnolyPoliticComponent} from "./info-person/language-teachnoly-politic/language-teachnoly-politic.component";
+import {Header2Component} from "../components/headers/header-2/header-2.component";
+import {MenuAppComponent} from "../menu-app/menu-app.component";
+import {ProcessEventionComponent} from "./info-person/process-evention/process-evention.component";
+import {ProcessTeachingComponent} from "./info-person/process-teaching/process-teaching.component";
+import {ForeignComponent} from "./info-person/foreign/foreign.component";
+import {SalaryBriefComponent} from "./info-person/salary-brief/salary-brief.component";
+import {CurriculumVitaeComponent} from "./info-person/curriculum-vitae/curriculum-vitae.component";
+import {PartyUnionComponent} from "./info-person/party-union/party-union.component";
+import {NoteFormComponent} from "./notes/note-form/note-form.component";
+import {FamilyRelationshipComponent} from "./info-person/family-relationship/family-relationship.component";
+import {ProcessWorkComponent} from "./info-person/process-work/process-work.component";
+import {TrainComponent} from "./info-person/process-train/train.component";
+import {ContractComponent} from "./info-person/contract/contract.component";
+import {NoteForm2Component} from "./notes/note-form2/note-form2.component";
+import {InfoTechnologyComponent} from "./info-person/language-teachnoly-politic/info-technology/info-technology.component";
+import {PoliticComponent} from "./info-person/language-teachnoly-politic/politic/politic.component";
+import {ForeignLanguageComponent} from "./info-person/language-teachnoly-politic/foreign-language/foreign-language.component";
+import {BonusDisciplineComponent} from "./info-person/bonus-discipline/bonus-discipline.component";
+import {AcademicRankComponent} from "./info-person/academic-rank/academic-rank.component";
+import {EmulationTitleComponent} from "./info-person/emulation-title/emulation-title.component";
+import {ThesisGuideComponent} from "./info-person/thesis-guide/thesis-guide.component";
+import {ScienceTopicComponent} from "./info-person/science-topic/science-topic.component";
+import {SenimarNewpaperComponent} from "./info-person/senimar-newpaper/senimar-newpaper.component";
+import {PublishInfoComponent} from "./info-person/publish-info/publish-info.component";
+import {AppComonModule}from "../comon-module";
+import {AddressService} from "../shares/address.service";
+import {AcountShareService} from "../shares/acount-share.service";
+import {ExcelService} from "../shares/excel.service";
+import {CatalogFacultyService} from "../shares/catalog-faculty.service";
+import {CatalogSalaryService} from "../shares/catalog-salary.service";
+import {NationalService} from "../shares/national.service";
+import {TaskService} from "../shares/task.service";
 
 const routes: Routes = [
   {
@@ -173,11 +211,90 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  declarations: [
+    CurriculumVitaeComponent,
+    PartyUnionComponent,
+    NoteFormComponent,
+    FamilyRelationshipComponent,
+    ProcessWorkComponent,
+    TrainComponent,
+    ContractComponent,
+    NoteForm2Component,
+    InfoTechnologyComponent,
+    PoliticComponent,
+    ForeignLanguageComponent,
+    BonusDisciplineComponent,
+    AcademicRankComponent,
+    EmulationTitleComponent,
+    SalaryBriefComponent,
+    ForeignComponent,
+    ThesisGuideComponent,
+    ScienceTopicComponent,
+    SenimarNewpaperComponent,
+    PublishInfoComponent,
+    ProcessTeachingComponent,
+    ProcessEventionComponent,
+    AddPersonnelComponent,
+    EditPersonnelComponent,
+    ProcedureLeaveJobComponent,
+    ProcedureRetireComponent,
+    ProcedureBindJobComponent,
+    ProcedureTransferUnitWorkComponent,
+    ProcedureTransferDepartmentComponent,
+    MenuAppComponent,
+    Header2Component,
+    PersonnelManagerComponent,
+    LanguageTeachnolyPoliticComponent,
+    ManagerComponent,
+    InfoComponent,
+    ManagerCatalogComponent,
+    SearchStatisticComponent,
+    ManagerSystemComponent,
+    CatalogFacultyComponent,
+    CatalogRankComponent,
+    CatalogPositionComponent,
+    CatalogAcademicRankComponent,
+    SearchComponent,
+    StatisticComponent,
+    MessageComponent,
+    CatalogFacultyPipe,
+    SearchFormComponent,
+    StatisticLeaveJobComponent,
+    StatisticBindJobComponent,
+    StatisticRetiredComponent,
+    StatisticNewRetireComponent,
+    StatisticTableComponent,
+    StatisticPersonByFacultyComponent,
+    ArgSystemComponent,
+    ArgFontendComponent,
+    ArgBackendComponent,
+    ProcedureAcesendingSalaryComponent,
+    AuthenticationComponent,
+    UserManagerComponent,
+    RoleManagerComponent,
+    ProcedureBonusComponent,
+    ProcedureDisciplineComponent,
+    CheckProfileComponent
+  ],
+  imports: [
+    AppComonModule.forRoot(), RouterModule.forChild(routes),
+  ],
   exports: [RouterModule],
-  providers: []
+  providers: [NationalService, CatalogSalaryService,
+    CatalogFacultyService,
+    ExcelService,
+    ManagerCanactive,
+    ManagerCanactiveChild,
+    AcountShareService,
+    TaskService, AddressService],
 })
 
 export class PesonnelModule {
-
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: PesonnelModule
+    };
+  }
 }
+
+// export = PesonnelModule;

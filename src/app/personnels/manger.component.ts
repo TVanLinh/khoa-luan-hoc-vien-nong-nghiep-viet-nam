@@ -1,9 +1,7 @@
 import {Component, ElementRef, OnChanges, OnInit, SimpleChanges} from "@angular/core";
 import {MenuUtil} from "../shares/menu.util";
 import {MenuModel} from "./model/menu.model";
-import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import menu from "devextreme/ui/menu";
 import {MystorageService} from "../shares/mystorage.service";
 import {Config} from "../shares/config";
 

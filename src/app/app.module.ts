@@ -58,7 +58,7 @@ import {PersonnelManagerComponent} from "./personnels/manager-personnels/personn
 import {LoginComponent} from "./auth/login/login.component";
 import {AppRouting} from "./app.routing";
 import {HomeComponent} from "./home/home.component";
-import {PesonnelModule} from "./personnels/pesonnel.module";
+// import {PesonnelModule} from "./personnels/pesonnel.module";
 import {LanguageTeachnolyPoliticComponent} from "./personnels/info-person/language-teachnoly-politic/language-teachnoly-politic.component";
 import {HttpModule} from "@angular/http";
 import {NationalService} from "./shares/national.service";
@@ -107,108 +107,18 @@ import {SelectModule} from "ng2-select";
 import {ManagerCanactive} from "./shares/canactive/manager.canactive";
 import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child";
 import {AcountShareService} from "./shares/acount-share.service";
-import { CheckProfileComponent } from './personnels/manager-personnels/check-profile/check-profile.component';
+import {CheckProfileComponent} from './personnels/manager-personnels/check-profile/check-profile.component';
+import ComonModule = require("./comon-module");
+import {PesonnelModule} from "./personnels/pesonnel.module";
+import {AppComonModule} from "./comon-module";
 
 // import {DxDataGridModule} from "devextreme-angular";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    NavbarComponent,
-    SlidersComponent,
-    TabsComponent,
-    PersonsComponent,
-    BannerComponent,
-    SliderBannerComponent,
-    ComponentsComponent,
-    NewComponent,
-    TabFacultyComponent,
-    SliderFacultyComponent,
-    CalendarComponent,
-    PublishComponent,
-    TabLeftComponent,
-    TopComponent,
-    ToggleClass,
-    MapComponent,
-    CurriculumVitaeComponent,
-    PartyUnionComponent,
-    NoteFormComponent,
-    FamilyRelationshipComponent,
-    ProcessWorkComponent,
-    TrainComponent,
-    ContractComponent,
-    NoteForm2Component,
-    InfoTechnologyComponent,
-    PoliticComponent,
-    ForeignLanguageComponent,
-    BonusDisciplineComponent,
-    AcademicRankComponent,
-    EmulationTitleComponent,
-    SalaryBriefComponent,
-    ForeignComponent,
-    ThesisGuideComponent,
-    ScienceTopicComponent,
-    SenimarNewpaperComponent,
-    PublishInfoComponent,
-    ProcessTeachingComponent,
-    ProcessEventionComponent,
-    AddPersonnelComponent,
-    EditPersonnelComponent,
-    ProcedureLeaveJobComponent,
-    ProcedureRetireComponent,
-    ProcedureBindJobComponent,
-    ProcedureTransferUnitWorkComponent,
-    ProcedureTransferDepartmentComponent,
-    MenuAppComponent,
-    Header2Component,
-    PersonnelManagerComponent,
-    LoginComponent,
-    HomeComponent,
-    LanguageTeachnolyPoliticComponent,
-    ManagerComponent,
-    InfoComponent,
-    ManagerCatalogComponent,
-    SearchStatisticComponent,
-    ManagerSystemComponent,
-    CatalogFacultyComponent,
-    CatalogRankComponent,
-    CatalogPositionComponent,
-    CatalogAcademicRankComponent,
-    SearchComponent,
-    StatisticComponent,
-    MessageComponent,
-    EmailValid,
-    DataTextValid,
-    ArraySortPipe,
-    CatalogFacultyPipe,
-    SearchFormComponent,
-    StatisticLeaveJobComponent,
-    StatisticBindJobComponent,
-    StatisticRetiredComponent,
-    StatisticNewRetireComponent,
-    StatisticTableComponent,
-    StatisticPersonByFacultyComponent,
-    ArgSystemComponent,
-    ArgFontendComponent,
-    ArgBackendComponent,
-    ProcedureAcesendingSalaryComponent,
-    AuthenticationComponent,
-    UserManagerComponent,
-    RoleManagerComponent,
-    ProcedureBonusComponent,
-    ProcedureDisciplineComponent,
-    CheckProfileComponent
   ],
   imports: [
-    BrowserModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyB9s64voWTBx5s4qadlcWwbCNhWJU5Sje0'
-    }),
-    ReactiveFormsModule,
-    FormsModule,
-    Ng2Bs3ModalModule,
     AppRouting,
     PesonnelModule,
     HttpModule,
@@ -217,6 +127,8 @@ import { CheckProfileComponent } from './personnels/manager-personnels/check-pro
     DataTableModule,
     DxDataGridModule,
     SelectModule,
+    AppComonModule.forRoot(),
+    PesonnelModule.forRoot()
   ],
   entryComponents: [],
   providers: [NationalService, CatalogSalaryService,
@@ -225,9 +137,9 @@ import { CheckProfileComponent } from './personnels/manager-personnels/check-pro
     ManagerCanactive,
     ManagerCanactiveChild,
     AcountShareService,
-    // ImageBitmap,
     TaskService, AddressService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

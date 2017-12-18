@@ -12,9 +12,9 @@
     </div>
     <div class="row info-basic mgb-20">
       <div class="col-xs-12 col-sm-12 col-md-3 ">
-        <div class="mgr-15 image-info mgb-10 mgt-10" style="background-color: red"
+        <div class="mgr-15 image-info mgb-10 mgt-10" style="background-image: url(/assets/images/avatar/avatar.jpg)"
              [style.background]="'url(' + infoBasic.avatarUrl + ')'">
-          <input type="file" accept=".jpg,.png" accept="image/x-png,image/gif,image/jpeg" title="Chọn ảnh"
+          <input type="file"  accept="image/x-png,image/gif,image/jpeg" title="Chọn ảnh"
                  style="width: auto" (change)="avatarChange($event)">
         </div>
 
@@ -84,6 +84,7 @@
           <label>Tình/TP </label>
           <select formControlName="city" class="form-control"
                   required type="select" #cityBirthDay (change)="cityChange(cityBirthDay.value,'NS')">
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
             <option *ngFor="let item of listCity | orderBy: 'city.name'" [value]="item['city']['code']">
               {{item['city']['name']}}
             </option>
@@ -98,9 +99,10 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label>Quận/Huyện </label>
-          <select formControlName="district" class="form-control" #districtBirthDay required type="select"
+          <select  formControlName="district" class="form-control" #districtBirthDay required type="select"
                   (change)="districtChange(districtBirthDay.value,'NS')">
-            <option *ngFor="let item of birthDays.districts | orderBy: 'name'" [value]="item['code']">{{item['name']}}
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
+            <option  *ngFor="let item of birthDays.city.districts | orderBy: 'name'" [value]="item['code']">{{item['name']}}
             </option>
           </select>
           <div class="error" *ngIf="districtBirthDay.value.trim()  =='' && formTouch">
@@ -111,8 +113,10 @@
       <div class="col-xs-12 col-sm-4">
         <div class="item-control pdt-i-0">
           <label><span>Phường/xã   </span> </label>
+
           <select formControlName="guild" #guidBithDay class="form-control"
                   required type="select">
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
             <option *ngFor="let item of guidsBithday | orderBy: 'name'" [value]="item['code']">{{item['name']}}</option>
           </select>
           <div class="error" *ngIf="guidBithDay.value.trim()  =='' && formTouch">
@@ -132,6 +136,7 @@
           <label>Tình/TP </label>
           <select formControlName="city" class="form-control"
                   required type="select" #homeTownCity (change)="cityChange(homeTownCity.value,'QUEQUAN')">
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
             <option *ngFor="let item of listCity | orderBy: 'city.name'" [value]="item['city']['code']">
               {{item['city']['name']}}
             </option>
@@ -147,7 +152,8 @@
           <label>Quận/Huyện </label>
           <select formControlName="district" class="form-control" #homeTownDistrict required type="select"
                   (change)="districtChange(homeTownDistrict.value,'QUEQUAN')">
-            <option *ngFor="let item of homeTown.districts | orderBy: 'name'" [value]="item['code']">{{item['name']}}
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
+            <option *ngFor="let item of homeTown.city.districts | orderBy: 'name'" [value]="item['code']">{{item['name']}}
             </option>
           </select>
           <div class="error" *ngIf="homeTownDistrict.value.trim()  =='' && formTouch">
@@ -160,6 +166,7 @@
           <label><span>Phường/xã   </span> </label>
           <select formControlName="guild" #homeTownGuid class="form-control"
                   required type="select">
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
             <option *ngFor="let item of guilsHomeTown |  orderBy: 'name'" [value]="item['code']">{{item['name']}}
             </option>
           </select>
@@ -302,6 +309,7 @@
           <label>Tình/TP </label>
           <select formControlName="city" class="form-control"
                   required type="select" #placeNowC (change)="cityChange(placeNowC.value,'NOIOHIENTAI')">
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
             <option *ngFor="let item of listCity" [value]="item['city']['code']">{{item['city']['name']}}</option>
           </select>
           <div class="error" *ngIf="placeNowC.value.trim()  =='' && formTouch">
@@ -314,7 +322,8 @@
           <label>Quận/Huyện: </label>
           <select formControlName="district" class="form-control"
                   required type="select" #placeNowD (change)="districtChange(placeNowD.value,'NOIOHIENTAI')">
-            <option *ngFor="let item of placeNow.districts" [value]="item['code']">{{item['name']}}</option>
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
+            <option *ngFor="let item of placeNow.city.districts" [value]="item['code']">{{item['name']}}</option>
           </select>
           <div class="error" *ngIf="placeNowD.value.trim()  =='' && formTouch">
             Chưa chọn quận huyện
@@ -326,6 +335,7 @@
           <label> <span>Phường/xã   </span> </label>
           <select formControlName="guild" #placeNowG class="form-control"
                   required type="select">
+            <!--<option value="">&#45;&#45;&#45;&#45;Chọn-&#45;&#45;</option>-->
             <option *ngFor="let item of guilsPlaceNow" [value]="item['code']">{{item['name']}}</option>
           </select>
           <div class="error" *ngIf="placeNowG.value.trim()  =='' && formTouch">

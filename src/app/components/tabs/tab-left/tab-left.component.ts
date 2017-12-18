@@ -9,11 +9,12 @@ import {MystorageService} from "../../../shares/mystorage.service";
 import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {ValidService} from "../../../shares/valid.service";
+import {AcountShareService} from "../../../shares/acount-share.service";
 
 declare var jQuery: any;
 
 @Component({
-  selector: '[app-tab-left]',
+  selector: 'app-tab-left',
   templateUrl: './tab-left.component.html',
   styleUrls: ['../tabs.component.css', './tab-left.component.css']
 })
@@ -79,7 +80,9 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
 
   openMenu2(item, active) {
     this.active(active);
-
+    if (!this.user) {
+      this.user = MystorageService.getAcount()['user'];
+    }
     if (this.user && this.user['roles']) {
       for (let ite of this.user['roles']) {
         if (item.title.trim().toLowerCase() == Config.MYCV.trim().toLowerCase()) {
@@ -106,10 +109,13 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   }
 
   constructor(protected _eref: ElementRef, public taskService: TaskService,
-              public catalogFacultyService: CatalogFacultyService,
+              public catalogFacultyService: CatalogFacultyService, private acountService: AcountShareService,
               private  router: Router) {
     super(_eref, taskService);
     this.user = MystorageService.getAcount() ? MystorageService.getAcount()['user'] : null;
+    this.acountService.logoutListener.subscribe(data => {
+      this.isLogin = false;
+    });
   }
 
   toggleTab(): void {
@@ -124,6 +130,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     this.getCatalogFaculty();
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
+    console.log("user: " + JSON.stringify(this.user));
 
     if (this.user != null) {
       this.isLogin = true;
@@ -155,11 +162,11 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       this.isLogin = true;
       this.closeModal(loginModal);
       MystorageService.saveAcount(data);
-
-      let roles = data['user']['roles'];
+      this.menuApp = data['user']['roles'];
+      console.log(JSON.stringify(this.menuApp));
       let share;
 
-      if (super.contains(roles, 'title', Config.MYCV)) {
+      if (super.contains(this.menuApp, 'title', Config.MYCV)) {
         share = {
           type: Config.MYCV,
           native: true
@@ -169,13 +176,13 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
         return;
       }
 
-      if (roles && roles[0] && roles[0]['frontends'] && roles[0]['frontends'][0]) {
+      if (this.menuApp && this.menuApp[0] && this.menuApp[0]['frontends'] && this.menuApp[0]['frontends'][0]) {
         share = {
-          type: roles[0].title,
+          type: this.menuApp[0].title,
           native: false
         };
         MenuUtil.publishMenu(share);
-        this.router.navigate([roles[0]['frontends'][0].url]);
+        this.router.navigate([this.menuApp[0]['frontends'][0].url]);
       }
 
     }, err => {

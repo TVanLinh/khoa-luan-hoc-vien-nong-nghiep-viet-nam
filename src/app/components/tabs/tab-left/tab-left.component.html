@@ -4,7 +4,7 @@
       <ul class="nav nav-tabs">
         <li class="active" *ngIf="isLogin"><a data-toggle="tab" href="#app">App</a></li>
         <li [ngClass]="!isLogin?'active':''"><a data-toggle="tab" href="#home1">Khoa</a></li>
-        <li><a data-toggle="tab" href="#menu11">Phòng Ban</a></li>
+        <li><a data-toggle="tab" href="#home2">Phòng Ban</a></li>
         <a *ngIf="!isLogin" class="login" title="Đăng nhập " (click)="openModal(loginModal)">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
         </a>
@@ -17,8 +17,7 @@
 
         <div id="app" class="tab-pane fade in active" *ngIf="isLogin">
           <ul class="content">
-            <li>
-
+            <li *ngFor="let item of menuApp | orderBy:'title';let i = index">
               <!--<a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>-->
 
               <a style="cursor: pointer"
@@ -27,6 +26,14 @@
                  (click)="openMenu2(item,'#menu-app-item-role-' + i)"
                  [id]="'menu-app-item-role-' + i">{{item.title.toLowerCase()!=getMyCvTitle().toLowerCase()?item.title.toLowerCase():item.title}}</a>
 
+              <a style="cursor: pointer"
+                 (click)="openMenu2(item,'#menu-app-item-role-' + i)"
+                 [id]="'menu-app-item-role-' + i">{{item.title}}</a>
+            </li>
+            <li *ngIf="menuApp.length == 0">
+              <a>
+                Bạn không có chức năng nào.
+              </a>
             </li>
           </ul>
         </div>
@@ -39,7 +46,7 @@
           </ul>
         </div>
 
-        <div id="menu11" class="tab-pane fade">
+        <div id="home2" class="tab-pane fade">
           <ul class="content">
             <li *ngFor="let item of departments | orderBy:'title'"><a class="first-upper-case"
                                                                       [href]="item.url?item.url:''" target="_blank">{{item.name.toLowerCase()}}</a>
@@ -65,12 +72,12 @@
     <form [formGroup]="formDataLogin" (ngSubmit)="onLogin(loginModal)" class="pdb-20">
 
       <div class="mgb-10">
-        <label for="emails">Tên tài khoản : </label>
-        <input id="emails" type="text" required class="form-control" formControlName="userName">
+        <label class="fs-15">Tên tài khoản : </label>
+        <input type="text" required class="form-control" formControlName="userName">
       </div>
       <div>
-        <label for="passWords">Mật khẩu : </label>
-        <input id="passWords" type="password" required class="form-control" formControlName="passWord">
+        <label class="fs-15">Mật khẩu : </label>
+        <input type="password" required class="form-control" formControlName="passWord">
       </div>
       <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
