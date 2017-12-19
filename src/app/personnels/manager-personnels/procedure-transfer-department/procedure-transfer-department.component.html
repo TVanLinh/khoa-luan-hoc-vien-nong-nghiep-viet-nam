@@ -69,19 +69,27 @@
             <div class="error" *ngIf="level1.value.trim()  =='' && formTouch">
               Chưa chọn đơn vị cấp 1 chuyển tới
             </div>
+
+            <div class="error" *ngIf=" msgFaculty != null && msgFaculty.type == 'over-level1'">
+              {{msgFaculty.msg}}
+            </div>
+
           </div>
 
           <div class="item-control">
             <label>Đơn vị cấp 2: </label>
-            <select class="form-control mgb-20" style="width: 70%" required #level2 formControlName="level2">
+            <select class="form-control mgb-20" style="width: 70%" #level2 formControlName="level2">
               <option *ngFor="let item of listLevel2" [value]="item._id">{{item.name}}</option>
             </select>
 
           </div>
 
           <div class="item-control">
-            <div class="error" *ngIf="level2.value.trim()  =='' && formTouch">
-              Chưa chọn đơn vị cấp 2 chuyển tới
+            <div class="error" *ngIf=" msgFaculty != null && msgFaculty.type == 'over-level2'">
+              {{msgFaculty.msg}}
+            </div>
+            <div class="error" *ngIf=" msgFaculty != null && msgFaculty.type == 'not-choose-level2'">
+              {{msgFaculty.msg}}
             </div>
           </div>
 

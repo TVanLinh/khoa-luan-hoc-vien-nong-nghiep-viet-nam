@@ -72,13 +72,14 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
 
     // valueForm.personnelCode,
 
+    console.log(this.hasDepart(valueForm.level1));
+
     if (!ValidService.isNotBlanks(valid)
       || !ValidService.validEmail(valueForm.email)
-      || valueForm.passWord != valueForm.rePassWord) {
-      // super.updateMessge("Vui lòng kiểm tra lại thông tin","warning");
-      console.log("not pass");
+      || valueForm.passWord != valueForm.rePassWord || this.hasDepart(valueForm.level1) && valueForm.level2 == '') {
       return;
     }
+
 
     console.log("pass");
 
@@ -86,6 +87,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
       level1: this.catalogService.findById(this.listFaculty, valueForm.level1),
       level2: this.catalogService.findById(this.listFaculty, valueForm.level2)
     };
+
     user.organ = organ;
     user.fullname = valueForm.fullName.trim();
     user.email = valueForm.email.trim();
@@ -110,6 +112,14 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
 
   validEmail(email) {
     return ValidService.validEmail(email);
+  }
+
+  hasDepart(id) {
+    let temp = this.catalogService.findByIdParent(this.listFaculty, id);
+    if (temp && temp.length > 0) {
+      return true;
+    }
+    return false;
   }
 
 }

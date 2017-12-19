@@ -49,7 +49,8 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
       dateDecide: ['', Validators.required],
       contentDecide: ['', Validators.required],
       level1: ['', Validators.required],
-      level2: ['', Validators.required]
+      // level2: ['', Validators.required]
+      level2: ['']
     });
   }
 
@@ -63,10 +64,10 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
       valueForm.dateDecide,
       valueForm.contentDecide,
       valueForm.level1,
-      valueForm.level2,
+      // valueForm.level2,
       valueForm.dateTransfer
     ];
-    if (!ValidService.isNotBlanks(valid) || !this.formDetail.valid) {
+    if (!ValidService.isNotBlanks(valid)) {
       return;
     }
 
@@ -82,6 +83,12 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
         level2: this.catalogFacService.findById(this.listFaculty, valueForm.level2)
       }
     };
+
+    if (this.getMessageFacultyOver(valueForm.level1, valueForm.level2)) {
+      return;
+    }
+
+
     //
     // if (this.catalogFacService.findById(this.listFaculty, valueForm.level1)) {
     //   body["unitTransfer"]['level1'] = this.catalogFacService.findById(this.listFaculty, valueForm.level1).name;
@@ -95,8 +102,8 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
     this.taskService.post(Config.LEAVE_DEPART_URL, {data: body}).subscribe((data) => {
       this.updateMessge("Thành công ", "success");
       setTimeout(() => {
-        this.formDetail.reset();
         this.closeModal(this.modal);
+        this.formDetail.reset();
       }, 2000);
     }, (err) => {
       this.updateMessge("Không thành công ", "warning");
@@ -133,5 +140,36 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
     this.listLevel2 = this.catalogFacService.findByIdParent(this.listFaculty, idParent);
   }
 
+
+  msgFaculty = null;
+
+  getMessageFacultyOver(level1, leve2) {
+    let temp = this.catalogFacService.findByIdParent(this.listFaculty, level1);
+
+    if (this.user.organ && this.user.organ.level2) {
+      if (leve2 == this.user.organ.level2._id) {
+        return this.msgFaculty = {
+          type: 'over-level2',
+          msg: "Đơn vị này là đơn vị cũ, vui lòng chọn lại.!"
+        }
+      }
+    }
+
+    if (temp.length == 0 && level1 == this.user.organ.level1._id) {
+      return this.msgFaculty = {
+        type: 'over-level1',
+        msg: "Đơn vị này là đơn vị cũ, vui lòng chọn lại.!"
+      }
+    }
+
+    if (Array.isArray(temp) && temp.length > 0 && leve2 == '') {
+      return this.msgFaculty = {
+        type: 'not-choose-level2',
+        msg: "Vui lòng chọn đơn vị vị 2"
+      }
+    }
+
+    return this.msgFaculty = null;
+  }
 
 }

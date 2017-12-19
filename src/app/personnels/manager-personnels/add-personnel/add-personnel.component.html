@@ -17,9 +17,16 @@
 
       <div class="item-control">
         <label>Chọn đơn vị cấp 2</label>
-        <select class="form-control" required formControlName="level2">
+        <select class="form-control" #level2 required formControlName="level2">
           <option *ngFor="let item of listLevel2" [value]="item._id"> {{item.name}}</option>
         </select>
+      </div>
+
+      <div class="item-control">
+        <div class="error"
+             *ngIf="level1.value.trim() != '' && hasDepart(level1.value) && level2.value.trim() =='' && formTouched ">
+          Chưa chọn đơn vị cấp 2
+        </div>
       </div>
 
       <div class="item-control">
