@@ -30,6 +30,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
     super(eleRef, taskService);
   }
 
+  hashData = false;
   listYear: number[] = [];
   listRealtion: string[] = ['bố', 'mẹ', 'anh ', 'chị ', 'em ', 'ông ', 'bà', 'vợ',
     'chồng', 'con', 'chú', 'thím', 'bác', 'cậu', 'mợ', 'con dâu', 'con rể', 'chắt', 'khác'];
@@ -67,10 +68,17 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
   }
 
   onSave() {
+    if (this.listRelationFamily.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
+
     const body = {
       'family': this.listRelationFamily.toArray(),
       'staffCode': this.user['username']
     };
+
+
     this.taskService.post(Config.FAMILY_URL, {data: body}).subscribe((data) => {
       this.updateMessge(this.messageError.success, 'success');
     }, (err) => {
@@ -92,6 +100,7 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       this.formNotValid = true;
       return;
     }
+
 
     this.formNotValid = false;
 
@@ -136,6 +145,9 @@ export class FamilyRelationshipComponent extends BaseFormComponent implements On
       this.taskService.get(Config.FAMILY_URL + '?username=' + this.user['username']).subscribe((data) => {
         if (data && data['family']) {
           this.listRelationFamily = this.asList(data['family']);
+          this.hashData = true;
+        } else {
+          this.hashData = false;
         }
       });
     }

@@ -1,0 +1,49 @@
+<div class="row">
+
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <form style="padding-top: 0px" action="">
+      <div class="row">
+        <div class="col-xs-12" >
+          <div class="form-item pdt-i-25 pdb-i-5" >
+            <div class="form-item-title">
+              Chọn quý và đơn vị
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label for="sel1" class="mgb-15  fs-13">Chọn quý</label>
+                  <select class="form-control" id="sel1" #fac (change)="valueChange(fac.value,fac2.value)">
+                    <option value="-1">--------Chọn--------</option>
+                    <option *ngFor="let item of listQuarter" [value]="item">{{'Quý '+item}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label for="sel2" class="mgb-15 fs-13">Đơn vị</label>
+                  <select class="form-control" id="sel2" name="level2" #fac2
+                          (change)="valueChange(fac.value,fac2.value)">
+                    <option value="-1">Tất cả </option>
+                    <option *ngFor="let item of listFaculty1" [value]="item.code">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <!---->
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-12">
+
+    <!--<p>Tổng số : {{dataUser.length}}</p>-->
+    <app-statistic-table [data]="dataUser" [title]="title"
+                         [fields]="fields"
+    ></app-statistic-table>
+  </div>
+
+</div>

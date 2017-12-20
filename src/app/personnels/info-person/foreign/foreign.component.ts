@@ -35,6 +35,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
 
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   ngOnInit() {
     this.initForm();
@@ -53,6 +54,10 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+    if (this.listForeignForm.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     super.pushDataServer(Config.PROCESS_FOREIGN_URL, "process_foreign", this.listForeignForm, this.user);
   }
 
@@ -132,6 +137,7 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       super.getDataServer(Config.PROCESS_FOREIGN_URL, this.user).subscribe(data => {
         if (data && data['process_foreign']) {
           this.listForeignForm = super.asList(data['process_foreign']);
+          this.hashData = true;
         }
       });
 

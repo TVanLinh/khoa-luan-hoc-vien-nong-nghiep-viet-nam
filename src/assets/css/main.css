@@ -1,5 +1,29 @@
+@font-face {
+  font-family: "Roboto Slab";
+  src: url(../fonts/Roboto_Slab/RobotoSlab-Regular.ttf) format('woff');
+url(../fonts/Roboto_Slab/RobotoSlab-Bold.ttf) format('woff');
+url(../fonts/Roboto_Slab/RobotoSlab-Light.ttf) format('woff');
+url(../fonts/Roboto_Slab/RobotoSlab-Thin.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Black.ttf) format('woff');
+url(../fonts/Roboto/Roboto-BlackItalic.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Bold.ttf) format('woff');
+url(../fonts/Roboto/Roboto-BoldItalic.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Italic.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Light.ttf) format('woff');
+url(../fonts/Roboto/Roboto-LightItalic.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Medium.ttf) format('woff');
+url(../fonts/Roboto/Roboto-MediumItalic.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Regular.ttf) format('woff');
+url(../fonts/Roboto/Roboto-Thin.ttf) format('woff');
+url(../fonts/Roboto/Roboto-ThinItalic.ttf) format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: "Roboto Slab", sans-serif;
+  /*font-family: "Roboto Slab", sans-serif;*/
+  /*font-family: 'Roboto', sans-serif;*/
+  font-family: 'Roboto Slab';
 }
 
 .nav-tabs > li > a {

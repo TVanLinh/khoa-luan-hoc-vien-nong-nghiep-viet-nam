@@ -38,6 +38,7 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   listData = new Collections.LinkedList<PoliticModel>();
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -113,6 +114,10 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+    if (this.listData.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
 
     let body = {
       "politic": this.listData.toArray(),
@@ -140,10 +145,11 @@ export class PoliticComponent extends BaseFormComponent implements OnInit {
 
 
   getDataFromServer() {
-    if(this.user) {
+    if (this.user) {
       this.taskService.get(Config.CONTRACT_POLITIC + "?username=" + this.user['username']).subscribe((data) => {
         if (data && data['politic']) {
           this.listData = this.asList(data['politic']);
+          this.hashData = true;
         }
       });
 

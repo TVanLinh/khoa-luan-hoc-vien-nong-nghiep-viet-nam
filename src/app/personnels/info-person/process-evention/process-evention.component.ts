@@ -23,6 +23,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
 
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -90,6 +91,10 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
+    if (this.listEvention.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     super.pushDataServer(Config.PROCESS_EVENT_URL, "process_event", this.listEvention, this.user);
   }
 
@@ -103,6 +108,7 @@ export class ProcessEventionComponent extends BaseFormComponent implements OnIni
     super.getDataServer(Config.PROCESS_EVENT_URL, this.user).subscribe(data => {
       if (data && data['process_event']) {
         this.listEvention = super.asList(data['process_event']);
+        this.hashData = true;
       }
     });
   }

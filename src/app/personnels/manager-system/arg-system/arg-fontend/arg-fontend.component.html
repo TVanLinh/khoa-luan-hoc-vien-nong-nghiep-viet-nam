@@ -25,7 +25,7 @@
         <mfDefaultSorter by="url">Url</mfDefaultSorter>
       </th>
       <th>
-        <mfDefaultSorter by="activated">Activated</mfDefaultSorter>
+        <mfDefaultSorter by="activated">Trạng thái</mfDefaultSorter>
       </th>
       <th>
             <span class="action-icon" title="Thêm thông tin" (click)="openModal(modal)"><i
@@ -39,7 +39,7 @@
       <td>{{(item.title)}}</td>
       <td>{{item.description}}</td>
       <td>{{item.url}}</td>
-      <td>{{item.activated}}</td>
+      <td>{{item.activated?'Activated':'Not Activated'}}</td>
       <td>
         <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
         <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove "></i></span>-->
@@ -48,7 +48,7 @@
     </tr>
 
     <tr>
-      <td colspan="6">
+      <td colspan="6" class="footer-table-pager">
         <mfBootstrapPaginator></mfBootstrapPaginator>
       </td>
     </tr>

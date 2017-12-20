@@ -10,13 +10,25 @@
   </modal-header>
 
   <modal-body *ngIf="detail">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="mgb-15 mgr-20"><span>Mã cán bộ:</span> {{detail.user.username}}</div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="mgb-15 mgr-20 capitalize"><span>Họ tên:</span> {{detail.user.fullname.toLowerCase()}}</div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="mgb-15 mgr-20 upper-case"><span>Số quyết định: </span>{{detail.numberDecide}}</div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="mgb-15 mgr-20"><span>Ngày quyết định:</span> {{detail.dateDecide | date:'dd-MM-yyyy'}}</div>
+      </div>
+      <div class="col-xs-12">
+        <div class="mgb-15"><span>Nội dung quyết định:</span></div>
+        <div style="text-indent: 10px;">{{detail.contentDecide}}</div>
+      </div>
+    </div>
 
-    <div class="mgb-15 mgr-20"><span>Mã cán bộ:</span> {{detail.user.username}}</div>
-    <div class="mgb-15 mgr-20"><span>Họ tên:</span> {{detail.user.fullname}}</div>
-    <div class="mgb-15 mgr-20"><span>Số quyết định: </span>{{detail.numberDecide}}</div>
-    <div class="mgb-15 mgr-20"><span>Ngày quyết định:</span> {{detail.dateDecide | date:'dd-MM-yyyy'}}</div>
-    <div class="mgb-15"><span>Nội dung quyết định:</span></div>
-    <div>{{detail.contentDecide}}</div>
   </modal-body>
 
 </modal>

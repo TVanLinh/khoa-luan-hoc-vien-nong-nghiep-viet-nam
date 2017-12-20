@@ -3,6 +3,7 @@
 <app-catalog-search (textChange)="textChangeListener($event)"
                     (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
 
+
 <div *ngIf="message.condition"
      [ngClass]="'alert alert-'+ message.type">
   {{message.content}}
@@ -30,7 +31,7 @@
         <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
       </td>
     </tr>
-    <tr *ngIf="numberShow >= mfDetail.data.length && (list.size() - mfDetail.data.length) >=numberShow">
+    <tr class="footer-table-pager">
       <td colspan="3">
         <mfBootstrapPaginator></mfBootstrapPaginator>
       </td>

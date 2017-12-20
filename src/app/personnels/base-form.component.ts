@@ -170,10 +170,13 @@ export class BaseFormComponent {
   }
 
 
-  convertDataSelect(arss: any[]): { id: string, text: string }[] {
+  convertDataSelect(arss: any[], showHttp?: boolean): { id: string, text: string }[] {
     let array: { id: string, text: string }[] = [];
     for (let item of arss) {
       let temp = {id: item._id, text: item.title};
+      if (showHttp) {
+        temp.text = " - Phương thức http " + item.method;
+      }
       array.push(temp);
     }
     return array;

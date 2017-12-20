@@ -26,6 +26,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
   update: ForeignLanguageModel = null;
   list = new Collections.LinkedList<ForeignLanguageModel>();
   formTouch = false;
+  hashData = false;
 
   constructor(public nationalService: NationalService,
               public foreignService: ForeignLanguageService,
@@ -90,6 +91,11 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
   }
 
   onSave() {
+    if (this.list.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
+
     let body = {
       "foreign_language": this.list.toArray(),
       "staffCode": this.user['username']
@@ -176,6 +182,7 @@ export class ForeignLanguageComponent extends BaseFormComponent implements OnIni
       this.taskService.get(Config.CONTRACT_FOREIGN + "?username=" + this.user['username']).subscribe((data) => {
         if (data && data['foreign_language']) {
           this.list = this.asList(data['foreign_language']);
+          this.hashData = true;
         }
       });
 

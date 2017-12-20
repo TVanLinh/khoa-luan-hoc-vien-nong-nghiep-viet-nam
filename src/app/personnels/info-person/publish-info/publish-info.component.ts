@@ -21,6 +21,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   positionUpdate: PublishInfoModel = null;
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -41,6 +42,11 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+    if (this.listPublish.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
+
     super.pushDataServer(Config.PROCESS_PUBLISH_URL, "process_publish", this.listPublish, this.user);
   }
 
@@ -97,6 +103,7 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
     super.getDataServer(Config.PROCESS_PUBLISH_URL, this.user).subscribe((data) => {
       if (data && data['process_publish']) {
         this.listPublish = super.asList(data['process_publish']);
+        this.hashData = true;
       }
     });
   }

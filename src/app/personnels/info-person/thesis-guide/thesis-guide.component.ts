@@ -22,6 +22,7 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
 
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -101,6 +102,10 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+    if (this.listThesiss.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     this.pushDataServer(Config.THESIS_GUIDE_URL, 'thesis_guide', this.listThesiss, this.user);
   }
 
@@ -108,6 +113,7 @@ export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
     super.getDataServer(Config.THESIS_GUIDE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['thesis_guide']) {
         this.listThesiss = super.asList(data['thesis_guide']);
+        this.hashData = true;
       }
     });
   }

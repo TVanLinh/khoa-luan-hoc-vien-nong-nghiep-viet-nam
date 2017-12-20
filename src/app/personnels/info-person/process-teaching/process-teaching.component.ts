@@ -25,6 +25,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(public nationalService: NationalService, public taskService: TaskService, protected eleRef: ElementRef) {
     super(eleRef, taskService);
@@ -133,6 +134,10 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
 
   onSave() {
+    if (this.listTeaching.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     //if (this.listTeaching.size() > 0) {
     super.pushDataServer(Config.PROCESS_TEACHING_URL, "process_teaching", this.listTeaching, this.user);
     // }
@@ -142,6 +147,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
     this.getDataServer(Config.PROCESS_TEACHING_URL, this.user).subscribe((data) => {
       if (data && data['process_teaching']) {
         this.listTeaching = super.asList(data['process_teaching']);
+        this.hashData = true;
       }
     });
   }

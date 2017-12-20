@@ -143,6 +143,7 @@ export class ArgFontendComponent extends BaseFormComponent implements OnInit {
       for (let item of this.listTemp.toArray()) {
         if ((item.description && item.description.toLowerCase().indexOf(query) != -1) ||
           (item.title && item.title.toLowerCase().indexOf(query) != -1) ||
+          (("Not Activated").toLowerCase().indexOf(query) != -1) ||
           (item.url && item.url.toLowerCase().indexOf(query) != -1) ||
           ((item.activated + "").toLowerCase().indexOf(query) != -1)) {
           this.list.add(item);

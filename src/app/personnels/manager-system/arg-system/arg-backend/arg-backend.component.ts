@@ -152,9 +152,11 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
           (item.httpVerb && item.httpVerb.toLowerCase().indexOf(query) != -1) ||
           (item.title && item.title.toLowerCase().indexOf(query) != -1) ||
           (item.url && item.url.toLowerCase().indexOf(query) != -1) ||
+          (("Not Activated").toLowerCase().indexOf(query) != -1) ||
           (item.method && item.method.toLowerCase().indexOf(query) != -1) ||
           (item.controller && item.controller.toLowerCase().indexOf(query) != -1 ) ||
-          ((item.activated + "").toLowerCase().indexOf(query) != -1)) {
+          ((item.activated + "").toLowerCase().indexOf(query) != -1)
+        ) {
           this.list.add(item);
         }
 

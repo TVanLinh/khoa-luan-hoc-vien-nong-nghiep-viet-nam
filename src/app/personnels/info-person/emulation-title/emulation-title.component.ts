@@ -27,6 +27,8 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
   };
 
   formNotValid = false;
+  hashData = false;
+
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -50,7 +52,10 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
   }
 
   onSave() {
-    //if (this.listEmulation.size() > 0) {
+    if (this.listEmulation.toArray().length ==0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     this.pushDataServer(Config.EMULATION_TITLE_URL, "emulation_title", this.listEmulation, this.user);
     // }
 
@@ -97,9 +102,10 @@ export class EmulationTitleComponent extends BaseFormComponent implements OnInit
   }
 
   getDataFromServer() {
-    this.getDataServer(Config.EMULATION_TITLE_URL,this.user).subscribe((data: any[]) => {
+    this.getDataServer(Config.EMULATION_TITLE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['emulation_title']) {
         this.listEmulation = super.asList(data['emulation_title']);
+        this.hashData = true;
       }
     });
   }

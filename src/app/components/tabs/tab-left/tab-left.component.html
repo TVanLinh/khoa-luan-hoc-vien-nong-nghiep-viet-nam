@@ -18,7 +18,7 @@
         <div id="app" class="tab-pane fade in active" *ngIf="isLogin">
           <ul class="content">
             <!--*ngFor="let item of menuApp | orderBy:'title';let i = index"-->
-            <li >
+            <li>
               <!--<a routerLinkActive="active"  *ngFor="let item of menuApp" [routerLink]="item.href" (click)="openMenu(item)">{{item.title}}</a>-->
 
               <a style="cursor: pointer"
@@ -28,8 +28,8 @@
                  [id]="'menu-app-item-role-' + i">{{item.title.toLowerCase()!=getMyCvTitle().toLowerCase()?item.title.toLowerCase():item.title}}</a>
 
               <!--<a style="cursor: pointer"-->
-                 <!--(click)="openMenu2(item,'#menu-app-item-role-' + i)"-->
-                 <!--[id]="'menu-app-item-role-' + i">{{item.title}}</a>-->
+              <!--(click)="openMenu2(item,'#menu-app-item-role-' + i)"-->
+              <!--[id]="'menu-app-item-role-' + i">{{item.title}}</a>-->
             </li>
             <li *ngIf="menuApp.length == 0">
               <a>
@@ -74,11 +74,11 @@
 
       <div class="mgb-10">
         <label class="fs-15">Tên tài khoản : </label>
-        <input type="text" required class="form-control" formControlName="userName">
+        <input type="text" required class="form-control" #userNameLogin formControlName="userName">
       </div>
       <div>
         <label class="fs-15">Mật khẩu : </label>
-        <input type="password" required class="form-control" formControlName="passWord">
+        <input type="password" required class="form-control" #passLogin formControlName="passWord">
       </div>
       <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -91,7 +91,9 @@
       <a style="cursor: pointer" (click)="openModalForgetPass(forgetPass,loginModal)">Quên mật khẩu ? </a>
     </div>
     <div class=" text-right">
-      <button class="btn btn-success" (click)="onLogin(loginModal)">Đăng nhập</button>
+      <button class="btn btn-success" [disabled]="userNameLogin.value.trim() == '' || passLogin.value.trim()=='' "
+              (click)="onLogin(loginModal)">Đăng nhập
+      </button>
     </div>
 
   </modal-footer>

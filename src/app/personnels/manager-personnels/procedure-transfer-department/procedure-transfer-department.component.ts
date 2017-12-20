@@ -7,6 +7,7 @@ import {ValidService} from "../../../shares/valid.service";
 import {Config} from "../../../shares/config";
 import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 import {CatalogFacultyModel} from "../../manager-catalog/catalog-faculty/catalog-faculty.model";
+import * as Collections from 'typescript-collections';
 
 @Component({
   selector: 'app-procedure-transfer-department',
@@ -21,6 +22,7 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
   listFaculty: CatalogFacultyModel[] = [];
   listLevel1: CatalogFacultyModel[] = [];
   listLevel2: CatalogFacultyModel[] = [];
+  listUser = new Collections.LinkedList<any>();
 
   constructor(protected eleRef: ElementRef, taskService: TaskService, public  catalogFacService: CatalogFacultyService) {
     super(eleRef, taskService);
@@ -103,6 +105,7 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
       this.updateMessge("Thành công ", "success");
       setTimeout(() => {
         this.closeModal(this.modal);
+        this.listUser.remove(this.user);
         this.formDetail.reset();
       }, 2000);
     }, (err) => {
@@ -136,7 +139,7 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
 
 
   level1Change(idParent) {
-    console.log(idParent);
+    // console.log(idParent);
     this.listLevel2 = this.catalogFacService.findByIdParent(this.listFaculty, idParent);
   }
 
@@ -170,6 +173,12 @@ export class ProcedureTransferDepartmentComponent extends BaseFormComponent impl
     }
 
     return this.msgFaculty = null;
+  }
+
+  onSearchHandler($event) {
+    if (Array.isArray($event)) {
+      this.listUser = super.clone($event);
+    }
   }
 
 }

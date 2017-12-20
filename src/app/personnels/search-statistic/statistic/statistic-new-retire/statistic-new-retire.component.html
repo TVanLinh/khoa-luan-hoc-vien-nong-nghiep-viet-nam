@@ -1,22 +1,48 @@
-<!--<app-statistic-table [data]="data" title="Danh sách cán bộ nghỉ hưu"-->
-                     <!--(onClick)="clickHandler($event)"></app-statistic-table>-->
-<!--<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">-->
+<div class="row">
 
-  <!--<modal-header>-->
-    <!--<div class="action-form mgb-i-10">-->
-      <!--<button (click)="closeModal(modal)">Thoát</button>-->
-    <!--</div>-->
-    <!--<h3 class="text-center">Thông tin chi tiết </h3>-->
-  <!--</modal-header>-->
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <form style="padding-top: 0px" action="">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-item pdt-i-25 pdb-i-5">
+            <div class="form-item-title">
+              Điền thông tin
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label for="sel1" class="mgb-15  fs-13">Chọn tháng</label>
+                  <select class="form-control" id="sel1" #month (change)="valueChange(month.value,year.value)">
+                    <option *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="item">{{'Tháng '+item}}</option>
+                  </select>
+                </div>
+              </div>
 
-  <!--<modal-body *ngIf="detail">-->
+              <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                  <label class="mgb-15 fs-13 mgr-i-40">Nhập năm</label>
+                  <input name="year" [value]="dateNow" type="number" #year ngModel
+                         (keyup)="valueChange(month.value,year.value)">
+                </div>
+                <div class="error" *ngIf="year.touched && !checkValid(year.value)['valid']">
+                  {{checkValid(year.value)['msg']}}
+                </div>
+              </div>
+            </div>
 
-    <!--<div class="mgb-15 mgr-20"><span>Mã cán bộ:</span> {{detail.user.username}}</div>-->
-    <!--<div class="mgb-15 mgr-20"><span>Họ tên:</span> {{detail.user.fullname}}</div>-->
-    <!--<div class="mgb-15 mgr-20"><span>Số quyết định: </span>{{detail.numberDecide}}</div>-->
-    <!--<div class="mgb-15 mgr-20"><span>Ngày quyết định:</span> {{detail.dateDecide | date:'dd-MM-yyyy'}}</div>-->
-    <!--<div class="mgb-15"><span>Nội dung quyết định:</span></div>-->
-    <!--<div>{{detail.contentDecide}}</div>-->
-  <!--</modal-body>-->
 
-<!--</modal>-->
+          </div>
+        </div>
+        <!---->
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-12">
+
+
+    <app-statistic-table [data]="dataUser" [title]="title"
+                         [fields]="fields"
+    ></app-statistic-table>
+  </div>
+
+</div>

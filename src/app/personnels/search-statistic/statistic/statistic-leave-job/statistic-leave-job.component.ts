@@ -15,7 +15,7 @@ export class StatisticLeaveJobComponent extends BaseFormComponent implements OnI
   @ViewChild('modal') modal: ModalComponent;
   data: any[] = [];
   detail: any;
-  fields: { caption: string, type?: string, field: string, width?: number }[];
+  fields: { caption: string, type?: string, field: string, format?: string, width?: number }[];
 
   constructor(public ele: ElementRef, public taskService: TaskService, public excelService: ExcelService) {
     super(ele, taskService);
@@ -34,7 +34,8 @@ export class StatisticLeaveJobComponent extends BaseFormComponent implements OnI
       {
         caption: "Ngày quyết định ",
         field: 'dateDecide',
-        type:'date'
+        type: 'date',
+        format: 'dd/MM/yyy'
       },
       {
         caption: "Số quyết định ",

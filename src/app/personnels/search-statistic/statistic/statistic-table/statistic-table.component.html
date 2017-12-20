@@ -1,61 +1,14 @@
-<!--<div class="row">-->
-<!--<div class="col-xs-12">-->
-<!--<h3 class="text-center">{{title}}</h3>-->
-<!--</div>-->
-
-<!--<div class="col-xs-12">-->
-<!--<div class="action-form">-->
-<!--<button (click)="exportShare()">Xuất ra excel</button>-->
-<!--</div>-->
-<!--<div class="table-responsive">-->
-<!--<table class="table table-bordered" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="20">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th>STT</th>-->
-<!--<th>-->
-<!--<mfDefaultSorter by="user.username">Mã cán bộ</mfDefaultSorter>-->
-<!--</th>-->
-<!--<th>-->
-<!--<mfDefaultSorter  by="user.fullname">Họ tên</mfDefaultSorter>-->
-<!--</th>-->
-<!--<th>-->
-<!--<mfDefaultSorter  by="numberDecide">Số quyết định</mfDefaultSorter>-->
-<!--</th>-->
-<!--<th>-->
-<!--<mfDefaultSorter by="dateDecide">Ngày quyết định</mfDefaultSorter>-->
-<!--</th>-->
-
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr *ngFor="let item of mf.data;let i = index " (click)="onClickShare(item)" [title]="'Cán bộ ' +item.user.fullname">-->
-<!--<td>{{i+1}}</td>-->
-<!--<td>{{item.user.username}}</td>-->
-<!--<td>{{item.user.fullname}}</td>-->
-<!--<td>{{item.numberDecide}}</td>-->
-<!--<td>{{item.dateDecide | date:'dd-MM-yyyy'}}</td>-->
-<!--</tbody>-->
-<!--<tfoot *ngIf="mf.data.length >5">-->
-<!--<tr>-->
-<!--<td colspan="5">-->
-<!--<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15,20,25,50,100]"></mfBootstrapPaginator>-->
-<!--</td>-->
-<!--</tr>-->
-<!--</tfoot>-->
-<!--</table>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<dx-data-grid   (onRowClick)="onClickShare($event.data)" id="gridContainer" [dataSource]="data">
+<p *ngIf="data">Tổng số : {{data.length}}</p>
+<dx-data-grid noDataText="Không có dữ liệu" (onRowClick)="onClickShare($event.data)" id="gridContainer"
+              [dataSource]="data">
 
   <dxo-export [enabled]="true" fileName="{{title}}" [allowExportSelectedData]="true"></dxo-export>
   <dxo-selection mode="multiple"></dxo-selection>
   <dxo-group-panel emptyPanelText="{{title}}" [visible]="true"></dxo-group-panel>
   <div>
 
-    <dxi-column *ngFor="let item of fields" [caption]="item.caption" [dataField]="item.field" [dataType]="item.type"
+    <dxi-column *ngFor="let item of fields" [caption]="item.caption" [format]="item.format" [dataField]="item.field"
+                [dataType]="item.type"
                 [width]="item.width"></dxi-column>
   </div>
 </dx-data-grid>

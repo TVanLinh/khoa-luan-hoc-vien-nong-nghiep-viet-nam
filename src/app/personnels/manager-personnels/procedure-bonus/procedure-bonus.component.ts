@@ -31,7 +31,6 @@ export class ProcedureBonusComponent extends BaseFormComponent implements OnInit
   }
 
 
-
   ngOnInit() {
     this.initForm();
   }
@@ -151,6 +150,14 @@ export class ProcedureBonusComponent extends BaseFormComponent implements OnInit
     }, () => {
 
     });
+  }
+
+  itemDelete = null;
+
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
   }
 
 }

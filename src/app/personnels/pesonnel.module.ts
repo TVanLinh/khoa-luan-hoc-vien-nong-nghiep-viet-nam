@@ -65,7 +65,7 @@ import {ThesisGuideComponent} from "./info-person/thesis-guide/thesis-guide.comp
 import {ScienceTopicComponent} from "./info-person/science-topic/science-topic.component";
 import {SenimarNewpaperComponent} from "./info-person/senimar-newpaper/senimar-newpaper.component";
 import {PublishInfoComponent} from "./info-person/publish-info/publish-info.component";
-import {AppComonModule}from "../comon-module";
+import {AppComonModule} from "../comon-module";
 import {AddressService} from "../shares/address.service";
 import {AcountShareService} from "../shares/acount-share.service";
 import {ExcelService} from "../shares/excel.service";
@@ -73,7 +73,8 @@ import {CatalogFacultyService} from "../shares/catalog-faculty.service";
 import {CatalogSalaryService} from "../shares/catalog-salary.service";
 import {NationalService} from "../shares/national.service";
 import {TaskService} from "../shares/task.service";
-import { CatalogSearchComponent } from './manager-catalog/catalog-search/catalog-search.component';
+import {CatalogSearchComponent} from './manager-catalog/catalog-search/catalog-search.component';
+import {StatisticBirthdayComponent} from './search-statistic/statistic/statistic-birthday/statistic-birthday.component';
 
 const routes: Routes = [
   {
@@ -165,6 +166,10 @@ const routes: Routes = [
       {
         path: 'faculty-personnel',
         component: StatisticPersonByFacultyComponent
+      },
+      {
+        path: 'birthday',
+        component: StatisticBirthdayComponent
       }
     ]
     },
@@ -276,7 +281,8 @@ const routes: Routes = [
     ProcedureBonusComponent,
     ProcedureDisciplineComponent,
     CheckProfileComponent,
-    CatalogSearchComponent
+    CatalogSearchComponent,
+    StatisticBirthdayComponent
   ],
   imports: [
     AppComonModule.forRoot(), RouterModule.forChild(routes),

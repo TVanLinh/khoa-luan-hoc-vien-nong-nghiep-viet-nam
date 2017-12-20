@@ -40,16 +40,16 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   rankVeterans = PartyConfig.RANK_VETERAN;
 
   party: PartyModel = {
-    dateIn: new Date(),
-    dateInOfical: new Date(),
+    dateIn: null,
+    dateInOfical: null,
     placeIn: "",
     process: []
   };
 
 
   army: ArmyModel = {
-    dateIn: new Date(),
-    dateOut: new Date(),
+    dateIn: null,
+    dateOut: null,
     rankTallest: "",
     rankVeterans: "",
     bookInjured: "",
@@ -57,19 +57,20 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   };
 
   union: UnionModel = {
-    dateIn: new Date(),
+    dateIn: null,
     placeIn: "",
     process: []
   };
 
   group: GroupModel = {
-    dateIn: new Date(),
+    dateIn: null,
     process: []
   };
 
   partyNotValid = false;
   unionNotValid = false;
   groupNotValid = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
     super(eleRef, taskService);
@@ -307,8 +308,15 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       formInjured: formArm.formInjured,
     };
 
+    let partyIsValid = true;
+    let unionaIsValid = true;
+    let groupIsValid = true;
+    let armyIsValid = true;
+
+
     if ((army.dateIn && !army.dateOut) || (!army.dateIn && army.dateOut)) {
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Quân ngũ ", "warning");
+      armyIsValid = false;
       return;
     }
 
@@ -326,15 +334,18 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
     if (this.listActionParty.size() > 0 && !ValidService.isNotBlanks(partyValid)) {
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đảng", "warning");
+      partyIsValid = false;
       return;
     }
 
     if ((party.dateIn || party.dateInOfical || ValidService.isNotBlank(party.placeIn)) && this.listActionParty.size() == 0) {
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đảng", "warning");
+      partyIsValid = false;
       return;
     }
 
     if (ValidService.isNotBlanks(partyValid) && this.listActionParty.size() == 0) {
+      partyIsValid = formArm;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đảng", "warning");
       return;
     }
@@ -354,16 +365,19 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     let unionValid = [union.dateIn, union.placeIn];
 
     if (this.listActionUnion.size() > 0 && !ValidService.isNotBlanks(unionValid)) {
+      unionaIsValid = false;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn ", "warning");
       return;
     }
 
     if ((union.dateIn || ValidService.isNotBlank(union.placeIn)) && this.listActionUnion.size() == 0) {
+      unionaIsValid = false;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn", "warning");
       return;
     }
 
     if (ValidService.isNotBlanks(unionValid) && this.listActionUnion.size() == 0) {
+      unionaIsValid = false;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Đoàn", "warning");
       return;
     }
@@ -380,26 +394,49 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
     let groupValid = [group.dateIn];
 
     if (this.listActionGroup.size() > 0 && !ValidService.isNotBlanks(groupValid)) {
+      groupIsValid = false;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Công Đoàn ", "warning");
       return;
     }
 
     if (group.dateIn != null && this.listActionGroup.size() == 0) {
       console.log("th2");
+      groupIsValid = false;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Công Đoàn", "warning");
       return;
     }
 
     if (ValidService.isNotBlanks(groupValid) && this.listActionGroup.size() == 0) {
+      groupIsValid = false;
       this.updateMessge("Vui lòng kiểm tra lại thông tin quá trình hoạt động Công Đoàn", "warning");
       return;
     }
 
 
-    data['army'] = army;
-    data['party'] = party;
-    data['union'] = union;
-    data['group'] = group;
+    if (armyIsValid) {
+      data['army'] = army;
+    }
+
+    if (partyIsValid) {
+      data['party'] = party;
+    }
+
+    if (unionaIsValid) {
+      data['union'] = union;
+    }
+
+    if (groupIsValid) {
+      data['group'] = group;
+    }
+
+    let validGlobal = [army.dateIn, army.dateOut, party.dateIn,
+      party.dateInOfical, party.placeIn, union.placeIn, union.dateIn, group.dateIn];
+
+
+    if (!ValidService.isNotBlanks(validGlobal) && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận ", "warning");
+      return;
+    }
 
     let body = {};
     body['armyPUG'] = data;
@@ -420,6 +457,9 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
         // console.log("data:  " + JSON.stringify(data));
         if (data && data['armyPUG']) {
           this.updateForm(data['armyPUG']);
+          this.hashData = true;
+        } else {
+          this.hashData = false;
         }
 
       });

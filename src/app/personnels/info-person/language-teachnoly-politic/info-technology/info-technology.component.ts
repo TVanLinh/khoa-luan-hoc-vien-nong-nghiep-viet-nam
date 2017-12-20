@@ -21,6 +21,7 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   listData = new Collections.LinkedList<InfoTeachnologyModel>();
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public  taskService: TaskService) {
     super(eleRef, taskService);
@@ -89,6 +90,11 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   }
 
   onSave() {
+    if (this.listData.toArray().length ==0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
+
     let body = {
       "info_technology": this.listData.toArray(),
       "staffCode": this.user['username']
@@ -102,10 +108,11 @@ export class InfoTechnologyComponent extends BaseFormComponent implements OnInit
   }
 
   getDataFromServer() {
-    if(this.user){
+    if (this.user) {
       this.taskService.get(Config.INFO_TECH + "?username=" + this.user['username']).subscribe((data) => {
         if (data && data['info_technology']) {
           this.listData = this.asList(data['info_technology']);
+          this.hashData = true;
         }
       });
 

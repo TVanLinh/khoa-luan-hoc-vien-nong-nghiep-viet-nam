@@ -36,6 +36,8 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
   formAcademicTouch = false;
   formTitleTouch = false;
+  hashDataTeacher = false;
+  hashDataAca = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -70,8 +72,16 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   onSave(type) {
     this.mode = type;
     if (type == 0) {
+      if (this.listRankAd.toArray().length == 0 && !this.hashDataAca) {
+        super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+        return;
+      }
       super.pushDataServer(Config.ACADEMIC_RANK_URL, "academic_rank", this.listRankAd, this.user);
     } else {
+      if (this.listTitleTeachers.toArray().length ==0 && !this.hashDataTeacher) {
+        super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+        return;
+      }
       super.pushDataServer(Config.TEACHER_TITLE_URL, "teacher_title", this.listTitleTeachers, this.user);
     }
   }
@@ -174,6 +184,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
     this.getDataServer(Config.ACADEMIC_RANK_URL, this.user).subscribe((data: any[]) => {
       if (data && data['academic_rank']) {
         this.listRankAd = super.asList(data['academic_rank']);
+        this.hashDataAca = true;
       }
     }, (err) => {
 
@@ -181,6 +192,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
     this.getDataServer(Config.TEACHER_TITLE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['teacher_title']) {
         this.listTitleTeachers = super.asList(data['teacher_title']);
+        this.hashDataAca = true;
       }
     }, (err) => {
 

@@ -1,4 +1,6 @@
-<app-search-form title=" Làm thủ tục chuyển khoa phòng ban " (onChoise)="onChoiseHandler($event)"></app-search-form>
+<app-search-form title=" Làm thủ tục chuyển khoa phòng ban "
+                 (onSearch)="onSearchHandler($event)"
+                 (onChoise)="onChoiseHandler($event)" [data]="listUser.toArray()"></app-search-form>
 
 <modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
 

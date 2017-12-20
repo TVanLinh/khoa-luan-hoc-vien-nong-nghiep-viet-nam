@@ -43,6 +43,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
   longTimeNotValid = false;
   formLongTouch = false;
   formShortTouch = false;
+  hashData = false;
 
   mode = -1;
 
@@ -103,6 +104,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       this.updateMessge("Bạn chưa nhập quá trình đào tạo dài hạn ", "warning");
       return;
     }
+
 
 
     let train = {};

@@ -21,6 +21,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   positionUpdate: ScienceTopicModel = null;
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -91,6 +92,10 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
+    if (this.listScienceTopic.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     super.pushDataServer(Config.SCIENCE_TOP_URL, "sciene_topic", this.listScienceTopic, this.user);
   }
 
@@ -108,6 +113,7 @@ export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
     super.getDataServer(Config.SCIENCE_TOP_URL, this.user).subscribe(data => {
       if (data && data['sciene_topic']) {
         this.listScienceTopic = super.asList(data['sciene_topic']);
+        this.hashData = true;
       }
     }, (err) => {
 

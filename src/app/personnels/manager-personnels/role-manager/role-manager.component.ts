@@ -22,6 +22,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
   @ViewChild('selectBack') selectBack: SelectComponent;
 
   roles = new Collections.LinkedList<any>();
+  roleTemps = new Collections.LinkedList<any>();
   roleDetail = null;
   update = null;
 
@@ -41,6 +42,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
   reason = '';
 
   formTouch = false;
+  numberShow = 10;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -53,6 +55,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
 
   getDataCatalog() {
     this.taskService.get(Config.ROLE_URL).subscribe(data => {
+      this.roleTemps = super.asList(data);
       this.roles = super.asList(data);
     }, err => {
 
@@ -65,7 +68,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
     });
     this.taskService.get(Config.BACKEND_URL).subscribe(data => {
       this.backendsCatalog = data;
-      this.backendsSelect = this.convertDataSelect(this.backendsCatalog);
+      this.backendsSelect = this.convertDataSelect(this.backendsCatalog, true);
     }, err => {
 
     });
@@ -115,6 +118,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
   removeItem(item) {
     this.taskService.post(Config.ROLE_URL + "/delete", {role: item}).subscribe(data => {
       this.roles.remove(item);
+      this.roleTemps.remove(item);
       super.updateMessge("Xóa thành công", "success");
     }, err => {
       super.updateMessge("Xóa không thành công", "success");
@@ -228,6 +232,40 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
       temp.push(item['id']);
     }
     return temp;
+  }
+
+
+  textChangeListener(event) {
+    let str = event.trim();
+    if (str == '') {
+      this.roles = super.asList(this.roleTemps.toArray());
+    } else {
+      str = str.toLowerCase();
+      let temp = [];
+      this.roles.clear();
+      for (let item of this.roleTemps.toArray()) {
+        let date = new Date(item.createdOn);
+        let formatDate = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " +
+          date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+        if (item.title.toLowerCase().indexOf(str) != -1 ||
+          item.description.toLowerCase().indexOf(str) != -1 ||
+          "Not Activated".toLowerCase().indexOf(str) != -1 ||
+          // ((date.getMonth() + 1) + "").indexOf(str) != -1 ||
+          // ((date.getDate() + "")).indexOf(str) != -1 ||
+          // (date.getFullYear() + "").indexOf(str) != -1 ||
+          (formatDate).indexOf(str) != -1 ||
+          (item.activated + "").toLowerCase().indexOf(str) != -1) {
+          temp.push(item);
+        }
+      }
+      console.log("tem " + temp.length);
+      // this.roles.clear();
+      this.roles = super.asList(temp);
+    }
+  }
+
+  numberViewChangeListener(query) {
+    this.numberShow = query;
   }
 
 

@@ -42,6 +42,8 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   formNotValid = false;
   formTouch = false;
   title = '';
+  hashDataDiscip = false;
+  hashDataBonus = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -77,8 +79,16 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
   onSave(mode) {
     this.mode = mode;
     if (mode == MODE_DISCIPLINE) {
+      if (this.listDiscipline.toArray().length ==0 && !this.hashDataDiscip) {
+        super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+        return;
+      }
       super.pushDataServer(Config.DISCIPLINE_URL, "discipline", this.listDiscipline, this.user);
     } else {
+      if (this.listBonus.toArray().length ==0 && !this.hashDataBonus) {
+        super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+        return;
+      }
       super.pushDataServer(Config.BONUS_URL, "bonus", this.listBonus, this.user);
     }
   }
@@ -161,6 +171,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     super.getDataServer(Config.DISCIPLINE_URL, this.user).subscribe((data: any[]) => {
       if (data && data['discipline']) {
         this.listDiscipline = super.asList(data['discipline']);
+        this.hashDataDiscip = true;
       }
       // console.log(JSON.stringify(data));
     }, () => {
@@ -169,6 +180,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
     super.getDataServer(Config.BONUS_URL, this.user).subscribe((data: any[]) => {
       if (data && data['bonus']) {
         this.listBonus = super.asList(data['bonus']);
+        this.hashDataBonus = true;
       }
     }, () => {
 

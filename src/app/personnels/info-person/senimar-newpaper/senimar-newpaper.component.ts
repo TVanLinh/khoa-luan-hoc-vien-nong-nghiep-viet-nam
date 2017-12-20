@@ -40,6 +40,9 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
   formSeminaTouch = false;
   formNewsTouch = false;
 
+  semiHashData = false;
+  newPaHashData = false;
+
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
   }
@@ -185,8 +188,16 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     this.mode = mode;
     this.formValid = true;
     if (mode == 0) {
+      if (this.listSenimar.toArray().length == 0 && !this.semiHashData) {
+        super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+        return;
+      }
       super.pushDataServer(Config.SEMINAR_TOP_URL, 'seminar', this.listSenimar, this.user);
     } else {
+      if (this.listNewsPaper.toArray().length == 0 && !this.newPaHashData) {
+        super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+        return;
+      }
       super.pushDataServer(Config.NEWSPAPER_TOP_URL, 'newspaper', this.listNewsPaper, this.user);
     }
   }
@@ -195,6 +206,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     super.getDataServer(Config.SEMINAR_TOP_URL, this.user).subscribe(data => {
       if (data && data['seminar']) {
         this.listSenimar = super.asList(data['seminar']);
+        this.semiHashData = true;
       }
     }, (err) => {
 
@@ -203,6 +215,7 @@ export class SenimarNewpaperComponent extends BaseFormComponent implements OnIni
     super.getDataServer(Config.NEWSPAPER_TOP_URL, this.user).subscribe(data => {
       if (data && data['newspaper']) {
         this.listNewsPaper = super.asList(data['newspaper']);
+        this.newPaHashData = true;
       }
     }, (err) => {
 

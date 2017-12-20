@@ -154,10 +154,22 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
 
   onLogin(loginModal) {
 
+    if (!ValidService.isNotBlanks([this.formDataLogin.value.userName, this.formDataLogin.value.passWord])) {
+      return;
+    }
+
+    let userName = this.formDataLogin.value.userName;
+    if (userName.trim() != 'appAdmin') {
+      userName = userName.toUpperCase();
+    }
+
+
     let data = {
-      username: this.formDataLogin.value.userName,//.toUpperCase()
+      username: userName,//.toUpperCase()
       password: this.formDataLogin.value.passWord
     };
+
+
     this.taskService.postLogin(Config.HOST_SERVER + "/login", data).subscribe((data) => {
       this.isLogin = true;
       this.closeModal(loginModal);
@@ -228,8 +240,12 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       return;
     }
 
+    let userName = formValue['username'];
+    if (userName.trim() != 'appAdmin') {
+      userName = userName.toUpperCase();
+    }
 
-    let str = "/forgetPass?username=" + formValue['username'] + "&email=" + formValue['email'];
+    let str = "/forgetPass?username=" + userName + "&email=" + formValue['email'];
     this.taskService.get(Config.USER_URL + str, true).subscribe((data) => {
       console.log(data);
       if (data['_body']) {

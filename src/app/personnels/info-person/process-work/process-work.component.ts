@@ -26,6 +26,7 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   processWorks = new Collections.LinkedList<ProcessWorkModel>();
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
@@ -53,13 +54,18 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_WORK_URL, 'process_work', this.processWorks,this.user);
+    if (this.processWorks.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
+    super.pushDataServer(Config.PROCESS_WORK_URL, 'process_work', this.processWorks, this.user);
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_WORK_URL,this.user).subscribe(data => {
+    super.getDataServer(Config.PROCESS_WORK_URL, this.user).subscribe(data => {
       if (data && data['process_work']) {
         this.processWorks = super.asList(data['process_work']);
+        this.hashData = true;
       }
     }, err => {
 

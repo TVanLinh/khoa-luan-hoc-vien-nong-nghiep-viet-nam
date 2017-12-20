@@ -45,6 +45,10 @@ textarea {
   overflow: hidden;
 }
 
+tr td{
+  word-wrap: break-word !important;
+}
+
 .dx-group-panel-message {
   font-size: 18px;
   color: #fff !important;
@@ -88,4 +92,14 @@ input[type='checkbox'] {
 
 #catalog-faculty pagination.pull-right.float-sm-right {
   display: none !important;
+}
+
+.footer-table-pager{
+  border: solid 1px #fff !important;
+  cursor: default;
+}
+
+.footer-table-pager:hover {
+  background-color: #fff !important;
+  cursor: default;
 }

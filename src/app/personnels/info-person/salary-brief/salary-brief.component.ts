@@ -36,6 +36,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
 
   formNotValid = false;
   formTouch = false;
+  hashData = false;
 
   constructor(protected eleRef: ElementRef,
               public  catalogRankService: CatalogSalaryService
@@ -158,21 +159,25 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
     this.rank = item.rank;
     this.levelChoise = item.level;
     this.formData.reset();
-    if(item.dated)
-    this.formData.setValue({
-      dateFrom: item.dateFrom,
-      dateEnd: item.dateEnd,
-      specie: item.specie,
-      group: item.group,
-      rank: item.rank,
-      level: item.level,
-      numberDecide: item.numberDecide
-    });
+    if (item.dated)
+      this.formData.setValue({
+        dateFrom: item.dateFrom,
+        dateEnd: item.dateEnd,
+        specie: item.specie,
+        group: item.group,
+        rank: item.rank,
+        level: item.level,
+        numberDecide: item.numberDecide
+      });
     super.openModal(this.modalSalary);
   }
 
   onSave() {
-    super.pushDataServer(Config.PROCESS_SALARY_URL, "salary", this.listSalaryBrief,this.user);
+    if (this.listSalaryBrief.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
+    super.pushDataServer(Config.PROCESS_SALARY_URL, "salary", this.listSalaryBrief, this.user);
   }
 
   removeItem(index: number) {
@@ -187,9 +192,10 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   }
 
   getDataFromServer() {
-    super.getDataServer(Config.PROCESS_SALARY_URL,this.user).subscribe(data => {
+    super.getDataServer(Config.PROCESS_SALARY_URL, this.user).subscribe(data => {
       if (data && data['salary']) {
         this.listSalaryBrief = super.asList(data['salary']);
+        this.hashData = true;
       }
       // console.log(JSON.stringify(data['salary']));
     }, (err) => {

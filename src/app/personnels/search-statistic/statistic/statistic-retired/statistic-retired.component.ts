@@ -13,7 +13,7 @@ export class StatisticRetiredComponent extends BaseFormComponent implements OnIn
   @ViewChild('modal') modal: ModalComponent;
   data: any[] = [];
   detail: any;
-  fields: { caption: string, type?: string, field: string, width?: number }[];
+  fields: { caption: string, type?: string, field: string, format?:string,width?: number }[];
 
   constructor(public ele: ElementRef, public taskService: TaskService) {
     super(ele, taskService);
@@ -32,7 +32,8 @@ export class StatisticRetiredComponent extends BaseFormComponent implements OnIn
       {
         caption: "Ngày quyết định ",
         field: 'dateDecide',
-        type: 'date'
+        type: 'date',
+        format: 'dd/MM/yyy'
       },
       {
         caption: "Số quyết định ",

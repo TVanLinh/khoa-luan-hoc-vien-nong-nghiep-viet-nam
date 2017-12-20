@@ -1,34 +1,47 @@
 <h4 class="text-center mgb-15" style="font-size: 20px"> Danh sách chức vụ </h4>
+
+<app-catalog-search (textChange)="textChangeListener($event)"
+                    (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
+
 <div *ngIf="message.condition"
      [ngClass]="'alert alert-'+ message.type">
   {{message.content}}
 </div>
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table class="table table-bordered" [mfData]="roles.toArray()" #mf="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
     <tr>
       <th style="width:5%">STT</th>
-      <th>Tên chức vụ</th>
-      <th>Mô tả</th>
-      <th>Activated</th>
-      <th>Thời gian tạo</th>
+      <th>
+        <mfDefaultSorter by="title">Tên chức vụ</mfDefaultSorter></th>
+      <th>
+        <mfDefaultSorter by="description">Mô tả</mfDefaultSorter></th>
+      <th>
+        <mfDefaultSorter by="activated">Trạng thái</mfDefaultSorter></th>
+      <th>
+        <mfDefaultSorter by="createdOn">Thời gian tạo</mfDefaultSorter></th>
       <th>
         <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
       </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of roles.toArray();let i = index ">
+    <tr *ngFor="let item of mf.data;let i = index ">
       <td>{{i+1}}</td>
       <td class="name">{{item.title}}</td>
       <td class="name">{{item.description}}</td>
-      <td class="name">{{item.activated}}</td>
+      <td class="name">{{item.activated?'Activated':'Not Activated'}}</td>
       <td class="name">{{item.createdOn | date:'hh:MM:ss dd/MM/yyyy'}}</td>
       <td style="width:10%">
         <span class="action-icon" title="Chi tiết " (click)="viewDetail(item)"><i class="fa fa-eye"
                                                                                   aria-hidden="true"></i></span>
         <span class="action-icon" title="Chỉnh sửa " (click)="editItem(item)"><i class="fa fa-edit"></i></span>
         <!--<span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+      </td>
+    </tr>
+    <tr class="footer-table-pager">
+      <td colspan="6" >
+        <mfBootstrapPaginator></mfBootstrapPaginator>
       </td>
     </tr>
     </tbody>

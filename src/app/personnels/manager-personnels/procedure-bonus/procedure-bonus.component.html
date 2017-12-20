@@ -4,18 +4,20 @@
 
   <modal-header>
 
-
     <div class="col-xs-12 col-sm-6 ">
       <div class="action-form mgb-i-10 text-left">
+        <button (click)="modalBonus.close()">Thoát</button>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 ">
+      <div class="action-form mgb-i-10 text-right ">
         <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận':'Cập nhật'}}</button>
       </div>
     </div>
 
-    <div class="col-xs-12 col-sm-6 ">
-      <div class="action-form mgb-i-10 text-right">
-        <button (click)="modalBonus.close()">Thoát</button>
-      </div>
-    </div>
+
+
     <div class="col-xs-12"><h3 class="text-center">{{name == 'bonus'?'Làm thủ tục khen thưởng':'Làm thủ tục kỷ luật
       '}} </h3></div>
     <div class="col-xs-12">
@@ -135,7 +137,8 @@
           <td>{{item.reason}}</td>
           <td>
             <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>
+            <!--<span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>-->
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
           </td>
         </tr>
@@ -146,3 +149,5 @@
   </modal-footer>
 
 </modal>
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

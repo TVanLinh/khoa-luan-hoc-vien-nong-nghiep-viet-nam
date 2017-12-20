@@ -35,6 +35,8 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
     job: "job'"
   };
 
+  hashData = false;
+
   formNotValid = false;
 
   constructor(protected eleRef: ElementRef,
@@ -115,7 +117,10 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
   }
 
   onSave() {
-
+    if (this.listContracts.toArray().length == 0 && !this.hashData) {
+      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
+      return;
+    }
     let body = {
       "contract": this.listContracts.toArray(),
       "staffCode": this.user['username']
@@ -141,14 +146,15 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
 
 
   getDataFromServer() {
-   if(this.user) {
-     this.taskService.get(Config.CONTRACT_URL + "?username=" + this.user['username']).subscribe((data) => {
-       if (data && data['contract']) {
-         // console.log("data['contract'] " + JSON.stringify(data['contract']));
-         this.listContracts = this.asList(data['contract']);
-       }
-     });
-   }
+    if (this.user) {
+      this.taskService.get(Config.CONTRACT_URL + "?username=" + this.user['username']).subscribe((data) => {
+        if (data && data['contract']) {
+          // console.log("data['contract'] " + JSON.stringify(data['contract']));
+          this.listContracts = this.asList(data['contract']);
+          this.hashData = true;
+        }
+      });
+    }
   }
 
   getContact(type: number) {
