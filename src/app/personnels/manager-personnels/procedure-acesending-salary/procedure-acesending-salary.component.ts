@@ -228,9 +228,16 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
     this.listSalaryBrief.remove(item);
     body['salary'] = this.listSalaryBrief.toArray();
     this.taskService.post(Config.PROCESS_SALARY_URL, {data: body}).subscribe((resp) => {
-      super.updateMessge("Thành công ", 'success');
+      super.updateMessge("Xóa thành công ", 'success');
     }, (err) => {
       this.updateMessge(this.messageError.errorSave, "warning");
     });
+  }
+
+  itemDelete = null;
+  confirm(answer) {
+    if (answer) {
+      this.removeItem(this.itemDelete);
+    }
   }
 }

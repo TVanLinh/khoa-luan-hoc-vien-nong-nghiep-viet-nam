@@ -3,10 +3,10 @@
 <app-catalog-search (textChange)="textChangeListener($event)"
                     (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
 
-<div *ngIf="message.condition"
-     [ngClass]="'alert alert-'+ message.type">
-  {{message.content}}
-</div>
+<!--<div *ngIf="message.condition"-->
+     <!--[ngClass]="'alert alert-'+ message.type">-->
+  <!--{{message.content}}-->
+<!--</div>-->
 <div class="table-responsive">
   <table class="table table-bordered" [mfData]="roles.toArray()" #mf="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
@@ -52,7 +52,7 @@
 <modal #modalDetail size='lg' backdrop="true">
 
   <modal-header>
-    <div class="action-form mgb-i-10">
+    <div class="action-form mgb-i-10 text-right">
       <button (click)="closeModal(modalDetail)">Thoát</button>
     </div>
     <h3 class="text-center">Chi tiết chức vụ {{roleDetail?roleDetail.title:''}}</h3>
@@ -103,7 +103,7 @@
 <modal #modalCreate size='lg' backdrop="true">
 
   <modal-header>
-    <div class="action-form mgb-i-10">
+    <div class="action-form mgb-i-10 text-right">
       <button (click)="closeModal(modalCreate)">Thoát</button>
     </div>
     <h3 class="text-center">{{update?'Cập nhật chức vụ':'Tạo mới chức vụ'}}</h3>

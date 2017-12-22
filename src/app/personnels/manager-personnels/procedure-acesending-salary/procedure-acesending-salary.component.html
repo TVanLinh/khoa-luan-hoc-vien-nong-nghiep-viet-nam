@@ -1,30 +1,22 @@
-<app-search-form title="Làm thủ tục tăng lương " [showLeaveBindRetire]="true" (onChoise)="onChoiseHandler($event)"></app-search-form>
+<app-search-form title="Làm thủ tục tăng lương " [showLeaveBindRetire]="true"
+                 (onChoise)="onChoiseHandler($event)"></app-search-form>
 
 
 <modal #modalSalary size='lg' cssClass="my-modal-lg" backdrop="false">
 
   <modal-header>
     <!--<div class="action-form mgb-i-10">-->
-      <!--<button (click)="closeModal(modalSalary)">Thoát</button>-->
+    <!--<button (click)="closeModal(modalSalary)">Thoát</button>-->
     <!--</div>-->
-
-
-    <div class="col-xs-12 col-sm-6 ">
-      <div class="action-form mgb-i-10 text-left" >
-        <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận ':'Cập nhật'}}</button>
-      </div>
-    </div>
-
-
-    <div class="col-xs-12 col-sm-6 ">
-      <div class="action-form mgb-i-10 text-right" >
+    <div class="col-xs-12  ">
+      <div class="action-form mgb-i-10 text-right">
         <button (click)="closeModal(modalSalary)">Thoát</button>
       </div>
     </div>
 
-   <div class="col-xs-12">
-     <h3 class="text-center">Làm thủ tục tăng lương</h3>
-   </div>
+    <div class="col-xs-12">
+      <h3 class="text-center">Làm thủ tục tăng lương</h3>
+    </div>
 
   </modal-header>
 
@@ -127,6 +119,12 @@
         </div>
       </div>
     </form>
+
+
+    <div class="action-form mgb-i-10 text-right">
+      <button class="btn-action" (click)="onSave()">{{positionUpdate == null?'Ghi nhận ':'Cập nhật'}}</button>
+    </div>
+
   </modal-body>
 
   <modal-footer>
@@ -183,7 +181,8 @@
           </td> -->
           <td>
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>
+            <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove"></i></span>
           </td>
         </tr>
         <!---->
@@ -193,3 +192,6 @@
   </modal-footer>
 
 </modal>
+
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>
