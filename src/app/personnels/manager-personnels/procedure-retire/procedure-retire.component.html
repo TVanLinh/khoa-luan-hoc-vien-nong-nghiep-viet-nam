@@ -1,61 +1,8 @@
-<app-search-form title="Làm thủ tục về hưu trí" (onChoise)="onChoiseHandler($event)"></app-search-form>
+<app-search-form title="Làm thủ tục về hưu" [showLeaveBindRetire]="true"
+                 (onChoise)="onChoiseHandler($event)"></app-search-form>
 
-<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
-
-  <modal-header>
-    <div class="action-form mgb-i-10">
-      <button (click)="closeModal(modal)">Thoát</button>
-    </div>
-    <h3 class="text-center">Làm thủ tục về hưu </h3>
-    <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
-      {{message.content}}
-    </div>
-  </modal-header>
-
-  <modal-body>
-    <form action="" style="border: none" class="mgb-i-10" [formGroup]="formDetail">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-          <div class="item-control">
-            <label>Mã cán bộ: </label>
-            <input type="text" class="form-control" disabled required formControlName="personnelCode">
-          </div>
-          <div class="item-control">
-            <label>Họ tên: </label>
-            <input type="text" class="form-control" disabled required formControlName="fullName">
-          </div>
-
-
-          <div class="item-control">
-            <label>Số quyết định : </label>
-            <input type="text" class="form-control" required #numberDecide formControlName="numberDecide">
-            <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
-              Chưa nhập số quyết định
-            </div>
-          </div>
-          <div class="item-control">
-            <label>Ngày quyết định : </label>
-            <input type="date" class="form-control" required #dateDecide formControlName="dateDecide">
-            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
-              Chưa nhập ngày quyết định
-            </div>
-          </div>
-          <div class="item-control ">
-            <label>Nội dung quyết định : </label>
-            <textarea class="form-control mgb-20" style="width: 100%;height: 150px"
-                      formControlName="contentDecide"> </textarea>
-            <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
-              Chưa nhập nội dung quyết định
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </modal-body>
-
-  <modal-footer>
-    <button class="btn-action" (click)="onProcess()">Ghi nhận</button>
-  </modal-footer>
-
-</modal>
-
+<app-procedure-form (onEdit)="editHandler($event)" #procedureForm [datas]="data.toArray()"
+                    title="Làm thủ tục nghỉ hưu"
+                    [user]="user"
+                    (onProcess)="onProcess($event)"
+                    (onRemove)="removeHandler($event)" (textChange)="textChangeListener($event)"></app-procedure-form>

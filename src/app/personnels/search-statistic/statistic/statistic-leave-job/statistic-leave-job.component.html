@@ -1,23 +1,5 @@
 <app-statistic-table [data]="data" title="Danh sách cán bộ nghỉ việc"
                      [fields]="fields"
                      (onClick)="clickHandler($event)" (onExport)="exportHandler($event)"></app-statistic-table>
-<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
 
-  <modal-header>
-    <div class="action-form mgb-i-10">
-      <button (click)="closeModal(modal)">Thoát</button>
-    </div>
-    <h3 class="text-center">Thông tin chi tiết </h3>
-  </modal-header>
-
-  <modal-body *ngIf="detail">
-
-    <div class="mgb-15 mgr-20"><span>Mã cán bộ:</span> {{detail.user.username}}</div>
-    <div class="mgb-15 mgr-20"><span>Họ tên:</span> {{detail.user.fullname}}</div>
-    <div class="mgb-15 mgr-20"><span>Số quyết định: </span>{{detail.numberDecide}}</div>
-    <div class="mgb-15 mgr-20"><span>Ngày quyết định:</span> {{detail.dateDecide | date:'dd-MM-yyyy'}}</div>
-    <div class="mgb-15"><span>Nội dung quyết định:</span></div>
-    <div>{{detail.contentDecide}}</div>
-  </modal-body>
-
-</modal>
+<app-procedure-detail #detailProcedure [detail]="detail"></app-procedure-detail>

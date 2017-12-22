@@ -234,7 +234,7 @@
           </div>
 
           <div class="item-control">
-            <label>Mã khoa/phòng ban </label>
+            <label>Mã phòng ban </label>
             <input name="code" class="form-control" [(ngModel)]="newDepart.code" #codeDep required
                    style="width: 100%!important;"/>
             <div class="error" *ngIf="touched && codeDep &&  codeDep.value.trim() == '' || touched && codeDep == null">

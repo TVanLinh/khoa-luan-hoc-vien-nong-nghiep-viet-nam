@@ -103,3 +103,8 @@ input[type='checkbox'] {
   background-color: #fff !important;
   cursor: default;
 }
+
+.modal {
+  overflow-x: hidden;
+  overflow-y: scroll !important;
+}

@@ -10,10 +10,10 @@ import {BaseFormComponent} from "../../../base-form.component";
   styleUrls: ['./statistic-retired.component.css', '../../../form.css']
 })
 export class StatisticRetiredComponent extends BaseFormComponent implements OnInit {
-  @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('detailProcedure') detailProcedure: ModalComponent;
   data: any[] = [];
   detail: any;
-  fields: { caption: string, type?: string, field: string, format?:string,width?: number }[];
+  fields: { caption: string, type?: string, field: string, format?: string, width?: number }[];
 
   constructor(public ele: ElementRef, public taskService: TaskService) {
     super(ele, taskService);
@@ -53,8 +53,7 @@ export class StatisticRetiredComponent extends BaseFormComponent implements OnIn
 
   clickHandler($event) {
     this.detail = $event;
-    super.openModal(this.modal);
-    console.log(JSON.stringify($event));
+    this.detailProcedure.open();
   }
 
 

@@ -12,7 +12,7 @@ import {DateUtil} from "../../../../shares/date.service";
   styleUrls: ['./statistic-leave-job.component.css', '../../../form.css']
 })
 export class StatisticLeaveJobComponent extends BaseFormComponent implements OnInit {
-  @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('detailProcedure') detailProcedure: ModalComponent;
   data: any[] = [];
   detail: any;
   fields: { caption: string, type?: string, field: string, format?: string, width?: number }[];
@@ -56,8 +56,7 @@ export class StatisticLeaveJobComponent extends BaseFormComponent implements OnI
 
   clickHandler($event) {
     this.detail = $event;
-    super.openModal(this.modal);
-    console.log(JSON.stringify($event));
+    this.detailProcedure.open();
   }
 
 
@@ -79,8 +78,9 @@ export class StatisticLeaveJobComponent extends BaseFormComponent implements OnI
       list.push(temp);
     }
 
-
     this.excelService.export("Danh sách cán bộ nghỉ việc", title, list);
   }
+
+
 
 }

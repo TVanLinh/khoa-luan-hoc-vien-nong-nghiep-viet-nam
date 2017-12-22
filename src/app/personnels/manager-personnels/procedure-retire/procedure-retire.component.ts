@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {BaseFormComponent} from "../../base-form.component";
-import {FormGroup, Validators} from "@angular/forms";
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+
 import {TaskService} from "../../../shares/task.service";
-import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
-import {ValidService} from "../../../shares/valid.service";
+
 import {Config} from "../../../shares/config";
+import * as Collecions from "typescript-collections";
+import {ProcedureFormComponent} from "../procedure-form/procedure-form.component";
 
 @Component({
   selector: 'app-procedure-retire',
@@ -13,68 +13,102 @@ import {Config} from "../../../shares/config";
   styleUrls: ['../../form.css', './procedure-retire.component.css']
 })
 export class ProcedureRetireComponent extends BaseFormComponent implements OnInit {
-  @ViewChild('modal') modal: ModalComponent;
-  formDetail: FormGroup;
-  formTouch = false;
-  user: any;
 
-  constructor(protected eleRef: ElementRef, public taskService: TaskService, public catalogFaculty: CatalogFacultyService) {
+  @ViewChild('procedureForm') procedureForm: ProcedureFormComponent;
+  user: any;
+  data = new Collecions.LinkedList<any>();
+  dataTemp = new Collecions.LinkedList<any>();
+  update = null;
+
+  constructor(protected eleRef: ElementRef, taskService: TaskService) {
     super(eleRef, taskService);
   }
 
   ngOnInit() {
-    this.initForm();
-  }
-
-  initForm() {
-    this.formDetail = this.formBuilder.group({
-      fullName: [''],
-      personnelCode: [''],
-      numberDecide: ['', Validators.required],
-      dateDecide: ['', Validators.required],
-      contentDecide: ['', Validators.required]
-    });
-  }
-
-
-  onProcess() {
-    this.formTouch = true;
-
-    let valueForm = this.formDetail.value;
-    let valid = [valueForm.numberDecide, valueForm.dateDecide, valueForm.contentDecide, Validators.required];
-    if (!ValidService.isNotBlanks(valid) || !this.formDetail.valid) {
-      return;
-    }
-
-    let body = {
-      numberDecide: valueForm.numberDecide,
-      dateDecide: valueForm.dateDecide,
-      contentDecide: valueForm.contentDecide,
-      user: this.user
-    };
-    this.taskService.post(Config.RETIRE_URL, {data: body}).subscribe((data) => {
-      this.updateMessge("Thành công ", "success");
-      setTimeout(() => {
-        this.formDetail.reset();
-        this.closeModal(this.modal);
-      }, 2000);
-    }, (err) => {
-      this.updateMessge("Không thành công ", "warning");
-
-    });
-
+    this.getData();
   }
 
   onChoiseHandler($event) {
-    this.formTouch = false;
-    let data = $event;
     this.user = $event;
-    this.formDetail.patchValue({
-      fullName: data.fullname,
-      personnelCode: data.username
-    });
+    this.procedureForm.open(this.user);
+  }
 
-    super.openModal(this.modal);
+  onProcess($event) {
+    if ($event._id) {
+      this.taskService.put(Config.RETIRE_URL, {data: $event}).subscribe((data) => {
+        this.procedureForm.updateMessge("Cập nhật thành công", "success");
+        super.updateList(this.data, this.update, $event);
+        super.updateList(this.dataTemp, this.update, $event);
+      }, (err) => {
+        this.procedureForm.updateMessge("Không thành công ", "warning");
+      }, () => {
+      });
+    } else {
+      this.taskService.post(Config.RETIRE_URL, {data: $event}).subscribe((data) => {
+        let item = JSON.parse(data['_body']);
+        if (item["msg"]) {
+          this.procedureForm.updateMessge("Cán bộ này đã được xử lý rồi vui lòng cập nhật", "warning");
+        } else {
+          this.procedureForm.updateMessge("Thành công", "success");
+          $event['_id'] = item._id;
+          this.data.add($event, 0);
+          this.dataTemp.add($event, 0);
+        }
+        // this.data.add()
+      }, (err) => {
+        this.procedureForm.updateMessge("Không thành công ", "warning");
+
+      }, () => {
+      });
+    }
+
+  };
+
+  editHandler($event) {
+    this.update = $event;
+    console.log("update " + JSON.stringify($event));
+  }
+
+  getData() {
+    this.taskService.get(Config.RETIRE_URL).subscribe((data: any[]) => {
+      this.data = super.asList(data);
+      this.dataTemp = super.asList(data);
+    }, err => {
+      // this.data = [];
+    });
+  }
+
+  removeHandler($event) {
+    this.taskService.delete2(Config.RETIRE_URL, {data: $event}).subscribe(data => {
+      this.data.remove($event);
+      this.dataTemp.remove($event);
+      this.procedureForm.updateMessge("Xóa thành công", "success");
+    }, err => {
+      this.procedureForm.updateMessge("Xóa không thành công", "warning");
+    }, () => {
+    });
+  }
+
+  textChangeListener(event) {
+    console.log(event);
+    event = event.trim().toLowerCase();
+    if (event == '') {
+      this.data = super.clone(this.dataTemp.toArray());
+    }
+    let temp = [];
+    this.data.clear();
+    for (let item of this.dataTemp.toArray()) {
+      let date = new Date(item.dateDecide);
+      let dateFormat = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+      if (item.user.username.toLowerCase().indexOf(event) != -1 ||
+        item.user.fullname.toLowerCase().indexOf(event) != -1 ||
+        item.user.organ && item.user.organ.level1.name.toLowerCase().indexOf(event) != -1 ||
+        item.numberDecide.toLowerCase().indexOf(event) != -1 ||
+        dateFormat.indexOf(event) != -1) {
+        temp.push(item);
+      }
+    }
+    this.data = super.asList(temp);
   }
 
 }

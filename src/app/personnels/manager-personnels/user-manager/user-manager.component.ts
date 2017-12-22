@@ -162,9 +162,11 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
 
 
   itemDelete = null;
+
   confirm(answer) {
     if (answer) {
       this.selectDeleteRole(this.itemDelete);
     }
+    super.openModal(this.modal);
   }
 }

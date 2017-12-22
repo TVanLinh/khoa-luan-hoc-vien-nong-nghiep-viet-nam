@@ -1,0 +1,131 @@
+<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">
+  <modal-header>
+    <div class="action-form mgb-i-10">
+      <button (click)="close()">Thoát</button>
+    </div>
+    <h3 class="text-center">{{title}}</h3>
+  </modal-header>
+
+  <modal-body>
+    <form action="" class="mgb-i-10" [formGroup]="formData">
+      <div class="row">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="item-control">
+              <label>Mã cán bộ: </label>
+              <input type="text" class="form-control" disabled required [value]="user?user.username:''">
+            </div>
+
+            <div class="item-control">
+              <label>Họ tên: </label>
+              <input type="text" class="form-control" disabled required [value]="user?user.fullname:''">
+            </div>
+
+
+            <div class="item-control">
+              <label>Số quyết định : </label>
+              <input type="text" class="form-control" #numberDecide required formControlName="numberDecide">
+              <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
+                Chưa nhập quyết định
+              </div>
+            </div>
+
+            <div class="item-control">
+              <label>Ngày quyết định : </label>
+              <input type="date" class="form-control" [value]="dateDecideNow |date:'yyyy-MM-dd' " #dateDecide required
+                     formControlName="dateDecide">
+              <div class="error" *ngIf="dateDecide.value.trim()  =='' && formTouch">
+                Chưa nhập ngày quyết định
+              </div>
+            </div>
+            <div class="item-control ">
+              <label>Nội dung quyết định : </label>
+              <textarea class="form-control mgb-20" style="width: 100%;height: 150px" #contentDecide
+                        formControlName="contentDecide"> </textarea>
+              <div class="error" *ngIf="contentDecide.value.trim()  =='' && formTouch">
+                Chưa nhập nội dung quyết định
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div *ngIf="message.condition  " [ngClass]="'alert alert-'+ message.type">
+        {{message.content}}
+      </div>
+      <div class="col-xs-12 text-right">
+        <button class="btn-action" (click)="onProcessShare()"> {{postionUpdate?'Cập nhật':'Xử lý'}}</button>
+      </div>
+    </div>
+  </modal-body>
+
+  <modal-footer>
+    <app-catalog-search (textChange)="textChangeListener($event)"
+                        (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3 class="text-center mgb-15">Danh sách cán bộ đã xử lý</h3>
+        <div class="table-responsive" >
+          <table class="table table-bordered" [mfData]="datas" #mfDetail="mfDataTable"
+                 [mfRowsOnPage]="numberShow">
+            <thead>
+            <tr>
+              <th style="width:5%">STT</th>
+              <th>
+                <mfDefaultSorter by="user.username">Mã cán bộ</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="user.fullname">Họ tên</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="user.organ.level1.name">Đơn vị</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="numberDecide">Số quyết định</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="dateDecide">Ngày quyết định</mfDefaultSorter>
+              </th>
+              <th>
+                <!--<th>-->
+                <!--</th>-->
+              </th>
+            </tr>
+            </thead>
+            <tbody *ngIf="datas && datas.length > 0">
+            <tr *ngFor="let item of mfDetail.data;let i = index ">
+              <td>{{i+1}}</td>
+              <td class="name upper-case">{{item.user.username}}</td>
+              <td class="name capitalize">{{item.user.fullname?item.user.fullname.toLowerCase():''}}</td>
+              <td class="name capitalize">{{item.user.organ &&
+                item.user.organ.level1 && item.user.organ.level1.name?item.user.organ.level1.name.toLowerCase():''}}
+              </td>
+              <td class="name upper-case">{{item.numberDecide}}</td>
+              <td class="name ">{{item.dateDecide | date:'dd/MM/yyyy'}}</td>
+              <td style="width:10%">
+                <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
+                <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+
+                <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i
+                  class="fa fa-remove "></i></span>
+              </td>
+            </tr>
+
+            <tr class="footer-table-pager">
+              <td colspan="7">
+                <mfBootstrapPaginator></mfBootstrapPaginator>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </modal-footer>
+
+</modal>
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

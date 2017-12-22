@@ -39,6 +39,9 @@ export class Config {
   public static BACKEND_URL = Config.HOST_SERVER + "/backend";
   public static SALART_HISTORY_URL = Config.HOST_SERVER + "/salaryhistory";
   public static ROLE_URL = Config.HOST_SERVER + "/role";
+  public static USER_RETIRE_LEAVE_BIND_JOB = Config.HOST_SERVER + "/user_retire_leave_bind_job";
+
+
   public static MYCV = "mycv";
 
 

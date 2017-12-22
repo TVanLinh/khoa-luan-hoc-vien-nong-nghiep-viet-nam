@@ -58,7 +58,7 @@
 </form>
 
 <div class="row">
-  <dx-data-grid (onRowClick)="onChoiseShare($event.data)" id="gridContainer" [dataSource]="data">
+  <dx-data-grid noDataText="Không có dữ liệu" (onRowClick)="onChoiseShare($event.data)" id="gridContainer" [dataSource]="data">
 
     <dxo-export [enabled]="true" fileName="{{title}}" [allowExportSelectedData]="true"></dxo-export>
     <dxo-selection mode="multiple"></dxo-selection>

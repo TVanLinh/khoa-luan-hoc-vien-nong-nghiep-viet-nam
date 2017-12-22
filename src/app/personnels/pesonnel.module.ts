@@ -75,6 +75,8 @@ import {NationalService} from "../shares/national.service";
 import {TaskService} from "../shares/task.service";
 import {CatalogSearchComponent} from './manager-catalog/catalog-search/catalog-search.component';
 import {StatisticBirthdayComponent} from './search-statistic/statistic/statistic-birthday/statistic-birthday.component';
+import {ProcedureDetailComponent} from "./search-statistic/statistic/procedure-detail/procedure-detail.component";
+import {ProcedureFormComponent} from "./manager-personnels/procedure-form/procedure-form.component";
 
 const routes: Routes = [
   {
@@ -282,7 +284,9 @@ const routes: Routes = [
     ProcedureDisciplineComponent,
     CheckProfileComponent,
     CatalogSearchComponent,
-    StatisticBirthdayComponent
+    StatisticBirthdayComponent,
+    ProcedureDetailComponent,
+    ProcedureFormComponent
   ],
   imports: [
     AppComonModule.forRoot(), RouterModule.forChild(routes),

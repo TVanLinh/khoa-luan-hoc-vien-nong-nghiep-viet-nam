@@ -1,0 +1,14 @@
+.form-control{
+  width: 100%;
+}
+select,input{
+  float: none;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .form-control{
+    width: 70%;
+    float: right;
+  }
+}

@@ -3,18 +3,21 @@ import {BaseFormComponent} from "../../../base-form.component";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../../shares/task.service";
 import {Config} from "../../../../shares/config";
+import {ProcedureDetailComponent} from "../procedure-detail/procedure-detail.component";
 
 @Component({
   selector: 'app-statistic-bind-job',
   templateUrl: './statistic-bind-job.component.html',
-  styleUrls: ['./statistic-bind-job.component.css','../../../form.css']
+  styleUrls: ['./statistic-bind-job.component.css', '../../../form.css']
 })
 export class StatisticBindJobComponent extends BaseFormComponent implements OnInit {
-
   @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('detailProcedure') detailProcedure: ProcedureDetailComponent;
+
   data: any[] = [];
   detail: any;
   fields: { caption: string, type?: string, field: string, width?: number }[];
+
   constructor(public ele: ElementRef, public taskService: TaskService) {
     super(ele, taskService);
   }
@@ -32,7 +35,7 @@ export class StatisticBindJobComponent extends BaseFormComponent implements OnIn
       {
         caption: "Ngày quyết định ",
         field: 'dateDecide',
-        type:'date'
+        type: 'date'
       },
       {
         caption: "Số quyết định ",
@@ -43,10 +46,8 @@ export class StatisticBindJobComponent extends BaseFormComponent implements OnIn
   }
 
   getData() {
-
     this.taskService.get(Config.BIND_JOB_URL).subscribe((data: any[]) => {
       this.data = data;
-      console.log(JSON.stringify(data));
     }, err => {
       this.data = [];
     });
@@ -54,7 +55,8 @@ export class StatisticBindJobComponent extends BaseFormComponent implements OnIn
 
   clickHandler($event) {
     this.detail = $event;
-    super.openModal(this.modal);
+    this.detailProcedure.open();
+    // super.openModal(this.modal);
   }
 
 }

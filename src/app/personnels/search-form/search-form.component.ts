@@ -1,12 +1,12 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {EventListener} from "@angular/core/src/debug/debug_node";
+
 import {TaskService} from "../../shares/task.service";
 import {Config} from "../../shares/config";
 import {BaseFormComponent} from "../base-form.component";
 import {CatalogFacultyModel} from "../manager-catalog/catalog-faculty/catalog-faculty.model";
 import {CatalogFacultyService} from "../../shares/catalog-faculty.service";
 import {ValidService} from "../../shares/valid.service";
-import {Subject} from "rxjs/Subject";
+import * as Collection from "typescript-collections";
 
 @Component({
   selector: 'app-search-form',
@@ -20,8 +20,9 @@ export class SearchFormComponent extends BaseFormComponent implements OnInit {
 
   @Input() title: string = '';
   @Input() showRole: boolean = false;
-
   @Input() data: any[] = [];
+  @Input() showLeaveBindRetire = false;
+
   staffCode: string = '';
   level1: string = '-1';
   level2: string = '-1';
@@ -72,19 +73,52 @@ export class SearchFormComponent extends BaseFormComponent implements OnInit {
       console.log("5");
     }
 
-    this.taskSevice.get(Config.USER_URL + query).subscribe((data => {
-      this.data = data;
-      // this.onSearch.next(this.data);
-      if (!this.data || this.data.length == 0) {
-        this.updateMessge("Không tìm thấy cán bộ nào" + this.staffCode, "warning");
-      }
-    }), err => {
+    console.log("showLeaveBindRetire " + this.showLeaveBindRetire);
 
-    }, () => {
-      console.log(" this.onSearch.next(this.data);");
-      this.onSearch.emit(this.data);
-    });
+    if (this.showLeaveBindRetire) {
+      var temp = new Collection.LinkedList<any>();
+      this.taskSevice.get(Config.USER_RETIRE_LEAVE_BIND_JOB).subscribe((data => {
+        temp = super.asList(data);
+      }), err => {
+
+      }, () => {
+        // console.log(JSON.stringify(temp));
+        this.taskSevice.get(Config.USER_URL + query).subscribe(users => {
+          let userTemp = super.asList(users);
+          for (let it of userTemp.toArray()) {
+            for (let item of temp.toArray()) {
+              if (it && item
+                && ((it._id == item._id || it.username == item.username ))) {
+                userTemp.remove(it);
+              }
+            }
+          }
+          this.data = userTemp.toArray();
+          if (!this.data || this.data.length == 0) {
+            this.updateMessge("Không tìm thấy cán bộ nào", "warning");
+          }
+        }, err => {
+        }, () => {
+          this.onSearch.emit(this.data);
+        });
+      });
+    } else {
+      this.taskSevice.get(Config.USER_URL + query).subscribe((data => {
+        this.data = data;
+
+        if (!this.data || this.data.length == 0) {
+          this.updateMessge("Không tìm thấy cán bộ nào", "warning");
+        }
+      }), err => {
+
+      }, () => {
+        this.onSearch.emit(this.data);
+      });
+    }
+
+
   }
+
 
   level1Change() {
     this.listFaculty2 = this.catalogService.findByIdParent(this.listFaculty, this.level1);
