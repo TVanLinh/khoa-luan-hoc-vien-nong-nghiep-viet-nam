@@ -45,7 +45,7 @@ textarea {
   overflow: hidden;
 }
 
-tr td{
+th td,tr td{
   word-wrap: break-word !important;
 }
 

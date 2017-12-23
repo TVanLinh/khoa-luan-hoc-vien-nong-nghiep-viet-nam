@@ -1,16 +1,16 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../base-form.component";
-import * as  Collections from "typescript-collections";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {TaskService} from "../../../shares/task.service";
 import {Config} from "../../../shares/config";
+import * as Collections from "typescript-collections";
 
 @Component({
-  selector: 'app-catalog-academic-rank',
-  templateUrl: './catalog-academic-rank.component.html',
-  styleUrls: ['./catalog-academic-rank.component.css', "../../form.css"]
+  selector: 'app-catalog-national',
+  templateUrl: './catalog-national.component.html',
+  styleUrls: ['../../form.css', './catalog-national.component.css']
 })
-export class CatalogAcademicRankComponent extends BaseFormComponent implements OnInit {
+export class CatalogNationalComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
   positionUpdate = -1;
   inputData = "";
@@ -31,7 +31,7 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
   }
 
   getCatalog() {
-    this.taskService.get(Config.CATALOG_ACADEMIC_RANK_URL).subscribe((data: any[]) => {
+    this.taskService.get(Config.CATALOG_NATIONAL_URL).subscribe((data: any[]) => {
       this.list = super.asList(data);
       this.lisTemp = super.asList(data);
     });
@@ -39,14 +39,13 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
 
   onSave() {
     this.inputData = this.inputData.trim();
-
     if (this.inputData == "") {
-      this.msg = 'Chưa nhập tên học hàm';
+      this.msg = 'Chưa nhập tên quốc gia';
       return;
     }
 
     if (this.update == null && super.contains(this.list.toArray(), 'name', this.inputData)) {
-      this.msg = 'Học hàm này đã có rồi';
+      this.msg = 'Quốc gia này đã có rồi';
       return;
     }
 
@@ -58,18 +57,20 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
       }
     }
     if (temp) {
-      this.msg = 'Học hàm này đã có rồi';
+      this.msg = 'Quốc gia này đã có rồi';
       return;
     }
 
     this.msg = '';
 
+
+
     if (this.update == null) {
       let body = {name: this.inputData};
-      this.taskService.post(Config.CATALOG_ACADEMIC_RANK_URL, {data: body}).subscribe(data => {
+      this.taskService.post(Config.CATALOG_NATIONAL_URL, {data: body}).subscribe(data => {
         body['_id'] = JSON.parse(data["_body"])._id;
-        this.list.add(body);
-        this.lisTemp.add(body);
+        this.list.add(body, 0);
+        this.lisTemp.add(body, 0);
         this.updateMessge("Thêm thành công", "success");
       }, err => {
         this.updateMessge("Thêm không thành công", "warning");
@@ -77,9 +78,9 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
         this.closeModal(this.modal);
       });
     } else {
-      // this.update = this.inputData;
+      this.update['name'] = this.inputData;
       let body = {_id: this.update['_id'], name: this.inputData};
-      this.taskService.put(Config.CATALOG_ACADEMIC_RANK_URL, {data: body}).subscribe(data => {
+      this.taskService.put(Config.CATALOG_NATIONAL_URL, {data: body}).subscribe(data => {
         // body['name'] = data["name"];
         super.updateList(this.list, this.update, body);
         super.updateList(this.lisTemp, this.update, body);
@@ -97,10 +98,11 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
     this.openModal(this.modal);
     this.inputData = '';
     this.update = null;
+    this.msg = '';
   }
 
   editItem(item) {
-    // console.log(JSON.stringify(item));
+    console.log(JSON.stringify(item));
     this.inputData = item.name;
     this.update = item;
     this.msg = '';
@@ -108,7 +110,7 @@ export class CatalogAcademicRankComponent extends BaseFormComponent implements O
   }
 
   removeItem(item) {
-    this.taskService.delete2(Config.CATALOG_ACADEMIC_RANK_URL, {id: item._id}).subscribe(data => {
+    this.taskService.delete2(Config.CATALOG_NATIONAL_URL, {id: item._id}).subscribe(data => {
       this.updateMessge("Xóa thành công", "success");
       this.list.remove(item);
     }, err => {

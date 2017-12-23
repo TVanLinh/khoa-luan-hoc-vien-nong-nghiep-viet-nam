@@ -120,3 +120,18 @@
   opacity: 0;
   cursor: default;
 }
+
+/*@media (max-width: 767px) {*/
+  /*!*#tab-left:focus {*!*/
+    /*!*transform: translateX(-340px);*!*/
+  /*!*}*!*/
+
+  /*#tab-left {*/
+    /*!*width: 100%;*!*/
+    /*!*background-color: rgba(204, 204, 204, 0.7);;*!*/
+  /*}*/
+/*}*/
+
+/*#tab-left.hide-tab {*/
+  /*transform: translateX(-340px) !important;*/
+/*}*/

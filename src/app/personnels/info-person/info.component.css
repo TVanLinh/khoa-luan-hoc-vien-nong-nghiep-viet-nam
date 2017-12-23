@@ -30,3 +30,9 @@
 #app-menu-right-info:hover .menu-app{
   transform: translateX(0px);
 }
+
+@media (max-width: 767px) {
+  #info-container{
+    margin-top:30px;
+  }
+}

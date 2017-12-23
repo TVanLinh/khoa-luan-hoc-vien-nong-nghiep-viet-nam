@@ -77,6 +77,8 @@ import {CatalogSearchComponent} from './manager-catalog/catalog-search/catalog-s
 import {StatisticBirthdayComponent} from './search-statistic/statistic/statistic-birthday/statistic-birthday.component';
 import {ProcedureDetailComponent} from "./search-statistic/statistic/procedure-detail/procedure-detail.component";
 import {ProcedureFormComponent} from "./manager-personnels/procedure-form/procedure-form.component";
+import {CatalogNationalComponent} from './manager-catalog/catalog-national/catalog-national.component';
+import {CatalogNationComponent} from "./manager-catalog/catalog-nation/catalog-nation.component";
 
 const routes: Routes = [
   {
@@ -142,6 +144,12 @@ const routes: Routes = [
         },
         {
           path: 'position', component: CatalogPositionComponent
+        },
+        {
+          path: 'national', component: CatalogNationalComponent
+        },
+        {
+          path: 'nation', component: CatalogNationComponent
         }
       ]
     },
@@ -286,7 +294,9 @@ const routes: Routes = [
     CatalogSearchComponent,
     StatisticBirthdayComponent,
     ProcedureDetailComponent,
-    ProcedureFormComponent
+    ProcedureFormComponent,
+    CatalogNationComponent,
+    CatalogNationalComponent
   ],
   imports: [
     AppComonModule.forRoot(), RouterModule.forChild(routes),

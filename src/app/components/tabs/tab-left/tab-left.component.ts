@@ -272,4 +272,11 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     return Config.MYCV;
   }
 
+  hiddenTab(){
+    var tab = jQuery('#tab-left');
+    // if(tab.hasClass('hide')) {
+    //  tab.toggleClass('hide-tab');
+    // }
+  }
+
 }

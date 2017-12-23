@@ -29,6 +29,8 @@ export class Config {
   public static CATATLOG_FACUTY_URL = Config.HOST_SERVER + "/catalogfaculty";
   public static CATALOG_RANK_URL = Config.HOST_SERVER + "/catalogrank";
   public static CATALOG_ADDRESS_URL = Config.HOST_SERVER + "/catalog_address";
+  public static CATALOG_NATIONAL_URL = Config.HOST_SERVER + '/national';
+  public static CATALOG_NATION_URL = Config.HOST_SERVER + '/nation';
   public static USER_URL = Config.HOST_SERVER + "/user";
   public static LEAVE_JOB_URL = Config.HOST_SERVER + "/leavejob";
   public static BIND_JOB_URL = Config.HOST_SERVER + "/bindjob";

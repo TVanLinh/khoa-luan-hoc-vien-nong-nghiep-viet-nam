@@ -1,4 +1,4 @@
-<h4 class="text-center mgb-15" style="font-size: 20px"> Danh mục học hàm </h4>
+<h4 class="text-center mgb-15" style="font-size: 20px"> Danh mục quốc gia </h4>
 
 <app-catalog-search (textChange)="textChangeListener($event)"
                     (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
@@ -8,13 +8,14 @@
      [ngClass]="'alert alert-'+ message.type">
   {{message.content}}
 </div>
+<p>Tổng số: {{list.toArray().length}}</p>
 <div class="table-responsive">
   <table class="table table-bordered" [mfData]="list.toArray()" #mfDetail="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
     <tr>
       <th style="width:5%">STT</th>
       <th style="width:70%" class="name">
-        <mfDefaultSorter by="name">Tên học hàm</mfDefaultSorter>
+        <mfDefaultSorter by="name">Tên quốc gia</mfDefaultSorter>
       </th>
       <th style="width:10%">
         <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
@@ -54,7 +55,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="item-control">
-            <label>Tên học hàm </label>
+            <label>Tên quốc gia</label>
             <input name="inputData" class="form-control" [(ngModel)]="inputData" style="width: 100%!important;"/>
           </div>
           <div class="error fs-13" *ngIf="msg != ''">
@@ -66,7 +67,7 @@
   </modal-body>
 
   <modal-footer>
-    <button class="btn-action" [disabled]="inputData.trim() === ''"
+    <button class="btn-action"
             (click)="onSave()">{{update == null?'Thêm':'Cập nhật'}}
     </button>
   </modal-footer>

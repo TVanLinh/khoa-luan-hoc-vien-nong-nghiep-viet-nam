@@ -5,4 +5,7 @@
   .item-control{
     text-align: left;
   }
+  .session{
+    max-width: 310px !important;
+  }
 }

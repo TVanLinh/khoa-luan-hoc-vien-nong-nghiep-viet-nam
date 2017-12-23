@@ -92,7 +92,7 @@ export class CurriculumVitaeComponent extends BaseFormComponent implements OnIni
   }
 
   private getNation() {
-    this.taskService.get(Config.HOST_SERVER + "/nation").subscribe((data: any) => {
+    this.taskService.get(Config.CATALOG_NATION_URL).subscribe((data: any) => {
       this.listNation = data;
       this.listNation.sort();
     });
