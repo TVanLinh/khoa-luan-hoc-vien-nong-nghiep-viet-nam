@@ -1,0 +1,20 @@
+tbody tr:hover {
+  background-color: #eae7df;
+  cursor: pointer;
+}
+
+tbody tr:last-child:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+.msg {
+  position: fixed;
+  z-index: 88;
+  width: 50%;
+  right: 25%;
+}

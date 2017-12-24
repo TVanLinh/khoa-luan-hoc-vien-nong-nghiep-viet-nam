@@ -12,6 +12,7 @@ import {PageScrollConfig} from 'ng2-page-scroll';
 export class MenuAppComponent implements OnInit {
   @Input() menus: MenuModel[];
   @Input() cssClass: string;
+  @Input() orderBy: string='';
   @Input() native: boolean;
 
   constructor(private ele: ElementRef) {

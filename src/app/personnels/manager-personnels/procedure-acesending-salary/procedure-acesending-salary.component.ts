@@ -24,7 +24,7 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
   group = "";
   salary = 0;
   rank = "";
-  levelChoise = "";
+  levelChoise = -1;
   listGroup: CatalogRankModel[] = [];
   listRank: any[] = [];
 
@@ -35,6 +35,11 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
   user: any;
 
   listSalaryBrief = new Collections.LinkedList<SalaryModel>();
+  chooseItem = null;
+  groupCurrent = null;
+
+  dateEndC = new Date();
+  dateBegin = new Date();
 
   constructor(protected eleRef: ElementRef,
               public  catalogRankService: CatalogSalaryService
@@ -62,48 +67,43 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
     });
   }
 
+
   getCatalogs() {
     this.catalogRankService.getData().subscribe(data => {
       this.catalogRanks = data;
-      // console.log(JSON.stringify(this.catalogRanks));
     });
   }
 
   spieceChange() {
-    console.log(this.specie);
-    this.listGroup = this.catalogRankService.getGroupBySpieceName(this.catalogRanks, this.specie);
-    if (this.listGroup[0]) {
-      this.group = this.listGroup[0].group.name.toString();
-      this.groupChange();
-    }
 
+    this.chooseItem = this.catalogRankService.findBySpiece(this.catalogRanks, this.specie)
+    this.listGroup = this.chooseItem.group;
     this.group = "";
     this.rank = "";
-    this.levelChoise = "";
+    this.levelChoise = -1;
 
   }
 
   groupChange() {
-    let a = this.catalogRankService.getRankByGroupNameAndSpiece(this.catalogRanks, this.specie, this.group);
-    if (a != null) {
-      this.listRank = a['group']['listRank'];
-      this.level = a['group']['level'];
+
+    this.groupCurrent = this.catalogRankService.findByGroupName(this.chooseItem, this.group);
+    if (this.groupCurrent) {
+      this.listRank = this.groupCurrent.listRank;
+      this.level = this.groupCurrent.level;
     }
+
+
     this.rank = "";
     this.rank = "";
-    this.levelChoise = "";
-    return a;
+    this.levelChoise = -1;
   }
 
   rankChange() {
-    this.levelChoise = "";
-    this.levelChange();
-    this.levelChoise = "";
   }
 
 
   levelChange() {
-    this.salary = this.catalogRankService.getSalaryByRankAndGroupAndSpice(this.catalogRanks, this.specie, this.group, this.levelChoise);
+    this.salary = this.catalogRankService.findLevelByLevels(this.level, this.levelChoise).salary;
   }
 
   onChoiseHandler($event) {
@@ -111,7 +111,7 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
     this.user = $event;
     this.formData.reset();
     this.specie = '';
-    this.levelChoise = '';
+    this.levelChoise = -1;
     this.rank = '';
     this.positionUpdate = null;
     this.getDataFromServer();
@@ -183,24 +183,42 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
   }
 
   editItem(item) {
+    // this.positionUpdate = item;
+    //
+    // this.specie = item.specie;
+    // this.group = item['group'];
+    // this.salary = item.factorSalary;
+    // this.rank = item.rank;
+    // this.levelChoise = item.level;
+    // this.formData.reset();
+    //
+    // this.listGroup = this.catalogRankService.getGroupBySpieceName(this.catalogRanks, item.specie);
+    //
+    // let a = this.catalogRankService.getRankByGroupNameAndSpiece(this.catalogRanks, item.specie, item['group']);
+    //
+    // if (a != null) {
+    //   this.listRank = a['group']['listRank'];
+    //   this.level = a['group']['level'];
+    // }
+
+
     this.positionUpdate = item;
+    console.log(JSON.stringify(item));
+    this.chooseItem = this.catalogRankService.findBySpiece(this.catalogRanks, item.specie);
+    console.log(" this.chooseItem  " + JSON.stringify(this.chooseItem));
+    this.listGroup = this.chooseItem.group;
+    this.groupCurrent = this.catalogRankService.findByGroupName(this.chooseItem, item.group);
+    this.listRank = this.groupCurrent.listRank;
+    this.level = this.groupCurrent.level;
+
+    this.dateEndC = item.dateEnd;
+    this.dateBegin = item.dateFrom;
 
     this.specie = item.specie;
-    this.group = item['group'];
+    this.group = item.group;
     this.salary = item.factorSalary;
     this.rank = item.rank;
     this.levelChoise = item.level;
-    this.formData.reset();
-
-    this.listGroup = this.catalogRankService.getGroupBySpieceName(this.catalogRanks, item.specie);
-
-    let a = this.catalogRankService.getRankByGroupNameAndSpiece(this.catalogRanks, item.specie, item['group']);
-
-    if (a != null) {
-      this.listRank = a['group']['listRank'];
-      this.level = a['group']['level'];
-    }
-
 
     this.formData.reset();
     this.formTouch = false;
@@ -210,7 +228,7 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
     }
     this.formData.patchValue({
       dateFrom: item.dateFrom,
-      dateEnd: item.dateEnd ? item.dateEnd : '',
+      // dateEnd: item.dateEnd ? item.dateEnd : '',
       specie: item.specie,
       group: item.group,
       rank: item.rank,
@@ -235,6 +253,7 @@ export class ProcedureAcesendingSalaryComponent extends BaseFormComponent implem
   }
 
   itemDelete = null;
+
   confirm(answer) {
     if (answer) {
       this.removeItem(this.itemDelete);

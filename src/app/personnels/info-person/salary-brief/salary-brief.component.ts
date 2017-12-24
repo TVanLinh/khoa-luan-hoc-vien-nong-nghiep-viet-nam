@@ -27,7 +27,7 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   group = "";
   salary = 0;
   rank = "";
-  levelChoise = "";
+  levelChoise = -1;
   listGroup: CatalogRankModel[] = [];
   listRank: any[] = [];
 
@@ -38,10 +38,13 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   formTouch = false;
   hashData = false;
 
+  chooseItem = null;
+  groupCurrent = null;
+  dateBegin = new Date();
+  dateEndC = new Date();
+
   constructor(protected eleRef: ElementRef,
-              public  catalogRankService: CatalogSalaryService
-    ,
-              taskService: TaskService) {
+              taskService: TaskService, public  catalogRankService: CatalogSalaryService) {
     super(eleRef, taskService);
 
   }
@@ -50,45 +53,39 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   getCatalogs() {
     this.catalogRankService.getData().subscribe(data => {
       this.catalogRanks = data;
-      // console.log(JSON.stringify(this.catalogRanks));
     });
   }
 
   spieceChange() {
-    console.log(this.specie);
-    this.listGroup = this.catalogRankService.getGroupBySpieceName(this.catalogRanks, this.specie);
-    if (this.listGroup[0]) {
-      this.group = this.listGroup[0].group.name.toString();
-      this.groupChange();
-    }
 
+    this.chooseItem = this.catalogRankService.findBySpiece(this.catalogRanks, this.specie);
+    this.listGroup = this.chooseItem.group;
     this.group = "";
     this.rank = "";
-    this.levelChoise = "";
+    this.levelChoise = -1;
 
   }
 
   groupChange() {
-    let a = this.catalogRankService.getRankByGroupNameAndSpiece(this.catalogRanks, this.specie, this.group);
-    if (a != null) {
-      this.listRank = a['group']['listRank'];
-      this.level = a['group']['level'];
+
+    this.groupCurrent = this.catalogRankService.findByGroupName(this.chooseItem, this.group);
+    if (this.groupCurrent) {
+      this.listRank = this.groupCurrent.listRank;
+      this.level = this.groupCurrent.level;
     }
+
+
     this.rank = "";
     this.rank = "";
-    this.levelChoise = "";
-    return a;
+    this.levelChoise = -1;
   }
 
   rankChange() {
-    this.levelChoise = "";
-    this.levelChange();
-    this.levelChoise = "";
   }
 
 
   levelChange() {
-    this.salary = this.catalogRankService.getSalaryByRankAndGroupAndSpice(this.catalogRanks, this.specie, this.group, this.levelChoise);
+    this.salary = this.catalogRankService.findLevelByLevels(this.level, this.levelChoise).salary;
   }
 
 
@@ -150,8 +147,17 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
 
   editItem(item) {
     this.updateValid("salary-brief");
-
     this.positionUpdate = item;
+    console.log(JSON.stringify(item));
+    this.chooseItem = this.catalogRankService.findBySpiece(this.catalogRanks, item.specie);
+    console.log(" this.chooseItem  " + JSON.stringify(this.chooseItem));
+    this.listGroup = this.chooseItem.group;
+    this.groupCurrent = this.catalogRankService.findByGroupName(this.chooseItem, item.group);
+    this.listRank = this.groupCurrent.listRank;
+    this.level = this.groupCurrent.level;
+
+    this.dateEndC = item.dateEnd;
+    this.dateBegin = item.dateFrom;
 
     this.specie = item.specie;
     this.group = item.group;
@@ -159,8 +165,8 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
     this.rank = item.rank;
     this.levelChoise = item.level;
     this.formData.reset();
-    if (item.dated)
-      this.formData.setValue({
+    // if (item)
+      this.formData.patchValue({
         dateFrom: item.dateFrom,
         dateEnd: item.dateEnd,
         specie: item.specie,

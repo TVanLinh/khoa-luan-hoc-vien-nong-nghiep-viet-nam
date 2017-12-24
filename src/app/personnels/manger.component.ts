@@ -19,6 +19,7 @@ export class ManagerComponent implements OnInit, OnChanges {
   menuListener = new Subject();
   menu: MenuModel[] = [];
 
+
   constructor(private eleRef: ElementRef) {
     this.listenerMenu();
   }

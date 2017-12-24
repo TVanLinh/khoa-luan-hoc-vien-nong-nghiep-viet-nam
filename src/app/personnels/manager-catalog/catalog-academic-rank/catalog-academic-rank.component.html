@@ -8,6 +8,7 @@
      [ngClass]="'alert alert-'+ message.type">
   {{message.content}}
 </div>
+<p>Tổng số: {{list.toArray().length}}</p>
 <div class="table-responsive">
   <table class="table table-bordered" [mfData]="list.toArray()" #mfDetail="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>

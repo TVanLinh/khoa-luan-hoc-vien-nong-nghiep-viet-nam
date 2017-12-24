@@ -27,7 +27,8 @@
                 <th>HSL</th>
                 <th>Số QD</th>
                 <!-- <th>Hiên tại</th> -->
-                <th class="hide-print"><span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span></th>
+                <th class="hide-print"><span class="action-icon" (click)="openModals()"><i
+                  class="fa fa-plus"></i></span></th>
               </tr>
               </thead>
               <tbody>
@@ -81,7 +82,7 @@
             <label>Loại ngạch </label>
             <select name="specie" class="form-control" [(ngModel)]="specie" formControlName="specie"
                     (change)="spieceChange()" required>
-              <option *ngFor="let item of spieceRanks" [value]="item">{{item}}</option>
+              <option *ngFor="let item of catalogRanks" [value]="item.name">{{"Công chức loại "+item.name}}</option>
             </select>
             <div class="error" *ngIf="!specie && formTouch  || specie && specie.trim()  =='' && formTouch">
               Chưa chọn loại ngạch
@@ -92,7 +93,7 @@
             <label>Nhóm ngạch </label>
             <select class="form-control" formControlName="group" [(ngModel)]="group"
                     (change)="groupChange()" required>
-              <option *ngFor="let item of listGroup" [value]="item.group.name">{{item.group.name}}</option>
+              <option *ngFor="let item of listGroup" [value]="item.name">{{item.name}}</option>
             </select>
             <div class="error" *ngIf="!group && formTouch||group && group.trim()  =='' && formTouch">
               Chưa chọn nhóm ngạch
@@ -101,17 +102,17 @@
 
           <div class="item-control">
             <label>Từ ngày </label>
-            <input type="date" formControlName="dateFrom" #dateFrom required>
-            <div class="error" *ngIf="dateFrom.value.trim()  =='' && formTouch">
+            <input type="date" name="dateBegin" formControlName="dateFrom" #dateFrom [value]="dateBegin | date:'yyyy-MM-dd'"  required>
+            <div class="error" *ngIf="dateFrom.value.trim()  =='' && formTouch" >
               Chưa nhập từ ngày
             </div>
           </div>
           <!---->
           <div class="item-control">
             <label>Đến ngày </label>
-            <input type="date" formControlName="dateEnd"  #dateEnd>
+            <input type="date" name="dateEnd" formControlName="dateEnd"  [value]="dateEndC | date:'yyyy-MM-dd'" #dateEnd >
             <!--<div class="error" *ngIf="dateEnd.value.trim()  =='' && formTouch">-->
-              <!--Chưa nhập đến ngày-->
+            <!--Chưa nhập đến ngày-->
             <!--</div>-->
           </div>
           <!---->
@@ -137,13 +138,13 @@
                     (change)="levelChange()" required>
               <option *ngFor="let item of level" [value]="item.name">{{item.name}}</option>
             </select>
-            <div class="error" *ngIf="!levelChoise && formTouch||levelChoise && levelChoise.trim()  =='' && formTouch">
+            <div class="error" *ngIf="!levelChoise && formTouch||levelChoise && levelChoise  == -1 && formTouch">
               Chưa chọn bậc
             </div>
           </div>
           <!---->
           <div class="item-control">
-            <label> Số quyết định  </label>
+            <label> Số quyết định </label>
             <input type="text" formControlName="numberDecide" required #numberDecide>
             <div class="error" *ngIf="numberDecide.value.trim()  =='' && formTouch">
               Chưa nhập số quyết định

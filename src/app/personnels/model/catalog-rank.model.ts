@@ -1,12 +1,14 @@
-export  interface  CatalogRankModel {
-  name: String,
-  group: {
-    name: String,
-    listRank: [String],
-    level: [
-      {
-        name: String,
-        salary: number
-      }]
-  }
+export interface CatalogRankModel {
+  name: string,
+  group: [
+    {
+      name: string,
+      listRank: [string],
+      level: [
+        {
+          name: string,
+          salary: number
+        }]
+    }
+    ]
 }

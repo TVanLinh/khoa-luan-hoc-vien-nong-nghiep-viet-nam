@@ -175,7 +175,7 @@ export class BaseFormComponent {
     for (let item of arss) {
       let temp = {id: item._id, text: item.title};
       if (showHttp) {
-        temp.text = " - Phương thức http " + item.method;
+        temp.text = item.title + " - Phương thức http " + item.method;
       }
       array.push(temp);
     }

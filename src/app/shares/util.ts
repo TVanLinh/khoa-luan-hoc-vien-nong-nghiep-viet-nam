@@ -6,7 +6,8 @@ export class Util {
       return false;
     }
     for (let i of arr) {
-      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())) {
+      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())
+        || (i + ''.toLowerCase()).trim() == value.trim().toLowerCase()) {
         return true;
       }
     }
@@ -21,5 +22,23 @@ export class Util {
       list.add(item);
     }
     return list;
+  }
+
+  static contains2(arr: any[], nameAgr: string, value: string, nameOther: string) {
+    if (!Array.isArray(arr)) {
+      return false;
+    }
+    for (let i of arr) {
+      if ((i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())
+          || (i + ''.toLowerCase()).trim() == value.trim().toLowerCase()) && (( (i + ''.toLowerCase()).trim() != nameOther.trim().toLowerCase()) ||
+          ((i[nameAgr] + "").trim().toLowerCase()) != nameOther.trim().toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  cloneObject(object) {
+    return JSON.parse(JSON.stringify(object));
   }
 }

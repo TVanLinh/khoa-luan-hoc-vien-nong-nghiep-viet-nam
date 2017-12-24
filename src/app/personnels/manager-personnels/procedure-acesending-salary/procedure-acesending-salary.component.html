@@ -46,7 +46,7 @@
             <label>Loại ngạch </label>
             <select name="specie" class="form-control" [(ngModel)]="specie" formControlName="specie"
                     (change)="spieceChange()" required>
-              <option *ngFor="let item of spieceRanks" [value]="item">{{item}}</option>
+              <option *ngFor="let item of catalogRanks" [value]="item.name">{{item.name}}</option>
             </select>
             <div class="error" *ngIf="!specie && formTouch  || specie && specie.trim()  =='' && formTouch">
               Chưa chọn loại ngạch
@@ -57,7 +57,7 @@
             <label>Nhóm ngạch </label>
             <select class="form-control" formControlName="group" [(ngModel)]="group"
                     (change)="groupChange()" required>
-              <option *ngFor="let item of listGroup" [value]="item.group.name">{{item.group.name}}</option>
+              <option *ngFor="let item of listGroup" [value]="item.name">{{item.name}}</option>
             </select>
             <div class="error" *ngIf="!group && formTouch||group && group.trim()  =='' && formTouch">
               Chưa chọn nhóm ngạch
@@ -95,7 +95,7 @@
                     (change)="levelChange()" required>
               <option *ngFor="let item of level" [value]="item.name">{{item.name}}</option>
             </select>
-            <div class="error" *ngIf="!levelChoise && formTouch||levelChoise && levelChoise.trim()  =='' && formTouch">
+            <div class="error" *ngIf="!levelChoise && formTouch||levelChoise && levelChoise  == -1 && formTouch">
               Chưa chọn bậc
             </div>
           </div>
@@ -182,7 +182,8 @@
           <td>
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
-            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove"></i></span>
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i
+              class="fa fa-remove"></i></span>
           </td>
         </tr>
         <!---->
