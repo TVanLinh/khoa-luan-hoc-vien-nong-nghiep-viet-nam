@@ -38,7 +38,27 @@ export class Util {
     return false;
   }
 
-  cloneObject(object) {
+  static cloneObject(object) {
     return JSON.parse(JSON.stringify(object));
+  }
+
+  static compareDate(date1: Date, date2: Date) {
+    // console.log(JSON.stringify(date1));
+    // console.log(JSON.stringify(date2));
+    if (date1.getFullYear() > date2.getFullYear()) {
+      return 1;
+    }
+    if (date1.getFullYear() == date2.getFullYear() && date1.getMonth() > date2.getMonth()) {
+      return 1;
+    }
+
+    if (date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() > date2.getDate()) {
+      return 1;
+    }
+
+    if (date1.getFullYear() == date2.getFullYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate()) {
+      return 0;
+    }
+    return -1;
   }
 }

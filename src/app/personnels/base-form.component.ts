@@ -16,6 +16,8 @@ export class BaseFormComponent {
   messageError: MessageError = null;
   rankTrains = ["Trung cấp", "Cao đẳng ", "Đại học ", "Cao học "];
   speciesObtain = ["Xuất sắc ", "Giỏi", "Khá", "Trung bình"];
+  minYear = 1900;
+  yearCurrent = (new Date()).getFullYear();
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     if (this.formBuilder == null) {
@@ -198,13 +200,18 @@ export class BaseFormComponent {
 
 
   clone(arry: any[]) {
-    // let temp = arry.map(item => item);
-    // let list = new Collections.LinkedList();
-    // for (let item of temp) {
-    //   list.add(item);
-    // }
-    // return list;
     return Util.clone(arry);
+  }
+
+  compareDate(date1: string, date2: string) {
+    if (!date1 || !date2 || date2 == '' || date1 == '' || typeof date1 == 'undefined' || typeof date2 == 'undefined') {
+      return -100;
+    }
+    return Util.compareDate(new Date(date1), new Date(date2));
+  }
+
+  parseInt(str: string) {
+    return Number.parseInt(str);
   }
 
 

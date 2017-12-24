@@ -32,8 +32,7 @@ export class CatalogFacultyComponent extends BaseFormComponent implements OnInit
   listTemp = new Collections.LinkedList<any>();
   numberShow = 10;
 
-  constructor(protected eleRef: ElementRef,
-              public taskService: TaskService,
+  constructor(protected eleRef: ElementRef, public taskService: TaskService,
               public  catalogFacService: CatalogFacultyService) {
     super(eleRef, taskService);
   }

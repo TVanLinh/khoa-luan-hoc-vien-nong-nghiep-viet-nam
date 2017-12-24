@@ -83,6 +83,13 @@
                      style="float: none" formControlName="dateOut" [value]="army.dateOut | date:'yyyy-MM-dd'">
             </div>
           </div>
+
+          <div class="item-control"
+               *ngIf="armyDateIn.value.trim() !='' && armyDateOut.value.trim()!='' && compareDate(armyDateIn.value,armyDateOut.value) >=0 ">
+            <div class="error">
+              Ngày nhập ngũ phải nhỏ hơn ngày xuất ngũ
+            </div>
+          </div>
           <!---->
           <div class="item-control">
             <label>Quân hàm cao nhất </label>
@@ -282,7 +289,7 @@
     <div class="action-form text-right">
       <button (click)="closeModal(modalGroup)" class="mgb-20">Thoát</button>
     </div>
-    <h3 class="text-center">Quá trình hoạt động Công Đoàn  </h3>
+    <h3 class="text-center">Quá trình hoạt động Công Đoàn </h3>
     <div *ngIf="message.condition && groupNotValid" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
     </div>

@@ -118,6 +118,9 @@
             <div class="error" *ngIf="dateFrom.value.trim()  =='' && formTouch">
               Chưa nhập từ ngày
             </div>
+            <div class="error" *ngIf="compareDate(dateFrom.value,dateEnd.value) == 0 ||compareDate(dateFrom.value,dateEnd.value) == 1 ">
+              Ngày bắt đầu phải nhỏ hơn ngày kết thúc
+            </div>
           </div>
 
           <div class="item-control">

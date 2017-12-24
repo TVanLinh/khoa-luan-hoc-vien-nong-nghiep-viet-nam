@@ -34,6 +34,13 @@ export class CatalogRankComponent extends BaseFormComponent implements OnInit {
   levelData = -1;
   salaryData = 0;
 
+  pipe = {
+    specie: '',
+    group: '',
+    rank: '',
+    level: ''
+  };
+
   modelCreate1 = {
     title: '',
     label: '',
@@ -239,9 +246,10 @@ export class CatalogRankComponent extends BaseFormComponent implements OnInit {
           let result = JSON.stringify(data['_body']);
           if (result['msg']) {
             console.log("hash msg");
-            // super.updateMessge("")
+            super.updateMessge("Không thành công, loại ngạch này đã tồn tại", "warning");
           } else {
             body["_id"] = result['_id'];
+            super.updateMessge("Thêm thành công", "success");
             this.catalogRanks.add(body, 0);
           }
         }, err => {

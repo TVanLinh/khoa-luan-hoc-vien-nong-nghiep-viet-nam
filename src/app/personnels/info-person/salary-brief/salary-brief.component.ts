@@ -129,6 +129,10 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
       return;
     }
 
+    if (this.compareDate(valueForm.dateFrom, valueForm.dateEnd) >= 0) {
+      return;
+    }
+
     this.formNotValid = false;
 
 
@@ -166,15 +170,15 @@ export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
     this.levelChoise = item.level;
     this.formData.reset();
     // if (item)
-      this.formData.patchValue({
-        dateFrom: item.dateFrom,
-        dateEnd: item.dateEnd,
-        specie: item.specie,
-        group: item.group,
-        rank: item.rank,
-        level: item.level,
-        numberDecide: item.numberDecide
-      });
+    this.formData.patchValue({
+      dateFrom: item.dateFrom,
+      dateEnd: item.dateEnd,
+      specie: item.specie,
+      group: item.group,
+      rank: item.rank,
+      level: item.level,
+      numberDecide: item.numberDecide
+    });
     super.openModal(this.modalSalary);
   }
 

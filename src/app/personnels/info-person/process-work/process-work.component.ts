@@ -101,9 +101,14 @@ export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
 
     this.updateView("formInfoProcess", this.formInfoProcess.valid);
 
+
     if (!ValidService.isNotBlanks(data) || this.formInfoProcess.valid) {
       this.formNotValid = true;
       this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+      return;
+    }
+
+    if (this.compareDate(valueForm.dateFrom, valueForm.dateEnd) >= 0) {
       return;
     }
 

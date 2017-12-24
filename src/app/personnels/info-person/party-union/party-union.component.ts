@@ -415,6 +415,9 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
 
     if (armyIsValid) {
       data['army'] = army;
+      if (super.compareDate(formArm.dateIn, formArm.dateOut) >= 0) {
+        return;
+      }
     }
 
     if (partyIsValid) {

@@ -8,6 +8,7 @@ import {ContactService} from "./contact.service";
 import {Config} from "../../../shares/config";
 import {TaskService} from "../../../shares/task.service";
 import {ValidService} from "../../../shares/valid.service";
+import {Util} from "../../../shares/util";
 
 
 @Component({
@@ -68,6 +69,15 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
       this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
       return;
     }
+
+    console.log(Util.compareDate(new Date(valueForm.dateEffect), new Date(valueForm.dateEndEffect)));
+
+    if (this.compareDate(valueForm.dateEffect, valueForm.dateEndEffect) == 1 ||
+      this.compareDate(valueForm.dateEffect, valueForm.dateEndEffect) == 0) {
+      // this.updateMessge("Ngày hiệu lực phải nhỏ hơn ngày hết hiệu lực", "warning");
+      return;
+    }
+
     this.formNotValid = false;
 
     //------------------------------------------
@@ -84,9 +94,12 @@ export class ContractComponent extends BaseFormComponent implements OnInit {
     this.closeModal(this.modal);
   }
 
+  // compareDate(da)
+
   openModal(modalContract) {
     super.openModal(modalContract);
     this.formData.reset();
+    this.formTouch = false;
     this.positionUpdate = -1;
   }
 

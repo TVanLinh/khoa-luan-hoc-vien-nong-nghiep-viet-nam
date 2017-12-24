@@ -40,8 +40,7 @@
             </div>
             <div class="item-control ">
               <label>Nội dung quyết định : </label>
-              <textarea class="form-control mgb-20" style="width: 100%;height: 150px" #contentDecide
-                        formControlName="contentDecide"> </textarea>
+              <textarea class="form-control mgb-20" style="width: 100%;height: 150px" #contentDecide formControlName="contentDecide"></textarea>
               <div class="error" *ngIf="contentDecide.value.trim()  =='' && formTouch">
                 Chưa nhập nội dung quyết định
               </div>
@@ -55,7 +54,7 @@
         {{message.content}}
       </div>
       <div class="col-xs-12 text-right">
-        <button class="btn-action" (click)="onProcessShare()"> {{postionUpdate?'Cập nhật':'Xử lý'}}</button>
+        <button class="btn-action" (click)="onProcessShare()"> {{positionUpdate?'Cập nhật':'Xử lý'}}</button>
       </div>
     </div>
   </modal-body>

@@ -38,7 +38,8 @@
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
 
-            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i
+              class="fa fa-remove "></i></span>
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
           </td>
         </tr>
@@ -73,6 +74,12 @@
           <div class="item-control" *ngIf="dateFrom.value.trim()  =='' && formTouch">
             <div class="error">
               Chưa nhập từ ngày
+            </div>
+          </div>
+
+          <div class="item-control" *ngIf="compareDate(dateFrom.value,dateEnd.value) >=0">
+            <div class="error">
+              Ngày bắt đầu phải nhỏ hơn ngày kết thúc
             </div>
           </div>
 

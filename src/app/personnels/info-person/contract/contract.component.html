@@ -41,7 +41,8 @@
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
-            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i
+              class="fa fa-remove "></i></span>
           </td>
         </tr>
         <!---->
@@ -89,15 +90,21 @@
             <div class="error" *ngIf="dateEffect.value.trim()  =='' && formTouch">
               Chưa nhập ngày hiệu lực
             </div>
+            <div class="error"
+                 *ngIf="compareDate(dateEffect.value,dateEndEffect.value) == 1 || compareDate(dateEffect.value,dateEndEffect.value) == 0&& formTouch">
+              Ngày hiệu lực phải nhỏ hơn ngày hết hiệu lực
+            </div>
           </div>
           <div class="item-control">
             <label>Đơn vị tuyển dụng </label>
             <input type="text" class="form-control" #unitOrgan formControlName="unitOrgan" [value]="initData.unitOrgan">
+
+
+            <div class="error" *ngIf="unitOrgan.value.trim()  =='' && formTouch">
+              Chưa nhập đơn vị tuyển dụng
+            </div>
           </div>
 
-          <div class="error" *ngIf="unitOrgan.value.trim()  =='' && formTouch">
-            Chưa nhập đơn vị tuyển dụng
-          </div>
 
         </div>
 
@@ -108,7 +115,7 @@
               <option *ngFor="let item of contactType" [value]="item.value">{{item.title}}</option>
             </select>
             <div class="error" *ngIf="specie.value.trim()  =='' && formTouch">
-              Chưa chọn loại hóa đơn
+              Chưa chọn loại hợp đồng
             </div>
           </div>
 
@@ -124,10 +131,11 @@
           <div class="item-control">
             <label>Công việc đảm nhận </label>
             <input type="text" class="form-control" #job formControlName="job" [value]="initData.job">
+            <div class="error" *ngIf="job.value.trim()  =='' && formTouch">
+              Chưa nhập công việc đảm nhận
+            </div>
           </div>
-          <div class="error" *ngIf="job.value.trim()  =='' && formTouch">
-            Chưa nhập công việc đảm nhận
-          </div>
+
         </div>
       </div>
     </form>

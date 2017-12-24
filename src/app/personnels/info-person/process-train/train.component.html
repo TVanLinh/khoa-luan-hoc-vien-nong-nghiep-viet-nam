@@ -143,20 +143,33 @@
             <input type="number" class="date" formControlName="yearFrom" required #yearFromLong/>
           </div>
 
-          <div class="item-control" *ngIf="yearFromLong.value.trim()  =='' && formLongTouch">
-            <div class="error">
+          <div class="item-control" *ngIf="formLongTouch">
+            <div class="error" *ngIf="yearFromLong.value.trim()  =='' ">
               Chưa nhập từ năm
             </div>
+            <div class="error"
+                 *ngIf="!yearValid(yearFromLong.value,yearEndLong.value) && yearFromLong.value.trim() !=''">
+              Năm bắt đầu phải lớn hơn hoặc bằng năm kết thúc
+            </div>
+            <div class="error"
+                 *ngIf="parseInt(yearFromLong.value.trim()) < minYear && yearFromLong.value.trim()  !='' ">
+              Năm bắt đầu phải lớn hơn hoặc bằng {{minYear}}
+            </div>
           </div>
+
 
           <div class="item-control">
             <label>Đến năm</label>
             <input type="number" class="date" formControlName="yearEnd" required #yearEndLong/>
           </div>
 
-          <div class="item-control" *ngIf="yearEndLong.value.trim()  =='' && formLongTouch">
-            <div class="error">
+          <div class="item-control" *ngIf="formLongTouch">
+            <div class="error" *ngIf="yearEndLong.value.trim()  =='' ">
               Chưa nhập đến năm
+            </div>
+            <div class="error"
+                 *ngIf="parseInt(yearEndLong.value.trim()) < minYear && yearEndLong.value.trim()  !='' ">
+              Năm kết thúc phải lớn hơn hoặc bằng {{minYear}}
             </div>
           </div>
 

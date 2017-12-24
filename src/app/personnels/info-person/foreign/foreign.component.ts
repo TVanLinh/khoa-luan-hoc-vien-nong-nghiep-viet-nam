@@ -83,6 +83,10 @@ export class ForeignComponent extends BaseFormComponent implements OnInit {
       return;
     }
 
+    if (this.compareDate(valueForm.dateFrom, valueForm.dateEnd) >= 0) {
+      return;
+    }
+
     this.formNotValid = false;
 
     //-----------------------------------------

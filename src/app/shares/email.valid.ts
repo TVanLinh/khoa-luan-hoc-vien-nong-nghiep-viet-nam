@@ -1,10 +1,10 @@
 import {AbstractControl, NG_VALIDATORS, Validator} from "@angular/forms";
 import {Directive} from "@angular/core";
 
-@Directive({
-  selector: '[email-validator]',
-  providers: [{provide: NG_VALIDATORS, useExisting: EmailValid, multi: true}]
-})
+// @Directive({
+//   selector: '[email-validator]',
+//   providers: [{provide: NG_VALIDATORS, useExisting: EmailValid, multi: true}]
+// })
 
 export class EmailValid implements Validator {
   // @Input() type: string;

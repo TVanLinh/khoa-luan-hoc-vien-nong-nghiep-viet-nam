@@ -33,7 +33,7 @@ export class ProcedureFormComponent extends BaseFormComponent implements OnInit,
   private dataTemp;
 
 
-  constructor(protected eleRef: ElementRef, taskService: TaskService) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
   }
 

@@ -106,7 +106,6 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     }
 
 
-
     let train = {};
     train['general'] = valueForm.generalEdu;
     train['shortTime'] = this.shortTimes.toArray();
@@ -184,6 +183,10 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       if (!ValidService.isNotBlanks(data) || !this.formLongTime.valid) {
         this.longTimeNotValid = true;
         this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
+        return;
+      }
+
+      if (longForm.yearFrom > longForm.yearEnd || longForm.yearFrom < this.minYear || longForm.yearEnd < this.minYear) {
         return;
       }
 
@@ -279,4 +282,9 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
     }
     this.mode = -1;
   }
+
+  yearValid(year1: string, year2: string) {
+    return year1.trim() != '' && year2.trim() != '' && Number.parseInt(year1) <= Number.parseInt(year2);
+  }
+
 }

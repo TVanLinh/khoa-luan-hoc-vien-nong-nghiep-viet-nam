@@ -15,8 +15,8 @@ export class StatisticRetiredComponent extends BaseFormComponent implements OnIn
   detail: any;
   fields: { caption: string, type?: string, field: string, format?: string, width?: number }[];
 
-  constructor(public ele: ElementRef, public taskService: TaskService) {
-    super(ele, taskService);
+  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+    super(eleRef, taskService);
   }
 
   ngOnInit() {

@@ -41,6 +41,7 @@ import {CatalogSalaryService} from "./shares/catalog-salary.service";
 import {ExcelService} from "./shares/excel.service";
 import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child";
 import {AlertConfirmComponent} from "./components/alert-confirm/alert-confirm.component";
+import {SearchPipe} from "./shares/pipe/search.pipe";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import {AlertConfirmComponent} from "./components/alert-confirm/alert-confirm.co
     HomeComponent,
     LoginComponent,
     ArraySortPipe,
-    AlertConfirmComponent
+    AlertConfirmComponent, SearchPipe
   ],
   imports: [ReactiveFormsModule,
     FormsModule,
@@ -107,7 +108,7 @@ import {AlertConfirmComponent} from "./components/alert-confirm/alert-confirm.co
     HomeComponent,
     LoginComponent,
     ArraySortPipe,
-    AlertConfirmComponent
+    AlertConfirmComponent, SearchPipe
   ],
   providers: [
     NationalService, CatalogSalaryService,

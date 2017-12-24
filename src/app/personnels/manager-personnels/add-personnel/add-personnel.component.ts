@@ -24,8 +24,7 @@ export class AddPersonnelComponent extends BaseFormComponent implements OnInit {
   rePassTouch = false;
   username = null;
 
-  constructor(protected eleRef: ElementRef,
-              public taskService: TaskService,
+  constructor(protected eleRef: ElementRef, public taskService: TaskService,
               public  catalogService: CatalogFacultyService) {
     super(eleRef, taskService);
   }
