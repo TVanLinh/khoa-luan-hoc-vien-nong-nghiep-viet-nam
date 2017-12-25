@@ -27,11 +27,11 @@
     </thead>
     <tbody>
     <tr *ngFor="let item of mf.data;let i = index ">
-      <td>{{i+1}}</td>
-      <td class="name">{{item.title}}</td>
-      <td class="name">{{item.description}}</td>
-      <td class="name">{{item.activated?'Activated':'Not Activated'}}</td>
-      <td class="name">{{item.createdOn | date:'hh:MM:ss dd/MM/yyyy'}}</td>
+      <td (click)="viewDetail(item)">{{i+1}}</td>
+      <td class="name" (click)="viewDetail(item)">{{item.title}}</td>
+      <td class="name" (click)="viewDetail(item)">{{item.description}}</td>
+      <td class="name" (click)="viewDetail(item)">{{item.activated?'Activated':'Not Activated'}}</td>
+      <td class="name" (click)="viewDetail(item)">{{item.createdOn | date:'hh:MM:ss dd/MM/yyyy'}}</td>
       <td style="width:10%">
         <span class="action-icon" title="Chi tiết " (click)="viewDetail(item)"><i class="fa fa-eye"
                                                                                   aria-hidden="true"></i></span>

@@ -16,11 +16,12 @@ const BAC = 'bac';
 @Component({
   selector: 'app-catalog-rank',
   templateUrl: './catalog-rank.component.html',
-  styleUrls: ['../../form.css', './catalog-rank.component.css']
+  styleUrls: ['./catalog-rank.component.css', '../../form.css']
 })
 
 export class CatalogRankComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('modalDetail') modalDetail: ModalComponent;
 
   catalogRanks = new Collection.LinkedList<any>();
   listSpiece = new Collection.LinkedList<any>();
@@ -84,6 +85,7 @@ export class CatalogRankComponent extends BaseFormComponent implements OnInit {
     this.groupCurrent = item;
     this.listRank = super.asList(item.listRank);
     this.level = super.asList(item.level);
+    super.openModal(this.modalDetail);
   }
 
   openModal1(type) {

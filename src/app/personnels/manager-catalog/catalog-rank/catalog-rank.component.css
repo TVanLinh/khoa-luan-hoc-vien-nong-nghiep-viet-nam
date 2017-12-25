@@ -25,3 +25,12 @@ input{
   margin-bottom:15px;
   margin-top:15px;
 }
+
+.search {
+  display: inline-block;
+  margin-left: auto;
+  width: 300px !important;
+  margin-bottom: 20px;
+  border: 1px solid;
+  border-radius: 5px !important;
+}

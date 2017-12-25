@@ -14,7 +14,7 @@
        <!--style="cursor: pointer">{{item?item.title:''}}</a></li>-->
 <!--</ul>-->
 
-<ul [ngClass]="cssClass +' menu-app '" >
+<ul [ngClass]="cssClass +' menu-app '"  *ngIf="native == true">
   <li *ngFor="let item of menus ;let i = index">
     <a (click)="active('menu-app-item-'+i)"
        [id]="'menu-app-item-'+i" routerLinkActive="active"

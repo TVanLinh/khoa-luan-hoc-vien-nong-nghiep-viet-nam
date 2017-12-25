@@ -1,0 +1,227 @@
+<div class="row">
+  <div class="col-xs-12 msg" *ngIf="message.condition && itemDelete != null"
+       [ngClass]="'alert alert-'+ message.type">
+    {{message.content}}
+  </div>
+
+  <div class="col-xs-12">
+    <h4 class="text-center mgb-15" style="font-size: 20px"> Danh sách tỉnh/thành phố </h4>
+  </div>
+  <div class="col-xs-12">
+    <app-catalog-search (textChange)="pipe.city = $event;"
+                        (numberViewChange)="numberCityShow = $event"></app-catalog-search>
+    <p>Tổng số: {{listAddress.toArray().length}}</p>
+    <div class="table-responsive">
+      <table class="table table-bordered" [mfData]="listAddress.toArray() | searchPipe: pipe.city" #mfCity="mfDataTable"
+             [mfRowsOnPage]="numberCityShow">
+        <thead>
+        <tr>
+          <th style="width:10%">STT</th>
+          <th style="width:70%">
+            <mfDefaultSorter by="city.name">Tên</mfDefaultSorter>
+          </th>
+          <th style="width:10%">
+            <span class="action-icon" (click)="openModals('TINH')"><i class="fa fa-plus"></i></span>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let item of mfCity.data ;let i = index ">
+          <td (click)="viewDetailCity(item)">{{i+1}}</td>
+          <td class="name capitalize" (click)="viewDetailCity(item)">{{item.city.name.toLowerCase()}}</td>
+          <td>
+        <span class="action-icon" title="Chi tiết " (click)="viewDetailCity(item)"><i class="fa fa-eye"
+                                                                                      aria-hidden="true"></i></span>
+            <span class="action-icon" title="Chỉnh sửa " (click)="editItem(item,'TINH')"><i
+              class="fa fa-edit"></i></span>
+            <span class="action-icon" title="Xóa"
+                  (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'TINH'"><i
+              class="fa fa-remove "></i></span>
+            <!--<span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+          </td>
+        </tr>
+        <tr class="footer-table-pager">
+          <td colspan="3">
+            <mfBootstrapPaginator></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!--danh sach huyen-->
+<modal #modalDistrict size='lg' backdrop="true">
+  <modal-header>
+    <div class="action-form mgb-i-10 text-right">
+      <button (click)="closeModal(modalDistrict)">Thoát</button>
+    </div>
+    <h4 *ngIf="cityCurrent" class="text-center mgb-15" style="font-size: 20px"> Danh sách các huyện của tỉnh
+      <span class="capitalize">{{cityCurrent.city.name.toLowerCase()}}</span></h4>
+    <div *ngIf="message.condition"
+         [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+  </modal-header>
+  <modal-body *ngIf="cityCurrent">
+    <div class="row">
+      <div class="col-xs-12">
+        <app-catalog-search (textChange)="pipe.district = $event"
+                            (numberViewChange)="numberDistrictShow = $event"></app-catalog-search>
+        <p>Tổng số: {{listDistrict.toArray().length}}</p>
+        <div class="table-responsive">
+          <table class="table table-bordered" [mfData]="listDistrict.toArray() | searchPipe:pipe.district" #mfCity="mfDataTable"
+                 [mfRowsOnPage]="numberDistrictShow">
+            <thead>
+            <tr>
+              <th style="width:10%">STT</th>
+              <th style="width:60%">
+                <mfDefaultSorter by="name">Tên</mfDefaultSorter>
+              </th>
+              <th style="width:20%">
+                <span class="action-icon" (click)="openModals('HUYEN')"><i class="fa fa-plus"></i></span>
+              </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let item of mfCity.data ;let i = index ">
+              <td (click)="viewDetailDistrict(item)">{{i+1}}</td>
+              <td class="name capitalize" (click)="viewDetailDistrict(item)">{{item.name.toLowerCase()}}</td>
+              <td>
+                <span class="action-icon" title="Chi tiết " (click)="viewDetailDistrict(item)"><i class="fa fa-eye"
+                                                                                                  aria-hidden="true"></i></span>
+                <span class="action-icon" title="Chỉnh sửa " (click)="editItem(item,'HUYEN')"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" title="Xóa"
+                      (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'HUYEN'"><i
+                  class="fa fa-remove "></i></span>
+                <!--<span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+              </td>
+            </tr>
+            <tr class="footer-table-pager">
+              <td colspan="3">
+                <mfBootstrapPaginator></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </modal-body>
+
+
+</modal>
+
+
+<modal #modalGuild size='lg' backdrop="true">
+  <modal-header>
+    <div class="action-form mgb-i-10 text-right">
+      <button (click)="closeModal(modalGuild)">Thoát</button>
+    </div>
+    <h4 *ngIf="districtCurrent && cityCurrent" class="text-center mgb-15" style="font-size: 20px"> Danh sách xã/phường
+      của
+      <span class="capitalize">{{districtCurrent.name.toLowerCase()}} </span> của tỉnh
+      <span class="capitalize">{{cityCurrent.city.name.toLowerCase()}}</span>
+    </h4>
+    <div *ngIf="message.condition"
+         [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+  </modal-header>
+  <modal-body *ngIf="cityCurrent && districtCurrent">
+    <div class="row">
+      <div class="col-xs-12">
+
+        <app-catalog-search (textChange)="pipe.guild = $event"
+                            (numberViewChange)="numberDistrictShow = $event"></app-catalog-search>
+        <p>Tổng số: {{listGuild.toArray().length}}</p>
+        <div class="table-responsive">
+          <table class="table table-bordered" [mfData]="listGuild.toArray() | searchPipe: pipe.guild" #mfCity="mfDataTable"
+                 [mfRowsOnPage]="numberDistrictShow">
+            <thead>
+            <tr>
+              <th style="width:10%">STT</th>
+              <th style="width:60%">
+                <mfDefaultSorter by="name">Tên</mfDefaultSorter>
+              </th>
+              <th style="width:20%">
+                <span class="action-icon" (click)="openModals('XA')"><i class="fa fa-plus"></i></span>
+              </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let item of mfCity.data ;let i = index ">
+              <td>{{i+1}}</td>
+              <td class="name capitalize">{{item.name?item.name.toLowerCase():''}}</td>
+              <td>
+                <span class="action-icon" title="Chi tiết " (click)="viewDetail(item)"><i class="fa fa-eye"
+                                                                                          aria-hidden="true"></i></span>
+                <span class="action-icon" title="Chỉnh sửa " (click)="editItem(item,'XA')"><i
+                  class="fa fa-edit"></i></span>
+                <span class="action-icon" title="Xóa"
+                      (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'XA'"><i
+                  class="fa fa-remove "></i></span>
+                <!--<span class="action-icon" title="Xóa " (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
+              </td>
+            </tr>
+            <tr class="footer-table-pager">
+              <td colspan="3">
+                <mfBootstrapPaginator></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </modal-body>
+
+</modal>
+
+
+<modal #modalCreate size='lg' backdrop="true">
+  <modal-header>
+    <div class="action-form mgb-i-10 text-right">
+      <button (click)="closeModal(modalCreate)">Thoát</button>
+    </div>
+    <h3 class="text-center">{{formData.title}}</h3>
+    <div *ngIf="message.condition"
+         [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+  </modal-header>
+  <modal-body>
+    <form action="" class="mgb-i-10">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="item-control">
+            <label>{{formData.label}}</label>
+            <input name="inputData" class="form-control" [(ngModel)]="inputData" style="width: 100%!important;"/>
+          </div>
+          <div class="error fs-13" *ngIf="formData.msg != ''">
+            {{formData.msg}}
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </modal-body>
+
+  <modal-footer>
+    <button class="btn-action"
+            (click)="onSave()">{{positionUpdate == null?'Thêm':'Cập nhật'}}
+    </button>
+  </modal-footer>
+
+</modal>
+
+
+<app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>

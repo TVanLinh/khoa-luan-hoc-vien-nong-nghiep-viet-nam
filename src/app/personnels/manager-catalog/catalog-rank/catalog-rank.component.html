@@ -11,11 +11,12 @@
     <h3 class="fs-18 text-center">Danh sách loại nghạch</h3>
     <div class="row" *ngIf="catalogRanks.size()>0">
       <div class="col-xs-12 text-right">
-        <input type="text" placeholder="Nhập để tìm kiếm..." class="form-control" [(ngModel)]="pipe.specie">
+        <input type="text" placeholder="Nhập để tìm kiếm..." class="search form-control" [(ngModel)]="pipe.specie">
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table table-bordered" [mfData]="catalogRanks.toArray()" #mfDetail="mfDataTable" [mfRowsOnPage]="10">
+      <table class="table table-bordered" [mfData]="catalogRanks.toArray() | searchPipe:pipe.specie"
+             #mfDetail="mfDataTable" [mfRowsOnPage]="10">
         <thead>
         <tr>
           <th style="width:5%">STT</th>
@@ -28,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of  mfDetail.data | searchPipe:pipe.specie;let i = index ">
+        <tr *ngFor="let item of  mfDetail.data ;let i = index ">
           <td (click)="openSpiece(item)">{{i+1}}</td>
           <td class="name" (click)="openSpiece(item)">{{item.name}}</td>
           <td style="width:10%">
@@ -49,7 +50,7 @@
 
   <!--nhom nghach-->
 
-  <div class="col-xs-12 col-sm-12">
+  <div class="col-xs-12 col-sm-12" *ngIf="spiceCurrent">
     <h3 class="fs-18 text-center" *ngIf="spiceCurrent">Danh sách nhóm ngạch thuộc loại ngạch:
       {{spiceCurrent.name}}</h3>
     <h3 class="fs-18 text-center" *ngIf="listGroup.size() == 0 && !spiceCurrent">Danh sách nhóm ngạch thuộc loại
@@ -57,12 +58,13 @@
 
     <div class="row" *ngIf="listGroup.size()  >0">
       <div class="col-xs-12 text-right">
-        <input type="text" placeholder="Nhập để tìm kiếm..." class="form-control" [(ngModel)]="pipe.group">
+        <input type="text" placeholder="Nhập để tìm kiếm..." class="search form-control" [(ngModel)]="pipe.group">
       </div>
     </div>
 
     <div class="table-responsive">
-      <table class="table table-bordered" [mfData]="listGroup.toArray()" #mfGroup="mfDataTable" [mfRowsOnPage]="10">
+      <table class="table table-bordered" [mfData]="listGroup.toArray() | searchPipe:pipe.group" #mfGroup="mfDataTable"
+             [mfRowsOnPage]="10">
         <thead>
         <tr>
           <th style="width:5%">STT</th>
@@ -76,7 +78,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of mfGroup.data | searchPipe:pipe.group;let i = index ">
+        <tr *ngFor="let item of mfGroup.data ;let i = index ">
           <td (click)="openGroup(item)">{{i+1}}</td>
           <td class="name" (click)="openGroup(item)">{{item.name}}</td>
           <td style="width:10%">
@@ -95,106 +97,122 @@
     </div>
   </div>
 
-  <!--danh sach nghach-->
-  <div class="col-xs-12 col-sm-12">
-    <h3 class="fs-18 text-center" *ngIf="listRank.size()>0">Danh sách ngạch thuộc nhóm :
-      {{groupCurrent?groupCurrent.name:''}} của loại
-      ngạch:
-      {{spiceCurrent?spiceCurrent.name:''}}</h3>
-    <h3 class="fs-18 text-center" *ngIf="listRank.size() == 0">Danh sách ngạch thuộc nhóm
-      {{groupCurrent?groupCurrent.name:''}}</h3>
-
-    <div class="row" *ngIf="listRank.size() > 0">
-      <div class="col-xs-12 text-right">
-        <input type="text" placeholder="Nhập để tìm kiếm..." class="form-control" [(ngModel)]="pipe.rank">
-      </div>
-    </div>
-
-    <div class="table-responsive">
-      <table class="table table-bordered" [mfData]="listRank.toArray()" #mfRank="mfDataTable" [mfRowsOnPage]="10">
-        <thead>
-        <tr>
-          <th style="width:5%">STT</th>
-          <th style="width:70%" class="name">
-            <mfDefaultSorter>Tên ngạch</mfDefaultSorter>
-          </th>
-          <th style="width:10%">
-            <span *ngIf="groupCurrent" class="action-icon" (click)="openModal1('ngach')"><i
-              class="fa fa-plus"></i></span>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of mfRank.data | searchPipe:pipe.rank;let i = index ">
-          <td>{{i+1}}</td>
-          <td class="name">{{item}}</td>
-          <td style="width:10%">
-            <span class="action-icon" (click)="editItem(item,'ngach')"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'ngach'"><i
-              class="fa fa-remove "></i></span>
-          </td>
-        </tr>
-        <tr class="footer-table-pager">
-          <td colspan="3">
-            <mfBootstrapPaginator></mfBootstrapPaginator>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!--danh sach bac-->
-  <div class="col-xs-12 col-sm-12">
-    <h3 class="fs-18 text-center" *ngIf="level.size()>0">Danh sách bậc và hệ số lương thuộc nhóm :
-      {{groupCurrent?groupCurrent.name:''}} của loại ngạch:
-      {{spiceCurrent?spiceCurrent.name:''}}</h3>
-    <h3 class="fs-18 text-center" *ngIf="level.size() == 0">Danh sách bậc và hệ số lương</h3>
-
-    <div class="row" *ngIf="level.size() > 0">
-      <div class="col-xs-12 text-right">
-        <input type="text" placeholder="Nhập để tìm kiếm..." class="form-control" [(ngModel)]="pipe.level">
-      </div>
-    </div>
-
-    <div class="table-responsive">
-      <table class="table table-bordered" [mfData]="level.toArray()" #mfLevel="mfDataTable" [mfRowsOnPage]="10">
-        <thead>
-        <tr>
-          <th style="width:5%">STT</th>
-          <th class="name">
-            <mfDefaultSorter by="name">Bậc</mfDefaultSorter>
-          </th>
-          <th class="name">
-            <mfDefaultSorter by="salary">Hệ số lương</mfDefaultSorter>
-          </th>
-          <th style="width:10%">
-            <span class="action-icon" *ngIf="groupCurrent" (click)="openModal1('bac')"><i class="fa fa-plus"></i></span>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of mfLevel.data |  searchPipe:pipe.level;let i = index ">
-          <td>{{i+1}}</td>
-          <td class="name">{{item.name}}</td>
-          <td class="name">{{item.salary}}</td>
-          <td style="width:10%">
-            <span class="action-icon" (click)="editItem(item,'bac')"><i class="fa fa-edit"></i></span>
-            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'bac'"><i
-              class="fa fa-remove "></i></span>
-          </td>
-        </tr>
-        <tr class="footer-table-pager">
-          <td colspan="3">
-            <mfBootstrapPaginator></mfBootstrapPaginator>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 
 </div>
+
+
+<modal #modalDetail size='lg' backdrop="true">
+  <modal-header>
+    <div class="action-form mgb-i-10 text-right">
+      <button (click)="closeModal(modalDetail)">Thoát</button>
+    </div>
+    <h3 class="text-center" *ngIf="spiceCurrent && groupCurrent">Chi tiết nhóm ngạch {{groupCurrent.name}} của loại
+      ngạch {{spiceCurrent.name}}</h3>
+    <div *ngIf="message.condition"
+         [ngClass]="'alert alert-'+ message.type">
+      {{message.content}}
+    </div>
+  </modal-header>
+  <modal-body>
+    <div class="row">
+      <!--danh sach nghach-->
+      <div class="col-xs-12 col-sm-12" *ngIf="groupCurrent">
+        <h3 class="fs-18 text-center">Danh sách ngạch </h3>
+
+        <div class="row" *ngIf="listRank.size() > 0">
+          <div class="col-xs-12 text-right">
+            <input type="text" placeholder="Nhập để tìm kiếm..." class="search form-control" [(ngModel)]="pipe.rank">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered" [mfData]="listRank.toArray() | searchPipe:pipe.rank" #mfRank="mfDataTable"
+                 [mfRowsOnPage]="10">
+            <thead>
+            <tr>
+              <th style="width:5%">STT</th>
+              <th style="width:70%" class="name">
+                <mfDefaultSorter>Tên ngạch</mfDefaultSorter>
+              </th>
+              <th style="width:10%">
+            <span *ngIf="groupCurrent" class="action-icon" (click)="openModal1('ngach')"><i
+              class="fa fa-plus"></i></span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of mfRank.data ;let i = index ">
+              <td>{{i+1}}</td>
+              <td class="name">{{item}}</td>
+              <td style="width:10%">
+                <span class="action-icon" (click)="editItem(item,'ngach')"><i class="fa fa-edit"></i></span>
+                <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'ngach'"><i
+                  class="fa fa-remove "></i></span>
+              </td>
+            </tr>
+            <tr class="footer-table-pager">
+              <td colspan="3">
+                <mfBootstrapPaginator></mfBootstrapPaginator>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!--danh sach bac-->
+      <div class="col-xs-12 col-sm-12">
+        <h3 class="fs-18 text-center" *ngIf="groupCurrent">Danh sách bậc và hệ số lương </h3>
+
+          <div class="row" *ngIf="level.size() > 0">
+            <div class="col-xs-12 text-right">
+              <input type="text" placeholder="Nhập để tìm kiếm..." class="search form-control" [(ngModel)]="pipe.level">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered" [mfData]="level.toArray() |  searchPipe:pipe.level"
+                   #mfLevel="mfDataTable"
+                   [mfRowsOnPage]="10">
+              <thead>
+              <tr>
+                <th style="width:5%">STT</th>
+                <th class="name">
+                  <mfDefaultSorter by="name">Bậc</mfDefaultSorter>
+                </th>
+                <th class="name">
+                  <mfDefaultSorter by="salary">Hệ số lương</mfDefaultSorter>
+                </th>
+                <th style="width:10%">
+                <span class="action-icon" *ngIf="groupCurrent" (click)="openModal1('bac')"><i
+                  class="fa fa-plus"></i></span>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of mfLevel.data ;let i = index ">
+                <td>{{i+1}}</td>
+                <td class="name">{{item.name}}</td>
+                <td class="name">{{item.salary}}</td>
+                <td style="width:10%">
+                  <span class="action-icon" (click)="editItem(item,'bac')"><i class="fa fa-edit"></i></span>
+                  <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item;modDelete = 'bac'"><i
+                    class="fa fa-remove "></i></span>
+                </td>
+              </tr>
+              <tr class="footer-table-pager">
+                <td colspan="3">
+                  <mfBootstrapPaginator></mfBootstrapPaginator>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+  </modal-body>
+
+</modal>
 
 
 <modal #modal size='lg' backdrop="true">
@@ -256,11 +274,6 @@
 
 </modal>
 
-
 <app-alert-confirm #confirmDiaglog (onAction)="confirm($event)"></app-alert-confirm>
-
-
-
-
 
 

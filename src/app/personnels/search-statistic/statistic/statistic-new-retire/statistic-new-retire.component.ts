@@ -3,6 +3,7 @@ import {Config} from "../../../../shares/config";
 import {TaskService} from "../../../../shares/task.service";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../../base-form.component";
+import * as Collections from "typescript-collections";
 
 @Component({
   selector: 'app-statistic-new-retire',
@@ -48,12 +49,42 @@ export class StatisticNewRetireComponent extends BaseFormComponent implements On
 
 
   getData() {
-    this.taskService.get(Config.RETIRE_URL + "").subscribe((data: any[]) => {
-      this.data = data;
-      console.log(JSON.stringify(data));
-    }, err => {
-      this.data = [];
+
+
+    var temp = new Collections.LinkedList<any>();
+
+    this.taskService.get(Config.USER_RETIRE_LEAVE_BIND_JOB).subscribe((data => {
+      temp = super.asList(data);
+    }), err => {
+
+    }, () => {
+      this.taskService.get(Config.RETIRE_URL).subscribe(users => {
+        let userTemp = super.asList(users);
+        for (let it of userTemp.toArray()) {
+          for (let item of temp.toArray()) {
+            if (it && item
+              && ((it._id == item._id || it.username == item.username ))) {
+              userTemp.remove(it);
+            }
+          }
+        }
+        this.data = userTemp.toArray();
+        // if (!this.data || this.data.length == 0) {
+        //   this.updateMessge("Không tìm thấy cán bộ nào", "warning");
+        // }
+      }, err => {
+      }, () => {
+
+      });
     });
+
+
+    // this.taskService.get(Config.RETIRE_URL + "").subscribe((data: any[]) => {
+    //   this.data = data;
+    //   console.log(JSON.stringify(data));
+    // }, err => {
+    //   this.data = [];
+    // });
   }
 
   valueChange(month, year) {
@@ -68,12 +99,37 @@ export class StatisticNewRetireComponent extends BaseFormComponent implements On
       this.title = "Danh sách cán bộ nghỉ hưu dự kiến vào tháng " + month + " năm " + year;
     }
 
+    var temp = new Collections.LinkedList<any>();
+    this.taskService.get(Config.USER_RETIRE_LEAVE_BIND_JOB).subscribe((data => {
+      temp = super.asList(data);
+    }), err => {
 
-    this.taskService.get(Config.RETIRE_URL + "/new?month=" + m + "&year=" + y).subscribe(data => {
-      console.log(JSON.stringify(data));
-      this.dataUser = data;
+    }, () => {
+      this.taskService.get(Config.RETIRE_URL + "/new?month=" + m + "&year=" + y).subscribe(users => {
+        let userTemp = super.asList(users);
+        for (let it of userTemp.toArray()) {
+          for (let item of temp.toArray()) {
+            if (it && item
+              && ((it._id == item._id || it.username == item.username ))) {
+              userTemp.remove(it);
+            }
+          }
+        }
+        this.dataUser = userTemp.toArray();
+        // if (!this.data || this.data.length == 0) {
+        //   this.updateMessge("Không tìm thấy cán bộ nào", "warning");
+        // }
+      }, err => {
+      }, () => {
 
+      });
     });
+    //
+    // this.taskService.get(Config.RETIRE_URL + "/new?month=" + m + "&year=" + y).subscribe(data => {
+    //   console.log(JSON.stringify(data));
+    //   this.dataUser = data;
+    //
+    // });
   }
 
   checkValid(date) {

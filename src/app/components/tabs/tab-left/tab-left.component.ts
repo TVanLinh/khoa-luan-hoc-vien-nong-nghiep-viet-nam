@@ -130,7 +130,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     this.getCatalogFaculty();
     this.initForm();
     this.isLogin = MenuUtil.isLogin;
-    console.log("user: " + JSON.stringify(this.user));
+    // console.log("user: " + JSON.stringify(this.user));
 
     if (this.user != null) {
       this.isLogin = true;
@@ -175,7 +175,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       this.closeModal(loginModal);
       MystorageService.saveAcount(data);
       this.menuApp = data['user']['roles'];
-      console.log("menu:" + JSON.stringify(data['user']['roles']));
+      // console.log("menu:" + JSON.stringify(data['user']['roles']));
       let share;
 
       if (super.contains(this.menuApp, 'title', Config.MYCV)) {

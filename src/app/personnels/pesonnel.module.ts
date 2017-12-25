@@ -79,6 +79,7 @@ import {ProcedureDetailComponent} from "./search-statistic/statistic/procedure-d
 import {ProcedureFormComponent} from "./manager-personnels/procedure-form/procedure-form.component";
 import {CatalogNationalComponent} from './manager-catalog/catalog-national/catalog-national.component';
 import {CatalogNationComponent} from "./manager-catalog/catalog-nation/catalog-nation.component";
+import { ManagerGeographyComponent } from './manager-catalog/manager-geography/manager-geography.component';
 
 const routes: Routes = [
   {
@@ -150,6 +151,9 @@ const routes: Routes = [
         },
         {
           path: 'nation', component: CatalogNationComponent
+        },
+        {
+          path: 'geography', component: ManagerGeographyComponent
         }
       ]
     },
@@ -296,7 +300,8 @@ const routes: Routes = [
     ProcedureDetailComponent,
     ProcedureFormComponent,
     CatalogNationComponent,
-    CatalogNationalComponent
+    CatalogNationalComponent,
+    ManagerGeographyComponent
   ],
   imports: [
     AppComonModule.forRoot(), RouterModule.forChild(routes),
