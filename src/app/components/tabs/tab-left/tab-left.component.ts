@@ -10,6 +10,7 @@ import {CatalogFacultyService} from "../../../shares/catalog-faculty.service";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {ValidService} from "../../../shares/valid.service";
 import {AcountShareService} from "../../../shares/acount-share.service";
+import {RoleServie} from "../../../shares/role.servie";
 
 declare var jQuery: any;
 
@@ -29,54 +30,6 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   menuApp: any[] = [];
 
   user = null;
-
-  openMenu(item) {
-    let nextMenu;
-
-    switch (item.href) {
-      case '/manager/info':
-        nextMenu = {
-          type: MenuUtil.MENU_INFO_CV,
-          native: true
-        };
-        break;
-      case '/manager/manager-personnel':
-        nextMenu = {
-          type: MenuUtil.MENU_MANGER_PERSONEL,
-          native: false
-        };
-        break;
-      case '/manager/search':
-        nextMenu = {
-          type: MenuUtil.SEARCH,
-          native: false
-        };
-        break;
-      case '/manager/statistic':
-        nextMenu = {
-          type: MenuUtil.STATISTIC,
-          native: false
-        };
-        break;
-      case '/manager/manager-system':
-        nextMenu = {
-          type: MenuUtil.MENU_MANGER_SYSTEM,
-          native: false
-        };
-        break;
-      case '/manager/manager-catalog':
-        nextMenu = {
-          type: MenuUtil.MENU_MANGER_CATALOG,
-          native: false
-        };
-        break;
-    }
-
-    // MenuUtil.saveMenuLocal(nextMenu);
-    MenuUtil.publishMenu(nextMenu);
-    this.router.navigate([item.href]);
-
-  }
 
   openMenu2(item, active) {
     this.active(active);
@@ -109,12 +62,19 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   }
 
   constructor(protected _eref: ElementRef, public taskService: TaskService,
-              public catalogFacultyService: CatalogFacultyService, private acountService: AcountShareService,
-              private  router: Router) {
+              public catalogFacultyService: CatalogFacultyService,
+              private acountService: AcountShareService,
+              private  router: Router, private roleService: RoleServie) {
     super(_eref, taskService);
     this.user = MystorageService.getAcount() ? MystorageService.getAcount()['user'] : null;
     this.acountService.logoutListener.subscribe(data => {
       this.isLogin = false;
+    });
+
+    this.roleService.menuRightShare.subscribe(data => {
+      this.menuApp = [];
+      this.user = MystorageService.getAcount()['user'];
+      this.menuApp = this.user['roles'];
     });
   }
 
@@ -136,9 +96,12 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       this.isLogin = true;
 
       this.menuApp = [];
-      for (let item of this.user['roles']) {
-        this.menuApp.push({href: '', title: item['title']});
+      if (Array.isArray(this.user['roles'])) {
+        this.menuApp = this.user['roles'];
       }
+      // for (let item of this.user['roles']) {
+      //   this.menuApp.push({href: '', title: item['title']});
+      // }
     }
 
 
@@ -221,7 +184,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
   active(target: any) {
     // console.log(target);
     for (let i = 0; i < this.menuApp.length; i++) {
-      console.log(jQuery('#menu-app-item-role-' + i));
+      // console.log(jQuery('#menu-app-item-role-' + i));
       jQuery(this._eref.nativeElement).find('#menu-app-item-role-' + i).css({'color': '#0f0f0f'});
     }
     jQuery(this._eref.nativeElement).find(target).css({'color': '#8d9c00'});
@@ -272,7 +235,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
     return Config.MYCV;
   }
 
-  hiddenTab(){
+  hiddenTab() {
     var tab = jQuery('#tab-left');
     // if(tab.hasClass('hide')) {
     //  tab.toggleClass('hide-tab');

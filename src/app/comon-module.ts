@@ -76,6 +76,7 @@ import {SearchPipe} from "./shares/pipe/search.pipe";
     OrderModule,
     DataTableModule,
     DxDataGridModule,
+    BrowserModule,
     CommonModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB9s64voWTBx5s4qadlcWwbCNhWJU5Sje0'

@@ -21,6 +21,7 @@ import {AcountShareService} from "./shares/acount-share.service";
 
 import {PesonnelModule} from "./personnels/pesonnel.module";
 import {AppComonModule} from "./comon-module";
+import {RoleServie} from "./shares/role.servie";
 
 
 @NgModule({
@@ -45,6 +46,8 @@ import {AppComonModule} from "./comon-module";
     ExcelService,
     ManagerCanactive,
     ManagerCanactiveChild,
+    RoleServie,
+
     AcountShareService,
     TaskService, AddressService],
   bootstrap: [AppComponent]

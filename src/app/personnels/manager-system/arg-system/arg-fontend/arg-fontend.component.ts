@@ -7,6 +7,8 @@ import {ValidService} from "../../../../shares/valid.service";
 import {Config} from "../../../../shares/config";
 import * as Collections from "typescript-collections";
 import {AlertConfirmComponent} from "../../../../components/alert-confirm/alert-confirm.component";
+import {MystorageService} from "../../../../shares/mystorage.service";
+import {RoleServie} from "../../../../shares/role.servie";
 
 @Component({
   selector: 'app-arg-fontend',
@@ -25,7 +27,7 @@ export class ArgFontendComponent extends BaseFormComponent implements OnInit {
   listTemp = new Collections.LinkedList<any>();
   numberShow = 10;
 
-  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService, public roleService: RoleServie) {
     super(eleRef, taskService);
   }
 
@@ -81,6 +83,7 @@ export class ArgFontendComponent extends BaseFormComponent implements OnInit {
         }, 500);
       }, () => {
         super.closeModal(this.modal);
+        this.updateRoleLocal();
       });
     } else {
       valueForm['_id'] = this.update._id;
@@ -97,6 +100,7 @@ export class ArgFontendComponent extends BaseFormComponent implements OnInit {
         }, 500);
       }, () => {
         super.closeModal(this.modal);
+        this.updateRoleLocal();
       });
     }
 
@@ -118,8 +122,21 @@ export class ArgFontendComponent extends BaseFormComponent implements OnInit {
       super.updateMessge("Xóa thành công", "success");
     }, err => {
       super.updateMessge("Xóa không thành công", "warning");
+    }, () => {
+      this.updateRoleLocal();
     });
 
+  }
+
+  updateRoleLocal() {
+    let acount = MystorageService.getAcount();
+    if (acount && acount['user'] && acount['user']['username']) {
+      this.taskService.get(Config.USER_URL + "/roles?username=" + acount['user']['username']).subscribe(data => {
+        acount['user'].roles = data['roles'];
+        MystorageService.saveAcount(acount);
+        this.roleService.menuRightPublish();
+      });
+    }
   }
 
   editItem(item) {

@@ -4,6 +4,7 @@ import {MenuModel} from "./model/menu.model";
 import {Subject} from "rxjs/Subject";
 import {MystorageService} from "../shares/mystorage.service";
 import {Config} from "../shares/config";
+import {RoleServie} from "../shares/role.servie";
 
 declare const jQuery: any;
 
@@ -20,8 +21,12 @@ export class ManagerComponent implements OnInit, OnChanges {
   menu: MenuModel[] = [];
 
 
-  constructor(private eleRef: ElementRef) {
+  constructor(private eleRef: ElementRef,private roleService:RoleServie) {
     this.listenerMenu();
+    this.roleService.menuRightShare.subscribe(data=>{
+      let item  = MenuUtil.getMenuFromLocal();
+      this.getMenu(item);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

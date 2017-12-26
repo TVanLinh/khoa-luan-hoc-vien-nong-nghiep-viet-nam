@@ -7,6 +7,7 @@ import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {SelectComponent} from "ng2-select";
 import {ValidService} from "../../../shares/valid.service";
 import {MystorageService} from "../../../shares/mystorage.service";
+import {RoleServie} from "../../../shares/role.servie";
 
 
 @Component({
@@ -44,7 +45,7 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
   formTouch = false;
   numberShow = 10;
 
-  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService, public roleService: RoleServie) {
     super(eleRef, taskService);
   }
 
@@ -222,6 +223,19 @@ export class RoleManagerComponent extends BaseFormComponent implements OnInit {
         }, 1000);
       }, err => {
         super.updateMessge("Cập nhật không thành công", "warning");
+      }, () => {
+        this.updateRoleLocal();
+      });
+    }
+  }
+
+  updateRoleLocal() {
+    let acount = MystorageService.getAcount();
+    if (acount && acount['user'] && acount['user']['username']) {
+      this.taskService.get(Config.USER_URL + "/roles?username=" + acount['user']['username']).subscribe(data => {
+        acount['user'].roles = data['roles'];
+        MystorageService.saveAcount(acount);
+        this.roleService.menuRightPublish();
       });
     }
   }

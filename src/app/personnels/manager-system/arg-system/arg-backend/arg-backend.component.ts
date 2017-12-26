@@ -6,6 +6,8 @@ import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../../base-form.component";
 import {TaskService} from "../../../../shares/task.service";
 import * as Collections from "typescript-collections";
+import {RoleServie} from "../../../../shares/role.servie";
+import {MystorageService} from "../../../../shares/mystorage.service";
 
 @Component({
   selector: 'app-arg-backend',
@@ -26,7 +28,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
 
   numberShow = 10;
 
-  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService, public roleService: RoleServie) {
     super(eleRef, taskService);
   }
 
@@ -86,6 +88,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
         }, 500);
       }, () => {
         super.closeModal(this.modal);
+        this.updateRoleLocal();
       });
     } else {
       valueForm['_id'] = this.update._id;
@@ -102,6 +105,7 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
         }, 500);
       }, () => {
         super.closeModal(this.modal);
+        this.updateRoleLocal();
       });
     }
 
@@ -123,8 +127,21 @@ export class ArgBackendComponent extends BaseFormComponent implements OnInit {
       super.updateMessge("Xóa thành công", "success");
     }, err => {
       super.updateMessge("Xóa không thành công", "warning");
+    }, () => {
+      this.updateRoleLocal();
     });
 
+  }
+
+  updateRoleLocal() {
+    let acount = MystorageService.getAcount();
+    if (acount && acount['user'] && acount['user']['username']) {
+      this.taskService.get(Config.USER_URL + "/roles?username=" + acount['user']['username']).subscribe(data => {
+        acount['user'].roles = data['roles'];
+        MystorageService.saveAcount(acount);
+        this.roleService.menuRightPublish();
+      });
+    }
   }
 
   editItem(item) {

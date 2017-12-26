@@ -79,7 +79,8 @@ import {ProcedureDetailComponent} from "./search-statistic/statistic/procedure-d
 import {ProcedureFormComponent} from "./manager-personnels/procedure-form/procedure-form.component";
 import {CatalogNationalComponent} from './manager-catalog/catalog-national/catalog-national.component';
 import {CatalogNationComponent} from "./manager-catalog/catalog-nation/catalog-nation.component";
-import { ManagerGeographyComponent } from './manager-catalog/manager-geography/manager-geography.component';
+import {ManagerGeographyComponent} from './manager-catalog/manager-geography/manager-geography.component';
+import {RoleServie} from "../shares/role.servie";
 
 const routes: Routes = [
   {
@@ -312,7 +313,7 @@ const routes: Routes = [
     ExcelService,
     ManagerCanactive,
     ManagerCanactiveChild,
-    AcountShareService,
+    AcountShareService, RoleServie,
     TaskService, AddressService],
 })
 

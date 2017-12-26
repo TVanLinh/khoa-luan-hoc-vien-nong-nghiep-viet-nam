@@ -6,6 +6,7 @@ import {BaseFormComponent} from "../../base-form.component";
 import {Config} from "../../../shares/config";
 import {ValidService} from "../../../shares/valid.service";
 import {MystorageService} from "../../../shares/mystorage.service";
+import {RoleServie} from "../../../shares/role.servie";
 
 @Component({
   selector: 'app-user-manager',
@@ -33,7 +34,7 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
   positionDelete = -1;
   username = '';
 
-  constructor(protected eleRef: ElementRef, public taskService: TaskService) {
+  constructor(protected eleRef: ElementRef, public taskService: TaskService, public roleService: RoleServie) {
     super(eleRef, taskService);
     this.username = MystorageService.getAcount() ? MystorageService.getAcount()['user']['username'] : '';
 
@@ -48,7 +49,7 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
     this.user = $event;
     this.rolesValue = null;
     this.formTouch = false;
-    console.log(JSON.stringify(this.user));
+    // console.log(JSON.stringify(this.user));
     super.openModal(this.modal);
     // this.taskService.get(Config.USER_URL+"/role?username="+this.user['username'])
   }
@@ -95,12 +96,27 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
         this.updateMessge("Thành công", "success");
       }, err => {
         this.updateMessge("Không thành công", "warning");
+      }, () => {
+        this.updateRoleLocal();
       });
     }
 
 
     // assignRole
   }
+
+  updateRoleLocal() {
+    let acount = MystorageService.getAcount();
+    if (acount && acount['user'] && acount['user']['username']) {
+      this.taskService.get(Config.USER_URL + "/roles?username=" + acount['user']['username']).subscribe(data => {
+        acount['user'].roles = data['roles'];
+        this.user.roles = data['roles'];
+        MystorageService.saveAcount(acount);
+        this.roleService.menuRightPublish();
+      });
+    }
+  }
+
 
   selectDeleteRole(item) {
     this.positionDelete = -1;
@@ -140,6 +156,8 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
       this.updateMessge("Xóa thành công", "success");
     }, err => {
       this.updateMessge("Xóa không thành công", "warning");
+    }, () => {
+      this.updateRoleLocal();
     });
   }
 
