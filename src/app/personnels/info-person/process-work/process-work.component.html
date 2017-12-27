@@ -1,6 +1,6 @@
 <div class="form-item">
   <div class="form-item-title"> Quá trình công tác</div>
-  <div class="action-form">
+  <div class="action-form" *ngIf="editEnable">
     <button (click)="onSave()">Ghi nhận</button>
     <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
       {{message.content}}
@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <div class="form-item">
+      <div class="form-item" [style.marginTop]="!editEnable?'20px':''">
         <div class="form-item-title">
           Thông tin quá trình
         </div>
@@ -23,8 +23,8 @@
                   <th>Từ ngày</th>
                   <th>Đến ngày</th>
                   <th>Chức vụ</th>
-                  <th>Công việc đảm nhận</th>
-                  <th class="hide-print">
+                  <th [style.textAlign]="!editEnable?'left':''">Công việc đảm nhận</th>
+                  <th class="hide-print" *ngIf="editEnable">
                     <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
                   </th>
                 </tr>
@@ -36,8 +36,8 @@
                   <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
                   <td>{{item.dateEnd | date:'dd/MM/yyyy'}}</td>
                   <td>{{item.position}}</td>
-                  <td>{{item.job}}</td>
-                  <td class="hide-print">
+                  <td [ngStyle]="!editEnable?notAccept:{}">{{item.job}}</td>
+                  <td class="hide-print" *ngIf="editEnable">
                     <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
                     <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
                     <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i class="fa fa-remove "></i></span>

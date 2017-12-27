@@ -108,3 +108,7 @@ input[type='checkbox'] {
   overflow-x: hidden;
   overflow-y: scroll !important;
 }
+
+.table-accept{
+  width: 200px !important;
+}

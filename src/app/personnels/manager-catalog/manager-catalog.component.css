@@ -1,3 +1,7 @@
+.catalog-border{
+  border: 1px solid #dddddd;
+  padding: 15px;
+}
 tbody tr:hover {
   background-color: #eae7df;
   cursor: pointer;

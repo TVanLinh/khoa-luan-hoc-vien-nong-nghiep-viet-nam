@@ -1,7 +1,14 @@
-<app-search-form title="Duyệt hồ sơ" (onChoise)="onChoiseHandler($event)"></app-search-form>
+<app-search-form *ngIf="showSearch" title="Duyệt hồ sơ" (onChoise)="onChoiseHandler($event)"></app-search-form>
 
 <!--<modal #modal size='lg' cssClass="my-modal-lg" backdrop="false">-->
-  <!--<modal-body>-->
-  <!--</modal-body>-->
+<!--<modal-body>-->
+<!--</modal-body>-->
 <!--</modal>-->
-<!--<app-info-personels [menuShow]="true" [user]="user"></app-info-personels>-->
+<app-info-personels
+  *ngIf="showInfo" [showAcitve]="true"
+  [showCancel]="true"
+  [menuShow]="true"
+  (onCancel)="onCancelHandler($event)"
+  (onAccept)="onAcceptHandler($event)"
+  [editEnable]="true"
+  [user]="user"></app-info-personels>

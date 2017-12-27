@@ -21,6 +21,7 @@ const NEWSPAPER: string = "NEWSPAPER";
 
 export class SenimarNewpaperComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('seminaModal') seminaModal: ModalComponent;
   @ViewChild('newspaperModal') newspaperModal: ModalComponent;
 

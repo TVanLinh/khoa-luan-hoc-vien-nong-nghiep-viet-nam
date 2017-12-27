@@ -12,9 +12,6 @@ const routes: Routes = [
     // component: ManagerComponent
     loadChildren: 'app/personnels/pesonnel.module#PesonnelModule'
   },
-  {
-    path: 'login', component: LoginComponent
-  },
   {path: '**', redirectTo: '/'}
 
 ];

@@ -3,8 +3,8 @@
     Thông tin quá trình đi nước ngoài
   </div>
   <form>
-    <div class="action-form" style="margin-bottom: 10px;">
-      <button (click)="onSave()">Ghi nhận</button>
+    <div class="action-form" style="margin-bottom: 10px;" *ngIf="editEnable">
+      <button (click)="onSave()" >Ghi nhận</button>
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
@@ -18,8 +18,8 @@
           <th>Đến ngày</th>
           <th>Đi nước</th>
           <th>Mục đích</th>
-          <th>Sản phẩm</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''">Sản phẩm</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -33,8 +33,8 @@
           <td>{{item.dateEnd | date: 'dd/MM/yyyy'}}</td>
           <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
           <td>{{item.purpose}}</td>
-          <td>{{item.product}}</td>
-          <td class="hide-print">
+          <td [style.width]="!editEnable?'200px':''">{{item.product}}</td>
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
 

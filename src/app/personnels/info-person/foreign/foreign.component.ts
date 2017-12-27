@@ -20,7 +20,7 @@ import {ValidService} from "../../../shares/valid.service";
 export class ForeignComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
   @ViewChild('modal') modal: ModalComponent;
-
+  @Input() editEnable = true;
   formData: FormGroup;
   listForeignForm = new Collections.LinkedList<ForeignModel>();
   positionUpdate: ForeignModel = null;

@@ -15,6 +15,7 @@ import {ValidService} from "../../../../shares/valid.service";
 })
 export class PoliticComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('politicModal') politicModal: ModalComponent;
   formDataPoliticAdd: FormGroup;
   formDataMain: FormGroup;

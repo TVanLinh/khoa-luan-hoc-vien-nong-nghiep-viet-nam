@@ -23,6 +23,7 @@ declare const jQuery: any;
 })
 export class PartyUnionComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   formData: FormGroup;
   formDetailParty: FormGroup;
   formDetailUnion: FormGroup;
@@ -436,7 +437,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       party.dateInOfical, party.placeIn, union.placeIn, union.dateIn, group.dateIn];
 
 
-    if (!ValidService.isNotBlanks(validGlobal) && !this.hashData) {
+    if (!ValidService.isNotBlanks(validGlobal)) {
       super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận ", "warning");
       return;
     }
@@ -462,7 +463,7 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
           this.updateForm(data['armyPUG']);
           this.hashData = true;
         } else {
-          this.hashData = false;
+       //  this.hashData = false;
         }
 
       });

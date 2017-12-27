@@ -1,7 +1,7 @@
 <div class="form-item" id="party-union-info">
   <div class="form-item-title">Qúa trình hoạt động Đảng, Đoàn, Công Đoàn</div>
   <form action="" [formGroup]="formData">
-    <div class="action-form">
+    <div class="action-form" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button (click)="blockData()">Khóa dữ liệu</button>-->
       <div *ngIf="message.condition" [ngClass]="'alert alert-'+ message.type">
@@ -165,14 +165,14 @@
           <th>Từ ngày</th>
           <th>Nơi sinh hoạt</th>
           <th>Chức vụ Đảng</th>
-          <th>Hiện tại</th>
-          <th>
+          <th [style.textAlign]="!editEnable?'left':''">Hiện tại</th>
+          <th *ngIf="editEnable" >
           </th>
         </tr>
         </thead>
 
         <tbody>
-        <tr>
+        <tr *ngIf="editEnable">
           <td></td>
           <td>
             <input type="date" class="form-control" formControlName="dateFrom">
@@ -186,7 +186,7 @@
           <td>
             <input type="checkbox" value="true" formControlName="now">
           </td>
-          <td>
+          <td *ngIf="editEnable">
             <span class="action-icon  pdb-20" (click)="addParty()"><i class="fa fa-save"></i></span>
             <span class="action-icon  " (click)="resetForm(formDetailParty)"><i class="fa fa-remove "></i></span>
           </td>
@@ -197,9 +197,9 @@
           <td>{{item.dateFrom | date:'dd/MM/yyyy'}}</td>
           <td>{{item.place}}</td>
           <td>{{item.position}}</td>
-          <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
-          <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
-          <td>
+          <td [ngStyle]="!editEnable?notAccept:{}" *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+          <td [ngStyle]="!editEnable?notAccept:{}" *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+          <td *ngIf="editEnable">
             <span class="action-icon" (click)="editItem('party',item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon" (click)="removeItem(listActionParty,item)"><i class="fa fa-remove"></i></span>
           </td>
@@ -235,13 +235,13 @@
           <th>Từ ngày</th>
           <th>Nơi sinh hoạt</th>
           <th>Chức vụ Đoàn</th>
-          <th>Chức vụ cao nhất</th>
-          <th>
+          <th [style.textAlign]="!editEnable?'left':''" [style.width]="!editEnable?'200px':''">Chức vụ cao nhất</th>
+          <th *ngIf="editEnable" >
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngIf="editEnable">
           <td></td>
           <td>
             <input type="date" class="form-control" formControlName="dateFrom">
@@ -252,10 +252,9 @@
           <td>
             <input type="text" formControlName="position">
           </td>
-          <td>
-            <input type="checkbox" class="" value="true" formControlName="now">
+          <td ><input type="checkbox" class="" value="true" formControlName="now">
           </td>
-          <td>
+          <td *ngIf="editEnable">
             <span class="action-icon  " (click)="addUnion()"><i class="fa fa-save"></i></span>
             <span class="action-icon  " (click)="resetForm(formDetailUnion)"><i class="fa fa-remove "></i></span>
           </td>
@@ -266,9 +265,9 @@
           <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
           <td>{{item.place}}</td>
           <td>{{item.position}}</td>
-          <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
-          <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
-          <td>
+          <td [ngStyle]="!editEnable?notAccept:{}" *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+          <td [ngStyle]="!editEnable?notAccept:{}" *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+          <td *ngIf="editEnable">
             <span class="action-icon  " (click)="editItem('union',item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon  " (click)="removeItem(listActionUnion,item)"><i class="fa fa-remove"></i></span>
             <!--<span class="action-icon  "><i class="fa fa-lock "></i></span>-->
@@ -305,13 +304,13 @@
           <th>Từ ngày</th>
           <th>Nơi sinh hoạt</th>
           <th>Chức vụ Công Đoàn</th>
-          <th>Chức vụ cao nhất</th>
-          <th>
+          <th [style.textAlign]="!editEnable?'left':''" [style.width]="!editEnable?'200px':''">Chức vụ cao nhất</th>
+          <th *ngIf="editEnable">
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngIf="editEnable">
           <td></td>
           <td>
             <input type="date" class="form-control" formControlName="dateFrom">
@@ -325,7 +324,7 @@
           <td>
             <input type="checkbox" class="" value="true" formControlName="now">
           </td>
-          <td>
+          <td *ngIf="editEnable">
             <span class="action-icon  " (click)="addGroup()"><i class="fa fa-save"></i></span>
             <span class="action-icon  " (click)="resetForm(formDetailGroup)"><i class="fa fa-remove "></i></span>
           </td>
@@ -336,9 +335,9 @@
           <td>{{item.dateFrom | date: 'dd/MM/yyyy'}}</td>
           <td>{{item.place}}</td>
           <td>{{item.position}}</td>
-          <td *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
-          <td *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
-          <td>
+          <td [ngStyle]="!editEnable?notAccept:{}" *ngIf="item.now"><span class="action-icon pdb-10"><i class="fa fa-check "></i></span></td>
+          <td [ngStyle]="!editEnable?notAccept:{}" *ngIf="!item.now"><span class="action-icon pdb-10"></span></td>
+          <td *ngIf="editEnable">
             <span class="action-icon  " (click)="editItem('group',item)"><i class="fa fa-edit"></i></span>
             <span class="action-icon  " (click)="removeItem(listActionGroup,item)"><i class="fa fa-remove"></i></span>
             <!--<span class="action-icon  "><i class="fa fa-lock "></i></span>-->

@@ -4,5 +4,5 @@ export interface ProcessTeachingModel {
   credit: number,
   organTeaching: string,
   yearTeaching: number,
-  languageTeaching: string
+  languageTeaching: number
 }

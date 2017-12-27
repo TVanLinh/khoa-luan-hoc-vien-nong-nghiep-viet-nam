@@ -15,11 +15,12 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class EmulationTitleComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('emulationTitle') emulationTitle: ModalComponent;
   formData: FormGroup;
+
   listEmulation = new Collections.LinkedList<EmulationTitleModel>();
   positionUpdate: EmulationTitleModel = null;
-
   initData: EmulationTitleModel = {
     title: "",
     dateLicense: new Date,

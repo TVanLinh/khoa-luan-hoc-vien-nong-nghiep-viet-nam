@@ -108,12 +108,14 @@ export class UserManagerComponent extends BaseFormComponent implements OnInit {
   updateRoleLocal() {
     let acount = MystorageService.getAcount();
     if (acount && acount['user'] && acount['user']['username']) {
-      this.taskService.get(Config.USER_URL + "/roles?username=" + acount['user']['username']).subscribe(data => {
-        acount['user'].roles = data['roles'];
-        this.user.roles = data['roles'];
-        MystorageService.saveAcount(acount);
-        this.roleService.menuRightPublish();
-      });
+      if (this.user.username == acount['user']['username']) {
+        this.taskService.get(Config.USER_URL + "/roles?username=" + acount['user']['username']).subscribe(data => {
+          acount['user'].roles = data['roles'];
+          this.user.roles = data['roles'];
+          MystorageService.saveAcount(acount);
+          this.roleService.menuRightPublish();
+        });
+      }
     }
   }
 

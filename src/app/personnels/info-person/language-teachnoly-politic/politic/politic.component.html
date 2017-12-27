@@ -3,7 +3,7 @@
     Trình độ chính trị
   </div>
   <form action="" [formGroup]="formDataMain">
-    <div class="action-form mgb-20">
+    <div class="action-form mgb-20" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button>Khóa dữ liệu</button>-->
       <div *ngIf="message.condition && formNotValid  == false" [ngClass]="'alert alert-'+ message.type">
@@ -17,8 +17,8 @@
           <th>STT</th>
           <th>Trình độ chính trị</th>
           <th>Năm công nhận</th>
-          <th>Hiện tại</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''">Hiện tại</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="openModal(politicModal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -29,11 +29,11 @@
           <td>{{i+1}}</td>
           <td>{{item.level}}</td>
           <td>{{item.yearLicense}}</td>
-          <td>
+          <td [ngStyle]="!editEnable?notAccept:{}">
             <span class="show-print" style="display: none" *ngIf="item.now"><i class="fa fa-check"></i></span>
             <input class="hide-print" type="radio" name="now" formControlName="now" (click)="change(i)" [value]="i" [checked]="item.now">
           </td>
-          <td class="hide-print">
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
             <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i class="fa fa-remove "></i></span>
@@ -68,9 +68,9 @@
           <div class="item-control pdt-i-0">
             <label>Trình độ chính trị</label>
             <select class="form-control" formControlName="level" #level required>
-              <option value="loai1">---------Chọn loai 1--------</option>
-              <option value="loai2">---------Chọn loai2--------</option>
-              <option value="loai3">---------Chọn loai3--------</option>
+              <option value="Cao cấp">Cao cấp</option>
+              <option value="Trung cấp">Trung cấp</option>
+              <option value="Sơ cấp">Sơ cấp</option>
             </select>
 
             <div class="error" *ngIf="level.value.trim()  =='' && formTouch">

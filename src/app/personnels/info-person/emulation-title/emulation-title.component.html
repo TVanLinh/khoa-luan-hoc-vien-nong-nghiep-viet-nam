@@ -1,7 +1,7 @@
 <div class="form-item">
   <div class="form-item-title"> Danh hiệu thi đua</div>
   <form action="">
-    <div class="action-form" style="margin-bottom: 10px;">
+    <div class="action-form" style="margin-bottom: 10px;" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -14,8 +14,8 @@
           <th>STT</th>
           <th>Danh hiệu thi đua</th>
           <th>Ngày cấp</th>
-          <th>Số quyết định</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''">Số quyết định</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -27,8 +27,8 @@
           <td>{{i+1}}</td>
           <td>{{item.title}}</td>
           <td>{{item.dateLicense | date:'dd/MM/yyyy'}}</td>
-          <td>{{item.numberDecide}}</td>
-          <td class="hide-print">
+          <td [style.width]="!editEnable?'200px':''">{{item.numberDecide}}</td>
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
 

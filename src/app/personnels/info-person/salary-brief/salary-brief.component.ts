@@ -17,6 +17,7 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class SalaryBriefComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('modalSalary') modalSalary: ModalComponent;
   formData: FormGroup;
   formMain: FormGroup;

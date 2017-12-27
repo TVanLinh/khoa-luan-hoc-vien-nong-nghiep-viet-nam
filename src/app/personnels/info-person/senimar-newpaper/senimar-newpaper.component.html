@@ -1,8 +1,8 @@
 <div class="form-item">
   <div class="form-item-title">Bài báo, báo cáo khoa học</div>
   <form>
-    <div class="action-form">
-      <button (click)="onSave(0)">Ghi nhận</button>
+    <div class="action-form" *ngIf="editEnable">
+      <button (click)="onSave(0)" >Ghi nhận</button>
       <div *ngIf="message.condition && mode == 0 &&  formValid == true"
            [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -27,7 +27,7 @@
                 <th>Số tác giả</th>
                 <th>Đồng tác giả</th>
                 <th>Trong nước/nước ngoài</th>
-                <th class="hide-print">
+                <th class="hide-print" *ngIf="editEnable">
                   <span class="action-icon" (click)="openModals('SENIMAR')"><i class="fa fa-plus"></i></span>
                 </th>
               </tr>
@@ -42,7 +42,7 @@
                 <td>{{item.numberAuthor}}</td>
                 <td>{{item.authors}}</td>
                 <td>{{item.location}}</td>
-                <td class="hide-print">
+                <td class="hide-print" *ngIf="editEnable">
                   <span class="action-icon" (click)="editItem('SENIMAR',item)"><i class="fa fa-edit"></i></span>
                   <!--<span class="action-icon" (click)="removeItem('SENIMAR',i)"><i class="fa fa-remove "></i></span>-->
 
@@ -88,7 +88,7 @@
                 <th>Số tác giả</th>
                 <th>Đồng tác giả</th>
                 <th>Trong nước/nước ngoài</th>
-                <th class="hide-print">
+                <th class="hide-print" *ngIf="editEnable">
                   <span class="action-icon" (click)="openModals('NEWSPAPER')"><i class="fa fa-plus"></i></span>
                 </th>
               </tr>
@@ -104,7 +104,7 @@
                 <td>{{item.numberAuthor}}</td>
                 <td>{{item.authors}}</td>
                 <td>{{item.location}}</td>
-                <td class="hide-print">
+                <td class="hide-print" *ngIf="editEnable">
                   <span class="action-icon" (click)="editItem('NEWSPAPER',item)"><i class="fa fa-edit"></i></span>
                   <!--<span class="action-icon" (click)="removeItem('NEWSPAPER',i)"><i class="fa fa-remove "></i></span>-->
                   <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i;deleteMode = 'NEWSPAPER'"><i

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from "@angular/core";
 import {FormGroup, Validators} from "@angular/forms";
 import {BaseFormComponent} from "../../base-form.component";
 import * as Collections from "typescript-collections";
@@ -13,8 +13,10 @@ import {ValidService} from "../../../shares/valid.service";
   templateUrl: './publish-info.component.html',
   styleUrls: ["../../form.css", './publish-info.component.css']
 })
-export class PublishInfoComponent extends BaseFormComponent implements OnInit {
+export class PublishInfoComponent extends BaseFormComponent implements OnInit, OnChanges {
+
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('publish') publish: ModalComponent;
   formData: FormGroup;
   listPublish = new Collections.LinkedList<PublishInfoModel>();
@@ -25,6 +27,10 @@ export class PublishInfoComponent extends BaseFormComponent implements OnInit {
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.getDataFromServer();
   }
 
   ngOnInit() {

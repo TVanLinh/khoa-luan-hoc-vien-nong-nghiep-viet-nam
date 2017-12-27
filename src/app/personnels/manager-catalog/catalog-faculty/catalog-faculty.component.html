@@ -4,6 +4,7 @@
                     (numberViewChange)="numberViewChangeListener($event)"></app-catalog-search>
 
 <div class="table-responsive" id="catalog-faculty">
+  <p>Tổng số: {{listParent.toArray().length}}</p>
   <table class="table table-bordered" [mfData]="listParent.toArray()" #mf="mfDataTable" [mfRowsOnPage]="numberShow">
     <thead>
     <tr>

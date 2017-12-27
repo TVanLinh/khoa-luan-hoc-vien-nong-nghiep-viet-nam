@@ -21,6 +21,7 @@ export const SHORT_TIME = 1;
 })
 export class TrainComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('trainShortTimeModal') trainShortTimeModal: ModalComponent;
   @ViewChild('trainLongTimeModal') trainLongTimeModal: ModalComponent;
   formData: FormGroup;
@@ -269,7 +270,7 @@ export class TrainComponent extends BaseFormComponent implements OnInit {
       }
     });
 
-    this.getDataServer(Config.CATALOG_ACADEMIC_RANK_URL).subscribe((data: any[]) => {
+    this.getDataServer(Config.CATALOG_ACADEMIC_RANK_URL, this.user).subscribe((data: any[]) => {
       this.catalogRankAcademic = data;
     })
   }

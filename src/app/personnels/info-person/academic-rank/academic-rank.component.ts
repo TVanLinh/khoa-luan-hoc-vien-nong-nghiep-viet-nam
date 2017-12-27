@@ -18,7 +18,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
   @ViewChild('academicRank') academicRank: ModalComponent;
   @ViewChild('titleTeachers') titleTeachers: ModalComponent;
-
+  @Input() editEnable = true;
 
   formAcademicRank: FormGroup;
   formTitleTeachers: FormGroup;
@@ -78,7 +78,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
       }
       super.pushDataServer(Config.ACADEMIC_RANK_URL, "academic_rank", this.listRankAd, this.user);
     } else {
-      if (this.listTitleTeachers.toArray().length ==0 && !this.hashDataTeacher) {
+      if (this.listTitleTeachers.toArray().length == 0 && !this.hashDataTeacher) {
         super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận", "warning");
         return;
       }
@@ -198,7 +198,7 @@ export class AcademicRankComponent extends BaseFormComponent implements OnInit {
 
     });
 
-    this.getDataServer(Config.CATALOG_ACADEMIC_RANK_URL).subscribe((data: any[]) => {
+    this.getDataServer(Config.CATALOG_ACADEMIC_RANK_URL, this.user).subscribe((data: any[]) => {
       this.catalogAcademicRank = data;
     })
   }

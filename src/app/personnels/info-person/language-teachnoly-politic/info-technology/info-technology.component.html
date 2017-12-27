@@ -4,7 +4,7 @@
   </div>
   <form action="" [formGroup]="formData">
     <div class="action-form mgb-20">
-      <button (click)="onSave()">Ghi nhận</button>
+      <button (click)="onSave()" *ngIf="editEnable">Ghi nhận</button>
       <!--<button>Khóa dữ liệu</button>-->
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -17,8 +17,8 @@
         <tr>
           <th>STT</th>
           <th>Trình độ tin học</th>
-          <th>Năm cấp</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''">Năm cấp</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="openModal(technologyModal)"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -28,8 +28,8 @@
         <tr *ngFor="let item of listData.toArray(); let i = index">
           <td>{{i+1}}</td>
           <td>{{item.level}}</td>
-          <td>{{item.yearLicense}}</td>
-          <td class="hide-print">
+          <td [ngStyle]="!editEnable?notAccept:{}">{{item.yearLicense}}</td>
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
             <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i class="fa fa-remove "></i></span>

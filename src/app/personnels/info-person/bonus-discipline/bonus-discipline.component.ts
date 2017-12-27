@@ -24,6 +24,7 @@ export class BonusDisciplineComponent extends BaseFormComponent implements OnIni
 
   @Input() user: any;
   @ViewChild('modalBonus') modalBonus: ModalComponent;
+  @Input() editEnable = true;
   formData: FormGroup;
 
   positionUpdate: BonusDisciplineModel = null;

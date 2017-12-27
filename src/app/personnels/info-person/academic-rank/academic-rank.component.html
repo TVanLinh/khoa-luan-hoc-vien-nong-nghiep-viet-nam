@@ -5,7 +5,7 @@
       <div class="form-item-title">
         Thông tin học hàm
       </div>
-      <div class="action-form" style="margin-bottom: 0 !important;">
+      <div class="action-form" style="margin-bottom: 0 !important;" *ngIf="editEnable">
         <button (click)="onSave(0)">Ghi nhận</button>
         <div *ngIf="message.condition && mode == 0 && formAcadNotValid == false"
              [ngClass]="'alert alert-'+ message.type">
@@ -19,8 +19,8 @@
             <th>STT</th>
             <th>Học hàm</th>
             <th>Nơi công nhận</th>
-            <th>Năm phong</th>
-            <th class="hide-print">
+            <th [style.textAlign]="!editEnable?'left':''" [style.width]="!editEnable?'200px':''">Năm phong</th>
+            <th class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="openModalByType(academicRank,0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -31,8 +31,8 @@
             <td>{{i+1}}</td>
             <td>{{item.rank}}</td>
             <td>{{item.placeReceive}}</td>
-            <td>{{item.yearReceive}}</td>
-            <td class="hide-print">
+            <td [style.width]="!editEnable?'200px':''">{{item.yearReceive}}</td>
+            <td  class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <!--<span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>-->
               <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item;mode = 0"><i
@@ -51,7 +51,7 @@
       <div class="form-item-title">
         Danh hiệu nhà giáo
       </div>
-      <div class="action-form" style="margin-bottom: 0 !important;">
+      <div class="action-form" style="margin-bottom: 0 !important;" *ngIf="editEnable">
         <button (click)="onSave(1)">Ghi nhận</button>
         <div *ngIf="message.condition && mode == 1 && formTitleNotValid == false"
              [ngClass]="'alert alert-'+ message.type">
@@ -65,8 +65,8 @@
           <tr>
             <th>STT</th>
             <th>Danh hiệu nhà giáo</th>
-            <th>Năm phong</th>
-            <th class="hide-print">
+            <th [style.textAlign]="!editEnable?'left':''">Năm phong</th>
+            <th class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="openModalByType(titleTeachers,1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -76,8 +76,8 @@
           <tr *ngFor="let item of listTitleTeachers.toArray();let i = index ">
             <td>{{i+1}}</td>
             <td>{{item.title}}</td>
-            <td>{{item.yearReceive}}</td>
-            <td class="hide-print">
+            <td [style.width]="!editEnable?'200px':''">{{item.yearReceive}}</td>
+            <td class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <!--<span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>-->
               <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i;mode=1"><i

@@ -1,132 +1,135 @@
 <div id="info-container">
   <div class="row">
     <div class="col-xs-12  text-right">
-      <div class="action-form mgb-40 ">
-        <button (click)="onAccept()" *ngIf="showAcitve">Duyệt</button>
+      <div class="action-form mgb-40 action-info ">
+        <button (click)="onAcceptShare()" *ngIf="showAcitve">Duyệt</button>
         <button (click)="print()"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+        <button (click)="onCancelShare()" *ngIf="showCancel">Thoát</button>
       </div>
-      <div class="text-center" *ngIf="message.condition && showAcitve  " [ngClass]="'alert alert-'+ message.type">
+      <div class="text-center msg" *ngIf="message.condition && showAcitve  " [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
     </div>
+    <div style="height: 45px">
 
+    </div>
   </div>
   <!--Sơ yếu lí lịch -->
   <div id="app-curriculum-vitae">
-    <app-curriculum-vitae [user]="user"></app-curriculum-vitae>
+    <app-curriculum-vitae [user]="user" [editEnable]="editEnable"></app-curriculum-vitae>
   </div>
 
   <div class="placholder"></div>
 
   <!--Đảng đoàn công đoàn -->
   <div id="app-party-union">
-    <app-party-union [user]="user"></app-party-union>
+    <app-party-union [user]="user"  [editEnable]="editEnable"></app-party-union>
   </div>
 
   <div class="placholder"></div>
 
   <!--Quan hệ gia đình -->
   <div id="app-family-relationship">
-    <app-family-relationship [user]="user"></app-family-relationship>
+    <app-family-relationship [user]="user"  [editEnable]="editEnable"></app-family-relationship>
   </div>
   <div class="placholder"></div>
 
   <!--thong tin hop dong-->
   <div id="app-contract">
-    <app-contract [user]="user"></app-contract>
+    <app-contract [user]="user" [editEnable]="editEnable"></app-contract>
   </div>
 
   <div class="placholder"></div>
 
   <!--Qúa trình làm việc -->
   <div id="app-process-work">
-    <app-process-work [user]="user"></app-process-work>
+    <app-process-work [user]="user" [editEnable]="editEnable"></app-process-work>
   </div>
   <div class="placholder"></div>
 
 
   <div id="app-politic-language-technology">
     <!--Trinh độ ngoại ngữ -->
-    <app-foreign-language [user]="user"></app-foreign-language>
+    <app-foreign-language [user]="user" [editEnable]="editEnable"></app-foreign-language>
     <!--Trinh do chinh tri-->
-    <app-politic [user]="user"></app-politic>
+    <app-politic [user]="user" [editEnable]="editEnable"></app-politic>
     <!--Trinh do tin hoc -->
-    <app-info-technology [user]="user"></app-info-technology>
+    <app-info-technology [user]="user" [editEnable]="editEnable"></app-info-technology>
   </div>
 
   <div class="placholder"></div>
 
   <!--kỷ luật khen thưởng -->
   <div id="app-bonus-discipline">
-    <app-bonus-discipline [user]="user"></app-bonus-discipline>
+    <app-bonus-discipline [user]="user" [editEnable]="editEnable"></app-bonus-discipline>
   </div>
 
   <div class="placholder"></div>
 
   <!--Học hàm , danh hiệu nhà giáo -->
   <div id="app-academic-rank">
-    <app-academic-rank [user]="user"></app-academic-rank>
+    <app-academic-rank [user]="user" [editEnable]="editEnable"></app-academic-rank>
   </div>
 
   <div class="placholder"></div>
   <!--QUas tring giang day-->
   <div id="app-process-teaching">
-    <app-process-teaching [user]="user"></app-process-teaching>
+    <app-process-teaching [user]="user" [editEnable]="editEnable"></app-process-teaching>
   </div>
   <div class="placholder"></div>
 
   <!--danh hieu thi dua -->
   <div id="app-emulation-title">
-    <app-emulation-title [user]="user"></app-emulation-title>
+    <app-emulation-title [user]="user" [editEnable]="editEnable"></app-emulation-title>
   </div>
 
   <div class="placholder"></div>
   <!--nhap thong tin nghach l-uong-->
   <div id="app-salary-brief">
-    <app-salary-brief [user]="user"></app-salary-brief>
+    <app-salary-brief [user]="user" [editEnable]="editEnable"></app-salary-brief>
   </div>
 
   <div class="placholder"></div>
 
   <!--QUa trinh di nuoc ngoai-->
   <div id="app-foreign">
-    <app-foreign [user]="user"></app-foreign>
+    <app-foreign [user]="user" [editEnable]="editEnable"></app-foreign>
   </div>
 
   <div class="placholder"></div>
 
   <!--Huong dan luan van-->
   <div id="app-thesis-guide">
-    <app-thesis-guide [user]="user"></app-thesis-guide>
+    <app-thesis-guide [user]="user" [editEnable]="editEnable"></app-thesis-guide>
   </div>
   <div class="placholder"></div>
 
   <!-- De tai khoa hoc -->
   <div id="app-science-topic">
-    <app-science-topic [user]="user"></app-science-topic>
+    <app-science-topic [user]="user" [editEnable]="editEnable"></app-science-topic>
   </div>
   <div class="placholder"></div>
 
   <!--Bao cao, bai bao khoa hoc -->
   <div id="app-senimar-newpaper">
-    <app-senimar-newpaper [user]="user"></app-senimar-newpaper>
+    <app-senimar-newpaper [user]="user" [editEnable]="editEnable"></app-senimar-newpaper>
   </div>
   <div class="placholder"></div>
 
   <!--Qua trinh phat minh sang che -->
   <div id="app-process-evention">
-    <app-process-evention [user]="user"></app-process-evention>
+    <app-process-evention [user]="user" [editEnable]="editEnable"></app-process-evention>
   </div>
   <div class="placholder"></div>
   <!--Hoat dong xuat ban -->
   <div id="app-publish-info">
-    <app-publish-info [user]="user"></app-publish-info>
+    <app-publish-info [user]="user" [editEnable]="editEnable"></app-publish-info>
   </div>
   <div class="placholder"></div>
 
   <!--Qua trinh dao tao-->
   <div id="app-train">
-    <app-train [user]="user"></app-train>
+    <app-train [user]="user" [editEnable]="editEnable"></app-train>
   </div>
 
   <div class="placholder"></div>

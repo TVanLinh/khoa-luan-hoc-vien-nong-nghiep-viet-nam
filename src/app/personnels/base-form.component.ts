@@ -18,6 +18,11 @@ export class BaseFormComponent {
   speciesObtain = ["Xuất sắc ", "Giỏi", "Khá", "Trung bình"];
   minYear = 1900;
   yearCurrent = (new Date()).getFullYear();
+  notAccept = {
+    'padding-bottom': '10px !important',
+    'width':'200px',
+    'padding-top': '10px !important'
+  };
 
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     if (this.formBuilder == null) {
@@ -133,8 +138,8 @@ export class BaseFormComponent {
     return array;
   }
 
-  getDataServer(url, user?: any) {
-    return this.taskService.get(url + "?username=" + this.acount['username']);
+  getDataServer(url, user) {
+    return this.taskService.get(url + "?username=" + user['username']);
   }
 
   getDataServer2(url, username) {

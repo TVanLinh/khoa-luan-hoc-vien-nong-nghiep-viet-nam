@@ -16,6 +16,7 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class ProcessWorkComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
+  @Input() editEnable = true;
   @Input() user: any;
   formData: FormGroup;
   formInfoProcess: FormGroup;

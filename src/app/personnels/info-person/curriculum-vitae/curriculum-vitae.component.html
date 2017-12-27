@@ -1,7 +1,7 @@
 <div class="form-item" id="cv">
   <div class="form-item-title">Sơ yếu lí lịch</div>
   <form action="" [formGroup]="formCV" id="form-cv">
-    <div class="action-form">
+    <div class="action-form" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button (click)="print()">Print</button>-->
       <!--<button>Khóa dữ liệu</button>-->
@@ -347,7 +347,7 @@
       <div class="col-xs-12 col-sm-3">
         <div class="item-control">
           <label>Số nhà / Đội </label>
-          <input type="text" formControlName="numberHome" #numberHome required>
+          <input type="text" formControlName="numberHome" #numberHome >
           <!--<div class="error" *ngIf="numberHome.value.trim()  =='' && formTouch">-->
           <!--Chưa nhập số nhà / đội-->
           <!--</div>-->
@@ -357,7 +357,7 @@
       <div class="col-xs-12 col-sm-3">
         <div class="item-control">
           <label>Đường/Thôn </label>
-          <input type="text" formControlName="street" required #street>
+          <input type="text" formControlName="street"  #street>
           <!--<div class="error" *ngIf="street.value.trim()  =='' && formTouch">-->
           <!--Chưa nhập đường thôn-->
           <!--</div>-->

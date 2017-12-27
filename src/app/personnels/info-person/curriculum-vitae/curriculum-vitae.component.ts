@@ -23,7 +23,7 @@ declare const jQuery: any;
 export class CurriculumVitaeComponent extends BaseFormComponent implements OnInit {
 
   @Input() user: any = null;
-
+  @Input() editEnable = true;
   avatar: string = "";
 
   formTouch = false;

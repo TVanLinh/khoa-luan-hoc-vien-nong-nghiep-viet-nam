@@ -42,7 +42,7 @@ export class Header2Component extends BaseFormComponent implements OnInit {
     this.avatar = MystorageService.getAvatar();
     if (this.user && !this.avatar) {
       this.taskService.get(Config.CV_URL + "?username=" + this.user['username']).subscribe(data => {
-        if (data && data['cv']['avatarUrl']) {
+        if (data && data['cv'] && data['cv']['avatarUrl']) {
           this.avatar = data['cv']['avatarUrl'];
           MystorageService.saveAvatar(this.avatar);
         }

@@ -36,3 +36,12 @@
     margin-top:30px;
   }
 }
+
+.action-info {
+  position: fixed;
+  margin-bottom: 30px;
+  height: 40px;
+  z-index: 8888;
+  right: 190px;
+  top: 85px;
+}

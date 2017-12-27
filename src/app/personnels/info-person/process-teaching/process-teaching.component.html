@@ -3,7 +3,7 @@
     Quá trình giảng dạy
   </div>
   <form action="">
-    <div class="action-form" style="margin-bottom: 10px;">
+    <div class="action-form" style="margin-bottom: 10px;" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -20,8 +20,8 @@
           <th>Số tín chỉ</th>
           <th>Đơn vị giảng dạy</th>
           <th>Năm bắt đầu giảng dạy</th>
-          <th>Ngôn ngữ giảng dạy</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''">Ngôn ngữ giảng dạy</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="openModals();"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -35,11 +35,12 @@
           <td>{{item.credit}}</td>
           <td>{{item.organTeaching}}</td>
           <td>{{item.yearTeaching}}</td>
-          <td>{{nationalService.getNationalByCode(nationals,item.languageTeaching).name}}</td>
-          <td class="hide-print">
+          <td [style.width]="!editEnable?'200px':''">{{nationalService.getNationalByCode(nationals,parseInt(item.languageTeaching)).name}}</td>
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
-            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i class="fa fa-remove "></i></span>
+            <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i"><i
+              class="fa fa-remove "></i></span>
 
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->
           </td>
@@ -74,7 +75,7 @@
           </div>
 
           <div class="item-control" *ngIf="nameSubjects.value.trim()  =='' && formTouch">
-            <div class="error" >
+            <div class="error">
               Chưa nhập tên môn học
             </div>
           </div>
@@ -82,20 +83,20 @@
 
           <div class="item-control">
             <label>Bậc đào tạo</label>
-            <select class="form-control" formControlName="levelEducation" #levelEducation required >
+            <select class="form-control" formControlName="levelEducation" #levelEducation required>
               <option *ngFor="let item of rankTrains" [value]="item">{{item}}</option>
             </select>
           </div>
 
           <div class="item-control" *ngIf="levelEducation.value.trim()  =='' && formTouch">
-            <div class="error" >
-              Chưa  chọn bậc đào tạo
+            <div class="error">
+              Chưa chọn bậc đào tạo
             </div>
           </div>
 
           <div class="item-control">
             <label>Số tín chỉ</label>
-            <input type="number" min="1"  formControlName="credit" #credit >
+            <input type="number" min="1" formControlName="credit" #credit>
           </div>
 
           <div class="item-control">
@@ -104,33 +105,37 @@
           </div>
 
           <div class="item-control" *ngIf="organTeaching.value.trim()  =='' && formTouch">
-            <div class="error" >
-              Chưa  nhập đơn vị giảng dạy
+            <div class="error">
+              Chưa nhập đơn vị giảng dạy
             </div>
           </div>
 
           <div class="item-control">
             <label>Năm bắt đầu giảng dạy</label>
-            <input type="number"  formControlName="yearTeaching" required #yearTeaching>
+            <input type="number" formControlName="yearTeaching" required #yearTeaching>
+            <div class="error" *ngIf="formTouch && yearTeaching.value < minYear">
+                Năm nhập phải lơn hơn hoặc bằng {{minYear}}
+            </div>
           </div>
 
           <div class="item-control" *ngIf="yearTeaching.value.trim()  =='' && formTouch">
-            <div class="error" >
-              Chưa  nhập năm bắt đầu giảng dạy
+            <div class="error">
+              Chưa nhập năm bắt đầu giảng dạy
             </div>
           </div>
 
           <div class="item-control">
             <label>Ngôn ngữ giảng dạy</label>
-            <select class="form-control" formControlName="languageTeaching" style="width: 200px" required #languageTeaching>
+            <select class="form-control" formControlName="languageTeaching" style="width: 200px" required
+                    #languageTeaching>
               <option *ngFor="let item of nationals" [value]="item.code">
                 {{item.name}}
               </option>
             </select>
           </div>
-          <div class="item-control" *ngIf="languageTeaching.value.trim()  =='' && formTouch">
-            <div class="error" >
-              Chưa  chọn ngôn ngữ giảng dạy
+          <div class="item-control" *ngIf="languageTeaching.value == 0 && formTouch">
+            <div class="error">
+              Chưa chọn ngôn ngữ giảng dạy
             </div>
           </div>
         </div>

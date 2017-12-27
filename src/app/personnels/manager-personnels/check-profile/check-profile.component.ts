@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {BaseFormComponent} from "../../base-form.component";
 import {TaskService} from "app/shares/task.service";
+import {Config} from "../../../shares/config";
 
 @Component({
   selector: 'app-check-profile',
@@ -12,7 +13,8 @@ import {TaskService} from "app/shares/task.service";
 export class CheckProfileComponent extends BaseFormComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
   user;
-
+  showSearch = true;
+  showInfo = false;
   constructor(protected eleRef: ElementRef, public taskService: TaskService) {
     super(eleRef, taskService);
   }
@@ -20,9 +22,31 @@ export class CheckProfileComponent extends BaseFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  // onChoiseHandler($event) {
+  //   this.user = $event;
+  //   localStorage.setItem("USER_TEMP", JSON.stringify(this.user));
+  //   let mywindow = window.open('/manager/info?user=' + this.user.username, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
+  // }
+
   onChoiseHandler($event) {
     this.user = $event;
-    localStorage.setItem("USER_TEMP", JSON.stringify(this.user));
-    let mywindow = window.open('/manager/info?user=' + this.user.username, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
+    this.showSearch = false;
+    // setTimeout(()=>{
+      this.showInfo = true;
+    // },2000)
+    // this.taskService.get(Config.CV_URL + "?username=" + this.user.username).subscribe(data => {
+    //
+    // });
   }
+
+  onCancelHandler($event) {
+    this.user = null;
+    this.showInfo = false;
+    this.showSearch = true;
+  }
+
+  onAcceptHandler($event) {
+    console.log($event);
+  }
+
 }

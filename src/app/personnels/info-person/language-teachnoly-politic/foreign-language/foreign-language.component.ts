@@ -19,6 +19,7 @@ import {ValidService} from "../../../../shares/valid.service";
 })
 export class ForeignLanguageComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('languageModal') languageModal: ModalComponent;
   formData: FormGroup;
 

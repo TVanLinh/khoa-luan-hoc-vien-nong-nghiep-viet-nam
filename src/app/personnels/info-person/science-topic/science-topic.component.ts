@@ -15,7 +15,9 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class ScienceTopicComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('topicModal') topicModal: ModalComponent;
+
   formData: FormGroup;
   listScienceTopic = new Collections.LinkedList<ScienceTopicModel>();
   positionUpdate: ScienceTopicModel = null;

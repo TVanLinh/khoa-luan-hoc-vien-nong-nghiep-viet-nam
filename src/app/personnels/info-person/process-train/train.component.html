@@ -3,7 +3,7 @@
     Quá trình đào tạo
   </div>
   <form action="" [formGroup]="formData" style="border: none" id="train-main-form">
-    <div class="action-form hide-print">
+    <div class="action-form hide-print" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <div *ngIf="message.condition && formValid == true" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -38,7 +38,7 @@
             <th>Xếp loại</th>
             <th>Trường đào tạo</th>
             <th>Nước đào tạo</th>
-            <th class="hide-print">
+            <th class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="openModals(0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -55,7 +55,7 @@
             <td>{{item.spice}}</td>
             <td>{{item.school}}</td>
             <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
-            <td class="hide-print">
+            <td class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <!--<span class="action-icon" (click)="removeItem(i,0)"><i-->
               <!--class="fa fa-remove "></i></span>-->
@@ -83,8 +83,8 @@
             <th>Chứng chỉ</th>
             <th>Nơi đào tạo</th>
             <th>Nước đào tạo</th>
-            <th>Mô tả</th>
-            <th class="hide-print">
+            <th [style.textAlign]="!editEnable?'left':''">Mô tả</th>
+            <th class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="openModals(1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -99,8 +99,8 @@
             <td>{{item.certificate}}</td>
             <td>{{item.placeTrain}}</td>
             <td>{{nationalService.getNationalByCode(nationals,item.national).name}}</td>
-            <td>{{item.description}}</td>
-            <td class="hide-print">
+            <td [style.width]="!editEnable?'200px':''">{{item.description}}</td>
+            <td class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <!--<span class="action-icon" (click)="removeItem(i,1)"><i-->
               <!--class="fa fa-remove"></i></span>-->

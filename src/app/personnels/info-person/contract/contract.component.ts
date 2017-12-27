@@ -19,8 +19,8 @@ import {Util} from "../../../shares/util";
 })
 export class ContractComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('modalContract') modal: ModalComponent;
-
   formData: FormGroup;
   listContracts = new Collections.LinkedList<ContractModel>();
   positionUpdate = -1;

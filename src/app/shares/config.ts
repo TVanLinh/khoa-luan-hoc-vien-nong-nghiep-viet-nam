@@ -1,5 +1,6 @@
 export class Config {
   public static HOST_SERVER = "http://localhost:3000";
+  public static INFO_URL = Config.HOST_SERVER + "/info";
   public static CV_URL = Config.HOST_SERVER + "/info/cv";
   public static CV_URL_ACCEPT = Config.HOST_SERVER + "/info/cvaccept";
   public static ARMYPUG_URL = Config.HOST_SERVER + "/info/armypug";

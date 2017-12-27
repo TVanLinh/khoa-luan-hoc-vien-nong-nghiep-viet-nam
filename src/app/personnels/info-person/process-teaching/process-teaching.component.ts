@@ -17,6 +17,7 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class ProcessTeachingComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('modal') modal: ModalComponent;
   formData: FormGroup;
   listTeaching = new Collections.LinkedList<ProcessTeachingModel>();
@@ -29,15 +30,6 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
   constructor(public nationalService: NationalService, public taskService: TaskService, protected eleRef: ElementRef) {
     super(eleRef, taskService);
-    let item: ProcessTeachingModel = {
-      nameSubjects: "Toan cao cap ",
-      levelEducation: "Đại học",
-      credit: 3,
-      organTeaching: 'HVNNVN',
-      yearTeaching: 2015,
-      languageTeaching: 'vn'
-    };
-    this.listTeaching.add(item);
   }
 
   ngOnInit() {
@@ -51,9 +43,9 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
       nameSubjects: ['', Validators.required],
       levelEducation: ['', Validators.required],
       credit: [1],
-      organTeaching: ['HVNNVN'],
-      yearTeaching: [2015, [Validators.required, Validators.min(1900)]],
-      languageTeaching: ['vn', Validators.required]
+      organTeaching: [''],
+      yearTeaching: [this.minYear, [Validators.required, Validators.min(1900)]],
+      languageTeaching: [0, Validators.required]
     });
   }
 
@@ -77,7 +69,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
       credit: 3,
       organTeaching: 'HVNNVN',
       yearTeaching: 2015,
-      languageTeaching: 'not'
+      languageTeaching: 0
     });
   }
 
@@ -85,6 +77,7 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
     this.formTouch = true;
 
     let valueForm = this.formData.value;
+    console.log(JSON.stringify(valueForm));
 
     let data: any[] = [valueForm.levelEducation, valueForm.organTeaching,
       valueForm.yearTeaching, valueForm.languageTeaching];
@@ -92,11 +85,12 @@ export class ProcessTeachingComponent extends BaseFormComponent implements OnIni
 
     this.updateView("process-teaching", this.formData.valid);
 
-    if (!ValidService.isNotBlanks(data) && !this.formData.valid) {
+    if (!ValidService.isNotBlanks(data) && !this.formData.valid || valueForm.yearTeaching < this.minYear || this.parseInt(valueForm.languageTeaching) == 0) {
       this.formNotValid = true;
       this.updateMessge("Vui lòng kiểm tra lại thông tin", "warning");
       return;
     }
+
 
     this.formNotValid = false;
 

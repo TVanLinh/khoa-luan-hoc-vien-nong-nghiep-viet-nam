@@ -138,6 +138,7 @@ export class TabLeftComponent extends BaseFormComponent implements OnInit {
       this.closeModal(loginModal);
       MystorageService.saveAcount(data);
       this.menuApp = data['user']['roles'];
+      this.user = data['user'];
       // console.log("menu:" + JSON.stringify(data['user']['roles']));
       let share;
 

@@ -19,6 +19,7 @@ declare const jQuery: any;
 export class FamilyRelationshipComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
   @ViewChild('modalFamily') modal: ModalComponent;
+  @Input() editEnable = true;
   formData: FormGroup;
   updateTemp: FamilyModel = null;
   formTouch = false;

@@ -28,7 +28,8 @@ export class NationalService {
 
   getNationalByCode(national: National[], code: any): National {
     for (let item of national) {
-      if (item.code === code) {
+      // console.log("item code " + item.code + " code :" + code);
+      if (item.code === Number.parseInt(code)) {
         return item;
       }
     }

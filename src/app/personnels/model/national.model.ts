@@ -1,5 +1,5 @@
 export class National {
-  code: string;
+  code: number;
   name: string;
   nativeName?: string;
 }

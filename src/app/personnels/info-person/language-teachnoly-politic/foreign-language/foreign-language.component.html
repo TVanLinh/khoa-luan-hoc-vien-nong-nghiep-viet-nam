@@ -3,7 +3,7 @@
     Trình độ ngoại ngữ
   </div>
   <form>
-    <div class="action-form" style="margin-bottom: 10px;">
+    <div class="action-form" style="margin-bottom: 10px;" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
@@ -17,8 +17,8 @@
           <th>STT</th>
           <th>Tên ngoại ngữ</th>
           <th>Kỹ năng</th>
-          <th class="session">Chuyên nghành/chủ đề có thể giảng dạy</th>
-          <th class="hide-print"><span class="action-icon" (click)="openModalNew()"><i class="fa fa-plus"></i></span></th>
+          <th class="session" [style.textAlign]="!editEnable?'left':''"   [style.width]="!editEnable?'30%':''">Chuyên nghành/chủ đề có thể giảng dạy</th>
+          <th class="hide-print" *ngIf="editEnable"><span class="action-icon" (click)="openModalNew()"><i class="fa fa-plus"></i></span></th>
         </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
             <span class="">Giao tiếp: {{foreignService.getLevelTitle(item.communicate)}}</span>
           </td>
           <td>{{item.branch}}</td>
-          <td class="hide-print">
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
             <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>

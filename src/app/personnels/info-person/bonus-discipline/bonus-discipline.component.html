@@ -8,7 +8,7 @@
       <div class="form-item-title">
         Thông tin khen thưởng
       </div>
-      <div class="action-form" style="margin-bottom: 0 !important;">
+      <div class="action-form" style="margin-bottom: 0 !important;" *ngIf="editEnable">
         <button (click)="onSave(1)">Ghi nhận</button>
         <div *ngIf="message.condition && mode == 1  && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
           {{message.content}}
@@ -23,8 +23,10 @@
             <th>Hình thức KT</th>
             <th>Số quyết định</th>
             <th>Ngày quyết định</th>
-            <th>Lí do</th>
-            <th class="hide-print">
+            <th
+              [style.textAlign]="!editEnable?'left':''"
+              [style.width]="!editEnable?'300px':''">Lí do</th>
+            <th class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="openModal(1)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -37,8 +39,8 @@
             <td>{{item.form}}</td>
             <td>{{item.numberDecide}}</td>
             <td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>
-            <td>{{item.reason}}</td>
-            <td class="hide-print">
+            <td [ngStyle]="!editEnable?notAccept:{}">{{item.reason}}</td>
+            <td class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="editItem(item,1)"><i class="fa fa-edit"></i></span>
               <!--<span class="action-icon" (click)="removeItem(i,1)"><i class="fa fa-remove "></i></span>-->
               <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = i ; mode=1"><i
@@ -56,7 +58,7 @@
       <div class="form-item-title">
         Thông tin kỷ luật
       </div>
-      <div class="action-form" style="margin-bottom: 0px !important;">
+      <div class="action-form" style="margin-bottom: 0px !important;" *ngIf="editEnable">
         <button (click)="onSave(0)">Ghi nhận</button>
         <div *ngIf="message.condition && mode == 0 &&  formNotValid == false" [ngClass]="'alert alert-'+ message.type">
           {{message.content}}
@@ -71,8 +73,9 @@
             <th>Hình thức KL</th>
             <th>Số quyết định</th>
             <th>Ngày quyết định</th>
-            <th>Lí do</th>
-            <th class="hide-print">
+            <th [style.textAlign]="!editEnable?'left':''"
+                [style.width]="!editEnable?'300px':''" >Lí do</th>
+            <th class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="openModal(0)"><i class="fa fa-plus"></i></span>
             </th>
           </tr>
@@ -85,8 +88,8 @@
             <td>{{item.form}}</td>
             <td>{{item.numberDecide}}</td>
             <td>{{item.dateDecide | date:'dd/MM/yyyy'}}</td>
-            <td>{{item.reason}}</td>
-            <td class="hide-print">
+            <td [ngStyle]="!editEnable?notAccept:{}">{{item.reason}}</td>
+            <td class="hide-print" *ngIf="editEnable">
               <span class="action-icon" (click)="editItem(item,0)"><i class="fa fa-edit"></i></span>
               <!--<span class="action-icon" (click)="removeItem(i,0)"><i class="fa fa-remove "></i></span>-->
               <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->

@@ -15,6 +15,7 @@ import {ValidService} from "../../../../shares/valid.service";
 })
 export class InfoTechnologyComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('technologyModal') technologyModal: ModalComponent;
   formData: FormGroup;
   positionUpdate: InfoTeachnologyModel = null;

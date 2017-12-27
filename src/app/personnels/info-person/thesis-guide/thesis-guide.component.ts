@@ -15,6 +15,7 @@ import {ValidService} from "../../../shares/valid.service";
 })
 export class ThesisGuideComponent extends BaseFormComponent implements OnInit {
   @Input() user: any;
+  @Input() editEnable = true;
   @ViewChild('thesisGuide') thesisGuide: ModalComponent;
   formData: FormGroup;
   listThesiss = new Collections.LinkedList<ThesissGuideModel>();

@@ -3,7 +3,7 @@
     Danh sách hợp đồng lao động
   </div>
   <form action="">
-    <div class="action-form" style="margin-bottom: 10px;">
+    <div class="action-form" style="margin-bottom: 10px;" *ngIf="editEnable">
       <button (click)="onSave()">Ghi nhận</button>
       <!--<button>Khóa dữ liêu</button>-->
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
@@ -21,8 +21,8 @@
           <th>Ngày hiệu lực</th>
           <th>Ngày hết hiệu lực</th>
           <th>Đơn vị tuyển dụng</th>
-          <th>Công việc đảm nhận</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''" [style.width]="!editEnable?'170px':''">Công việc đảm nhận</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" title="Thêm thông tin" (click)="openModal(modalContract)"><i
               class="fa fa-plus"></i></span>
           </th>
@@ -36,8 +36,9 @@
           <td>{{item.dateEffect | date: 'dd/MM/yyyy'}}</td>
           <td>{{item.dateEndEffect | date: 'dd/MM/yyyy'}}</td>
           <td>{{item.unitOrgan}}</td>
-          <td>{{item.job}}</td>
-          <td class="hide-print">
+          <td
+            [ngStyle]="!editEnable?notAccept:{}">{{item.job}}</td>
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(i)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(i)"><i class="fa fa-remove "></i></span>-->
             <!--<span class="action-icon"><i class="fa fa-lock"></i></span>-->

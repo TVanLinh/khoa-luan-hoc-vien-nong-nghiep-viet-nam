@@ -3,7 +3,7 @@
   <form>
     <!---->
     <div class="action-form" style="margin-bottom: 10px;">
-      <button (click)="onSave()">Ghi nhận</button>
+      <button (click)="onSave()" *ngIf="editEnable">Ghi nhận</button>
       <div *ngIf="message.condition && formNotValid == false" [ngClass]="'alert alert-'+ message.type">
         {{message.content}}
       </div>
@@ -17,8 +17,8 @@
           <th>Quan hệ</th>
           <th>Họ tên</th>
           <th>Năm sinh</th>
-          <th>Nghề nghiệp</th>
-          <th class="hide-print">
+          <th [style.textAlign]="!editEnable?'left':''">Nghề nghiệp</th>
+          <th class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="openModals()"><i class="fa fa-plus"></i></span>
           </th>
         </tr>
@@ -31,8 +31,8 @@
           <td>{{item.relation}}</td>
           <td>{{item.name}}</td>
           <td>{{item.yearBirth}}</td>
-          <td>{{item.job}}</td>
-          <td class="hide-print">
+          <td [ngStyle]="!editEnable?notAccept:{}">{{item.job}}</td>
+          <td class="hide-print" *ngIf="editEnable">
             <span class="action-icon" (click)="editItem(item)"><i class="fa fa-edit"></i></span>
             <!--<span class="action-icon" (click)="removeItem(item)"><i class="fa fa-remove"></i></span>-->
             <span class="action-icon" (click)="confirmDiaglog.open();itemDelete = item"><i class="fa fa-remove "></i></span>
