@@ -20,7 +20,7 @@ import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child"
 import {AcountShareService} from "./shares/acount-share.service";
 
 import {PesonnelModule} from "./personnels/pesonnel.module";
-import {AppComonModule} from "./comon-module";
+import {AppComonModule} from "./commons/comon-module";
 import {RoleServie} from "./shares/role.servie";
 
 

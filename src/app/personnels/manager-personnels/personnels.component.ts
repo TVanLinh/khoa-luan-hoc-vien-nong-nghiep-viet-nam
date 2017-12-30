@@ -3,7 +3,7 @@ declare const jQuery: any;
 @Component({
   selector: "app-manager-personnel",
   templateUrl: './personnels.component.html',
-  styleUrls: ['../../menu-app/menu-app.component.css','./personnels.component.css',]
+  styleUrls: ['../../commons/menu-app/menu-app.component.css','./personnels.component.css',]
 })
 export class PersonnelManagerComponent {
 

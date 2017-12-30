@@ -6,7 +6,7 @@ import {FormGroup, Validators} from "@angular/forms";
 import {ValidService} from "../../../../shares/valid.service";
 import {Config} from "../../../../shares/config";
 import * as Collections from "typescript-collections";
-import {AlertConfirmComponent} from "../../../../components/alert-confirm/alert-confirm.component";
+import {AlertConfirmComponent} from "../../../../commons/alert-confirm/alert-confirm.component";
 import {MystorageService} from "../../../../shares/mystorage.service";
 import {RoleServie} from "../../../../shares/role.servie";
 

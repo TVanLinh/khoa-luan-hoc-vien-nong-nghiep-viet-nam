@@ -8,40 +8,39 @@ import {OrderModule} from "ngx-order-pipe";
 import {DataTableModule} from "angular2-datatable";
 import {DxDataGridModule} from "devextreme-angular";
 import {BrowserModule} from "@angular/platform-browser";
-import {TabLeftComponent} from "./components/tabs/tab-left/tab-left.component";
+import {TabLeftComponent} from "./tabs/tab-left/tab-left.component";
 import {CommonModule} from "@angular/common";
 import {AgmCoreModule} from "@agm/core";
-import {HomeComponent} from "./home/home.component";
-import {MapComponent} from "./components/map/map.component";
+import {HomeComponent} from "../home/home.component";
+import {MapComponent} from "./map/map.component";
 import {ToggleClass} from "./core/directives/toogle.class.directive";
-import {TopComponent} from "./components/top/top.component";
-import {PublishComponent} from "./components/publish/publish.component";
-import {CalendarComponent} from "./components/calendar/calendar.component";
-import {SliderFacultyComponent} from "./components/sliders/slider-faculty/slider-faculty.component";
-import {TabFacultyComponent} from "./components/tabs/tab-faculty/tab-faculty.component";
-import {NewComponent} from "./components/new/new.component";
-import {ComponentsComponent} from "./components/components.component";
-import {SliderBannerComponent} from "./components/sliders/slider-banner/slider-banner.component";
-import {BannerComponent} from "./components/banners/banner/banner.component";
-import {PersonsComponent} from "./components/persons/persons.component";
-import {TabsComponent} from "./components/tabs/tabs.component";
-import {SlidersComponent} from "./components/sliders/sliders.component";
-import {NavbarComponent} from "./components/navbar/navbar.component";
-import {FooterComponent} from "./components/footers/footer/footer.component";
-import {HeaderComponent} from "./components/headers/header/header.component";
-import {ArraySortPipe} from "./shares/sort/sort.pipe";
-import {LoginComponent} from "./auth/login/login.component";
-import {AddressService} from "./shares/address.service";
-import {TaskService} from "./shares/task.service";
-import {ManagerCanactive} from "./shares/canactive/manager.canactive";
-import {AcountShareService} from "./shares/acount-share.service";
-import {CatalogFacultyService} from "./shares/catalog-faculty.service";
-import {NationalService} from "./shares/national.service";
-import {CatalogSalaryService} from "./shares/catalog-salary.service";
-import {ExcelService} from "./shares/excel.service";
-import {ManagerCanactiveChild} from "./shares/canactive/manager.canactive.child";
-import {AlertConfirmComponent} from "./components/alert-confirm/alert-confirm.component";
-import {SearchPipe} from "./shares/pipe/search.pipe";
+import {TopComponent} from "./top/top.component";
+import {PublishComponent} from "./publish/publish.component";
+import {CalendarComponent} from "./calendar/calendar.component";
+import {SliderFacultyComponent} from "./sliders/slider-faculty/slider-faculty.component";
+import {TabFacultyComponent} from "./tabs/tab-faculty/tab-faculty.component";
+import {NewComponent} from "./new/new.component";
+import {ComponentsComponent} from "./components.component";
+import {SliderBannerComponent} from "./sliders/slider-banner/slider-banner.component";
+import {BannerComponent} from "./banners/banner/banner.component";
+import {PersonsComponent} from "./persons/persons.component";
+import {TabsComponent} from "./tabs/tabs.component";
+import {SlidersComponent} from "./sliders/sliders.component";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {FooterComponent} from "./footers/footer/footer.component";
+import {HeaderComponent} from "./headers/header/header.component";
+import {ArraySortPipe} from "../shares/sort/sort.pipe";
+import {AddressService} from "../shares/address.service";
+import {TaskService} from "../shares/task.service";
+import {ManagerCanactive} from "../shares/canactive/manager.canactive";
+import {AcountShareService} from "../shares/acount-share.service";
+import {CatalogFacultyService} from "../shares/catalog-faculty.service";
+import {NationalService} from "../shares/national.service";
+import {CatalogSalaryService} from "../shares/catalog-salary.service";
+import {ExcelService} from "../shares/excel.service";
+import {ManagerCanactiveChild} from "../shares/canactive/manager.canactive.child";
+import {AlertConfirmComponent} from "./alert-confirm/alert-confirm.component";
+import {SearchPipe} from "../shares/pipe/search.pipe";
 
 @NgModule({
   declarations: [
@@ -64,7 +63,6 @@ import {SearchPipe} from "./shares/pipe/search.pipe";
     ToggleClass,
     MapComponent,
     HomeComponent,
-    LoginComponent,
     ArraySortPipe,
     AlertConfirmComponent, SearchPipe
   ],
@@ -107,7 +105,6 @@ import {SearchPipe} from "./shares/pipe/search.pipe";
     ToggleClass,
     MapComponent,
     HomeComponent,
-    LoginComponent,
     ArraySortPipe,
     AlertConfirmComponent, SearchPipe
   ],

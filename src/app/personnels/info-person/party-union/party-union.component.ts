@@ -437,10 +437,10 @@ export class PartyUnionComponent extends BaseFormComponent implements OnInit {
       party.dateInOfical, party.placeIn, union.placeIn, union.dateIn, group.dateIn];
 
 
-    if (!ValidService.isNotBlanks(validGlobal)) {
-      super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận ", "warning");
-      return;
-    }
+    // if (!ValidService.isNotBlanks(validGlobal)) {
+    //   super.updateMessge("Vui lòng nhập dữ liệu trước khi ghi nhận ", "warning");
+    //   return;
+    // }
 
     let body = {};
     body['armyPUG'] = data;

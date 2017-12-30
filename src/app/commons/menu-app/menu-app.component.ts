@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit} from "@angular/core";
-import {MenuModel} from "../personnels/model/menu.model";
+import {MenuModel} from "../../personnels/model/menu.model";
 
 declare const jQuery: any;
 import {PageScrollConfig} from 'ng2-page-scroll';

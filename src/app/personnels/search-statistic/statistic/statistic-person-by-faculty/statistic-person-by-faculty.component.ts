@@ -37,6 +37,10 @@ export class StatisticPersonByFacultyComponent extends BaseFormComponent impleme
       {
         caption: "Họ tên",
         field: 'fullname'
+      },
+      {
+        caption: "Đơn vị",
+        field: 'organ.level1.name'
       }
     ];
   }

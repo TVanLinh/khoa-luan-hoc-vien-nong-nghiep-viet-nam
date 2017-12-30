@@ -138,7 +138,7 @@ export class SearchFormComponent extends BaseFormComponent implements OnInit {
         field: 'fullname'
       },
       {
-        caption: "Khoa phòng ban ",
+        caption: "Đơn vị ",
         field: 'organ.level1.name',
         type: 'date'
       }

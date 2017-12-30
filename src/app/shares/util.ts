@@ -6,7 +6,7 @@ export class Util {
       return false;
     }
     for (let i of arr) {
-      if (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase())
+      if (i && (i[nameAgr] && ((i[nameAgr] + "").trim().toLowerCase()) == ((value + "").trim().toLowerCase()))
         || (i + ''.toLowerCase()).trim() == value.trim().toLowerCase()) {
         return true;
       }

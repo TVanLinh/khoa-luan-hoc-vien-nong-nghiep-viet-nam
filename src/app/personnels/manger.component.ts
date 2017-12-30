@@ -11,7 +11,7 @@ declare const jQuery: any;
 @Component({
   selector: "app-manager",
   templateUrl: './manager.component.html',
-  styleUrls: ['../menu-app/menu-app.component.css', './manager.component.css',]
+  styleUrls: ['../commons/menu-app/menu-app.component.css', './manager.component.css',]
 })
 
 export class ManagerComponent implements OnInit, OnChanges {
